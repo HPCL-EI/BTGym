@@ -23,9 +23,14 @@ Download the VirtualHome executable for your platform (Only Windows is tested no
 |:-----------------|:-----------------------------------------------------------------------------------|
 | Linux            | [Download](http://virtual-home.org//release/simulator/last_release/linux_exec.zip) |
 | MacOS            | [Download](http://virtual-home.org//release/simulator/last_release/macos_exec.zip) |
-| Windows | [Download](http://virtual-home.org//release/simulator/last_release/macos_exec.zip) |  
+| Windows | [Download](http://virtual-home.org//release/simulator/last_release/windows_exec.zip) |  
 
 
 # Usages
 
-run 
+1. Download the simulator ([windows version](http://virtual-home.org//release/simulator/last_release/windows_exec.zip))
+2. Unzip and run VirtualHome.exe
+3. Run the demo script and see the simulation result.
+```python
+python test/generate_video_win.py
+```

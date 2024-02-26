@@ -21,9 +21,9 @@ Download the VirtualHome executable for your platform (Only Windows is tested no
 
 | Operating System | Download Link                                                                      |
 |:-----------------|:-----------------------------------------------------------------------------------|
-| Linux            | [Download](http://virtual-home.org//release/simulator/last_release/linux_exec.zip) |
-| MacOS            | [Download](http://virtual-home.org//release/simulator/last_release/macos_exec.zip) |
-| Windows | [Download](http://virtual-home.org//release/simulator/last_release/windows_exec.zip) |  
+| Linux            | [Download](http://virtual-home.org/release/simulator/last_release/linux_exec.zip) |
+| MacOS            | [Download](http://virtual-home.org/release/simulator/last_release/macos_exec.zip) |
+| Windows | [Download](http://virtual-home.org/release/simulator/last_release/windows_exec.zip) |  
 
 
 # Usages

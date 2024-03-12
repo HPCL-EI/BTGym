@@ -29,8 +29,8 @@ Download the VirtualHome executable for your platform (Only Windows is tested no
 # Usages
 
 1. Download the simulator ([windows version](http://virtual-home.org/release/simulator/v2.0/v2.3.0/windows_exec.zip))
-2. Unzip and run VirtualHome.exe
-3. Run the demo script and see the simulation result.
+2. Unzip all files in windows_exec.v2.2.4 and move them to simulators/virtualhome/windows.
+3. Run the test/watch_tv.py and see the simulation result.
 ```python
-python test/generate_video_win.py
+python test/watch_tv.py
 ```

@@ -23,8 +23,9 @@ pytorch_model.bin
 *.png
 *.dot
 *.svg
+test/Output/
+simulators/virtualhome/windows/*
 
-sub_task.ptml
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

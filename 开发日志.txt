@@ -1,0 +1,13 @@
+2024-03-12 及之前
+1.将ptml改名为btml，Behavior Tree Markup Language
+2.btml先加载为TreeNode，在utils/tree/tree_node.py中定义
+3.预计定义2种Behavior_lib：（目前只实现了ExecBehaviorLib）
+    * AttrBehaviorLib 通过Json读取. 有属性的BT，可用于损失计算、规则推理等
+    * ExecBehaviorLib 通过Lib文件夹读取. 有属性、执行函数、绑定场景，可用于仿真
+4.BehaviorTree类接受btml路径和behavior_lib，生成行为树实例
+5.实现了env和agent。 env包括behavior_lib和agents列表。
+通过agent.bind_bt(bt)来绑定行为树，通过env.step()控制所有智能体的行为树tick。
+6.在VH框架中，实现了简易的批量动作节点和状态节点。
+通过condition_set来进行条件判断
+7.实现了VH-WatchTV任务，运行test/watch_tv.py进行测试
+8.实现了程序自动打开仿真器，只需要将仿真器压缩包windows_exec.v2.2.4文件夹内的所有文件放在 simulators/virtualhome/windows下，即可一键运行程序和仿真器。运行test/watch_tv.py进行测试

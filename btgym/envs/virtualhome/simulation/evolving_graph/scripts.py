@@ -1,6 +1,5 @@
 from enum import Enum
 import re
-import json
 from typing import List
 
 from . import common

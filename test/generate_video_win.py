@@ -1,19 +1,36 @@
 # Generate video for a program. Make sure you have the executable open
 
-import time
-from btgym.vh.simulation.unity_simulator.comm_unity import UnityCommunication
+from btgym.envs.virtualhome.simulation.unity_simulator.comm_unity import UnityCommunication
 
 
 # script1 = ['<char0> [Walk] <tv> (1)','<char0> [switchon] <tv> (1)'] # Add here your script
 
+import subprocess
+file_name =  'D:\Workspace\BaiduSyncdisk\CXL_Storage\Code\windows_exec.v2.2.4\VirtualHome.exe'
+# 启动 exe 文件
+process = subprocess.Popen(file_name, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-script = ['<char0> [Walk] <tv> (1)','<char0> [switchon] <tv> (1)', '<char0> [Walk] <sofa> (1)', '<char0> [Sit] <sofa> (1)', '<char0> [Watch] <tv> (1)']
+
+script = ['<char0> [Walk] <tv> (1)',
+          '<char0> [switchon] <tv> (1)',
+          '<char0> [Walk] <sofa> (1)',
+          '<char0> [Sit] <sofa> (1)',
+          '<char0> [Watch] <tv> (1)']
 
 print('Starting Unity...')
 comm = UnityCommunication()
 
 print('Starting scene...')
-comm.reset()
+
+simulator_launched = False
+while not simulator_launched:
+    try:
+        comm.reset()
+        simulator_launched = True
+    except:
+        pass
+
+
 comm.add_character('Chars/Female1')
 
 print('Generating video...')

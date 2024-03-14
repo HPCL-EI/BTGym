@@ -1,4 +1,4 @@
-from btgym import BehaviorTree, ExecBehaviorTree
+from btgym import BehaviorTree
 from btgym import ExecBehaviorLibrary
 import btgym
 

@@ -6,12 +6,12 @@ from btgym.envs.virtualhome.simulation.unity_simulator.comm_unity import UnityCo
 # script1 = ['<char0> [Walk] <tv> (1)','<char0> [switchon] <tv> (1)'] # Add here your script
 
 import subprocess
-file_name =  'D:\Workspace\BaiduSyncdisk\CXL_Storage\Code\windows_exec.v2.2.4\VirtualHome.exe'
+file_name =  'D:/Workspace/CXL/Code/BTGym/simulators/virtualhome/windows/VirtualHome.exe'
 # 启动 exe 文件
 process = subprocess.Popen(file_name, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 
-script = ['<char0> [Walk] <tv> (1)',
+script = ['<char0> [Find] <tv> (1)',
           '<char0> [switchon] <tv> (1)',
           '<char0> [Walk] <sofa> (1)',
           '<char0> [Sit] <sofa> (1)',

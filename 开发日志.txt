@@ -1,3 +1,6 @@
+2024-03-18
+1.写了一个 virtualhometext 环境，利用vh自带的脚本演算代码实现环境的 grpah 转移计算，无需启动 unity 仿真器，结果通过命令行输出展示。运行 VHT_watch_tv.py 可看例子。
+
 2024-03-12 及之前
 1.将ptml改名为btml，Behavior Tree Markup Language
 2.btml先加载为TreeNode，在utils/tree/tree_node.py中定义

@@ -1,7 +1,7 @@
 2024-03-25
 1.引入并调整了obtea算法，collect_action_nodes函数内置在BTExpInterface中，其直接以behavior_lib作为参数
 2.env的结构调整，引入基类，现在每个新环境基本只需要修改reset和task_finished函数
-3.现在程序关闭时仿真器也会自动关闭
+3.现在程序中途关闭时仿真器也会自动关闭
 
 2024-03-18
 1.写了一个 virtualhometext 环境，利用vh自带的脚本演算代码实现环境的 grpah 转移计算，无需启动 unity 仿真器，结果通过命令行输出展示。运行 VHT_watch_tv.py 可看例子。

@@ -25,12 +25,13 @@ class Agent(object):
             bt_output = self.bt.visitor.output_str
 
             if bt_output != self.last_tick_output:
-                print(f"==== time:{self.env.time:f}s ======")
+                if self.env.print_ticks:
+                    print(f"==== time:{self.env.time:f}s ======")
 
-                print(bt_output)
+                    print(bt_output)
 
-                print("\n")
-                self.last_tick_output = bt_output
+                    print("\n")
+                    self.last_tick_output = bt_output
                 return True
             else:
                 return False

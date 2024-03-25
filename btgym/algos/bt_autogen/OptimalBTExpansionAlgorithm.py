@@ -124,6 +124,9 @@ class OptBTExpAlgorithm:
                     if c <= start:
                         if self.bt_merge:
                             # bt = self.merge_adjacent_conditions_stack(bt)
+
+
+
                             bt = self.merge_adjacent_conditions_stack_time(bt,merge_time=merge_time)
                         return bt, min_cost
                 else:

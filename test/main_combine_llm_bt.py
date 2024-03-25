@@ -6,35 +6,6 @@ import btgym
 
 from btgym.algos.llm_client.llms.gpt3 import LLMGPT3
 from btgym.algos.bt_autogen.main_interface import BTExpInterface
-from btgym.algos.bt_autogen.Action import Action
-
-# behavior_tree = BehaviorTree("Default.btml")
-# behavior_tree.print()
-# behavior_tree.draw()
-
-# lib_path = f'{btgym.ROOT_PATH}/exec_lib'
-# exec_lib = ExecBehaviorLibrary(lib_path)
-# print(exec_lib.Action)
-
-# exec_bt = ExecBehaviorTree("Default.btml",exec_lib)
-
-def collect_action_nodes():
-    action_list = []
-    lib_path = f'{btgym.ROOT_PATH}/envs/virtualhome/exec_lib'
-    behavior_dict = ExecBehaviorLibrary(lib_path)
-    for cls in behavior_dict["Action"].values():
-        if cls.can_be_expanded:
-            print(f"可扩展动作：{cls.__name__}, 存在{len(cls.valid_args)}个有效论域组合")
-            if cls.num_args == 0:
-                action_list.append(Action(name=cls.get_ins_name(), **cls.get_info()))
-            if cls.num_args == 1:
-                for arg in cls.valid_args:
-                    action_list.append(Action(name=cls.get_ins_name(arg), **cls.get_info(arg)))
-            if cls.num_args > 1:
-                for args in cls.valid_args:
-                    action_list.append(Action(name=cls.get_ins_name(*args), **cls.get_info(*args)))
-    return action_list
-
 
 
 env = btgym.make("VH-PutMilkInFridge")
@@ -57,19 +28,13 @@ print("goal",goal)
 #todo: BTExp
 #todo: BTExp:LoadActions
 # action_list=None
-action_list = collect_action_nodes()
-print(f"共收集到{len(action_list)}个实例化动作:")
-# for a in self.action_list:
-#     if "Turn" in a.name:
-#         print(a.name)
-print("--------------------\n")
 
 #todo: BTExp:process
 cur_cond_set=env.agents[0].condition_set = {"IsSwitchedOff(tv)","IsClosed(fridge)",
                                "IsRightHandEmpty(self)","IsLeftHandEmpty(self)","IsStanding(self)"
                                }
 
-algo = BTExpInterface(action_list, cur_cond_set)
+algo = BTExpInterface(env.behavior_lib, cur_cond_set)
 ptml_string = algo.process(goal)
 
 file_name = "grasp_milk"

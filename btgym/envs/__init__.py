@@ -1,10 +1,10 @@
 
 env_map = {}
 
-from btgym.envs.virtualhome.watch_tv_env import WatchTVEnv as VHWatchTVEnv
+from btgym.envs.virtualhome.envs.watch_tv_env import WatchTVEnv as VHWatchTVEnv
 from btgym.envs.virtualhometext.watch_tv_env import WatchTVEnv as VHTWatchTVEnv
 
-from btgym.envs.virtualhome.put_milk_in_fridge import MilkFridgeEnv as MilkFridgeEnv
+from btgym.envs.virtualhome.envs.milk_fridge_env import MilkFridgeEnv as MilkFridgeEnv
 
 vh_env_map = {
     "VH-WatchTV": VHWatchTVEnv,

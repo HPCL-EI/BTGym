@@ -47,6 +47,7 @@ with open(file_path, 'w') as file:
 # 读取执行
 bt = BehaviorTree("grasp_milk.btml", env.behavior_lib)
 bt.print()
+bt.draw()
 
 env.agents[0].bind_bt(bt)
 env.reset()

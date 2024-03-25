@@ -3,6 +3,7 @@
 
 import os
 import py_trees as ptree
+from btgym.behavior_tree.utils.visitor import StatusVisitor
 from btgym.utils.path import get_root_path
 from btgym.utils.tree.tree_node import new_tree_like,traverse_and_modify_tree
 
@@ -28,6 +29,9 @@ class BehaviorTree(ptree.trees.BehaviourTree):
             bt_root = new_tree_like(tree_root,self.new_node)
 
         super().__init__(bt_root)
+
+        self.visitor = StatusVisitor()
+        self.visitors.append(self.visitor)
 
     def new_node(self, node):
         if node.node_type in composite_node_map.keys():

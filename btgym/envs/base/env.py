@@ -13,15 +13,24 @@ import subprocess
 class Env(object):
     agent_num = 1
     behavior_lib_path = None
+
     def __init__(self):
+        self.time = 0
+        self.start_time = time.time()
+
         self.create_behavior_lib()
         self.create_agents()
 
     def step(self):
+        self.time = time.time() - self.start_time
+
         for agent in self.agents:
-            agent.bt.tick()
+            agent.step()
 
         self.env_step()
+
+        self.last_step_time = self.time
+
         return self.task_finished()
 
     def task_finished(self):

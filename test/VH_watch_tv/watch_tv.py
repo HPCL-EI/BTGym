@@ -23,6 +23,8 @@ bt.print()
 env.agents[0].bind_bt(bt)
 env.reset()
 
+env.agents[0].condition_set = set()
+
 is_finished = False
 while not is_finished:
     is_finished = env.step()

@@ -2,7 +2,7 @@
 1.写了一个 virtualhometext 环境，利用vh自带的脚本演算代码实现环境的 grpah 转移计算，无需启动 unity 仿真器，结果通过命令行输出展示。运行 VHT_watch_tv.py 可看例子。
 
 2024-03-12 及之前
-1.将ptml改名为btml，Behavior Tree Markup Language
+1.将btml改名为btml，Behavior Tree Markup Language
 2.btml先加载为TreeNode，在utils/tree/tree_node.py中定义
 3.预计定义2种Behavior_lib：（目前只实现了ExecBehaviorLib）
     * AttrBehaviorLib 通过Json读取. 有属性的BT，可用于损失计算、规则推理等
@@ -14,3 +14,376 @@
 通过condition_set来进行条件判断
 7.实现了VH-WatchTV任务，运行test/watch_tv.py进行测试
 8.实现了程序自动打开仿真器，只需要将仿真器压缩包windows_exec.v2.2.4文件夹内的所有文件放在 simulators/virtualhome/windows下，即可一键运行程序和仿真器。运行test/watch_tv.py进行测试
+
+
+
+
+动作：
+Walk
+Sit
+StandUp
+Grab
+Open
+Close
+Put A on B
+PutIn: Put an object inside some other object
+SwitchOn
+SwitchOff
+Touch
+
+
+物品 176个
+Amplifier 放大器
+Apple 苹果
+SportsBall 运动球
+Bananas 香蕉
+BarSoap 长条肥皂
+Bathroom_cabinet 浴室橱柜
+Bathroom_counter 浴室柜台
+Bathtub 浴缸
+Bed 床
+BellPepper 甜椒
+Bench 长凳
+Board 板，板块
+Boardgame 棋盘游戏
+Book 书
+BookShelf 书架
+Box 盒子
+Bread 面包
+Bread_slice 面包片
+Broom 扫帚
+Bucket 桶
+Carrot 胡萝卜
+Cat 猫
+Cards 牌
+Cellphone 手机
+ChineseFood 中餐
+Coffee_pot 咖啡壶
+Crayons 蜡笔
+Chair 椅子
+Cabinet 柜子
+Candle 蜡烛
+CeilingFan 吊扇
+Ceiling_lamp 吊灯
+ChefKnife 厨师刀
+Chicken 鸡肉
+ChocolateSyrup 巧克力糖浆
+Clock 时钟
+Closet 衣柜
+Closet_Drawer 衣柜抽屉
+Clothes_pants 衣服裤子
+Clothes_pile 衣服堆
+Clothes_shirt 衣服衬衫
+Coffee_table 咖啡桌
+Coffeemaker 咖啡机
+Condiment_bottle 调味瓶
+Condiment_shaker 调味瓶子
+CookingPot 烹饪锅
+CandyBar 糖果棒
+Crackers 饼干
+Cereal 谷物
+CreamyBuns 奶油包子
+Chips 薯片
+Cucumber 黄瓜
+Cupcake 纸杯蛋糕
+Curtains 窗帘
+Cutlery_Knife 餐具刀
+Cutlery_fork 餐具叉
+Cutlets 肉片
+Cutting_board 切菜板
+Deodorant 香皂
+Desk 书桌
+DiningTable 餐桌
+DishWashingLiquid 洗碗液
+Dish_bowl 碗
+Plate 盘子
+Dishwasher 洗碗机
+Door 门
+Doorjamb 门框
+Donut 甜甜圈
+Dustpan 簸箕
+FaceCream 面霜
+Folder 文件夹
+Fridge 冰箱
+FryingPan 煎锅
+Game 游戏
+Globe 地球仪
+Garbage_can 垃圾桶
+Glasses 眼镜
+Guitar 吉他
+HairProduct 发胶
+Hanger 衣架
+Jacuzzi 水疗浴缸
+juice 果汁
+Journal 日记本
+Keyboard 键盘
+Kitchen_counter 厨房柜台
+Kitchen_table 厨房桌子
+KnifeBlock 刀架
+Lemon 柠檬
+LightSwitch 开关
+Lime 酸橙
+LotionBottle 乳液瓶
+Kettle 水壶
+Magazine 杂志
+Microwave 微波炉
+Milk 牛奶
+Milkshake 奶昔
+MincedMeat 绞肉
+Mouse 鼠标
+Mousemat 鼠标垫
+Mug 杯子
+Napkin 餐巾纸
+Nightstand 床头柜
+Notes 笔记
+Orange 橙子
+Orchid 兰花
+PC 个人电脑
+Painkillers 止痛药
+Pancake 煎饼
+Paper 纸
+PaperTowel 纸巾
+Peach 桃子
+Pear 梨
+Pen 钢笔
+Perfume 香水
+PhotoFrame 照片框
+Pie 派
+Pillow 枕头
+Plum 李子
+Potato 土豆
+PoundCake 磅蛋糕
+Power_socket 电源插座
+Printer 打印机
+Projector 投影仪
+Pudding 布丁
+Radio 收音机
+Remote_control 遥控器
+Rug 地毯
+Salad 沙拉
+Salmon 三文鱼
+Shelf 架子
+Shelf_SoapSet 架子肥皂组
+Stall 车棚
+Sink 水槽
+Slippers 拖鞋
+SoapSet 肥皂组
+Sofa 沙发
+Speaker 扬声器
+Washing_sponge 洗涤海绵
+Spoon 勺子
+Stove 炉子
+StoveFan 炉子风扇
+Sundae 圣代
+TeddyBear 泰迪熊
+Toy 玩具
+TV 电视
+TV_stand 电视架
+Table_lamp 台灯
+Toaster 烤面包机
+Toilet 马桶
+ToiletPaper 厕纸
+Tomato 番茄
+Toothbrush 牙刷
+Toothpaste 牙膏
+Towel 毛巾
+Towel_rack 毛巾架
+WallPictureFrame 墙上照片框
+WallTV 墙上电视
+Wall_lamp 墙灯
+Wall_phone 墙上电话
+WaterGlass 水杯
+Watermelon 西瓜
+WhippedCream 鲜奶油
+WineGlass 酒杯
+Computer 计算机
+CPU_screen CPU 屏幕
+Alcohol 酒精
+Beer 啤酒
+Bottle_water 瓶装水
+Wine 酒
+Paper_tray 纸盒
+Wall_shelf 墙上架子
+Standing_mirror 立式镜子
+Vase 花瓶
+Balance_ball 平衡球
+Long_board 长板
+Washing_machine 洗衣机
+
+#########
+Amplifier
+Apple
+SportsBall
+Bananas
+BarSoap
+Bathroom_cabinet
+Bathroom_counter
+Bathtub
+Bed
+BellPepper
+Bench
+Board
+Boardgame
+Book
+BookShelf
+Box
+Bread
+Bread_slice
+Broom
+Bucket
+Carrot
+Cat
+Cards
+Cellphone
+Chinesefood
+Coffee_pot
+Crayons
+Chair
+Cabinet
+Candle
+CeilingFan
+Ceiling_lamp
+ChefKnife
+Chicken
+ChocolateSyrup
+Clock
+Closet
+Closet_Drawer
+Clothes_pants
+Clothes_pile
+Clothes_shirt
+Coffee_table
+Coffeemaker
+Condiment_bottle
+Condiment_shaker
+CookingPot
+CandyBar
+Crackers
+Cereal
+CreamyBuns
+Chips
+Cucumber
+Cupcake
+Curtains
+Cutlery_Knife
+Cutlery_fork
+Cutlets
+Cutting_board
+Deodorant
+Desk
+DiningTable
+DishWashingLiquid
+Dish_bowl
+Plate
+Dishwasher
+Door
+Doorjamb
+Donut
+Dustpan
+FaceCream
+Folder
+Fridge
+FryingPan
+Game
+Globe
+Garbage_can
+Glasses
+Guitar
+HairProduct
+Hanger
+Jacuzzi
+Juice
+Journal
+Keyboard
+Kitchen_counter
+Kitchen_table
+KnifeBlock
+Lemon
+LightSwitch
+Lime
+LotionBottle
+Kettle
+Magazine
+Microwave
+Milk
+Milkshake
+MincedMeat
+Mouse
+Mousemat
+Mug
+Napkin
+Nightstand
+Notes
+Orange
+Orchid
+PC
+Painkillers
+Pancake
+Paper
+PaperTowel
+Peach
+Pear
+Pen
+Perfume
+PhotoFrame
+Pie
+Pillow
+Plum
+Potato
+PoundCake
+Power_socket
+Printer
+Projector
+Pudding
+Radio
+Remote_control
+Rug
+Salad
+Salmon
+Shelf
+Shelf_SoapSet
+Stall
+Sink
+Slippers
+SoapSet
+Sofa
+Speaker
+Washing_sponge
+Spoon
+Stove
+StoveFan
+Sundae
+TeddyBear
+Toy
+TV
+TV_stand
+Table_lamp
+Toaster
+Toilet
+ToiletPaper
+Tomato
+Toothbrush
+Toothpaste
+Towel
+Towel_rack
+WallPictureFrame
+WallTV
+Wall_lamp
+Wall_phone
+WaterGlass
+Watermelon
+WhippedCream
+WineGlass
+Computer
+CPU_screen
+Alcohol
+Beer
+Bottle_water
+Wine
+Paper_tray
+Wall_shelf
+Standing_mirror
+Vase
+Balance_ball
+Long_board
+Washing_machine

@@ -1,21 +1,19 @@
 from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
 
-class SwitchOn(VHAction):
+class Open(VHAction):
     can_be_expanded = True
     num_args = 1
-    valid_args = VHAction.HasSwitchObjects
-
+    valid_args = VHAction.CanOpenPlaces
 
     def __init__(self, *args):
         super().__init__(*args)
-        self.target_obj = self.args[0]
 
     @classmethod
     def get_info(cls,*arg):
         info = {}
-        info["pre"]={"IsLeftHandEmpty(self)",f"IsNear(self,{arg[0]})",f"IsSwitchedOff({arg[0]})"} # IsLeftHandEmpty()至少有一只手是空闲的
-        info["add"]={f"IsSwitchedOn({arg[0]})"}
-        info["del_set"] = {f"IsSwitchedOff({arg[0]})"}
+        info["pre"]={f"IsClosed({arg[0]})",f"IsNear(self,{arg[0]})","IsLeftHandEmpty(self)"} # IsLeftHandEmpty()至少有一只手是空闲的
+        info["add"]={f"IsOpened({arg[0]})"}
+        info["del_set"] = {f"IsClosed({arg[0]})"}
         return info
 
 

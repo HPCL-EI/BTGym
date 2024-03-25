@@ -7,3 +7,4 @@ class Agent(object):
     def bind_bt(self,bt):
         self.bt = bt
         bt.bind_agent(self)
+

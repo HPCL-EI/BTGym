@@ -16,5 +16,5 @@ import btgym
 # exec_bt = ExecBehaviorTree("Default.btml",exec_lib)
 
 llm = LLMGPT3()
-answer = llm.request(question="hello")
+answer = llm.request(question="are you gpt 3.5? or gpt 4?")
 print(answer)

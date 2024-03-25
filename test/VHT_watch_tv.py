@@ -7,7 +7,7 @@ import btgym
 
 
 env = btgym.make("VHT-WatchTV")
-bt = BehaviorTree("WatchTV.btml", env.behavior_lib)
+bt = BehaviorTree("VH_watch_tv/WatchTV.btml", env.behavior_lib)
 bt.print()
 print()
 

@@ -4,22 +4,22 @@ from typing import Any
 from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
 from btgym.behavior_tree import Status
 
-class Sit(VHAction):
+class StandUp(VHAction):
     can_be_expanded = True
-    num_args = 1
-    valid_args=set()
+    num_args = 0
+    valid_args = set()
 
     def __init__(self, *args):
         super().__init__(*args)
 
     @classmethod
-    def get_info(cls,*arg):
+    def get_info(cls):
         info = {}
-        info["pre"]={"IsStanding(self)",f"IsNear({arg[0]})"}
-        info["add"]={f"IsSittingOn(self,{arg[0]})",f"IsSitting(self)"}
-        info["del_set"] = {f"IsStanding(self)"}
+        info["pre"]={"IsSitting(self)"}
+        info["add"]={f"IsStanding(self)"}
+        info["del_set"] = {f"IsSitting(self)"}
+        info["del_set"] |= {f'IsSittingOn(self,{place})' for place in cls.SittablePlaces}
         return info
-
     def change_condition_set(self):
         self.agent.condition_set |= (self.info["add"])
         self.agent.condition_set -= self.info["del_set"]

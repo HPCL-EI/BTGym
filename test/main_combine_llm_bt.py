@@ -50,6 +50,7 @@ bt.print()
 
 env.agents[0].bind_bt(bt)
 env.reset()
+env.print_ticks = True
 
 is_finished = False
 while not is_finished:

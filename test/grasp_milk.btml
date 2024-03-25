@@ -1,8 +1,8 @@
 selector
     cond IsOpened(fridge)
     sequence
-        cond IsClosed(fridge)
         cond IsLeftHandEmpty(self)
+        cond IsClosed(fridge)
         selector
             sequence
                 cond IsNear(self,fridge)

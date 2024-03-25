@@ -2,9 +2,11 @@ from btgym.envs.virtualhome.base.vh_env import VHEnv
 
 class MilkFridgeEnv(VHEnv):
     agent_num = 1
+    print_ticks = True
 
     def __init__(self):
         super().__init__()
+
 
     def reset(self):
         self.load_scenario(0)

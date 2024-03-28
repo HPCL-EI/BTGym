@@ -19,7 +19,7 @@ class RightPutIn(PutIn):
     def get_info(cls,*arg):
         info = {}
         if arg[0] != 'Anything':
-            info["pre"] = {f'IsRightHolding(self,{arg[0]})',f"IsNear(self,{arg[1]})",f"IsOpened({arg[1]})"}
+            info["pre"] = {f'IsRightHolding(self,{arg[0]})',f"IsNear(self,{arg[1]})",f"IsOpen({arg[1]})"}
             info["add"] = {f'IsRightHandEmpty(self)',f'IsIn({arg[0]},{arg[1]})'}
             info["del_set"] = {f'IsRightHolding(self,{arg[0]})'}
         return info

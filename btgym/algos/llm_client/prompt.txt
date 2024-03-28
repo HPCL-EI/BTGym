@@ -1,46 +1,59 @@
-[Condition Predicates]
-RobotNear_<items_place>, On_<items>_<place>, Holding_<items>, Exists_<items>, IsClean_<furniture>, Active_<appliance>, Closed_<furnishing>, Low_<control>
 
 
-[Objects]
-<items>=['Coffee', 'Water', 'Dessert', 'Softdrink', 'BottledDrink', 'Yogurt', 'ADMilk', 'MilkDrink', 'Milk', 'VacuumCup','Chips', 'NFCJuice', 'Bernachon', 'ADMilk', 'SpringWater', 'Apple', 'Banana', 'Mangosteen', 'Orange','Kettle', 'PaperCup', 'Bread', 'LunchBox','Teacup', 'Chocolate', 'Sandwiches', 'Mugs','Watermelon', 'Tomato', 'CleansingFoam','CocountMilk','SugarlessGum', 'MedicalAdhensiveTape', 'SourMilkDrink', 'PaperCup','Tissue', 'YogurtDrink', 'Newspaper', 'Box','PaperCupStarbucks', 'CoffeeMachine', 'Straw', 'Cake','Tray', 'Bread','Glass', 'Door','Mug', 'Machine','PackagedCoffee', 'CubeSugar','Apple', 'Spoon','Drinks', 'Drink','Ice', 'Saucer','TrashBin', 'Knife','Cube']
-<place>=['Bar', 'Bar2', 'WaterStation', 'CoffeeStation', 'Table1', 'Table2', 'Table3', 'WindowTable6','WindowTable4', 'WindowTable5','QuietTable7', 'QuietTable8', 'QuietTable9', 'ReadingNook', 'Entrance', 'Exit', 'LoungeArea', 'HighSeats','VIPLounge', 'MerchZone']
-<items_place>=<items>+<place>
-<furniture>=['Table1','Floor','Chairs']
-<appliance>=['AC','TubeLight','HallLight']
-<furnishing>=['Curtain']
-<control>=['ACTemperature']
+[Condition]
+IsNear_self_<all>, IsOn_<item>_<place>, IsIn_<item>_<containers>, IsOpen_<containers>, IsClose_<containers>,
+IsSwitchedOn_<appliances>, IsSwitchedOff_<appliances>
 
 
-[Few-shot Demonstrations]
-
-Instruction: "Would you be able to provide some chips at the third table?"
-Goal: On_Chips_Table3
-
-Instruction: If the curtains are already closed or the AC is running, could you please grab me a hot milk?
-( Closed_Curtain | Active_AC ) & Holding_Milk
-
-Instruction: Please turn up the air conditioning and come to the bar counter.
-RobotNear_Bar & ~Low_ACTemperature
-
-Instruction: Please ensure the water is ready for service, and deliver the yogurt to table number one.
-Exists_Water & On_Yogurt_Table1
-
-Instruction: It's a bit messy here, could you rearrange the chairs? And, if possible, could you bring me an apple or a banana to the reading nook??
-IsClean_Chairs & ( On_Apple_ReadingNook | On_Banana_ReadingNook )
+[Action]
+Walk_<all>, RightGrab_<item>, LeftGrab_<item>, RightPut_<item>_<place>, LeftPut_<item>_<place>,
+RightPutIn_<item>_<containers>, LeftPutIn_<item>_<containers>, RightGrabFrom_<item>_<containers>, LeftGrabFrom_<item>_<containers>,
+Open_<containers>, Close_<containers>, SwitchOn_<appliances>, SwitchOff_<appliances>
 
 
-[System]
+[Object]
+<item>=["bananas",'chicken', 'breadslice','chips','chocolatesyrup',
+             'cupcake','milk','juice','wine',
+             'cutleryknife','fryingpan','dishbowl','plate',
+             'book',"waterglass"]
+<place>=["kitchentable","plate","nightstand","desk"]
+<containers>=["fridge","dishwasher","microwave"]
+<appliances>=["tv","faucet","lightswitch","dishwasher","coffeemaker","toaster","microwave",
+                        "tablelamp","computer"]
+<all>=<item>+<place>+<containers>+<appliances>
+
+
+[Examples]
+Instruction: Put the bag of chips on the corner of my desk.
+Goals: IsOn_chips_desk
+Actions: Walk_chips, RightGrab_chips, Walk_desk, RightPut_chips_desk
+
+Instruction: Ensure the coffee maker is powered on to brew your morning cup, and also turn on the TV to catch up with the early news
+Goals: IsSwitchedOn_coffeemaker & IsSwitchedOn_tv
+Actions: Walk_coffeemaker, SwitchOn_coffeemaker, Walk_tv, SwitchOn_tv
+
+Instruction: Spread chocolate syrup on a slice of bread and place it on a plate for a quick snack.
+Goals: IsOn(breadslice,kitchentable) & IsOn_chocolatesyrup_kitchentable & IsOn_juice_kitchentable
+Actions: Walk_chocolatesyrup, RightGrab_chocolatesyrup, Walk_juice, LeftGrab_juice, Walk_kitchentable, LeftPut_juice_kitchentable, Walk_breadslice, LeftGrab_breadslice, Walk_kitchentable, LeftPut_breadslice_kitchentable, RightPut_chocolatesyrup_kitchentable
+
+Instruction: Put the milk in the fridge, and make sure the fridge door is closed.
+Goals: IsIn_milk_fridge & IsClose_fridge
+Actions: Walk_milk, RightGrab_milk, Walk_fridge, Open_fridge, RightPutIn_milk_fridge, Close_fridge
+
+Instruction: Place the chicken in the microwave, and then switch the microwave on to start cooking.
+Goals: IsIn_chicken_microwave & IsClose_microwave & IsSwitchedOn_microwave
+Actions: Walk_chicken, RightGrab_chicken, Walk_microwave, Open_microwave, RightPutIn_chicken_microwave, Close_microwave, SwitchOn_microwave
+
+
+[Prompt]
 [Condition] Lists all predicates representing conditions and their optional parameter sets.
+[Action] Listed all the actions.
 [Object] Lists all parameter sets.
-[Examples] Provide several examples of Instruction to Goal mapping.
-Your task is to interpret the input instructions into a goal represented as well-formed formula in first-order logic.
-Utilize [Conditions] and [Objects] to construct this goal, and apply logical operators (&, |, ~) appropriately to combine these elements.
-& (AND Operator): Combines conditions such that the result is true only if both conditions are true.
-| (OR Operator): Combines conditions such that the result is true if at least one of the conditions is true.
-~ (NOT Operator): Negates or reverses the truth value of a single condition.
-Please generate directly interpretable predicate formulas without additional explanations.
-The predicate formulas can be converted into disjunctive paradigms (DNFs) using the python package sympy.to_dnf.
-
-
-
+[Examples] Provide several examples of Instruction to Goal mapping and the list of actions required to complete the task.
+1. Your task involves interpreting the given instructions to deduce a goal, which should be represented as a structured proposition in first-order logic. Additionally, compile a list of requisite actions to achieve this goal.
+2. Structure your response according to the previously demonstrated format. Begin with 'Goals:' to indicate the desired outcome and 'Actions:' to detail the steps needed for accomplishment.
+3. For defining 'Goals,' employ [Conditions] and [Objects] to formulate this aim. Use logical connectors (&,|) judiciously to amalgamate these components.
+   - & (AND Operator): Merges conditions ensuring the outcome is positive solely when both conditions are met.
+   - | (OR Operator): Merges conditions ensuring a positive outcome if at least one condition is satisfied.
+4. For listing 'Actions,' separate items with commas without assigning any numerical order.
+5. Produce directly interpretable predicate logic formulas, omitting any supplementary elucidations.

@@ -28,7 +28,6 @@ class VHEnv(Env):
 
     def launch_simulator(self):
         self.comm = UnityCommunication()
-
         self.simulator_process = subprocess.Popen(self.simulator_path, stdout=subprocess.PIPE, stderr=subprocess.PIPE,start_new_session=True)
 
         atexit.register(self.close)
@@ -39,13 +38,21 @@ class VHEnv(Env):
         while not simulator_launched:
             try:
                 self.comm.reset(scenario_id)
+                # self.comm.activate_physics()
                 simulator_launched = True
             except:
                 pass
 
-    def run_script(self,script):
-        self.comm.render_script(script, recording=True,skip_animation=False, frame_rate=10, camera_mode=["PERSON_FROM_BACK"],
+    def run_script(self,script,verbose=False,camera_mode="PERSON_FROM_BACK"):
+        success, message = self.comm.render_script(script, recording=True,skip_animation=False, frame_rate=10, camera_mode=[camera_mode],
                                find_solution=True)
+
+        # Check whether the command was executed successfully
+        if verbose:
+            if success:
+                print(f"'Successfully.")
+            else:
+                print(f"'Failed,{message}'.")
 
     def close(self):
         time.sleep(1)

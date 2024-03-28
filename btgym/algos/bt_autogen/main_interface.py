@@ -7,7 +7,7 @@ from btgym.algos.bt_autogen.examples import *
 
 # 封装好的主接口
 class BTExpInterface:
-    def __init__(self, behavior_lib,cur_cond_set,bt_algo_opt=True):
+    def __init__(self, behavior_lib,cur_cond_set,priority_act_ls=[],bt_algo_opt=True):
         """
         Initialize the BTOptExpansion with a list of actions.
         :param action_list: A list of actions to be used in the behavior tree.
@@ -22,6 +22,10 @@ class BTExpInterface:
         #     self.actions.append(a)
 
         self.actions = collect_action_nodes(behavior_lib)
+
+        self.priority_act_ls = priority_act_ls
+        self.actions = adjust_action_priority(self.actions,self.priority_act_ls)
+
         self.has_processed = False
 
         self.cur_cond_set = cur_cond_set
@@ -107,6 +111,22 @@ def collect_action_nodes(behavior_lib):
     #         print(a.name)
     print("--------------------\n")
 
+    return action_list
+
+
+def adjust_action_priority(action_list,priority_act_ls):
+    # recommended_acts=["RightPutIn(bananas,fridge)",
+    #                   "Open(fridge)",
+    #                   "Walk(fridge)",
+    #                   "Close(fridge)",
+    #                   "RightGrab(bananas)",
+    #                   "Walk(bananas)"
+    #                   ]
+
+    recommended_acts = priority_act_ls
+    for act in action_list:
+        if act.name in recommended_acts:
+            act.cost=0
     return action_list
 
 

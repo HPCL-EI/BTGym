@@ -6,7 +6,7 @@ import random
 #定义行动类，行动包括前提、增加和删除影响
 # Define action categories, which include prerequisites, adding and deleting impacts
 class Action:
-    def __init__(self,name='anonymous action',pre=set(),add=set(),del_set=set(),cost=1,vaild_num=0,vild_args=set()):
+    def __init__(self,name='anonymous action',pre=set(),add=set(),del_set=set(),cost=10,vaild_num=0,vild_args=set()):
         self.pre=copy.deepcopy(pre)
         self.add=copy.deepcopy(add)
         self.del_set=copy.deepcopy(del_set)

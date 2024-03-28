@@ -45,11 +45,10 @@ process = subprocess.Popen(file_name, stdout=subprocess.PIPE, stderr=subprocess.
 
 
 # test
-script = ['<char0> [Find] <tv> (1)',
-          '<char0> [switchon] <tv> (1)',
-          '<char0> [Walk] <sofa> (1)',
-          '<char0> [Sit] <sofa> (1)',
-          '<char0> [Watch] <tv> (1)'
+script = [
+    '<char0> [walk] <apple> (1)',
+'<char0> [grab] <apple> (1)',
+    '<char0> [eat] <apple> (1)',
 ]
 
 

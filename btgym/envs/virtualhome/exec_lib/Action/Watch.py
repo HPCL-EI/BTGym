@@ -1,7 +1,7 @@
 from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
 
 class Watch(VHAction):
-    can_be_expanded = True
+    can_be_expanded = False
     num_args = 1
     # obj1 is reachable (not inside some closed container)
     valid_args = VHAction.SurfacePlaces |  VHAction.SittablePlaces | VHAction.Objects

@@ -13,7 +13,7 @@ import subprocess
 class Env(object):
     agent_num = 1
     behavior_lib_path = None
-
+    print_ticks = False
     def __init__(self):
         self.time = 0
         self.start_time = time.time()

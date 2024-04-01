@@ -9,7 +9,7 @@ class MilkFridgeEnv(VHEnv):
 
 
     def reset(self):
-        self.load_scenario(0)
+        self.load_scenario(6)
 
         self.comm.add_character('Chars/Female1')
 

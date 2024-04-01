@@ -30,7 +30,7 @@ class BTalgorithm:
     def run_algorithm_selTree(self, start, goal, actions):
         # 初始行为树只包含目标条件
         bt = ControlBT(type='cond')
-        g_node = Leaf(type='cond', content=goal,mincost=0)
+        g_node = Leaf(type='cond', content=goal,min_cost=0)
         bt.add_child([g_node])
 
         self.conditions.append(goal)
@@ -80,8 +80,8 @@ class BTalgorithm:
                             # print("pass prune")
                             # 构建行动的顺序结构
                             sequence_structure = ControlBT(type='>')
-                            c_attr_node = Leaf(type='cond', content=c_attr, mincost=0)
-                            a_node = Leaf(type='act', content=actions[i], mincost=0)
+                            c_attr_node = Leaf(type='cond', content=c_attr, min_cost=0)
+                            a_node = Leaf(type='act', content=actions[i], min_cost=0)
                             sequence_structure.add_child([c_attr_node, a_node])
                             # 将顺序结构添加到子树
                             subtree.add_child([sequence_structure])
@@ -159,10 +159,44 @@ class BTalgorithm:
                 self.btml_string += '}\n'
 
 
-    def get_btml(self):
-        self.btml_string = "selector{\n"
-        self.dfs_btml(self.bt.children[0],is_root=True)
-        self.btml_string += '}\n'
+    def dfs_btml_indent(self, parnode, level=0, is_root=False):
+        indent = " " * (level * 4)  # 4 spaces per indent level
+        for child in parnode.children:
+            if isinstance(child, Leaf):
+
+                if is_root and len(child.content) > 1:
+                    # 把多个 cond 串起来
+                    self.btml_string += " " * (level * 4) + "sequence\n"
+                    for c in child.content:
+                        self.btml_string += " " * ((level + 1) * 4) + "cond " + str(c) + "\n"
+
+                elif child.type == 'cond':
+                    # 直接添加cond及其内容，不需要特别处理根节点下多个cond的情况
+                    # self.btml_string += indent + "cond " + ', '.join(map(str, child.content)) + "\n"
+                    # 对每个条件独立添加，确保它们各占一行
+                    for c in child.content:
+                        self.btml_string += indent + "cond " + str(c) + "\n"
+                elif child.type == 'act':
+                    # 直接添加act及其内容
+                    self.btml_string += indent + 'act ' + child.content.name + "\n"
+            elif isinstance(child, ControlBT):
+                if child.type == '?':
+                    self.btml_string += indent + "selector\n"
+                    self.dfs_btml_indent(child, level + 1)  # 增加缩进级别
+                elif child.type == '>':
+                    self.btml_string += indent + "sequence\n"
+                    self.dfs_btml_indent(child, level + 1)  # 增加缩进级别
+
+    def get_btml(self, use_braces=True):
+
+        if use_braces:
+            self.btml_string = "selector\n"
+            self.dfs_btml_indent(self.bt.children[0], 1, is_root=True)
+            return self.btml_string
+        else:
+            self.btml_string = "selector{\n"
+            self.dfs_btml(self.bt.children[0], is_root=True)
+            self.btml_string += '}\n'
         return self.btml_string
 
 

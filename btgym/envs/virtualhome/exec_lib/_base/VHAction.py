@@ -4,18 +4,27 @@ from btgym.behavior_tree import Status
 class VHAction(Action):
     can_be_expanded = True
     num_args = 1
-    # SurfacePlaces = {"fridge","desk","kitchentable","coffeetable","kitchencabinet","kitchencounter","oventray"}
-    # SittablePlaces = {"fridge", "desk", "kitchentable", "coffeetable", "kitchencabinet", "kitchencounter","oventray"}
-    # CanOpenPlaces= {"fridge", "kitchencabinet"}
-    # Objects={"milk","apple","cereal","mug","tv"}
-    # HasSwitchObjects = {"tv"}
 
-    SurfacePlaces = set()
-    SittablePlaces = set()
-    CanOpenPlaces= {"fridge"}
-    CanPutInPlaces={"fridge"}
-    Objects={"milk"}
-    HasSwitchObjects = set()
+
+    SurfacePlaces = {"kitchentable","plate","nightstand","desk"} # put
+    SittablePlaces = set()  # sit
+    CanOpenPlaces= {"fridge","dishwasher","microwave"}  # open
+    CanPutInPlaces=CanOpenPlaces  # put in
+    Objects={"bananas",'chicken', 'breadslice','chips','chocolatesyrup',
+             'cupcake','milk','juice','wine',
+             'cutleryknife','fryingpan','dishbowl','plate',
+             'book',"waterglass"
+             }  # grab
+    HasSwitchObjects = {"tv","faucet","lightswitch","dishwasher","coffeemaker","toaster","microwave",
+                        "tablelamp","computer"}  # switch on #candle  cellphone wallphone washingmachine不行# faucet 浴室龙头
+
+    # SurfacePlaces = {"kitchentable"} # put
+    # SittablePlaces = set()  # sit
+    # CanOpenPlaces= {"microwave"}  # open
+    # CanPutInPlaces=CanOpenPlaces  # put in
+    # Objects={'breadslice','chocolatesyrup','juice'
+    #          }  # grab
+    # HasSwitchObjects = {"microwave"}  # switch on #candle  cellphone wallphone washingmachine不行# faucet 浴室龙头
 
     @property
     def action_class_name(self):
@@ -34,7 +43,7 @@ class VHAction(Action):
             script = [f'<char0> [{self.action_class_name.lower()}] <{self.args[0].lower()}> (1) <{self.args[1].lower()}> (1)']
 
 
-        self.env.run_script(script)
+        self.env.run_script(script,verbose=True,camera_mode="PERSON_FROM_BACK") # FIRST_PERSON
         print("script: ",script)
         self.change_condition_set()
 

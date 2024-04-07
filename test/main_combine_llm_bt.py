@@ -25,8 +25,8 @@ with open(prompt_file, 'r', encoding="utf-8") as f:
 # print(prompt)
 
 # instuction = "Put the bowl in the dishwasher and wash it."
-# instuction="Put the milk and chicken in the fridge."
-instuction="Turn on the computer, TV, and lights, then put the bowl in the dishwasher and wash it"
+instuction="Put the milk and chicken in the fridge."
+# instuction="Turn on the computer, TV, and lights, then put the bowl in the dishwasher and wash it"
 
 llm = LLMGPT3()
 question = prompt+instuction

@@ -20,9 +20,9 @@ class VHAction(Action):
 
     SurfacePlaces = {"bed"} # put
     SittablePlaces = {"Toilet"}  # sit
-    CanOpenPlaces= {"Nightstand","box"}  # open
+    CanOpenPlaces= {"fridge"}  # open
     CanPutInPlaces=CanOpenPlaces  # put in
-    Objects={'towel'
+    Objects={'milk','chicken',
              }  # grab
     HasSwitchObjects = {"wallphone",}  # switch on #candle cellphone wallphone washingmachine不行# faucet 浴室龙头
 

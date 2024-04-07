@@ -23,6 +23,7 @@ class RightGrab(Grab):
         info["del_set"] = {f"IsRightHandEmpty(self)"}
         info["del_set"] |= {f'IsOn({arg[0]},{place})' for place in cls.SurfacePlaces}
         info["del_set"] |= {f'IsIn({arg[0]},{place})' for place in cls.CanOpenPlaces}
+        info["cost"] = 5
         return info
 
 

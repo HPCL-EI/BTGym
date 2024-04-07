@@ -56,11 +56,13 @@ cur_cond_set=env.agents[0].condition_set = {"IsSwitchedOff(tv)","IsSwitchedOff(f
                                }
 
 start_time = time.time()
+# priority_act_ls=[]
 algo = BTExpInterface(env.behavior_lib, cur_cond_set,priority_act_ls)
 ptml_string = algo.process(goal_set)
 end_time = time.time()
 planning_time_total = (end_time-start_time)
 print("planning_time_total:",planning_time_total)
+print("cost_total:",algo.algo.min_cost)
 
 file_name = "grasp_milk"
 file_path = f'./{file_name}.btml'

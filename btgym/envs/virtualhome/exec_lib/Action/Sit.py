@@ -18,6 +18,7 @@ class Sit(VHAction):
         info["pre"]={"IsStanding(self)",f"IsNear(self,{arg[0]})"}
         info["add"]={f"IsSittingOn(self,{arg[0]})",f"IsSitting(self)"}
         info["del_set"] = {f"IsStanding(self)"}
+        info["cost"] = 15
         return info
 
     def change_condition_set(self):

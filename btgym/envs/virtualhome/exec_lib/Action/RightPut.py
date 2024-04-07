@@ -23,6 +23,7 @@ class RightPut(Put):
             info["pre"] = {f'IsRightHolding(self,{arg[0]})',f'IsNear(self,{arg[1]})'}
             info["add"] = {f'IsRightHandEmpty(self)',f'IsOn({arg[0]},{arg[1]})'}
             info["del_set"] = {f'IsRightHolding(self,{arg[0]})'}
+            info["cost"] = 6
         return info
 
 

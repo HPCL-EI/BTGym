@@ -14,6 +14,7 @@ class Close(VHAction):
         info["pre"]={f"IsOpen({arg[0]})",f"IsNear(self,{arg[0]})","IsLeftHandEmpty(self)"} # IsLeftHandEmpty()至少有一只手是空闲的
         info["add"]={f"IsClose({arg[0]})"}
         info["del_set"] = {f"IsOpen({arg[0]})"}
+        info["cost"] = 3
         return info
 
 

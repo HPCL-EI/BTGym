@@ -94,6 +94,7 @@ class OptBTExpAlgorithm:
         self.start = None
         self.goal = None
         self.actions = None
+        self.min_cost = float ('inf')
 
         self.nodes = []
         self.cycles = 0
@@ -116,6 +117,7 @@ class OptBTExpAlgorithm:
         self.start = None
         self.goal = None
         self.actions = None
+        self.min_cost = float('inf')
 
         self.nodes = []
         self.cycles = 0
@@ -211,11 +213,12 @@ class OptBTExpAlgorithm:
             self.cycles += 1
 
             #  Find the condition for the shortest cost path
-            min_cost = float('inf')
-            current_pair  = heapq.heappop(self.nodes)
+            # min_cost = float('inf')
+            current_pair = heapq.heappop(self.nodes)
+            min_cost = current_pair.cond_leaf.min_cost
 
             if self.verbose:
-                print("\nSelecting condition node for expansion:", current_pair .cond_leaf.content)
+                print("\nSelecting condition node for expansion:", current_pair.cond_leaf.content)
 
             c = current_pair.cond_leaf.content
 
@@ -340,16 +343,18 @@ class OptBTExpAlgorithm:
 
         if len(goal) > 1:
             for g in goal:
-                bt_sel_tree, mincost = self.run_algorithm_selTree(start, g, actions)
-                subtree_with_costs_ls.append((bt_sel_tree, mincost))
+                bt_sel_tree, min_cost = self.run_algorithm_selTree(start, g, actions)
+                subtree_with_costs_ls.append((bt_sel_tree, min_cost))
             # 要排个序再一次add
             sorted_trees = sorted(subtree_with_costs_ls, key=lambda x: x[1])
             for tree, cost in sorted_trees:
                 subtree.add_child([tree.children[0]])
             self.bt.add_child([subtree])
+            self.min_cost = sorted_trees[0][1]
         else:
-            self.bt, mincost = self.run_algorithm_selTree(start, goal[0], actions, merge_time=merge_time)
-            print("min_cost:", mincost)
+            self.bt, min_cost = self.run_algorithm_selTree(start, goal[0], actions, merge_time=merge_time)
+            self.min_cost = min_cost
+            # print("min_cost:", mincost)
         return True
 
 

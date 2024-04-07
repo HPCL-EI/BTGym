@@ -19,6 +19,7 @@ class StandUp(VHAction):
         info["add"]={f"IsStanding(self)"}
         info["del_set"] = {f"IsSitting(self)"}
         info["del_set"] |= {f'IsSittingOn(self,{place})' for place in cls.SittablePlaces}
+        info["cost"] = 15
         return info
     def change_condition_set(self):
         self.agent.condition_set |= (self.info["add"])

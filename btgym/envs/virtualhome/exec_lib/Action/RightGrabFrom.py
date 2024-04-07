@@ -23,6 +23,7 @@ class RightGrabFrom(Grab):
         info["add"]={f"IsRightHolding(self,{arg[0]})","IsRightHandFull(self)"}
         info["del_set"] = {f"IsRightHandEmpty(self)"}
         info["del_set"] |= {f'IsIn({arg[0]},{place})' for place in cls.valid_args}
+        info["cost"] = 5
         return info
 
 

@@ -106,7 +106,7 @@ class OptBTExpAlgorithm:
         self.bt_without_merge = None
         self.subtree_count = 1
 
-        self.verbose = False
+        self.verbose = True
         self.bt_merge = False
         self.output_just_best = True
         self.merge_time=999999

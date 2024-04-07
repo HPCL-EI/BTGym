@@ -3,7 +3,8 @@ class Walk(VHAction):
     can_be_expanded = True
     num_args = 1
     # obj1 is reachable (not inside some closed container) or obj1 is a room.
-    valid_args = VHAction.SurfacePlaces | VHAction.SittablePlaces | VHAction.Objects | VHAction.CanPutInPlaces | VHAction.HasSwitchObjects
+    valid_args = VHAction.SurfacePlaces | VHAction.SittablePlaces | VHAction.Objects | \
+                 VHAction.CanPutInPlaces | VHAction.HasSwitchObjects | VHAction.SittablePlaces
     # valid_args = VHAction.HasSwitchObjects
 
 

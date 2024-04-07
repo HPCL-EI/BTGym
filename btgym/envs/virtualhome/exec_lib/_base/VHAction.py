@@ -6,25 +6,25 @@ class VHAction(Action):
     num_args = 1
 
 
-    SurfacePlaces = {"kitchentable","plate","nightstand","desk"} # put
-    SittablePlaces = set()  # sit
-    CanOpenPlaces= {"fridge","dishwasher","microwave"}  # open
-    CanPutInPlaces=CanOpenPlaces  # put in
-    Objects={"bananas",'chicken', 'breadslice','chips','chocolatesyrup',
-             'cupcake','milk','juice','wine',
-             'cutleryknife','fryingpan','dishbowl','plate',
-             'book',"waterglass"
-             }  # grab
-    HasSwitchObjects = {"tv","faucet","lightswitch","dishwasher","coffeemaker","toaster","microwave",
-                        "tablelamp","computer"}  # switch on #candle  cellphone wallphone washingmachine不行# faucet 浴室龙头
-
-    # SurfacePlaces = {"kitchentable"} # put
+    # SurfacePlaces = {"kitchentable","plate","nightstand","desk"} # put
     # SittablePlaces = set()  # sit
-    # CanOpenPlaces= {"microwave"}  # open
+    # CanOpenPlaces= {"fridge","dishwasher","microwave"}  # open
     # CanPutInPlaces=CanOpenPlaces  # put in
-    # Objects={'breadslice','chocolatesyrup','juice'
+    # Objects={"bananas",'chicken', 'breadslice','chips','chocolatesyrup',
+    #          'cupcake','milk','juice','wine',
+    #          'cutleryknife','fryingpan','dishbowl','plate',
+    #          'book',"waterglass"
     #          }  # grab
-    # HasSwitchObjects = {"microwave"}  # switch on #candle  cellphone wallphone washingmachine不行# faucet 浴室龙头
+    # HasSwitchObjects = {"tv","faucet","lightswitch","dishwasher","coffeemaker","toaster","microwave",
+    #                     "tablelamp","computer"}  # switch on #candle  cellphone wallphone washingmachine不行# faucet 浴室龙头
+
+    SurfacePlaces = {"bed"} # put
+    SittablePlaces = {"Toilet"}  # sit
+    CanOpenPlaces= {"Nightstand","box"}  # open
+    CanPutInPlaces=CanOpenPlaces  # put in
+    Objects={'towel'
+             }  # grab
+    HasSwitchObjects = {"wallphone",}  # switch on #candle cellphone wallphone washingmachine不行# faucet 浴室龙头
 
     @property
     def action_class_name(self):

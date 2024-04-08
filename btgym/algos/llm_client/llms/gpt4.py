@@ -23,5 +23,5 @@ class LLMGPT4():
 
 if __name__ == '__main__':
     llm = LLMGPT4()
-    answer = llm.request(question="are you gpt4?")
+    answer = llm.request(question="who are you ?")
     print(answer)

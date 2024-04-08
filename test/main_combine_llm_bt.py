@@ -25,22 +25,27 @@ with open(prompt_file, 'r', encoding="utf-8") as f:
 # print(prompt)
 
 # instuction = "Put the bowl in the dishwasher and wash it."
-instuction="Put the milk and chicken in the fridge."
-# instuction="Turn on the computer, TV, and lights, then put the bowl in the dishwasher and wash it"
+# instuction="Put the milk and chicken in the fridge."
+# # instuction="Put the milk or chicken in the fridge."
+# # instuction="Turn on the computer, TV, and lights, then put the bowl in the dishwasher and wash it"
+#
+# llm = LLMGPT3()
+# question = prompt+instuction
+# answer = llm.request(question=question)
+# print(answer)
+#
+# goal_str = answer.split("Actions:")[0].replace("Goals:", "").strip()
+# act_str = answer.split("Actions:")[1]
+#
+# goal_set = goal_transfer_str(goal_str)
+# priority_act_ls = act_str_process(act_str)
+#
+# print("goal",goal_set)
+# print("act:",priority_act_ls)
 
-llm = LLMGPT3()
-question = prompt+instuction
-answer = llm.request(question=question)
-print(answer)
 
-goal_str = answer.split("Actions:")[0].replace("Goals:", "").strip()
-act_str = answer.split("Actions:")[1]
-
-goal_set = goal_transfer_str(goal_str)
-priority_act_ls = act_str_process(act_str)
-
-print("goal",goal_set)
-print("act:",priority_act_ls)
+goal_set = [{}]
+priority_act_ls = []
 
 
 #todo: BTExp:process
@@ -56,7 +61,6 @@ cur_cond_set=env.agents[0].condition_set = {"IsSwitchedOff(tv)","IsSwitchedOff(f
                                }
 
 start_time = time.time()
-# priority_act_ls=[]
 algo = BTExpInterface(env.behavior_lib, cur_cond_set,priority_act_ls)
 ptml_string = algo.process(goal_set)
 end_time = time.time()

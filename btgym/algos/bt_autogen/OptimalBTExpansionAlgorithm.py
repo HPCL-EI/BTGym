@@ -94,7 +94,7 @@ class OptBTExpAlgorithm:
         self.start = None
         self.goal = None
         self.actions = None
-        self.min_cost = float ('inf')
+        self.min_cost = float('inf')
 
         self.nodes = []
         self.cycles = 0
@@ -107,7 +107,7 @@ class OptBTExpAlgorithm:
         self.bt_without_merge = None
         self.subtree_count = 1
 
-        self.verbose = True
+        self.verbose = False
         self.bt_merge = False
         self.output_just_best = True
         self.merge_time=999999

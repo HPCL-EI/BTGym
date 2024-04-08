@@ -46,10 +46,12 @@ process = subprocess.Popen(file_name, stdout=subprocess.PIPE, stderr=subprocess.
 
 # test
 script = [
-    '<char0> [walk] <apple> (1)',
-'<char0> [grab] <apple> (1)',
-    '<char0> [eat] <apple> (1)',
+'<char0> [walk] <washingmachine> (1)',
+    '<char0> [PlugIn] <washingmachine> (1)',
+    '<char0> [switchon] <washingmachine> (1)',
+
 ]
+
 
 
 
@@ -151,12 +153,14 @@ for no in env_g['nodes']:
 
 
 
-comm.add_character('Chars/Female1')
+# comm.add_character('Chars/Female1')
 # comm.add_character('Chars/Male1',initial_room="kitchen")
-# comm.add_character('Chars/Male1')
+comm.add_character('Chars/Male2')
 
 print('Generating video...')
 for script_instruction in script:
+    # success, message = comm.render_script([script_instruction], recording=True,frame_rate=10,camera_mode=["FIRST_PERSON"],find_solution=True) #AUTO FIRST_PERSON
+    # success, message = comm.render_script([script_instruction], recording=True,frame_rate=10,camera_mode=["AUTO"],find_solution=True) #AUTO FIRST_PERSON
     success, message = comm.render_script([script_instruction], recording=True,frame_rate=10,camera_mode=["PERSON_FROM_BACK"],find_solution=True) #AUTO FIRST_PERSON
 
     # 检查指令是否成功执行

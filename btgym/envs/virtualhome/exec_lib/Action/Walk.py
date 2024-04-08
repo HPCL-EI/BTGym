@@ -3,7 +3,8 @@ class Walk(VHAction):
     can_be_expanded = True
     num_args = 1
     # obj1 is reachable (not inside some closed container) or obj1 is a room.
-    valid_args = VHAction.SurfacePlaces | VHAction.SittablePlaces | VHAction.Objects | VHAction.CanPutInPlaces | VHAction.HasSwitchObjects
+    valid_args = VHAction.SurfacePlaces | VHAction.SittablePlaces | VHAction.Objects | \
+                 VHAction.CanPutInPlaces | VHAction.HasSwitchObjects | VHAction.SittablePlaces
     # valid_args = VHAction.HasSwitchObjects
 
 
@@ -17,6 +18,7 @@ class Walk(VHAction):
         info["pre"]={"IsStanding(self)"}
         info["add"]={f"IsNear(self,{arg[0]})"}
         info["del_set"] = {f'IsNear(self,{place})' for place in cls.valid_args if place != arg[0]}
+        info["cost"] = 15
         return info
 
     def change_condition_set(self):

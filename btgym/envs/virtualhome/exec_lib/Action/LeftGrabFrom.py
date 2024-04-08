@@ -22,6 +22,7 @@ class LeftGrabFrom(Grab):
         info["add"]={f"IsLeftHolding(self,{arg[0]})","IsLeftHandFull(self)"}
         info["del_set"] = {f"IsLeftHandEmpty(self)"}
         info["del_set"] |= {f'IsIn({arg[0]},{place})' for place in cls.valid_args}
+        info["cost"] = 5
         return info
 
 

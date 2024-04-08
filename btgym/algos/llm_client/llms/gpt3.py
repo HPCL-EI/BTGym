@@ -6,7 +6,7 @@ from openai import OpenAI
 class LLMGPT3():
     def __init__(self):
         self.client = OpenAI(
-            base_url="https://api.chatgptid.net/v1",            api_key="sk-l4DF0VWpNxibzbFBAaB94592518343988799DeEbC65cF6Ff"
+            base_url="https://api.chatgptid.net/v1",            api_key="sk-U3lHYdKBlISo2gssCa715e292bF5463bAb5898638eC3D0Ea"
         )
 
     def request(self,question):
@@ -23,5 +23,5 @@ class LLMGPT3():
 
 if __name__ == '__main__':
     llm = LLMGPT3()
-    answer = llm.request(question="who are you ?")
+    answer = llm.request(question="who are you,gpt?")
     print(answer)

@@ -9,7 +9,7 @@ from btgym.algos.bt_autogen.Action import Action,generate_random_state,state_tra
 
 
 # 本文所提出的完备规划算法
-class BTalgorithmDFS:
+class BTalgorithmBFS:
     def __init__(self,verbose=False):
         self.bt = None
         self.nodes = []
@@ -58,6 +58,8 @@ class BTalgorithmDFS:
             subtree.add_child([copy.deepcopy(c_node)])  # 子树首先保留所扩展结点
             c = c_node.content  # 子树所扩展结点对应的条件（一个文字的set）
 
+            tmp_nodes_ls=[]
+
             for i in range(0, len(actions)):  # 选择符合条件的行动，
                 # print("have action")
                 if not c & ((actions[i].pre | actions[i].add) - actions[i].del_set) <= set():
@@ -86,7 +88,12 @@ class BTalgorithmDFS:
                             # 将顺序结构添加到子树
                             subtree.add_child([sequence_structure])
 
-                            self.nodes.append(c_attr_node)
+                            tmp_nodes_ls.append(c_attr_node)
+                            # self.nodes.append(c_attr_node)
+
+            tmp_nodes_ls.extend(self.nodes)
+            self.nodes = tmp_nodes_ls
+
             # 将原条件结点c_node替换为扩展后子树subtree
             parent_of_c = c_node.parent
             parent_of_c.children[0] = subtree

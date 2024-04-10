@@ -1,12 +1,13 @@
 
 #叶结点
 class Leaf:
-    def __init__(self,type,content,min_cost=0):
+    def __init__(self,type,content,min_cost=0,trust_cost=0):
         self.type=type
         self.content=content #conditionset or action
         self.parent=None
         self.parent_index=0
         self.min_cost=min_cost
+        self.trust_cost=trust_cost
 
     # tick 叶节点，返回返回值以及对应的条件或行动对象self.content
     def tick(self,state):
@@ -20,6 +21,20 @@ class Leaf:
                 return 'running',self.content #action
             else:
                 return 'failure',self.content
+
+    def cost_tick(self,state,cost,ticks):
+        if self.type=='cond':
+            ticks+=1
+            if self.content <= state:
+                return 'success',self.content,cost,ticks
+            else:
+                return 'failure',self.content,cost,ticks
+        if self.type=='act':
+            ticks += 1
+            if self.content.pre<=state:
+                return 'running',self.content,cost+self.content.cost,ticks #action
+            else:
+                return 'failure',self.content,cost,ticks
 
     def __str__(self):
         print( self.content)
@@ -71,6 +86,34 @@ class ControlBT:
             return self.children[0].tick(state)
         if self.type =='cond':#条件结点
             return self.children[0].tick(state)
+
+    def cost_tick(self,state,cost,ticks):
+        if len(self.children) < 1:
+            print("error,no child")
+        if self.type =='?':#选择结点，即或结点
+            ticks += 1
+            for child in self.children:
+                ticks+=1
+                val,obj,cost,ticks=child.cost_tick(state,cost,ticks)
+                if val=='success':
+                    return val,obj,cost,ticks
+                if val=='running':
+                    return val,obj,cost,ticks
+            return 'failure','?fails',cost,ticks
+        if self.type =='>':#顺序结点，即与结点
+            for child in self.children:
+                # print("state:",state,"cost",cost)
+                ticks+=1
+                val,obj,cost,ticks=child.cost_tick(state,cost,ticks)
+                if val=='failure':
+                    return val,obj,cost,ticks
+                if val=='running':
+                    return val,obj,cost,ticks
+            return 'success', '>success',cost,ticks
+        if self.type =='act':#行动结点
+            return self.children[0].cost_tick(state,cost,ticks)
+        if self.type =='cond':#条件结点
+            return self.children[0].cost_tick(state,cost,ticks)
 
     def getFirstChild(self):
         return self.children[0]

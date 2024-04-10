@@ -12,6 +12,7 @@ class Action:
         self.del_set=copy.deepcopy(del_set)
         self.name=name
         self.cost=cost
+        self.priority = cost
         self.vaild_num=vaild_num
         self.vild_args = vild_args
 

@@ -1,35 +1,33 @@
 
 from btgym.algos.bt_autogen.Action import  Action,state_transition
 from btgym.algos.bt_autogen.OptimalBTExpansionAlgorithm import OptBTExpAlgorithm
-from btgym.algos.bt_autogen.BTExpansionAlgorithm import BTalgorithm # 调用最优行为树扩展算法
+from btgym.algos.bt_autogen.BTExpansionAlgorithm import BTalgorithm
+from btgym.algos.bt_autogen.BTExpansionAlgorithmBFS import BTalgorithmBFS
+from btgym.algos.bt_autogen.BTExpansionAlgorithmDFS import BTalgorithmDFS
+from btgym.algos.bt_autogen.OptimalBTExpansionAlgorithmHeuristics import OptBTExpAlgorithmHeuristics
 from btgym.algos.bt_autogen.examples import *
 
 
 # 封装好的主接口
 class BTExpInterface:
-    def __init__(self, behavior_lib,cur_cond_set,priority_act_ls=[],bt_algo_opt=True):
+    def __init__(self, behavior_lib,cur_cond_set,priority_act_ls=[],selected_algorithm="opt",bt_algo_opt=True):
         """
         Initialize the BTOptExpansion with a list of actions.
         :param action_list: A list of actions to be used in the behavior tree.
         """
-        # self.actions = []
-        # for act in action_list:
-        #     a = Action(name=act.name)
-        #     a.pre=act['pre']
-        #     a.add=act['add']
-        #     a.del_set= act['del_set']
-        #     a.cost = 1
-        #     self.actions.append(a)
+        self.cur_cond_set = cur_cond_set
+        self.bt_algo_opt = bt_algo_opt
+        self.selected_algorithm = selected_algorithm
+
 
         self.actions = collect_action_nodes(behavior_lib)
 
         self.priority_act_ls = priority_act_ls
-        self.actions = adjust_action_priority(self.actions,self.priority_act_ls)
+        self.actions = self.adjust_action_priority(self.actions,self.priority_act_ls,self.selected_algorithm)
 
         self.has_processed = False
 
-        self.cur_cond_set = cur_cond_set
-        self.bt_algo_opt = bt_algo_opt
+        self.min_cost=float("inf")
 
 
     def process(self, goal):
@@ -39,20 +37,42 @@ class BTExpInterface:
         :return: A btml string representing the outcome of the behavior tree.
         """
         self.goal = goal
-        if self.bt_algo_opt:
+        # if self.bt_algo_opt:
+        #     self.algo = OptBTExpAlgorithm(verbose=False)
+        # else:
+        #     self.algo = BTalgorithm(verbose=False)
+        if self.selected_algorithm=="opt":
             self.algo = OptBTExpAlgorithm(verbose=False)
+
+        elif self.selected_algorithm=="opt-h":
+            self.algo = OptBTExpAlgorithmHeuristics(verbose=False)
+        elif self.selected_algorithm=="bfs":
+            self.algo = BTalgorithmBFS(verbose=False)
+            # self.algo = BTalgorithm(verbose=False)
+        elif self.selected_algorithm=="dfs":
+            self.algo = BTalgorithmDFS(verbose=False)
         else:
-            self.algo = BTalgorithm(verbose=False)
+            print("Error in algorithm selection: This algorithm does not exist.")
 
         self.algo.clear()
         self.algo.run_algorithm(self.cur_cond_set,self.goal, self.actions) # 调用算法得到行为树保存至 algo.bt
 
 
-        self.btml_string = self.algo.get_btml()
+        # self.btml_string = self.algo.get_btml()
         self.has_processed = True
         # algo.print_solution() # print behavior tree
 
-        return self.btml_string
+        # return self.btml_string
+        return True
+
+    def post_process(self):
+        self.btml_string = self.algo.get_btml()
+        if self.selected_algorithm == "opt":
+            self.min_cost = self.algo.min_cost
+        else:
+            self.min_cost = self.algo.get_cost()
+        return self.btml_string,self.min_cost
+
 
     # 方法一：查找所有初始状态是否包含当前状态
     def find_all_leaf_states_contain_start(self,start):
@@ -90,6 +110,33 @@ class BTExpInterface:
         return right_bt
 
 
+    def adjust_action_priority(self,action_list,priority_act_ls,selected_algorithm):
+        # recommended_acts=["RightPutIn(bananas,fridge)",
+        #                   "Open(fridge)",
+        #                   "Walk(fridge)",
+        #                   "Close(fridge)",
+        #                   "RightGrab(bananas)",
+        #                   "Walk(bananas)"
+        #                   ]
+
+        recommended_acts = priority_act_ls
+
+        if selected_algorithm == "opt-h":
+            for act in action_list:
+                if act.name in recommended_acts:
+                    act.priority = 0
+        else:
+            for act in action_list:
+                if act.name in recommended_acts:
+                    act.cost=0
+                    act.priority=0
+
+        # 对action排序
+        action_list.sort(key=lambda x: x.cost)
+
+        return action_list
+
+
 def collect_action_nodes(behavior_lib):
     action_list = []
 
@@ -112,23 +159,6 @@ def collect_action_nodes(behavior_lib):
     print("--------------------\n")
 
     return action_list
-
-
-def adjust_action_priority(action_list,priority_act_ls):
-    # recommended_acts=["RightPutIn(bananas,fridge)",
-    #                   "Open(fridge)",
-    #                   "Walk(fridge)",
-    #                   "Close(fridge)",
-    #                   "RightGrab(bananas)",
-    #                   "Walk(bananas)"
-    #                   ]
-
-    recommended_acts = priority_act_ls
-    for act in action_list:
-        if act.name in recommended_acts:
-            act.cost=0
-    return action_list
-
 
 
 

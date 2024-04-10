@@ -164,18 +164,18 @@ class BTalgorithm:
         for child in parnode.children:
             if isinstance(child, Leaf):
 
-                if is_root and len(child.content) > 1:
-                    # 把多个 cond 串起来
-                    self.btml_string += " " * (level * 4) + "sequence\n"
-                    for c in child.content:
-                        self.btml_string += " " * ((level + 1) * 4) + "cond " + str(c) + "\n"
-
-                elif child.type == 'cond':
-                    # 直接添加cond及其内容，不需要特别处理根节点下多个cond的情况
-                    # self.btml_string += indent + "cond " + ', '.join(map(str, child.content)) + "\n"
-                    # 对每个条件独立添加，确保它们各占一行
-                    for c in child.content:
-                        self.btml_string += indent + "cond " + str(c) + "\n"
+                if child.type == 'cond':
+                    if not is_root and len(child.content) > 1:
+                        # 把多个 cond 串起来
+                        self.btml_string += " " * (level * 4) + "sequence\n"
+                        for c in child.content:
+                            self.btml_string += " " * ((level + 1) * 4) + "cond " + str(c) + "\n"
+                    else:
+                        # 直接添加cond及其内容，不需要特别处理根节点下多个cond的情况
+                        # self.btml_string += indent + "cond " + ', '.join(map(str, child.content)) + "\n"
+                        # 对每个条件独立添加，确保它们各占一行
+                        for c in child.content:
+                            self.btml_string += indent + "cond " + str(c) + "\n"
                 elif child.type == 'act':
                     # 直接添加act及其内容
                     self.btml_string += indent + 'act ' + child.content.name + "\n"

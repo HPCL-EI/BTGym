@@ -88,7 +88,7 @@ def check_conflict(conds):
                 break
     return False
 
-class OptBTExpAlgorithm:
+class OptBTExpAlgorithmHeuristics:
     def __init__(self, verbose=False):
         self.bt = None
         self.start = None
@@ -285,11 +285,11 @@ class OptBTExpAlgorithm:
                         #             break
 
                         if valid:
-                            c_attr_node = Leaf(type='cond', content=c_attr, min_cost=current_mincost + act.cost)
-                            a_attr_node = Leaf(type='act', content=act, min_cost=current_mincost + act.cost)
+                            # c_attr_node = Leaf(type='cond', content=c_attr, min_cost=current_mincost + act.cost)
+                            # a_attr_node = Leaf(type='act', content=act, min_cost=current_mincost + act.cost)
 
-                            # c_attr_node = Leaf(type='cond', content=c_attr, trust_cost=current_trust+act.cost ,min_cost=current_trust + act.priority)
-                            # a_attr_node = Leaf(type='act', content=act, trust_cost=current_trust+act.cost ,min_cost=current_trust + act.priority)
+                            c_attr_node = Leaf(type='cond', content=c_attr, trust_cost=current_trust+act.cost ,min_cost=current_trust + act.priority)
+                            a_attr_node = Leaf(type='act', content=act, trust_cost=current_trust+act.cost ,min_cost=current_trust + act.priority)
 
                             new_pair = CondActPair(cond_leaf=c_attr_node, act_leaf=a_attr_node)
                             heapq.heappush(self.nodes, new_pair)
@@ -301,8 +301,6 @@ class OptBTExpAlgorithm:
                             self.traversed_state_num += 1
                             # Put all action nodes that meet the conditions into the list
                             traversed_current.append(c_attr)
-
-
 
                             if self.verbose:
                                 print("———— -- Action={} meets conditions, new condition={}".format(act.name, c_attr))

@@ -1,0 +1,149 @@
+1.
+Instruction : Place the chicken on the kitchentable.
+Goals : IsOn_chicken_kitchentable
+Actions : Walk_chicken, RightGrab_chicken, Walk_kitchentable, RightPut_chicken_kitchentable
+
+2.
+Instruction: Grab the book from the desk and put it on the nightstand.
+Goals: IsOn_book_nightstand
+Actions: Walk_desk, RightGrab_book, Walk_nightstand, RightPut_book_nightstand
+
+3.
+Instruction: Put the bananas in the fridge.
+Goals: IsIn_bananas_fridge
+Actions: Walk_bananas, RightGrab_bananas, Walk_fridge, Open_fridge, RightPutIn_bananas_fridge, Close_fridge
+
+4.
+Instruction : Ensure the TV is off before going to sleep.
+Goals: IsSwitchedOff_TV
+Actions: Walk_TV, SwitchOff_TV
+
+5.
+Instruction: Place the dishbowl in the dishwasher.
+Goals: IsIn_dishbowl_dishwasher
+Actions: Walk_dishbowl, RightGrab_dishbowl, Walk_dishwasher, Open_dishwasher, RightPutIn_dishbowl_dishwasher, Close_dishwasher
+
+6.
+Instruction: Put the chicken into the microwave.
+Goals: IsIn_chicken_microwave
+Actions: Walk_chicken, RightGrab_chicken, Walk_microwave, Open_microwave, RightPutIn_chicken_microwave, Close_microwave
+
+7.
+Instruction: Take the juice and put it on kitchentable.
+Goals: IsOn_juice_kitchentable
+Actions: Walk_juice, RightGrab_juice, Walk_kitchentable, RightPut_juice
+
+8.
+Instruction: Switch on the tablelamp before going to bed.
+Goals: IsSwitchedOn_tablelamp
+Actions: Walk_tablelamp, SwitchOn_tablelamp
+
+9.
+Instruction: Take the plate, open the dishwasher and put the plate inside.
+Goals: IsIn_plate_dishwasher
+Actions: Walk plate, RightGrab_plate, Walk_dishwasher, Open_dishwasher,  RightPutIn_plate_dishwasher, Close_dishwasher
+
+10.
+Instruction: Take the chocolatesyrup and put it in the fridge.
+Goals: IsIn_chocolatesyrup_fridge
+Actions: Walk_chocolatesyrup, RightGrab_chocolatesyrup, Walk_fridge, Open_fridge, RightPutIn_chocolatesyrup_fridge, Close_fridge
+
+11.
+Instruction: Cook the chicken in the microwave by placing it inside and switching it on.
+Goals: IsIn_chicken_microwave & IsSwitchedOn_microwave
+Actions: Walk_chicken, RightGrab_chicken, Walk_microwave, Open_microwave, RightPutIn_chicken_microwave, Close_microwave, SwitchOn_microwave
+
+12.
+Instruction: Prepare breakfast by switching on the microwave and placing the breadslice in it.
+Goals: IsSwitchedOn_toaster & IsIn_breadslice_microwave
+Actions: Walk_microwave, SwitchOn_microwave, Walk_breadslice, RightGrab_breadslice, Walk_microwave, RightPutIn_breadslice_microwave
+
+13.
+Instruction: Turn off the TV and the table lamp before going to bed.
+Goals: IsSwitchedOff_tv & IsSwitchedOff_tablelamp
+Actions: Walk_tv, SwitchOff_tv, Walk_tablelamp, SwitchOff_tablelamp
+
+14.
+Instruction: Take the chicken and put it in the microwave, ensuring the microwave door is closed.
+Goals: IsOn_chicken_microwave & IsClose_microwave
+Actions: Walk_chicken, RightGrab_chicken, Walk_microwave, Open_microwave, RightPutIn_chicken_microwave, Close_microwave
+
+15.
+Instruction: Take the cupcake and the chocolatesyrup，place them on the kitchentable.
+Goals: IsOn_cupcake_kitchentable & IsOn_chocolatesyrup_kitchentable
+Actions: Walk_cupcake, RightGrab_cupcake, Walk_chocolatesyrup, LeftGrab_chocolatesyrup, Walk kitchentable，RightPut_cupcake, LeftPut_chocolatesyrup
+
+16.
+Instruction: Take the cupcake and put it on the plate, and put the plate on the kitchentable.
+Goals: IsOn_cupcake_plate & IsOn_plate_kitchentable
+Actions: Walk_cupcake, RightGrab_cupcake, RightPut cupcake_plate, RightGrab_plate, Walk kitchentable, RightPut plate
+
+17.
+Instruction: Place the milk in the microwave to heat up.
+Goals: IsIn_milk_microwave & IsSwitchedOn_microwave
+Actions: Walk_milk, RightGrab_milk, Walk_microwave, Open_microwave, RightPutIn_milk_microwave, SwitchOn_microwave
+
+18.
+Instruction: Put the milk in the fridge, and make sure the fridge door is closed.
+Goals: IsIn_milk_fridge & IsClose_fridge
+Actions: Walk_milk, RightGrab_milk, Walk_fridge, Open_fridge, RightPutIn_milk_fridge, Close_fridge
+
+19.
+Instruction: Place the chicken in the microwave, and then switch the microwave on to start cooking.
+Goals: IsIn_chicken_microwave & IsSwitchedOn_microwave
+Actions: Walk_chicken, RightGrab_chicken, Walk_microwave, Open_microwave, RightPutIn_chicken_microwave, Close_microwave, SwitchOn_microwave
+
+20.
+Instruction: Take the chocolate syrup and the breadslice and place them on a plate for a quick snack.
+Goals: IsOn breadslice kitchentable & IsOn_chocolatesyrup_kitchentable 
+Actions: Walk_chocolatesyrup, RightGrab_chocolatesyrup, Walk_breadslice, LeftGrab_breadslice, Walk_kitchentable, LeftPut_breadslice_kitchentable, RightPut_chocolatesyrup_kitchentable
+
+21.
+Instruction: Place the bananas, milk, and cupcake on the dining table, switch on the toaster and the TV.
+Goals: IsOn_bananas_kitchentable & IsOn_milk_kitchentable & IsOn_cupcake_kitchentable & IsSwitchedOn_toaster & IsSwitchedOn_tv
+Actions: Walk_bananas, RightPut_bananas_kitchentable, Walk_milk, RightPut_milk_kitchentable, Walk_cupcake, RightPut_cupcake_kitchentable, Walk_toaster, SwitchOn_toaster, Walk_tv, SwitchOn_tv
+
+22.
+Instruction: Switch on the light, place the book on the desk, and turn on the computer.
+Goals: IsSwitchedOn_lightswitch & IsOn_book_desk & IsSwitchedOn_computer
+Actions: Walk_lightswitch, SwitchOn_lightswitch, Walk_book, LeftGrab_book, Walk_desk, LeftPut_book_desk, Walk_computer, SwitchOn_computer
+
+23.
+Instruction: Place the book on the nightstand, turn off the computer, switch off the light, and turn on the desk lamp.
+Goals: IsOn_book_nightstand & IsSwitchedOff_computer & IsSwitchedOff_lightswitch & IsSwitchedOn_tablelamp
+Actions: Walk_book, LeftGrab_book, Walk_nightstand, LeftPut_book_nightstand, Walk_computer, SwitchOff_computer, Walk_lightswitch, SwitchOff_lightswitch, Walk_tablelamp, SwitchOn_tablelamp
+
+24.
+Instruction: Take the chicken out of the fridge, close the fridge, place the chicken on the plate, and put the plate in the microwave and start it.
+Goals: IsIn_chicken_fridge & IsClose_fridge & IsOn_chicken_plate & IsIn_plate_microwave & SwitchOn_microwave
+Actions: Walk_chicken, Open_fridge, RightGrab_chicken, Close_fridge, Walk_plate, RightPut_chicken_plate, Walk_microwave, RightPutIn_plate_microwave, SwitchOn_microwave
+
+25.
+Instruction: Turn on the light, place the chips and cupcake on the kitchentable, and turn on the TV.
+Goals: IsSwitchedOn_lightswitch & IsOn_chips_kitchentable & IsOn_cupcake_kitchentable & IsSwitchedOn_tv
+Actions: Walk_lightswitch, SwitchOn_lightswitch, Walk_chips, RightGrab_chips, Walk_kitchentable, RightPut_chips_kitchentable, Walk_cupcake, RightGrab_cupcake, Walk_kitchentable, RightPut_cupcake_kitchentable, Walk_tv, SwitchOn_tv
+
+26.
+Instruction: Place the bowl and plate in the dishwasher, and switch on the dishwasher and the coffee machine.
+Goals: IsIn_bowl_dishwasher & IsIn_plate_dishwasher & IsSwitchedOn_dishwasher & IsSwitchedOn_coffeemachine
+Actions: Walk_bowl, RightGrab_bowl, Walk_dishwasher, RightPutIn_bowl_dishwasher, Walk_plate, RightGrab_plate, Walk_dishwasher, RightPutIn_plate_dishwasher, SwitchedOn_dishwasher, Walk_coffeemachine, SwitchOn_coffeemachine
+
+27.
+Instruction: Bring the water glass to the faucet, turn on the faucet, turn off the faucet, and place the glass on the kitchentable.
+Goals: IsNear_waterglass_faucet & IsSwitchedOn_faucet & IsSwitchedOff_faucet & IsOn_waterglass_kitchentable
+Actions: Walk_waterglass, RightGrab_waterglass, Walk_faucet, SwitchedOn_faucet, SwitchedOff_faucet, Walk_kitchentable, RightPut_waterglass_kitchentable
+
+28.
+Instruction: Place the cupcake on the plate and carry it along with the milk to the kitchentable.
+Goals: IsOn_cupcake_plate & IsOn_milk_kitchentable & IsOn_plate_kitchentable
+Actions: Walk_cupcake, RightGrab_cupcake, Walk_plate, RightPut_cupcake_plate, LeftGrab_plate, Walk_milk, RightGrab_milk, Walk_kitchentable, LeftPut_plate, RightPut_milk
+
+29.
+Instruction: Place the wine, bread slices, and cutleryknife on the kitchentable, and put the banana in the fridge.
+Goals: IsOn_wine_kitchentable & IsOn_breadslices_kitchentable & IsOn_cutleryknife_kitchentable & IsIn_banana_fridge
+Actions: Walk_wine, RightGrab_wine, Walk_kitchentable, RightPut_wine_kitchentable, Walk_breadslices, RightGrab_breadslices, Walk_kitchentable, RightPut_breadslices_kitchentable, Walk_cutleryknife, RightGrab_cutleryknife, Walk_kitchentable, RightPut_cutleryknife_kitchentable, Walk_banana, LeftGrab_banana, Walk_fridge, Open_fridge, PutIn_banana_fridge, Close_fridge
+
+30.
+Instruction: Before going to bed, make sure all appliances are switched off, the faucet is closed, switch off the lightswitch.
+Goals: IsSwitchedOff_all_appliances & IsSwitchedOff_faucet & IsSwitchedOff_lightswitch
+Actions: Walk_to_all_appliances, SwitchOff_all_appliances, IsSwitchedOff_faucet, Walk_lightswitch, SwitchOff_lightswitch

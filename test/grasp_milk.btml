@@ -1,2581 +1,290 @@
 selector
-    cond IsIn(milk,fridge)
     sequence
-        selector
-            sequence
-                cond IsOpen(fridge)
-                cond IsNear(self,fridge)
-                cond IsRightHolding(self,milk)
-            sequence
-                selector
-                    sequence
-                        cond IsLeftHandEmpty(self)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,milk)
-                        cond IsClose(fridge)
-                    sequence
-                        selector
-                            sequence
-                                cond IsLeftHandEmpty(self)
-                                cond IsStanding(self)
-                                cond IsRightHolding(self,milk)
-                                cond IsClose(fridge)
-                            sequence
-                                selector
-                                    sequence
-                                        cond IsRightHandEmpty(self)
-                                        cond IsLeftHandEmpty(self)
-                                        cond IsClose(fridge)
-                                        cond IsNear(self,milk)
-                                        cond IsStanding(self)
-                                    sequence
-                                        sequence
-                                            cond IsRightHandEmpty(self)
-                                            cond IsLeftHandEmpty(self)
-                                            cond IsClose(fridge)
-                                            cond IsStanding(self)
-                                        act Walk(milk)
-                                act RightGrab(milk)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(fridge)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(milk)
-                            sequence
-                                sequence
-                                    cond IsNear(self,microwave)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsOpen(microwave)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act Close(microwave)
-                            sequence
-                                sequence
-                                    cond IsNear(self,dishwasher)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsOpen(dishwasher)
-                                    cond IsStanding(self)
-                                act Close(dishwasher)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsOpen(stove)
-                                    cond IsNear(self,stove)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act Close(stove)
-                            sequence
-                                sequence
-                                    cond IsNear(self,microwave)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsClose(microwave)
-                                act Open(microwave)
-                            sequence
-                                sequence
-                                    cond IsClose(dishwasher)
-                                    cond IsNear(self,dishwasher)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act Open(dishwasher)
-                            sequence
-                                sequence
-                                    cond IsClose(stove)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsNear(self,stove)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act Open(stove)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,nightstand)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,milk)
-                                    cond IsStanding(self)
-                                act LeftPut(milk,nightstand)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,cabinet)
-                                    cond IsLeftHolding(self,milk)
-                                    cond IsStanding(self)
-                                act LeftPut(milk,cabinet)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,plate)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,milk)
-                                    cond IsStanding(self)
-                                act LeftPut(milk,plate)
-                            sequence
-                                sequence
-                                    cond IsNear(self,kitchentable)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,milk)
-                                    cond IsStanding(self)
-                                act LeftPut(milk,kitchentable)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,desk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,milk)
-                                    cond IsStanding(self)
-                                act LeftPut(milk,desk)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,nightstand)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,plate)
-                                    cond IsStanding(self)
-                                act LeftPut(plate,nightstand)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,plate)
-                                    cond IsNear(self,cabinet)
-                                    cond IsStanding(self)
-                                act LeftPut(plate,cabinet)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,plate)
-                                    cond IsNear(self,plate)
-                                    cond IsStanding(self)
-                                act LeftPut(plate,plate)
-                            sequence
-                                sequence
-                                    cond IsNear(self,kitchentable)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,plate)
-                                    cond IsStanding(self)
-                                act LeftPut(plate,kitchentable)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,desk)
-                                    cond IsLeftHolding(self,plate)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPut(plate,desk)
-                            sequence
-                                sequence
-                                    cond IsLeftHolding(self,cupcake)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,nightstand)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPut(cupcake,nightstand)
-                            sequence
-                                sequence
-                                    cond IsLeftHolding(self,cupcake)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,cabinet)
-                                    cond IsStanding(self)
-                                act LeftPut(cupcake,cabinet)
-                            sequence
-                                sequence
-                                    cond IsLeftHolding(self,cupcake)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,plate)
-                                    cond IsStanding(self)
-                                act LeftPut(cupcake,plate)
-                            sequence
-                                sequence
-                                    cond IsLeftHolding(self,cupcake)
-                                    cond IsNear(self,kitchentable)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPut(cupcake,kitchentable)
-                            sequence
-                                sequence
-                                    cond IsLeftHolding(self,cupcake)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,desk)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPut(cupcake,desk)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,wine)
-                                    cond IsNear(self,nightstand)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPut(wine,nightstand)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,wine)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,cabinet)
-                                    cond IsStanding(self)
-                                act LeftPut(wine,cabinet)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,wine)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,plate)
-                                    cond IsStanding(self)
-                                act LeftPut(wine,plate)
-                            sequence
-                                sequence
-                                    cond IsNear(self,kitchentable)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,wine)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPut(wine,kitchentable)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,wine)
-                                    cond IsNear(self,desk)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPut(wine,desk)
-                            sequence
-                                sequence
-                                    cond IsLeftHolding(self,waterglass)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,nightstand)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPut(waterglass,nightstand)
-                            sequence
-                                sequence
-                                    cond IsLeftHolding(self,waterglass)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,cabinet)
-                                    cond IsStanding(self)
-                                act LeftPut(waterglass,cabinet)
-                            sequence
-                                sequence
-                                    cond IsLeftHolding(self,waterglass)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,plate)
-                                    cond IsStanding(self)
-                                act LeftPut(waterglass,plate)
-                            sequence
-                                sequence
-                                    cond IsLeftHolding(self,waterglass)
-                                    cond IsNear(self,kitchentable)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPut(waterglass,kitchentable)
-                            sequence
-                                sequence
-                                    cond IsLeftHolding(self,waterglass)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,desk)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPut(waterglass,desk)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,nightstand)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,cutleryknife)
-                                    cond IsStanding(self)
-                                act LeftPut(cutleryknife,nightstand)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,cutleryknife)
-                                    cond IsNear(self,cabinet)
-                                    cond IsStanding(self)
-                                act LeftPut(cutleryknife,cabinet)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,cutleryknife)
-                                    cond IsNear(self,plate)
-                                    cond IsStanding(self)
-                                act LeftPut(cutleryknife,plate)
-                            sequence
-                                sequence
-                                    cond IsNear(self,kitchentable)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,cutleryknife)
-                                    cond IsStanding(self)
-                                act LeftPut(cutleryknife,kitchentable)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,desk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,cutleryknife)
-                                    cond IsStanding(self)
-                                act LeftPut(cutleryknife,desk)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,chips)
-                                    cond IsNear(self,nightstand)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPut(chips,nightstand)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,chips)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,cabinet)
-                                    cond IsStanding(self)
-                                act LeftPut(chips,cabinet)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,chips)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,plate)
-                                    cond IsStanding(self)
-                                act LeftPut(chips,plate)
-                            sequence
-                                sequence
-                                    cond IsNear(self,kitchentable)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,chips)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPut(chips,kitchentable)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,chips)
-                                    cond IsNear(self,desk)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPut(chips,desk)
-                            sequence
-                                sequence
-                                    cond IsLeftHolding(self,breadslice)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,nightstand)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPut(breadslice,nightstand)
-                            sequence
-                                sequence
-                                    cond IsLeftHolding(self,breadslice)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,cabinet)
-                                    cond IsStanding(self)
-                                act LeftPut(breadslice,cabinet)
-                            sequence
-                                sequence
-                                    cond IsLeftHolding(self,breadslice)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,plate)
-                                    cond IsStanding(self)
-                                act LeftPut(breadslice,plate)
-                            sequence
-                                sequence
-                                    cond IsLeftHolding(self,breadslice)
-                                    cond IsNear(self,kitchentable)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPut(breadslice,kitchentable)
-                            sequence
-                                sequence
-                                    cond IsLeftHolding(self,breadslice)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,desk)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPut(breadslice,desk)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,nightstand)
-                                    cond IsLeftHolding(self,dishbowl)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPut(dishbowl,nightstand)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,dishbowl)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,cabinet)
-                                    cond IsStanding(self)
-                                act LeftPut(dishbowl,cabinet)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,dishbowl)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,plate)
-                                    cond IsStanding(self)
-                                act LeftPut(dishbowl,plate)
-                            sequence
-                                sequence
-                                    cond IsNear(self,kitchentable)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,dishbowl)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPut(dishbowl,kitchentable)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,dishbowl)
-                                    cond IsNear(self,desk)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPut(dishbowl,desk)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,nightstand)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,fryingpan)
-                                    cond IsStanding(self)
-                                act LeftPut(fryingpan,nightstand)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,cabinet)
-                                    cond IsLeftHolding(self,fryingpan)
-                                    cond IsStanding(self)
-                                act LeftPut(fryingpan,cabinet)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,plate)
-                                    cond IsLeftHolding(self,fryingpan)
-                                    cond IsStanding(self)
-                                act LeftPut(fryingpan,plate)
-                            sequence
-                                sequence
-                                    cond IsNear(self,kitchentable)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,fryingpan)
-                                    cond IsStanding(self)
-                                act LeftPut(fryingpan,kitchentable)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,desk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,fryingpan)
-                                    cond IsStanding(self)
-                                act LeftPut(fryingpan,desk)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,nightstand)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,chocolatesyrup)
-                                    cond IsStanding(self)
-                                act LeftPut(chocolatesyrup,nightstand)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,chocolatesyrup)
-                                    cond IsNear(self,cabinet)
-                                    cond IsStanding(self)
-                                act LeftPut(chocolatesyrup,cabinet)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,chocolatesyrup)
-                                    cond IsNear(self,plate)
-                                    cond IsStanding(self)
-                                act LeftPut(chocolatesyrup,plate)
-                            sequence
-                                sequence
-                                    cond IsNear(self,kitchentable)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,chocolatesyrup)
-                                    cond IsStanding(self)
-                                act LeftPut(chocolatesyrup,kitchentable)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,desk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,chocolatesyrup)
-                                    cond IsStanding(self)
-                                act LeftPut(chocolatesyrup,desk)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,nightstand)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,chicken)
-                                    cond IsStanding(self)
-                                act LeftPut(chicken,nightstand)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,cabinet)
-                                    cond IsLeftHolding(self,chicken)
-                                    cond IsStanding(self)
-                                act LeftPut(chicken,cabinet)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,plate)
-                                    cond IsLeftHolding(self,chicken)
-                                    cond IsStanding(self)
-                                act LeftPut(chicken,plate)
-                            sequence
-                                sequence
-                                    cond IsNear(self,kitchentable)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,chicken)
-                                    cond IsStanding(self)
-                                act LeftPut(chicken,kitchentable)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,desk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,chicken)
-                                    cond IsStanding(self)
-                                act LeftPut(chicken,desk)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,nightstand)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsLeftHolding(self,book)
-                                act LeftPut(book,nightstand)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,cabinet)
-                                    cond IsStanding(self)
-                                    cond IsLeftHolding(self,book)
-                                act LeftPut(book,cabinet)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,plate)
-                                    cond IsStanding(self)
-                                    cond IsLeftHolding(self,book)
-                                act LeftPut(book,plate)
-                            sequence
-                                sequence
-                                    cond IsNear(self,kitchentable)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsLeftHolding(self,book)
-                                act LeftPut(book,kitchentable)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,desk)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsLeftHolding(self,book)
-                                act LeftPut(book,desk)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,nightstand)
-                                    cond IsLeftHolding(self,juice)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPut(juice,nightstand)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,juice)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,cabinet)
-                                    cond IsStanding(self)
-                                act LeftPut(juice,cabinet)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,juice)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,plate)
-                                    cond IsStanding(self)
-                                act LeftPut(juice,plate)
-                            sequence
-                                sequence
-                                    cond IsNear(self,kitchentable)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,juice)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPut(juice,kitchentable)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,juice)
-                                    cond IsNear(self,desk)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPut(juice,desk)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,nightstand)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,bananas)
-                                    cond IsStanding(self)
-                                act LeftPut(bananas,nightstand)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,bananas)
-                                    cond IsNear(self,cabinet)
-                                    cond IsStanding(self)
-                                act LeftPut(bananas,cabinet)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,bananas)
-                                    cond IsNear(self,plate)
-                                    cond IsStanding(self)
-                                act LeftPut(bananas,plate)
-                            sequence
-                                sequence
-                                    cond IsNear(self,kitchentable)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,bananas)
-                                    cond IsStanding(self)
-                                act LeftPut(bananas,kitchentable)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsNear(self,desk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,bananas)
-                                    cond IsStanding(self)
-                                act LeftPut(bananas,desk)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsNear(self,tv)
-                                    cond IsSwitchedOn(tv)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act SwitchOff(tv)
-                            sequence
-                                sequence
-                                    cond IsSwitchedOn(microwave)
-                                    cond IsNear(self,microwave)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act SwitchOff(microwave)
-                            sequence
-                                sequence
-                                    cond IsNear(self,faucet)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsSwitchedOn(faucet)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act SwitchOff(faucet)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsSwitchedOn(coffeemaker)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,coffeemaker)
-                                    cond IsStanding(self)
-                                act SwitchOff(coffeemaker)
-                            sequence
-                                sequence
-                                    cond IsNear(self,dishwasher)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsSwitchedOn(dishwasher)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act SwitchOff(dishwasher)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,lightswitch)
-                                    cond IsSwitchedOn(lightswitch)
-                                    cond IsStanding(self)
-                                act SwitchOff(lightswitch)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsSwitchedOn(tablelamp)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,tablelamp)
-                                    cond IsStanding(self)
-                                act SwitchOff(tablelamp)
-                            sequence
-                                sequence
-                                    cond IsSwitchedOn(computer)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,computer)
-                                    cond IsStanding(self)
-                                act SwitchOff(computer)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsSwitchedOn(toaster)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,toaster)
-                                    cond IsStanding(self)
-                                act SwitchOff(toaster)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsNear(self,tv)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsSwitchedOff(tv)
-                                act SwitchOn(tv)
-                            sequence
-                                sequence
-                                    cond IsNear(self,microwave)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsSwitchedOff(microwave)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act SwitchOn(microwave)
-                            sequence
-                                sequence
-                                    cond IsNear(self,faucet)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsSwitchedOff(faucet)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act SwitchOn(faucet)
-                            sequence
-                                sequence
-                                    cond IsSwitchedOff(coffeemaker)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,coffeemaker)
-                                    cond IsStanding(self)
-                                act SwitchOn(coffeemaker)
-                            sequence
-                                sequence
-                                    cond IsNear(self,dishwasher)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsSwitchedOff(dishwasher)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act SwitchOn(dishwasher)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsSwitchedOff(lightswitch)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,lightswitch)
-                                    cond IsStanding(self)
-                                act SwitchOn(lightswitch)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsSwitchedOff(tablelamp)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,tablelamp)
-                                    cond IsStanding(self)
-                                act SwitchOn(tablelamp)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsSwitchedOff(computer)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,computer)
-                                    cond IsStanding(self)
-                                act SwitchOn(computer)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsSwitchedOff(toaster)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsNear(self,toaster)
-                                    cond IsStanding(self)
-                                act SwitchOn(toaster)
-                            sequence
-                                sequence
-                                    cond IsNear(self,microwave)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(microwave)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,milk)
-                                    cond IsStanding(self)
-                                act LeftPutIn(milk,microwave)
-                            sequence
-                                sequence
-                                    cond IsNear(self,dishwasher)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,milk)
-                                    cond IsOpen(dishwasher)
-                                    cond IsStanding(self)
-                                act LeftPutIn(milk,dishwasher)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(stove)
-                                    cond IsNear(self,stove)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,milk)
-                                    cond IsStanding(self)
-                                act LeftPutIn(milk,stove)
-                            sequence
-                                sequence
-                                    cond IsNear(self,microwave)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(microwave)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,plate)
-                                    cond IsStanding(self)
-                                act LeftPutIn(plate,microwave)
-                            sequence
-                                sequence
-                                    cond IsNear(self,dishwasher)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,plate)
-                                    cond IsOpen(dishwasher)
-                                    cond IsStanding(self)
-                                act LeftPutIn(plate,dishwasher)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(stove)
-                                    cond IsNear(self,stove)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,plate)
-                                    cond IsStanding(self)
-                                act LeftPutIn(plate,stove)
-                            sequence
-                                sequence
-                                    cond IsNear(self,microwave)
-                                    cond IsLeftHolding(self,cupcake)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(microwave)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPutIn(cupcake,microwave)
-                            sequence
-                                sequence
-                                    cond IsLeftHolding(self,cupcake)
-                                    cond IsNear(self,dishwasher)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsOpen(dishwasher)
-                                    cond IsStanding(self)
-                                act LeftPutIn(cupcake,dishwasher)
-                            sequence
-                                sequence
-                                    cond IsLeftHolding(self,cupcake)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(stove)
-                                    cond IsNear(self,stove)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPutIn(cupcake,stove)
-                            sequence
-                                sequence
-                                    cond IsNear(self,microwave)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,wine)
-                                    cond IsOpen(microwave)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPutIn(wine,microwave)
-                            sequence
-                                sequence
-                                    cond IsNear(self,dishwasher)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,wine)
-                                    cond IsClose(fridge)
-                                    cond IsOpen(dishwasher)
-                                    cond IsStanding(self)
-                                act LeftPutIn(wine,dishwasher)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,wine)
-                                    cond IsOpen(stove)
-                                    cond IsNear(self,stove)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPutIn(wine,stove)
-                            sequence
-                                sequence
-                                    cond IsNear(self,microwave)
-                                    cond IsLeftHolding(self,waterglass)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(microwave)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPutIn(waterglass,microwave)
-                            sequence
-                                sequence
-                                    cond IsNear(self,dishwasher)
-                                    cond IsLeftHolding(self,waterglass)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsOpen(dishwasher)
-                                    cond IsStanding(self)
-                                act LeftPutIn(waterglass,dishwasher)
-                            sequence
-                                sequence
-                                    cond IsLeftHolding(self,waterglass)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(stove)
-                                    cond IsNear(self,stove)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPutIn(waterglass,stove)
-                            sequence
-                                sequence
-                                    cond IsNear(self,microwave)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(microwave)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,cutleryknife)
-                                    cond IsStanding(self)
-                                act LeftPutIn(cutleryknife,microwave)
-                            sequence
-                                sequence
-                                    cond IsNear(self,dishwasher)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,cutleryknife)
-                                    cond IsOpen(dishwasher)
-                                    cond IsStanding(self)
-                                act LeftPutIn(cutleryknife,dishwasher)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(stove)
-                                    cond IsNear(self,stove)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,cutleryknife)
-                                    cond IsStanding(self)
-                                act LeftPutIn(cutleryknife,stove)
-                            sequence
-                                sequence
-                                    cond IsNear(self,microwave)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,chips)
-                                    cond IsOpen(microwave)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPutIn(chips,microwave)
-                            sequence
-                                sequence
-                                    cond IsNear(self,dishwasher)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,chips)
-                                    cond IsClose(fridge)
-                                    cond IsOpen(dishwasher)
-                                    cond IsStanding(self)
-                                act LeftPutIn(chips,dishwasher)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,chips)
-                                    cond IsOpen(stove)
-                                    cond IsNear(self,stove)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPutIn(chips,stove)
-                            sequence
-                                sequence
-                                    cond IsLeftHolding(self,breadslice)
-                                    cond IsNear(self,microwave)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(microwave)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPutIn(breadslice,microwave)
-                            sequence
-                                sequence
-                                    cond IsLeftHolding(self,breadslice)
-                                    cond IsNear(self,dishwasher)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsOpen(dishwasher)
-                                    cond IsStanding(self)
-                                act LeftPutIn(breadslice,dishwasher)
-                            sequence
-                                sequence
-                                    cond IsLeftHolding(self,breadslice)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(stove)
-                                    cond IsNear(self,stove)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPutIn(breadslice,stove)
-                            sequence
-                                sequence
-                                    cond IsNear(self,microwave)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,dishbowl)
-                                    cond IsOpen(microwave)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPutIn(dishbowl,microwave)
-                            sequence
-                                sequence
-                                    cond IsNear(self,dishwasher)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,dishbowl)
-                                    cond IsClose(fridge)
-                                    cond IsOpen(dishwasher)
-                                    cond IsStanding(self)
-                                act LeftPutIn(dishbowl,dishwasher)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(stove)
-                                    cond IsLeftHolding(self,dishbowl)
-                                    cond IsNear(self,stove)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPutIn(dishbowl,stove)
-                            sequence
-                                sequence
-                                    cond IsNear(self,microwave)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(microwave)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,fryingpan)
-                                    cond IsStanding(self)
-                                act LeftPutIn(fryingpan,microwave)
-                            sequence
-                                sequence
-                                    cond IsNear(self,dishwasher)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,fryingpan)
-                                    cond IsClose(fridge)
-                                    cond IsOpen(dishwasher)
-                                    cond IsStanding(self)
-                                act LeftPutIn(fryingpan,dishwasher)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(stove)
-                                    cond IsNear(self,stove)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,fryingpan)
-                                    cond IsStanding(self)
-                                act LeftPutIn(fryingpan,stove)
-                            sequence
-                                sequence
-                                    cond IsNear(self,microwave)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(microwave)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,chocolatesyrup)
-                                    cond IsStanding(self)
-                                act LeftPutIn(chocolatesyrup,microwave)
-                            sequence
-                                sequence
-                                    cond IsNear(self,dishwasher)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,chocolatesyrup)
-                                    cond IsOpen(dishwasher)
-                                    cond IsStanding(self)
-                                act LeftPutIn(chocolatesyrup,dishwasher)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(stove)
-                                    cond IsNear(self,stove)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,chocolatesyrup)
-                                    cond IsStanding(self)
-                                act LeftPutIn(chocolatesyrup,stove)
-                            sequence
-                                sequence
-                                    cond IsNear(self,microwave)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(microwave)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,chicken)
-                                    cond IsStanding(self)
-                                act LeftPutIn(chicken,microwave)
-                            sequence
-                                sequence
-                                    cond IsNear(self,dishwasher)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(dishwasher)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,chicken)
-                                    cond IsStanding(self)
-                                act LeftPutIn(chicken,dishwasher)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(stove)
-                                    cond IsNear(self,stove)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,chicken)
-                                    cond IsStanding(self)
-                                act LeftPutIn(chicken,stove)
-                            sequence
-                                sequence
-                                    cond IsNear(self,microwave)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(microwave)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsLeftHolding(self,book)
-                                act LeftPutIn(book,microwave)
-                            sequence
-                                sequence
-                                    cond IsNear(self,dishwasher)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsOpen(dishwasher)
-                                    cond IsStanding(self)
-                                    cond IsLeftHolding(self,book)
-                                act LeftPutIn(book,dishwasher)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(stove)
-                                    cond IsNear(self,stove)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsLeftHolding(self,book)
-                                act LeftPutIn(book,stove)
-                            sequence
-                                sequence
-                                    cond IsNear(self,microwave)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,juice)
-                                    cond IsOpen(microwave)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPutIn(juice,microwave)
-                            sequence
-                                sequence
-                                    cond IsNear(self,dishwasher)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,juice)
-                                    cond IsClose(fridge)
-                                    cond IsOpen(dishwasher)
-                                    cond IsStanding(self)
-                                act LeftPutIn(juice,dishwasher)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsLeftHolding(self,juice)
-                                    cond IsOpen(stove)
-                                    cond IsNear(self,stove)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                act LeftPutIn(juice,stove)
-                            sequence
-                                sequence
-                                    cond IsNear(self,microwave)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(microwave)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,bananas)
-                                    cond IsStanding(self)
-                                act LeftPutIn(bananas,microwave)
-                            sequence
-                                sequence
-                                    cond IsNear(self,dishwasher)
-                                    cond IsRightHolding(self,milk)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,bananas)
-                                    cond IsOpen(dishwasher)
-                                    cond IsStanding(self)
-                                act LeftPutIn(bananas,dishwasher)
-                            sequence
-                                sequence
-                                    cond IsRightHolding(self,milk)
-                                    cond IsOpen(stove)
-                                    cond IsNear(self,stove)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,bananas)
-                                    cond IsStanding(self)
-                                act LeftPutIn(bananas,stove)
-                            sequence
-                                sequence
-                                    cond IsSitting(self)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsRightHolding(self,milk)
-                                act StandUp()
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(dishwasher)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(cutleryknife)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(computer)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(toaster)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(desk)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(stove)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(tv)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(nightstand)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(cabinet)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(coffeemaker)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(kitchentable)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(waterglass)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(lightswitch)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(chips)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(bed)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(chocolatesyrup)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(chair)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(breadslice)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(wine)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(tablelamp)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(fryingpan)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(juice)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(bananas)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(sofa)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(microwave)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(plate)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(faucet)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(dishbowl)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(chicken)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(book)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(Bench)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsStanding(self)
-                                    cond IsRightHolding(self,milk)
-                                act Walk(cupcake)
-                        act Walk(fridge)
-                act Open(fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsStanding(self)
-                        cond IsRightHolding(self,milk)
-                    sequence
-                        selector
-                            sequence
-                                cond IsRightHandEmpty(self)
-                                cond IsOpen(fridge)
-                                cond IsStanding(self)
-                                cond IsNear(self,milk)
-                            sequence
-                                sequence
-                                    cond IsRightHandEmpty(self)
-                                    cond IsOpen(fridge)
-                                    cond IsStanding(self)
-                                act Walk(milk)
-                            sequence
-                                sequence
-                                    cond IsRightHandEmpty(self)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsOpen(fridge)
-                                    cond IsNear(self,milk)
-                                    cond IsStanding(self)
-                                act LeftGrab(milk)
-                            sequence
-                                sequence
-                                    cond IsSitting(self)
-                                    cond IsRightHandEmpty(self)
-                                    cond IsOpen(fridge)
-                                    cond IsNear(self,milk)
-                                act StandUp()
-                        act RightGrab(milk)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(fridge)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(milk)
-                    sequence
-                        selector
-                            sequence
-                                cond IsSitting(self)
-                                cond IsOpen(fridge)
-                                cond IsRightHolding(self,milk)
-                            sequence
-                                sequence
-                                    cond IsSitting(self)
-                                    cond IsRightHandEmpty(self)
-                                    cond IsOpen(fridge)
-                                    cond IsNear(self,milk)
-                                act RightGrab(milk)
-                        act StandUp()
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(dishwasher)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(cutleryknife)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(computer)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(toaster)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(desk)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(stove)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(tv)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(nightstand)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(cabinet)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(coffeemaker)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(kitchentable)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(waterglass)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(lightswitch)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(chips)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(bed)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(chocolatesyrup)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(chair)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(breadslice)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(wine)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(tablelamp)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(fryingpan)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(juice)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(bananas)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(sofa)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(microwave)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(plate)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(faucet)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(dishbowl)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(chicken)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(book)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(Bench)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsStanding(self)
-                            cond IsRightHolding(self,milk)
-                        act Walk(cupcake)
-                act Walk(fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,milk)
-                act LeftPutIn(milk,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,plate)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,milk)
-                act LeftPutIn(plate,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,cupcake)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,milk)
-                act LeftPutIn(cupcake,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,milk)
-                        cond IsLeftHolding(self,wine)
-                act LeftPutIn(wine,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,waterglass)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,milk)
-                act LeftPutIn(waterglass,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsLeftHolding(self,cutleryknife)
-                        cond IsOpen(fridge)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,milk)
-                act LeftPutIn(cutleryknife,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,milk)
-                        cond IsLeftHolding(self,chips)
-                act LeftPutIn(chips,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsLeftHolding(self,breadslice)
-                        cond IsOpen(fridge)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,milk)
-                act LeftPutIn(breadslice,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsRightHolding(self,milk)
-                        cond IsNear(self,fridge)
-                        cond IsLeftHolding(self,dishbowl)
-                act LeftPutIn(dishbowl,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsNear(self,fridge)
-                        cond IsLeftHolding(self,fryingpan)
-                        cond IsRightHolding(self,milk)
-                act LeftPutIn(fryingpan,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsLeftHolding(self,chocolatesyrup)
-                        cond IsOpen(fridge)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,milk)
-                act LeftPutIn(chocolatesyrup,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsNear(self,fridge)
-                        cond IsLeftHolding(self,chicken)
-                        cond IsRightHolding(self,milk)
-                act LeftPutIn(chicken,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsRightHolding(self,milk)
-                        cond IsNear(self,fridge)
-                        cond IsLeftHolding(self,book)
-                act LeftPutIn(book,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,juice)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,milk)
-                act LeftPutIn(juice,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsNear(self,fridge)
-                        cond IsLeftHolding(self,bananas)
-                        cond IsRightHolding(self,milk)
-                act LeftPutIn(bananas,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsRightHolding(self,plate)
-                        cond IsOpen(fridge)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,milk)
-                act RightPutIn(plate,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,cupcake)
-                        cond IsRightHolding(self,milk)
-                act RightPutIn(cupcake,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,wine)
-                        cond IsRightHolding(self,milk)
-                act RightPutIn(wine,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsRightHolding(self,waterglass)
-                        cond IsNear(self,fridge)
-                        cond IsOpen(fridge)
-                        cond IsRightHolding(self,milk)
-                act RightPutIn(waterglass,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,cutleryknife)
-                        cond IsRightHolding(self,milk)
-                act RightPutIn(cutleryknife,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,chips)
-                        cond IsRightHolding(self,milk)
-                act RightPutIn(chips,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsRightHolding(self,breadslice)
-                        cond IsOpen(fridge)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,milk)
-                act RightPutIn(breadslice,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsRightHolding(self,dishbowl)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,milk)
-                act RightPutIn(dishbowl,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsRightHolding(self,fryingpan)
-                        cond IsNear(self,fridge)
-                        cond IsOpen(fridge)
-                        cond IsRightHolding(self,milk)
-                act RightPutIn(fryingpan,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsRightHolding(self,chocolatesyrup)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,milk)
-                act RightPutIn(chocolatesyrup,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsRightHolding(self,chicken)
-                        cond IsOpen(fridge)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,milk)
-                act RightPutIn(chicken,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,book)
-                        cond IsRightHolding(self,milk)
-                act RightPutIn(book,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,juice)
-                        cond IsRightHolding(self,milk)
-                act RightPutIn(juice,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsRightHolding(self,bananas)
-                        cond IsNear(self,fridge)
-                        cond IsOpen(fridge)
-                        cond IsRightHolding(self,milk)
-                act RightPutIn(bananas,fridge)
+        cond IsIn(milk,fridge)
+        cond IsClose(fridge)
+        cond IsIn(chicken,fridge)
+    sequence
+        cond IsOpen(fridge)
+        cond IsIn(chicken,fridge)
+        cond IsLeftHandEmpty(self)
+        cond IsNear(self,fridge)
+        cond IsIn(milk,fridge)
+        act Close(fridge)
+    sequence
+        cond IsOpen(fridge)
+        cond IsIn(chicken,fridge)
+        cond IsRightHolding(self,milk)
+        cond IsLeftHandEmpty(self)
+        cond IsNear(self,fridge)
         act RightPutIn(milk,fridge)
     sequence
-        selector
-            sequence
-                cond IsOpen(fridge)
-                cond IsLeftHolding(self,milk)
-                cond IsNear(self,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsStanding(self)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(fridge)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(milk)
-                    sequence
-                        selector
-                            sequence
-                                cond IsOpen(fridge)
-                                cond IsLeftHandEmpty(self)
-                                cond IsStanding(self)
-                                cond IsNear(self,milk)
-                            sequence
-                                sequence
-                                    cond IsOpen(fridge)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsStanding(self)
-                                act Walk(milk)
-                            sequence
-                                sequence
-                                    cond IsSitting(self)
-                                    cond IsOpen(fridge)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsNear(self,milk)
-                                act StandUp()
-                        act LeftGrab(milk)
-                    sequence
-                        selector
-                            sequence
-                                cond IsSitting(self)
-                                cond IsOpen(fridge)
-                                cond IsLeftHolding(self,milk)
-                            sequence
-                                sequence
-                                    cond IsSitting(self)
-                                    cond IsOpen(fridge)
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsNear(self,milk)
-                                act LeftGrab(milk)
-                        act StandUp()
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(dishwasher)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(cutleryknife)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(computer)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(toaster)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(desk)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(stove)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(tv)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(nightstand)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(cabinet)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(coffeemaker)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(kitchentable)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(waterglass)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(lightswitch)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(chips)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(bed)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(chocolatesyrup)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(chair)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(breadslice)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(wine)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(tablelamp)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(fryingpan)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(juice)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(bananas)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(sofa)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(microwave)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(plate)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(faucet)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(dishbowl)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(chicken)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(book)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(Bench)
-                    sequence
-                        sequence
-                            cond IsOpen(fridge)
-                            cond IsLeftHolding(self,milk)
-                            cond IsStanding(self)
-                        act Walk(cupcake)
-                act Walk(fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsLeftHolding(self,plate)
-                        cond IsNear(self,fridge)
-                act LeftPutIn(plate,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsLeftHolding(self,cupcake)
-                        cond IsNear(self,fridge)
-                act LeftPutIn(cupcake,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                        cond IsLeftHolding(self,wine)
-                act LeftPutIn(wine,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsLeftHolding(self,waterglass)
-                        cond IsNear(self,fridge)
-                act LeftPutIn(waterglass,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsLeftHolding(self,cutleryknife)
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                act LeftPutIn(cutleryknife,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                        cond IsLeftHolding(self,chips)
-                act LeftPutIn(chips,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsLeftHolding(self,breadslice)
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                act LeftPutIn(breadslice,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                        cond IsLeftHolding(self,dishbowl)
-                act LeftPutIn(dishbowl,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                        cond IsLeftHolding(self,fryingpan)
-                act LeftPutIn(fryingpan,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                        cond IsLeftHolding(self,chocolatesyrup)
-                act LeftPutIn(chocolatesyrup,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                        cond IsLeftHolding(self,chicken)
-                act LeftPutIn(chicken,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                        cond IsLeftHolding(self,book)
-                act LeftPutIn(book,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,juice)
-                        cond IsNear(self,fridge)
-                        cond IsLeftHolding(self,milk)
-                act LeftPutIn(juice,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                        cond IsLeftHolding(self,bananas)
-                act LeftPutIn(bananas,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsRightHolding(self,plate)
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                act RightPutIn(plate,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,cupcake)
-                act RightPutIn(cupcake,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,wine)
-                    sequence
-                        selector
-                            sequence
-                                cond IsLeftHandEmpty(self)
-                                cond IsClose(fridge)
-                                cond IsRightHolding(self,wine)
-                                cond IsLeftHolding(self,milk)
-                                cond IsNear(self,fridge)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsRightHolding(self,wine)
-                                    cond IsLeftHolding(self,milk)
-                                    cond IsStanding(self)
-                                act Walk(fridge)
-                        act Open(fridge)
-                act RightPutIn(wine,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsRightHolding(self,waterglass)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                        cond IsOpen(fridge)
-                    sequence
-                        selector
-                            sequence
-                                cond IsLeftHandEmpty(self)
-                                cond IsRightHolding(self,waterglass)
-                                cond IsClose(fridge)
-                                cond IsLeftHolding(self,milk)
-                                cond IsNear(self,fridge)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsRightHolding(self,waterglass)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,milk)
-                                    cond IsStanding(self)
-                                act Walk(fridge)
-                        act Open(fridge)
-                act RightPutIn(waterglass,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,cutleryknife)
-                    sequence
-                        selector
-                            sequence
-                                cond IsLeftHandEmpty(self)
-                                cond IsClose(fridge)
-                                cond IsRightHolding(self,cutleryknife)
-                                cond IsLeftHolding(self,milk)
-                                cond IsNear(self,fridge)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsClose(fridge)
-                                    cond IsRightHolding(self,cutleryknife)
-                                    cond IsLeftHolding(self,milk)
-                                    cond IsStanding(self)
-                                act Walk(fridge)
-                        act Open(fridge)
-                act RightPutIn(cutleryknife,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,chips)
-                    sequence
-                        selector
-                            sequence
-                                cond IsLeftHandEmpty(self)
-                                cond IsRightHolding(self,chips)
-                                cond IsClose(fridge)
-                                cond IsLeftHolding(self,milk)
-                                cond IsNear(self,fridge)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsRightHolding(self,chips)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,milk)
-                                    cond IsStanding(self)
-                                act Walk(fridge)
-                        act Open(fridge)
-                act RightPutIn(chips,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsRightHolding(self,breadslice)
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                    sequence
-                        selector
-                            sequence
-                                cond IsLeftHandEmpty(self)
-                                cond IsRightHolding(self,breadslice)
-                                cond IsClose(fridge)
-                                cond IsLeftHolding(self,milk)
-                                cond IsNear(self,fridge)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsRightHolding(self,breadslice)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,milk)
-                                    cond IsStanding(self)
-                                act Walk(fridge)
-                        act Open(fridge)
-                act RightPutIn(breadslice,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsRightHolding(self,dishbowl)
-                        cond IsNear(self,fridge)
-                    sequence
-                        selector
-                            sequence
-                                cond IsLeftHandEmpty(self)
-                                cond IsRightHolding(self,dishbowl)
-                                cond IsClose(fridge)
-                                cond IsLeftHolding(self,milk)
-                                cond IsNear(self,fridge)
-                            sequence
-                                sequence
-                                    cond IsLeftHandEmpty(self)
-                                    cond IsRightHolding(self,dishbowl)
-                                    cond IsClose(fridge)
-                                    cond IsLeftHolding(self,milk)
-                                    cond IsStanding(self)
-                                act Walk(fridge)
-                        act Open(fridge)
-                act RightPutIn(dishbowl,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsRightHolding(self,fryingpan)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                        cond IsOpen(fridge)
-                act RightPutIn(fryingpan,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsRightHolding(self,chocolatesyrup)
-                        cond IsNear(self,fridge)
-                        cond IsLeftHolding(self,milk)
-                    sequence
-                        selector
-                            sequence
-                                cond IsLeftHandEmpty(self)
-                                cond IsClose(fridge)
-                                cond IsRightHolding(self,chocolatesyrup)
-                                cond IsNear(self,fridge)
-                                cond IsLeftHolding(self,milk)
-                        act Open(fridge)
-                act RightPutIn(chocolatesyrup,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsRightHolding(self,chicken)
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                act RightPutIn(chicken,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,book)
-                act RightPutIn(book,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsOpen(fridge)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                        cond IsRightHolding(self,juice)
-                act RightPutIn(juice,fridge)
-            sequence
-                selector
-                    sequence
-                        cond IsRightHolding(self,bananas)
-                        cond IsLeftHolding(self,milk)
-                        cond IsNear(self,fridge)
-                        cond IsOpen(fridge)
-                act RightPutIn(bananas,fridge)
-        act LeftPutIn(milk,fridge)
+        cond IsOpen(fridge)
+        cond IsIn(chicken,fridge)
+        cond IsLeftHandEmpty(self)
+        cond IsIn(milk,fridge)
+        cond IsStanding(self)
+        act Walk(fridge)
+    sequence
+        cond IsOpen(fridge)
+        cond IsRightHolding(self,chicken)
+        cond IsLeftHandEmpty(self)
+        cond IsNear(self,fridge)
+        cond IsIn(milk,fridge)
+        act RightPutIn(chicken,fridge)
+    sequence
+        cond IsOpen(fridge)
+        cond IsRightHolding(self,chicken)
+        cond IsRightHolding(self,milk)
+        cond IsLeftHandEmpty(self)
+        cond IsNear(self,fridge)
+        act RightPutIn(chicken,fridge)
+    sequence
+        cond IsRightHolding(self,chicken)
+        cond IsClose(fridge)
+        cond IsLeftHandEmpty(self)
+        cond IsNear(self,fridge)
+        cond IsIn(milk,fridge)
+        act Open(fridge)
+    sequence
+        cond IsOpen(fridge)
+        cond IsRightHolding(self,chicken)
+        cond IsRightHolding(self,milk)
+        cond IsLeftHandEmpty(self)
+        cond IsNear(self,fridge)
+        act RightPutIn(milk,fridge)
+    sequence
+        cond IsOpen(fridge)
+        cond IsRightHolding(self,chicken)
+        cond IsLeftHandEmpty(self)
+        cond IsIn(milk,fridge)
+        cond IsStanding(self)
+        act Walk(fridge)
+    sequence
+        cond IsRightHolding(self,chicken)
+        cond IsClose(fridge)
+        cond IsLeftHandEmpty(self)
+        cond IsIn(milk,fridge)
+        cond IsStanding(self)
+        act Walk(fridge)
+    sequence
+        cond IsRightHolding(self,chicken)
+        cond IsClose(fridge)
+        cond IsRightHolding(self,milk)
+        cond IsLeftHandEmpty(self)
+        cond IsNear(self,fridge)
+        act Open(fridge)
+    sequence
+        cond IsOpen(fridge)
+        cond IsRightHolding(self,chicken)
+        cond IsRightHolding(self,milk)
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        act Walk(fridge)
+    sequence
+        cond IsOpen(fridge)
+        cond IsNear(self,chicken)
+        cond IsLeftHandEmpty(self)
+        cond IsIn(milk,fridge)
+        cond IsStanding(self)
+        cond IsRightHandEmpty(self)
+        act RightGrab(chicken)
+    sequence
+        cond IsRightHolding(self,chicken)
+        cond IsClose(fridge)
+        cond IsRightHolding(self,milk)
+        cond IsLeftHandEmpty(self)
+        cond IsNear(self,fridge)
+        act Open(fridge)
+    sequence
+        cond IsOpen(fridge)
+        cond IsRightHolding(self,chicken)
+        cond IsRightHolding(self,milk)
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        act Walk(fridge)
+    sequence
+        cond IsClose(fridge)
+        cond IsNear(self,chicken)
+        cond IsLeftHandEmpty(self)
+        cond IsIn(milk,fridge)
+        cond IsStanding(self)
+        cond IsRightHandEmpty(self)
+        act RightGrab(chicken)
+    sequence
+        cond IsOpen(fridge)
+        cond IsIn(chicken,fridge)
+        cond IsRightHolding(self,milk)
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        act Walk(fridge)
+    sequence
+        cond IsClose(fridge)
+        cond IsLeftHandEmpty(self)
+        cond IsIn(milk,fridge)
+        cond IsStanding(self)
+        cond IsRightHandEmpty(self)
+        act Walk(chicken)
+    sequence
+        cond IsClose(fridge)
+        cond IsIn(chicken,fridge)
+        cond IsRightHolding(self,milk)
+        cond IsLeftHandEmpty(self)
+        cond IsNear(self,fridge)
+        cond IsStanding(self)
+        act Open(fridge)
+    sequence
+        cond IsOpen(fridge)
+        cond IsIn(chicken,fridge)
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        cond IsNear(self,milk)
+        cond IsRightHandEmpty(self)
+        act RightGrab(milk)
+    sequence
+        cond IsOpen(fridge)
+        cond IsLeftHandEmpty(self)
+        cond IsIn(milk,fridge)
+        cond IsStanding(self)
+        cond IsRightHandEmpty(self)
+        act Walk(chicken)
+    sequence
+        cond IsRightHolding(self,chicken)
+        cond IsClose(fridge)
+        cond IsRightHolding(self,milk)
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        act Walk(fridge)
+    sequence
+        cond IsOpen(fridge)
+        cond IsRightHolding(self,chicken)
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        cond IsNear(self,milk)
+        cond IsRightHandEmpty(self)
+        act RightGrab(milk)
+    sequence
+        cond IsRightHolding(self,chicken)
+        cond IsClose(fridge)
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        cond IsNear(self,milk)
+        cond IsRightHandEmpty(self)
+        act RightGrab(milk)
+    sequence
+        cond IsClose(fridge)
+        cond IsRightHolding(self,milk)
+        cond IsNear(self,chicken)
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        cond IsRightHandEmpty(self)
+        act RightGrab(chicken)
+    sequence
+        cond IsOpen(fridge)
+        cond IsRightHolding(self,chicken)
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        cond IsRightHandEmpty(self)
+        act Walk(milk)
+    sequence
+        cond IsRightHolding(self,chicken)
+        cond IsClose(fridge)
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        cond IsRightHandEmpty(self)
+        act Walk(milk)
+    sequence
+        cond IsClose(fridge)
+        cond IsRightHolding(self,milk)
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        cond IsRightHandEmpty(self)
+        act Walk(chicken)
+    sequence
+        cond IsRightHolding(self,chicken)
+        cond IsClose(fridge)
+        cond IsLeftHandEmpty(self)
+        cond IsNear(self,fridge)
+        cond IsStanding(self)
+        cond IsRightHandEmpty(self)
+        act Open(fridge)
+    sequence
+        cond IsOpen(fridge)
+        cond IsRightHolding(self,milk)
+        cond IsNear(self,chicken)
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        cond IsRightHandEmpty(self)
+        act RightGrab(chicken)
+    sequence
+        cond IsClose(fridge)
+        cond IsIn(chicken,fridge)
+        cond IsRightHolding(self,milk)
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        act Walk(fridge)
+    sequence
+        cond IsOpen(fridge)
+        cond IsIn(chicken,fridge)
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        cond IsRightHandEmpty(self)
+        act Walk(milk)
+    sequence
+        cond IsOpen(fridge)
+        cond IsRightHolding(self,milk)
+        cond IsLeftHandEmpty(self)
+        cond IsNear(self,fridge)
+        cond IsStanding(self)
+        act RightPutIn(milk,fridge)
+    sequence
+        cond IsOpen(fridge)
+        cond IsRightHolding(self,milk)
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        cond IsRightHandEmpty(self)
+        act Walk(chicken)
+    sequence
+        cond IsClose(fridge)
+        cond IsRightHolding(self,milk)
+        cond IsLeftHandEmpty(self)
+        cond IsNear(self,fridge)
+        cond IsStanding(self)
+        act Open(fridge)
+    sequence
+        cond IsRightHolding(self,milk)
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        cond IsOpen(fridge)
+        act Walk(fridge)
+    sequence
+        cond IsRightHolding(self,milk)
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        cond IsClose(fridge)
+        act Walk(fridge)
+    sequence
+        cond IsOpen(fridge)
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        cond IsNear(self,milk)
+        cond IsRightHandEmpty(self)
+        act RightGrab(milk)
+    sequence
+        cond IsClose(fridge)
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        cond IsNear(self,milk)
+        cond IsRightHandEmpty(self)
+        act RightGrab(milk)
+    sequence
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        cond IsOpen(fridge)
+        cond IsRightHandEmpty(self)
+        act Walk(milk)
+    sequence
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        cond IsClose(fridge)
+        cond IsRightHandEmpty(self)
+        act Walk(milk)

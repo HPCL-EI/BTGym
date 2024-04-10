@@ -3,7 +3,7 @@ import random
 import heapq
 import re
 from btgym.algos.bt_autogen.behaviour_tree import Leaf, ControlBT
-from btgym.algos.bt_autogen.Action import Action,state_transition
+from btgym.algos.bt_autogen.Action import Action, state_transition
 
 
 class CondActPair:
@@ -30,6 +30,7 @@ def set_to_tuple(s):
     """
     return tuple(sorted(s))
 
+
 # 互斥状态映射
 mutually_exclusive_states = {
     'IsLeftHandEmpty': 'IsLeftHolding',
@@ -42,18 +43,20 @@ mutually_exclusive_states = {
 }
 
 # Mapping from state to anti-state
-state_to_opposite={
+state_to_opposite = {
     'IsOpen': 'IsClose',
     'IsClose': 'IsOpen',
     'IsSwitchedOff': 'IsSwitchedOn',
-    'IsSwitchedOn':'IsSwitchedOff'
+    'IsSwitchedOn': 'IsSwitchedOff'
 }
+
 
 def extract_argument(state):
     match = re.search(r'\((.*?)\)', state)
     if match:
         return match.group(1)
     return None
+
 
 def update_state(c, state_dic):
     for state, opposite in state_to_opposite.items():
@@ -68,14 +71,15 @@ def update_state(c, state_dic):
             break
     return True
 
+
 def check_conflict(conds):
-    obj_state_dic={}
-    is_near=False
+    obj_state_dic = {}
+    is_near = False
     for c in conds:
         if "IsNear" in c and is_near:
             return True
         elif "IsNear" in c:
-            is_near=True
+            is_near = True
         # Cannot be updated, the value already exists in the past
         if not update_state(c, obj_state_dic):
             return True
@@ -87,6 +91,7 @@ def check_conflict(conds):
                 obj_state_dic['self'] = state
                 break
     return False
+
 
 class OptBTExpAlgorithm:
     def __init__(self, verbose=False):
@@ -110,7 +115,7 @@ class OptBTExpAlgorithm:
         self.verbose = False
         self.bt_merge = False
         self.output_just_best = False
-        self.merge_time=999999
+        self.merge_time = 999999
 
     def clear(self):
         self.bt = None
@@ -130,7 +135,7 @@ class OptBTExpAlgorithm:
         self.bt_without_merge = None
         self.subtree_count = 1
 
-    def post_processing(self,pair_node,g_cond_anc_pair,subtree,bt,child_to_parent,cond_to_condActSeq):
+    def post_processing(self, pair_node, g_cond_anc_pair, subtree, bt, child_to_parent, cond_to_condActSeq):
         '''
         Process the summary work after the algorithm ends.
         '''
@@ -154,9 +159,6 @@ class OptBTExpAlgorithm:
             bt = self.merge_adjacent_conditions_stack_time(bt, merge_time=self.merge_time)
         return bt
 
-
-
-
     def run_algorithm_selTree(self, start, goal, actions, merge_time=99999999):
         '''
         Run the planning algorithm to calculate a behavior tree from the initial state, goal state, and available actions
@@ -167,7 +169,7 @@ class OptBTExpAlgorithm:
         self.actions = actions
         self.merge_time = merge_time
         self.traversed_state_num = 0
-        min_cost = float ('inf')
+        min_cost = float('inf')
 
         child_to_parent = {}
         cond_to_condActSeq = {}
@@ -226,7 +228,7 @@ class OptBTExpAlgorithm:
             if c != goal and c != set():
                 sequence_structure = ControlBT(type='>')
                 sequence_structure.add_child(
-                    [current_pair .cond_leaf, current_pair .act_leaf])
+                    [current_pair.cond_leaf, current_pair.act_leaf])
                 self.expanded.append(c)
 
                 if self.output_just_best:
@@ -235,7 +237,8 @@ class OptBTExpAlgorithm:
                     subtree.add_child([copy.deepcopy(sequence_structure)])
 
                 if c <= start:
-                    bt = self.post_processing(current_pair , goal_cond_act_pair, subtree, bt,child_to_parent,cond_to_condActSeq)
+                    bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
+                                              cond_to_condActSeq)
                     return bt, min_cost
 
                 if self.verbose:
@@ -302,8 +305,6 @@ class OptBTExpAlgorithm:
                             # Put all action nodes that meet the conditions into the list
                             traversed_current.append(c_attr)
 
-
-
                             if self.verbose:
                                 print("———— -- Action={} meets conditions, new condition={}".format(act.name, c_attr))
 
@@ -322,7 +323,6 @@ class OptBTExpAlgorithm:
             print("Algorithm ends!\n")
 
         return bt, min_cost
-
 
     def run_algorithm(self, start, goal, actions, merge_time=999999):
         """
@@ -361,7 +361,6 @@ class OptBTExpAlgorithm:
             self.min_cost = min_cost
             # print("min_cost:", mincost)
         return True
-
 
     def run_algorithm_test(self, start, goal, actions):
         self.bt, mincost = self.run_algorithm_selTree(start, goal, actions)
@@ -481,7 +480,6 @@ class OptBTExpAlgorithm:
             sbtree.add_child([tree])
         bt_sel = bt
         return bt_sel
-
 
     def print_solution(self, without_merge=False):
         print("========= BT ==========")  # 树的bfs遍历
@@ -682,7 +680,6 @@ class OptBTExpAlgorithm:
                     queue.append(child)
         return count
 
-
     def get_cost(self):
         # 开始从初始状态运行行为树，测试
         state = self.start
@@ -706,7 +703,7 @@ class OptBTExpAlgorithm:
             if (steps >= 500):  # 至多运行500步
                 break
         if not self.goal <= state:  # 错误解，目标条件不在执行后状态满足
-            print ("wrong solution",steps)
+            print("wrong solution", steps)
             error = True
             return current_cost
         else:  # 正确解，满足目标条件

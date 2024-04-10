@@ -1,7 +1,7 @@
 from btgym.behavior_tree.base_nodes import Action
 from btgym.behavior_tree import Status
 
-class VHAction(Action):
+class VHActionAll(Action):
     can_be_expanded = True
     num_args = 1
 
@@ -15,10 +15,8 @@ class VHAction(Action):
              'cutleryknife','fryingpan','dishbowl','plate',
              'book',"waterglass"
              }  # grab
-    # HasSwitchObjects = {"tv","faucet","lightswitch","dishwasher","coffeemaker","toaster","microwave",
-    #                     "tablelamp","computer"}  # switch on #candle  cellphone wallphone washingmachine不行# faucet 浴室龙头
-    HasSwitchObjects = {"washingmachine"}
-
+    HasSwitchObjects = {"tv","faucet","lightswitch","dishwasher","coffeemaker","toaster","microwave",
+                        "tablelamp","computer"}  # switch on #candle  cellphone wallphone washingmachine不行# faucet 浴室龙头
 
     # SurfacePlaces = set()  # put
     # SittablePlaces = set()  # sit

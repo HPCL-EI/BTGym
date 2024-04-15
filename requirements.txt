@@ -18,5 +18,3 @@ shortuuid~=1.0.11
 autopep8~=2.0.4
 openai
 sympy~=1.12
-PyQt5
-

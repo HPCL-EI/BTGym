@@ -20,8 +20,17 @@ class LLMGPT3():
 
         return completion.choices[0].message.content
 
+    def embedding(self,question):
+        embeddings = self.client.embeddings.create(
+          model="text-embedding-ada-002",
+          input=question
+        )
+
+        return embeddings
+
 
 if __name__ == '__main__':
     llm = LLMGPT3()
-    answer = llm.request(question="who are you,gpt?")
+    # answer = llm.request(question="who are you,gpt?")
+    answer = llm.embedding(question="who are you,gpt?")
     print(answer)

@@ -1,3 +1,4 @@
+import os.path
 import time
 
 from btgym.envs.virtualhome.simulation.unity_simulator import UnityCommunication
@@ -14,13 +15,14 @@ from btgym.envs.virtualhometext.simulation.evolving_graph.scripts import read_sc
 
 import json
 
-graph_path = f'{ROOT_PATH}/envs/virtualhometext/simulation/graph.json'
+graph_folder = f'{ROOT_PATH}/envs/virtualhometext/graphs'
 
-class WatchTVEnv(object):
+class VHTEnv(object):
     agent_num = 1
 
     def __init__(self):
         # 打开文件以加载之前保存的数据
+        graph_path = os.path.join(graph_folder,f"{self.__class__.__name__}.json")
         with open(graph_path, 'r') as f:
             # 使用 load() 加载数据
             graph_input = json.load(f)
@@ -73,10 +75,7 @@ class WatchTVEnv(object):
         pass
 
     def is_finished(self):
-        if "IsWatching(self,tv)" in self.agents[0].condition_set:
-            return True
-        else:
-            return False
+        raise NotImplementedError
 
     def create_agents(self):
 

@@ -1,9 +1,9 @@
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
-class SwitchOn(VHTAction):
+
+class SwitchOff(VHTAction):
     can_be_expanded = True
     num_args = 1
     valid_args = VHTAction.HasSwitchObjects
-
 
     def __init__(self, *args):
         super().__init__(*args)
@@ -12,9 +12,9 @@ class SwitchOn(VHTAction):
     @classmethod
     def get_info(cls,*arg):
         info = {}
-        info["pre"]={"IsLeftHandEmpty(self)",f"IsNear(self,{arg[0]})",f"IsSwitchedOff({arg[0]})"} # IsLeftHandEmpty()至少有一只手是空闲的
-        info["add"]={f"IsSwitchedOn({arg[0]})"}
-        info["del_set"] = {f"IsSwitchedOff({arg[0]})"}
+        info["pre"]={"IsLeftHandEmpty(self)",f"IsNear(self,{arg[0]})",f"IsSwitchedOn({arg[0]})"} # IsLeftHandEmpty()至少有一只手是空闲的
+        info["add"]={f"IsSwitchedOff({arg[0]})"}
+        info["del_set"] = {f"IsSwitchedOn({arg[0]})"}
         info["cost"] = 8
         return info
 
@@ -22,5 +22,3 @@ class SwitchOn(VHTAction):
     def change_condition_set(self):
         self.agent.condition_set |= (self.info["add"])
         self.agent.condition_set -= self.info["del_set"]
-
-        # self.agent.condition_set.add(f"IsSwitchedOn({self.args[0]})")

@@ -1,6 +1,6 @@
-from btgym.envs.virtualhome.exec_lib._base.VHCondition import VHCondition
+from btgym.envs.virtualhometext.exec_lib._base.VHTCondition import VHTCondition
 
-class IsSittingOn(VHCondition):
+class IsSittingOn(VHTCondition):
     can_be_expanded = True
     num_args = 2
 

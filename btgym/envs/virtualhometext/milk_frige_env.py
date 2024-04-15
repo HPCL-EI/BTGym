@@ -16,7 +16,7 @@ import pickle
 
 graph_path = f'{ROOT_PATH}/envs/virtualhometext/simulation/graph.pkl'
 
-class WatchTVEnv(object):
+class MilkFridgeEnv(object):
     agent_num = 1
 
     def __init__(self):
@@ -29,9 +29,9 @@ class WatchTVEnv(object):
 
         # 将字典保存到 graph_input.json 文件中
         # import json
-        # with open(f'{ROOT_PATH}/envs/virtualhometext/simulation/graphM.json', "w") as json_file:
-        #     json.dump(self.graph_input, json_file, ensure_ascii=False, separators=(',', ':'))
-        #     # json.dump(self.graph_input, json_file, ensure_ascii=False, indent=4)
+        # with open(f'{ROOT_PATH}/envs/virtualhometext/simulation/graph.json', "w") as json_file:
+        #     # json.dump(self.graph_input, json_file, ensure_ascii=False, separators=(',', ':'))
+        #     json.dump(self.graph_input, json_file, ensure_ascii=False, indent=4)
 
         # preconds = add_preconds.get_preconds_script([]).printCondsJSON()
         self.state, self.executor,self.helper = check_programs.prepare_env(

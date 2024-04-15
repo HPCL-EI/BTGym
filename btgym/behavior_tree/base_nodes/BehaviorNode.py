@@ -16,6 +16,7 @@ class BahaviorNode(ptree.behaviour.Behaviour):
     env = None
     print_name_prefix = ""
 
+
     @classmethod
     def get_ins_name(cls,*args):
         name = cls.__name__

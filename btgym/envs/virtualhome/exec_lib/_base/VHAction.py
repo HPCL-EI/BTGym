@@ -39,6 +39,11 @@ class VHAction(Action):
     def update(self) -> Status:
         # script = [f'<char0> [{self.__class__.__name__.lower()}] <{self.args[0].lower()}> (1)']
 
+        # if self.num_args==1:
+        #     script = [f'<char0> [{self.action_class_name.lower()}] <{self.args[0].lower()}> (1)']
+        # else:
+        #     script = [f'<char0> [{self.action_class_name.lower()}] <{self.args[0].lower()}> (1) <{self.args[1].lower()}> (1)']
+
         if self.num_args==1:
             script = [f'<char0> [{self.action_class_name.lower()}] <{self.args[0].lower()}> (1)']
         else:

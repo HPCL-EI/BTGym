@@ -37,6 +37,12 @@ def print_action(act):
     print(act.add)
     print(act.del_set)
 
+def state_transition(state,action):
+    if not action.pre <= state:
+        print ('error: action not applicable')
+        return state
+    new_state=(state | action.add) - action.del_set
+    return new_state
 
 
 #行为树测试代码

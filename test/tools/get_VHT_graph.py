@@ -5,6 +5,7 @@ from btgym.envs.virtualhome.simulation.unity_simulator.comm_unity import UnityCo
 from btgym.utils import ROOT_PATH
 import subprocess
 import pickle
+import json
 
 file_name = f'{ROOT_PATH}\\..\\simulators\\virtualhome\\windows\\VirtualHome.exe'
 print(file_name)
@@ -27,8 +28,14 @@ while not simulator_launched:
 _, env_g = comm.environment_graph()
 
 # 将 env_g 保存到
-graph_path = f'{ROOT_PATH}\\envs\\virtualhometext\\simulation\\graph_{env_index}.pkl'
-print(graph_path)
+# graph_path = f'{ROOT_PATH}\\envs\\virtualhometext\\graphs\\simulation\\graph_{env_index}.pkl'
+# print(graph_path)
 # 将字典保存到 graph_input.pkl 文件中
-with open(graph_path, "wb") as pkl_file:
-    pickle.dump(env_g, pkl_file)
+# with open(graph_path, "wb") as pkl_file:
+#     pickle.dump(env_g, pkl_file)
+
+# 将字典保存到 JSON 文件中
+graph_path = f'{ROOT_PATH}\\envs\\virtualhometext\\graphs\\graph_{env_index}.json'
+print(graph_path)
+with open(graph_path, 'w') as json_file:
+    json.dump(env_g, json_file, indent=4)

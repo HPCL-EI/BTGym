@@ -15,7 +15,7 @@ from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process
 
 # env = btgym.make("VHT-WatchTV")
 env = btgym.make("VHT-PutMilkInFridge")
-
+# print(env.graph_input['nodes'])
 
 # # todo: LLMs
 # prompt_file = f"{ROOT_PATH}\\algos\\llm_client\\prompt.txt"
@@ -58,6 +58,7 @@ priority_act_ls = ["Walk(milk)", "RightGrab(milk)", "Walk(fridge)", "Open(fridge
 # goal_set = [{'IsIn(chips,fridge)'}]
 # priority_act_ls = ["Walk(chips)", "RightGrab(chips)", "Walk(fridge)", "Open(fridge)", "RightPutIn(chips,fridge)"]
 
+
 # todo: BTExp:process
 cur_cond_set = env.agents[0].condition_set = {"IsSwitchedOff(tv)", "IsSwitchedOff(faucet)", "IsSwitchedOff(stove)",
                                               "IsSwitchedOff(dishwasher)",
@@ -87,14 +88,6 @@ file_path = f'./{file_name}.btml'
 with open(file_path, 'w') as file:
     file.write(ptml_string)
 
-# algo2 = BTExpInterface(env.behavior_lib, cur_cond_set,bt_algo_opt=False)
-# ptml_string2 = algo2.process(goal)
-# file_name2 = "grasp_milk_baseline"
-# file_path2 = f'./{file_name2}.btml'
-# with open(file_path2, 'w') as file:
-#     file.write(ptml_string2)
-
-
 # 读取执行
 bt = BehaviorTree(file_name + ".btml", env.behavior_lib)
 bt.print()
@@ -104,16 +97,48 @@ env.agents[0].bind_bt(bt)
 env.reset()
 env.print_ticks = True
 
-is_finished = False
-while not is_finished:
-    is_finished = env.step()
-    # print(env.agents[0].condition_set)
+# simulation and test
+print("\n================ ")
+from btgym.algos.bt_autogen.tools import state_transition
 
-    g_finished = True
-    for g in goal_set:
-        if not g <= env.agents[0].condition_set:
-            g_finished = False
-        if g_finished:
-            is_finished = True
+goal = goal_set[0]
+state = cur_cond_set
+steps = 0
+current_cost = 0
+current_tick_time = 0
+
+val, obj, cost, tick_time = algo.algo.bt.cost_tick(state, 0, 0)  # tick行为树，obj为所运行的行动
+print("Action:  ", obj)
+current_tick_time += tick_time
+current_cost += cost
+while val != 'success' and val != 'failure':
+    state = state_transition(state, obj)
+    val, obj, cost, tick_time = algo.algo.bt.cost_tick(state, 0, 0)
+    print("Action:  ", obj)
+    current_cost += cost
+    current_tick_time += tick_time
+    if (val == 'failure'):
+        print("bt fails at step", steps)
+        error = True
+        break
+    steps += 1
+    if (steps >= 500):  # 至多运行500步
+        break
+if goal <= state:  # 错误解，目标条件不在执行后状态满足
+    print("Finished!")
+print("================ ")
 env.close()
-print("\n====== batch scripts ======\n")
+
+# is_finished = False
+# while not is_finished:
+#     is_finished = env.step()
+#     # print(env.agents[0].condition_set)
+#
+#     g_finished = True
+#     for g in goal_set:
+#         if not g <= env.agents[0].condition_set:
+#             g_finished = False
+#         if g_finished:
+#             is_finished = True
+# env.close()
+# print("\n====== batch scripts ======\n")

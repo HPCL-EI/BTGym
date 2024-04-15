@@ -25,9 +25,11 @@ print("\n====== batch scripts ======\n")
 
 
 env = btgym.make("VHT-WatchTV")
-script = ['<char0> [Find] <tv> (1)',
-          '<char0> [switchon] <tv> (1)',
-          '<char0> [Walk] <sofa> (1)',
-          '<char0> [Sit] <sofa> (1)',
-          '<char0> [Watch] <tv> (1)']
+# script = ['<char0> [Find] <tv> (1)',
+#           '<char0> [switchon] <tv> (1)',
+#           '<char0> [Walk] <sofa> (1)',
+#           '<char0> [Sit] <sofa> (1)',
+#           '<char0> [Watch] <tv> (1)']
+script = ['<char0> [Find] <waterglass> (1)',
+          '<char0> [Pour] <waterglass> (1) <coffeepot> (1)']
 env.run_script(script)

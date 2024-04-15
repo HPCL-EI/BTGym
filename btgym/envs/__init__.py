@@ -2,14 +2,21 @@
 env_map = {}
 
 from btgym.envs.virtualhome.envs.watch_tv_env import WatchTVEnv as VHWatchTVEnv
-from btgym.envs.virtualhometext.watch_tv_env import WatchTVEnv as VHTWatchTVEnv
-
 from btgym.envs.virtualhome.envs.milk_fridge_env import MilkFridgeEnv as MilkFridgeEnv
+from btgym.envs.virtualhome.envs.test_env import TestEnv as TestEnv
+
+from btgym.envs.virtualhometext.watch_tv_env import WatchTVEnv as VHTWatchTVEnv
+from btgym.envs.virtualhometext.milk_frige_env import MilkFridgeEnv as VHTMilkFridgeEnv
+
 
 vh_env_map = {
     "VH-WatchTV": VHWatchTVEnv,
+
+    "VH-PutMilkInFridge":MilkFridgeEnv,
+    "VH-Test": TestEnv,
+
     "VHT-WatchTV": VHTWatchTVEnv,
-    "VH-PutMilkInFridge":MilkFridgeEnv
+    "VHT-PutMilkInFridge": VHTMilkFridgeEnv
 }
 
 env_map.update(vh_env_map)

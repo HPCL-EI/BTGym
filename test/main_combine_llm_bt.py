@@ -11,14 +11,11 @@ from sympy import symbols, Not, Or, And, to_dnf
 from sympy import symbols, simplify_logic
 import re
 
-from btgym.algos.llm_client.tools import goal_transfer_str,act_str_process
-
-
+from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process
 
 env = btgym.make("VH-PutMilkInFridge")
 
-
-#todo: LLMs
+# todo: LLMs
 prompt_file = f"{ROOT_PATH}\\algos\\llm_client\\prompt.txt"
 with open(prompt_file, 'r', encoding="utf-8") as f:
     prompt = f.read().strip()
@@ -26,6 +23,7 @@ with open(prompt_file, 'r', encoding="utf-8") as f:
 
 # instuction = "Put the bowl in the dishwasher and wash it."
 instuction="Put the milk and chicken in the fridge."
+# instuction="Put the milk or chicken in the fridge."
 # instuction="Turn on the computer, TV, and lights, then put the bowl in the dishwasher and wash it"
 
 llm = LLMGPT3()
@@ -43,32 +41,43 @@ print("goal",goal_set)
 print("act:",priority_act_ls)
 
 
-#todo: BTExp:process
-cur_cond_set=env.agents[0].condition_set = {"IsSwitchedOff(tv)","IsSwitchedOff(faucet)","IsSwitchedOff(stove)", "IsSwitchedOff(dishwasher)",
-                                            "IsSwitchedOn(lightswitch)","IsSwitchedOn(tablelamp)",
-                                            "IsSwitchedOff(coffeemaker)","IsSwitchedOff(toaster)","IsSwitchedOff(microwave)",
-                                            "IsSwitchedOff(computer)","IsSwitchedOff(radio)",
+# goal_set = [{'IsClose(fridge)', 'IsIn(milk,fridge)', 'IsIn(chicken,fridge)'}]
+# goal_set = [{'IsIn(milk,fridge)'}]
+# goal_set = [{'IsOn(milk,sofa)'}]
+# goal_set = [{'IsOpen(fridge)'}]
+# priority_act_ls = ["Walk(milk)", "RightGrab(milk)", "Walk(fridge)", "Open(fridge)", "RightPutIn(milk,fridge)"]
+# priority_act_ls = ["Walk(milk)","RightGrab(milk)","Walk(fridge)","Open(fridge)","RightPutIn(milk,fridge)","Walk(chicken)",
+#                    "LeftGrab(chicken)","LeftPutIn(chicken,fridge)"]
+# priority_act_ls=[]
 
-                                            "IsClose(fridge)","IsClose(bathroomcabinet)","IsClose(stove)","IsClose(dishwasher)","IsClose(microwave)",
-                                            "IsClose(toilet)",
+# todo: BTExp:process
+cur_cond_set = env.agents[0].condition_set = {"IsSwitchedOff(tv)", "IsSwitchedOff(faucet)", "IsSwitchedOff(stove)",
+                                              "IsSwitchedOff(dishwasher)",
+                                              "IsSwitchedOn(lightswitch)", "IsSwitchedOn(tablelamp)",
+                                              "IsSwitchedOff(coffeemaker)", "IsSwitchedOff(toaster)",
+                                              "IsSwitchedOff(microwave)",
+                                              "IsSwitchedOff(computer)", "IsSwitchedOff(radio)",
 
-                               "IsRightHandEmpty(self)","IsLeftHandEmpty(self)","IsStanding(self)"
-                               }
+                                              "IsClose(fridge)", "IsClose(bathroomcabinet)", "IsClose(stove)",
+                                              "IsClose(dishwasher)", "IsClose(microwave)",
+                                              "IsClose(toilet)",
+
+                                              "IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"
+                                              }
 
 start_time = time.time()
-# priority_act_ls=[]
-algo = BTExpInterface(env.behavior_lib, cur_cond_set,priority_act_ls)
-ptml_string = algo.process(goal_set)
+algo = BTExpInterface(env.behavior_lib, cur_cond_set, priority_act_ls, selected_algorithm="opt")
+algo.process(goal_set)
 end_time = time.time()
-planning_time_total = (end_time-start_time)
-print("planning_time_total:",planning_time_total)
-print("cost_total:",algo.algo.min_cost)
+planning_time_total = (end_time - start_time)
+print("planning_time_total:", planning_time_total)
 
+ptml_string, cost = algo.post_process()  # 后处理
+print("cost_total:", cost)
 file_name = "grasp_milk"
 file_path = f'./{file_name}.btml'
 with open(file_path, 'w') as file:
     file.write(ptml_string)
-
 
 # algo2 = BTExpInterface(env.behavior_lib, cur_cond_set,bt_algo_opt=False)
 # ptml_string2 = algo2.process(goal)
@@ -79,23 +88,23 @@ with open(file_path, 'w') as file:
 
 
 # 读取执行
-bt = BehaviorTree(file_name+".btml", env.behavior_lib)
-bt.print()
-bt.draw()
+bt = BehaviorTree(file_name + ".btml", env.behavior_lib)
+# bt.print()
+# bt.draw()
 
 env.agents[0].bind_bt(bt)
 env.reset()
-env.print_ticks = False
+env.print_ticks = True
 
 is_finished = False
 while not is_finished:
     is_finished = env.step()
     # print(env.agents[0].condition_set)
 
-    g_finished=True
+    g_finished = True
     for g in goal_set:
-        if not g<= env.agents[0].condition_set:
-            g_finished=False
+        if not g <= env.agents[0].condition_set:
+            g_finished = False
         if g_finished:
-            is_finished=True
+            is_finished = True
 env.close()

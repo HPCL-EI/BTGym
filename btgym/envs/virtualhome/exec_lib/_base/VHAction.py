@@ -6,25 +6,27 @@ class VHAction(Action):
     num_args = 1
 
 
-    # SurfacePlaces = {"kitchentable","plate","nightstand","desk"} # put
-    # SittablePlaces = set()  # sit
-    # CanOpenPlaces= {"fridge","dishwasher","microwave"}  # open
-    # CanPutInPlaces=CanOpenPlaces  # put in
-    # Objects={"bananas",'chicken', 'breadslice','chips','chocolatesyrup',
-    #          'cupcake','milk','juice','wine',
-    #          'cutleryknife','fryingpan','dishbowl','plate',
-    #          'book',"waterglass"
-    #          }  # grab
+    SurfacePlaces = {"kitchentable","plate","nightstand","desk","cabinet","bathroomcounter"} # put
+    SittablePlaces =  {"bed","sofa","chair","Bench"}  # sit
+    CanOpenPlaces= {"fridge","dishwasher","microwave","stove"}  # open
+    CanPutInPlaces={"fridge","dishwasher","microwave","stove"}  # put in
+    Objects={"bananas",'chicken', 'cutlets','breadslice','chips','chocolatesyrup',
+             'cupcake','milk','juice','wine',
+             'cutleryknife','fryingpan','dishbowl','plate',
+             'book',"waterglass"
+             }  # grab
     # HasSwitchObjects = {"tv","faucet","lightswitch","dishwasher","coffeemaker","toaster","microwave",
     #                     "tablelamp","computer"}  # switch on #candle  cellphone wallphone washingmachine不行# faucet 浴室龙头
+    HasSwitchObjects = {"washingmachine"}
 
-    SurfacePlaces = {"bed"} # put
-    SittablePlaces = {"Toilet"}  # sit
-    CanOpenPlaces= {"fridge"}  # open
-    CanPutInPlaces=CanOpenPlaces  # put in
-    Objects={'milk','chicken',
-             }  # grab
-    HasSwitchObjects = {"wallphone",}  # switch on #candle cellphone wallphone washingmachine不行# faucet 浴室龙头
+
+    # SurfacePlaces = set()  # put
+    # SittablePlaces = set()  # sit
+    # CanOpenPlaces= {"fridge"}  # open
+    # CanPutInPlaces=CanOpenPlaces  # put in
+    # Objects={'milk','chicken',
+    #          }  # grab
+    # HasSwitchObjects = set()  # switch on #candle cellphone wallphone washingmachine不行# faucet 浴室龙头
 
     @property
     def action_class_name(self):

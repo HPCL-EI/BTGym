@@ -1,11 +1,11 @@
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
 import itertools
-from btgym.envs.virtualhome.exec_lib.Action.Grab import Grab
+from btgym.envs.virtualhometext.exec_lib.Action.Grab import Grab
 
 class LeftGrabFrom(Grab):
     can_be_expanded = False
     num_args = 2
-    valid_args = list(itertools.product(VHTAction.Objects, VHTAction.CanOpenPlaces))
+    valid_args = list(itertools.product(VHTAction.GRABBABLE, VHTAction.CONTAINERS))
 
     def __init__(self, *args):
         super().__init__(*args)
@@ -21,7 +21,7 @@ class LeftGrabFrom(Grab):
         info["pre"]={"IsLeftHandEmpty(self)",f"IsIn({arg[0]},{arg[1]})",f"IsNear(self,{arg[1]})",f"IsOpen({arg[1]})"} # 至少有一只手是空闲的
         info["add"]={f"IsLeftHolding(self,{arg[0]})","IsLeftHandFull(self)"}
         info["del_set"] = {f"IsLeftHandEmpty(self)"}
-        info["del_set"] |= {f'IsIn({arg[0]},{place})' for place in cls.CanPutInPlaces}
+        info["del_set"] |= {f'IsIn({arg[0]},{place})' for place in cls.CONTAINERS}
         info["cost"] = 5
         return info
 

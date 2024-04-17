@@ -3,7 +3,7 @@ from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
 class SwitchOff(VHTAction):
     can_be_expanded = True
     num_args = 1
-    valid_args = VHTAction.HasSwitchObjects
+    valid_args = VHTAction.HAS_SWITCH
 
     def __init__(self, *args):
         super().__init__(*args)

@@ -7,7 +7,7 @@ from btgym.behavior_tree import Status
 class Sit(VHTAction):
     can_be_expanded = True
     num_args = 1
-    valid_args=VHTAction.SittablePlaces
+    valid_args=VHTAction.SITTABLE
 
     def __init__(self, *args):
         super().__init__(*args)

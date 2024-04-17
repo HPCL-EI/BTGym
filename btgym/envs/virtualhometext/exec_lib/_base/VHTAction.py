@@ -6,71 +6,88 @@ class VHTAction(Action):
     can_be_expanded = True
     num_args = 1
 
-    SurfacePlaces = {"floor","bathroomcabinet","bathroomcounter","towelrack","rug", "plate", "tvstand", "nightstand",  \
-                     "kitchentable", "kitchencabinet", "kitchencounter", "fryingpan", "stove","oventray", "mat","tray",\
-                      "bookshelf", "desk", "cabinet", "chair", "bench","sofa", "bed", "mousemat","radio", "boardgame",\
-                     "couch","table","filing_cabinet","mousepad","bathtub"}  # put
-    # 地板, 浴室柜, 浴室台面, 毛巾架, 地毯, 盘子, 电视柜, 床头柜, \
-    # 厨房桌, 厨房橱柜, 厨房台面, 煎锅, 炉灶, 烤箱托盘, 门垫, 托盘, \
-    # 书架, 书桌, 柜子, 椅子, 长凳, 沙发, 床, 鼠标垫, 收音机, 桌游, \
-    # 沙发, 桌子, 文件柜, 鼠标垫, 浴缸
+    SURFACES = {"kitchentable", "towelrack", "bench", "kitchencabinet", "mousemat", "boardgame", "coffeetable","fryingpan", \
+                "radio", "cuttingboard", "floor", "tvstand", "bathroomcounter", "oventray", "chair", "kitchencounter","rug", \
+                "bookshelf", "nightstand", "cabinet", "desk", "stove", "bed", "sofa", "plate", "bathroomcabinet"}
+    # 厨房桌子, 毛巾架, 长凳, 厨房橱柜, 鼠标垫, 桌游, 咖啡桌, 煎锅, \
+    # 收音机, 切菜板, 地板, 电视架, 浴室台面, 烤箱托盘, 椅子, 厨房台面, 地毯, \
+    # 书架, 床头柜, 柜子, 书桌, 炉灶, 床, 沙发, 盘子, 浴室橱柜
 
-    SittablePlaces = {"Bathtub", "bed", "Bench", "chair", "rug", "sofa", "toilet"}  # sit
-    # 浴缸, 床, 长凳, 椅子, 地毯, 沙发, 厕所
+    SITTABLE = {"bathtub", "chair", "toilet", "bench", "bed", "rug", "sofa"}
+    # 浴缸, 椅子, 厕所, 长凳, 床, 地毯, 沙发
 
+    CAN_OPEN = {"coffeemaker", "cookingpot", "toothpaste", "coffeepot", "kitchencabinet", "washingmachine", "window","printer", \
+                "curtains", "closet", "box", "microwave", "hairproduct", "dishwasher", "radio", "fridge", "toilet","book", \
+                "garbagecan", "magazine", "nightstand", "cabinet", "milk", "desk", "stove", "door", "folder",
+                "clothespile", "bathroomcabinet"}
+    # 咖啡机, 烹饪锅, 牙膏, 咖啡壶, 厨房橱柜, 洗衣机, 窗户, 打印机, \
+    # 窗帘, 衣柜, 盒子, 微波炉, 护发产品, 洗碗机, 收音机, 冰箱, 厕所, 书, \
+    # 垃圾桶, 杂志, 床头柜, 柜子, 牛奶, 书桌, 炉灶, 门, 文件夹, 衣物堆, 浴室橱柜
 
-    CanOpenPlaces = {"bathroom_cabinet", "book", "bookshelf", "box", "coffee_pot", "cabinet", "closet", "clothes_pile",\
-                     "coffeemaker", "cookingpot", "curtains", "desk", "dishwasher", "door", "folder", "fridge", \
-                     "garbage_can", "hairproduct", "journal", "lotionbottle", "magazine", "microwave", "milk", \
-                     "nightstand", "printer", "radio", "stove", "toilet", "toothpaste", "beer", "washing_machine",}  # open
-    # 浴室柜, 书, 书架, 盒子, 咖啡壶, 柜子, 衣橱, 衣物堆, \
-    # 咖啡机, 烹饪锅, 窗帘, 书桌, 洗碗机, 门, 文件夹, 冰箱, \
-    # 垃圾桶, 护发产品, 日记本, 润肤乳瓶, 杂志, 微波炉, 牛奶,\
-    # 床头柜, 打印机, 收音机, 炉灶, 厕所, 牙膏, 啤酒, 洗衣机
+    CONTAINERS = {"coffeemaker", "kitchencabinet", "washingmachine", "printer", "toaster", "closet", "box", "microwave", \
+                  "dishwasher", "fryingpan", "fridge", "toilet", "garbagecan", "sink", "bookshelf", "nightstand","cabinet", \
+                  "stove", "folder", "clothespile", "bathroomcabinet"}
+    # 咖啡机, 厨房橱柜, 洗衣机, 打印机, 烤面包机, 衣柜, 盒子, 微波炉, \
+    # 洗碗机, 煎锅, 冰箱, 厕所, 垃圾桶, 水槽, 书架, 床头柜, 柜子, 炉灶, 文件夹, 衣物堆, 浴室橱柜
 
-    CanPutInPlaces = {"bathroom_cabinet", "bookshelf", "box", "coffee_pot", "cabinet", "closet", "clothes_pile",\
-                     "coffeemaker", "cookingpot", "desk", "dishwasher", "folder", "fridge", "garbage_can", "microwave", \
-                     "nightstand", "printer", "stove", "toilet", "toothpaste", "washing_machine"}  # put in
-    # 浴室柜, 书架, 盒子, 咖啡壶, 柜子, 衣橱, 衣物堆,
-    # 咖啡机, 烹饪锅, 书桌, 洗碗机, 文件夹, 冰箱, 垃圾桶, 微波炉,
-    # 床头柜, 打印机, 炉灶, 厕所, 牙膏, 洗衣机
+    GRABBABLE = {"sundae", "toothpaste", "clothesshirt", "crackers", "pudding", "alcohol", "boardgame", "wallphone","remotecontrol", \
+                 "whippedcream", "hanger", "cutlets", "candybar", "wine", "toiletpaper", "slippers", "cereal", "apple","magazine", \
+                 "wineglass", "milk", "cupcake", "folder", "wallpictureframe", "cellphone", "coffeepot", "crayons","box", \
+                 "fryingpan", "radio", "chips", "cuttingboard", "lime", "mug", "rug", "carrot", "cutleryfork","clothespile", \
+                 "notes", "plum", "cookingpot", "toy", "salmon", "peach", "condimentbottle", "hairproduct", "salad","mouse", \
+                 "clock", "washingsponge", "bananas", "dishbowl", "oventray", "chocolatesyrup", "creamybuns", "pear","chair", \
+                 "condimentshaker", "bellpepper", "paper", "plate", "facecream", "breadslice", "candle", "towelrack","pancake", \
+                 "cutleryknife", "milkshake", "dishwashingliquid", "keyboard", "towel", "toothbrush", "book", "juice","waterglass", \
+                 "barsoap", "mincedmeat", "clothespants", "chicken", "poundcake", "pillow", "pie",
+                 "rag","duster","papertowel","brush"}
+    # 圣代, 牙膏, 衬衫, 饼干, 布丁, 酒精, 桌游, 墙电话, 遥控器, \
+    # 鲜奶油, 衣架, 切片肉, 糖果, 酒, 卫生纸, 拖鞋, 麦片, 苹果, 杂志, \
+    # 酒杯, 牛奶, 纸杯蛋糕, 文件夹, 墙壁画框, 手机, 咖啡壶, 蜡笔, 盒子, \
+    # 煎锅, 收音机, 薯片, 切菜板, 青柠, 杯子, 地毯, 胡落哇, 餐具叉, 衣物堆, \
+    # 笔记, 李子, 烹饪锅, 玩具, 鲑鱼, 桃子, 调料瓶, 护发产品, 沙拉, 鼠标, \
+    # 时钟, 洗碗海绵, 香蕉, 碗, 烤箱托盘, 巧克力糖浆, 奶油面包, 梨, 椅子, \
+    # 调料瓶, 彩椒, 纸张, 盘子, 面霜, 面包片, 蜡烛, 毛巾架, 煎饼, 餐具刀, \
+    # 奶昔, 洗碗液, 键盘, 毛巾, 牙刷, 书, 果汁, 水杯, 香皂, 肉末, 裤子, \
+    # 鸡肉, 磅蛋糕, 枕头, 馅饼
+    # 抹布, 掸子, 纸巾, 刷子
 
+    cleaning_tools = {"rag","duster","papertowel","brush"}
 
-    Objects = { "apple", "sportsball", "bananas", "barsoap", "bellpepper", "boardgame", "book", "box",
-                "bread", "bread_slice", "broom", "bucket", "carrot", "cat", "cards", "cellphone", "chinesefood",
-                "coffee_pot", "crayons", "chair", "candle", "chefknife", "chicken", "chocolatesyrup", "clock",
-                "clothes_pants", "clothes_pile", "clothes_shirt", "condiment_bottle", "condiment_shaker",
-                "cookingpot", "candybar", "crackers", "cereal", "creamybuns", "chips", "cucumber", "cupcake",
-                "cutlery_knife", "cutlery_fork", "cutlets", "cutting_board", "dishwashingliquid", "dish_bowl",
-                "plate", "dustpan", "facecream", "folder", "fryingpan", "globe", "glasses", "hairproduct", "hanger",
-                "juice", "journal", "keyboard", "lemon", "lime", "lotionbottle", "kettle", "magazine", "milk",
-                "milkshake", "mincedmeat", "mouse", "mug", "napkin", "notes", "orange", "pancake", "paper",
-                "papertowel", "pear", "pen", "pie", "pillow", "plum", "potato", "poundcake", "pudding", "radio",
-                "remote_control", "rug", "salad", "salmon", "slippers", "washing_sponge", "spoon", "sundae",
-                "teddybear", "toy", "toiletpaper", "tomato", "toothbrush", "toothpaste", "towel", "towel_rack",
-                "wallpictureframe", "wall_phone", "waterglass", "watermelon", "whippedcream", "wineglass",
-                "alcohol", "beer", "wine"
-               }
-    # 苹果, 运动球, 香蕉, 条形肥皂, 灯笼椒, 桌游, 书, 盒子, 面包, 面包片, 扫帚, 桶, 胡萝卜,  猫, 卡片, 手机, 中餐,
-    # 咖啡壶, 蜡笔, 椅子, 蜡烛, 厨师刀, 鸡肉, 巧克力糖浆, 时钟, 裤子, 衣服堆, 衬衫, 调味瓶, 调味瓶,
-    # 烹饪锅, 糖果条, 饼干, 麦片, 奶油包, 薯片, 黄瓜, 纸杯蛋糕, 刀, 叉, 肉排, 砧板, 洗碗液, 碗,
-    # 盘子, 簸箕, 面霜, 文件夹, 煎锅, 地球仪, 眼镜, 头发产品, 衣架, 果汁, 日记, 键盘, 柠檬, 酸橙, 乳液瓶, 水壶, 杂志, 牛奶,
-    # 奶昔, 碎肉, 鼠标, 马克杯, 餐巾, 笔记, 橙子, 煎饼, 纸, 纸巾, 梨, 笔, 派, 枕头, 李子, 土豆, 磅蛋糕, 布丁, 收音机,
-    # 遥控器, 地毯, 沙拉, 三文鱼, 拖鞋, 洗碗海绵, 勺子, 圣代, 泰迪熊, 玩具, 卫生纸, 番茄, 牙刷, 牙膏, 毛巾, 毛巾架,
-    # 墙上相框, 墙电话, 玻璃水杯, 西瓜, 鲜奶油, 酒杯, 酒精, 啤酒, 葡萄酒
+    HAS_SWITCH = {"coffeemaker", "cellphone", "candle", "faucet", "washingmachine", "printer", "wallphone","remotecontrol", \
+                  "computer", "toaster", "microwave", "dishwasher", "clock", "radio", "lightswitch", "fridge",
+                  "tablelamp", "stove", "tv"}
+    # 咖啡机, 手机, 蜡烛, 水龙头, 洗衣机, 打印机, 墙电话, 遥控器, \
+    # 电脑, 烤面包机, 微波炉, 洗碗机, 时钟, 收音机, 开关, 冰箱, 台灯, 炉灶, 电视
 
+    HAS_PLUG = {"wallphone", "coffeemaker", "lightswitch", "cellphone", "fridge", "toaster", "tablelamp", "microwave", "tv", \
+                "mouse", "clock", "keyboard", "radio", "washingmachine", "printer"}
+    # 墙电话, 咖啡机, 开关, 手机, 冰箱, 烤面包机, 台灯, 微波炉, 电视, \
+    # 鼠标, 时钟, 键盘, 收音机, 洗衣机, 打印机
 
-    # grab
-    HasSwitchObjects = {"cellphone", "candle", "clock", "coffeemaker", "dishwasher", "fridge", "lightswitch", "kettle",\
-                        "microwave", "pc", "printer", "radio", "remote_control", "stove", "tv", "toaster", "walltv", \
-                        "wall_phone", "computer", "washing_machine"}
-    # 手机, 蜡烛, 时钟, 咖啡机, 洗碗机, 冰箱, 开关, 水壶,
-    # 微波炉, 电脑, 打印机, 收音机, 遥控器, 炉灶, 电视, 烤面包机, 墙壁电视,
-    # 墙壁电话, 电脑, 洗衣机,
+    CUTABLE = set()
+    # 无可切割物品
+
+    EATABLE = {"sundae", "breadslice", "whippedcream", "condimentshaker", "chocolatesyrup", "candybar", "creamybuns","pancake", \
+               "poundcake", "cereal", "cupcake", "pudding", "salad", "pie", "carrot", "milkshake"}
+    # 圣代, 面包片, 鲜奶油, 调料瓶, 巧克力糖浆, 糖果, 奶油面包, 煎饼, \
+    # 磅蛋糕, 麦片, 纸杯蛋糕, 布丁, 沙拉, 馅饼, 胡萝卜, 奶昔
+
+    RECIPIENT = {"dishbowl", "wineglass", "coffeemaker", "cookingpot", "box", "mug", "toothbrush", "coffeepot","fryingpan", \
+                 "waterglass", "sink", "plate", "washingmachine"}
+    # 碗, 酒杯, 咖啡机, 烹饪锅, 盒子, 杯子, 牙刷, 咖啡壶, 煎锅, \
+    # 水杯, 水槽, 盘子, 洗衣机
+
+    POURABLE = {"wineglass", "milk", "condimentshaker", "toothpaste", "bottlewater", "mug", "condimentbottle", "hairproduct", \
+                "dishwashingliquid", "alcohol", "wine", "juice", "waterglass", "facecream"}
+    # 酒杯, 牛奶, 调料瓶, 牙膏, 瓶装水, 杯子, 调料瓶, 护发产品, \
+    # 洗碗液, 酒精, 酒, 果汁, 水杯, 面霜
+
+    DRINKABLE = {"milk", "bottlewater", "wine", "alcohol", "juice"}
+    # 牛奶, 瓶装水, 酒, 酒精, 果汁
 
     # switch on #candle  cellphone wallphone washingmachine不行# faucet 浴室龙头
-    AllObject = SurfacePlaces | SittablePlaces | Objects | CanOpenPlaces |\
-                 CanPutInPlaces | HasSwitchObjects
+    AllObject = SURFACES | SITTABLE | CAN_OPEN | CONTAINERS | GRABBABLE |\
+                 HAS_SWITCH | CUTABLE | EATABLE | RECIPIENT | POURABLE | DRINKABLE
 
     @property
     def action_class_name(self):

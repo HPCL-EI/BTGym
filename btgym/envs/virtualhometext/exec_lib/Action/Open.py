@@ -3,7 +3,7 @@ from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
 class Open(VHTAction):
     can_be_expanded = True
     num_args = 1
-    valid_args = VHTAction.CanOpenPlaces
+    valid_args = VHTAction.CAN_OPEN
 
     def __init__(self, *args):
         super().__init__(*args)

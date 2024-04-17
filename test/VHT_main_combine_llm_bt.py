@@ -6,6 +6,7 @@ import btgym
 from btgym.utils import ROOT_PATH
 from btgym.algos.llm_client.llms.gpt3 import LLMGPT3
 from btgym.algos.bt_autogen.main_interface import BTExpInterface
+from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
 
 from sympy import symbols, Not, Or, And, to_dnf
 from sympy import symbols, simplify_logic
@@ -44,10 +45,10 @@ env = btgym.make("VHT-PutMilkInFridge")
 
 
 # goal_set = [{'IsClose(fridge)', 'IsIn(milk,fridge)', 'IsIn(chicken,fridge)'}]
-goal_set = [{'IsIn(milk,fridge)'}]
+# goal_set = [{'IsIn(milk,fridge)'}]
 # goal_set = [{'IsOn(milk,sofa)'}]
 # goal_set = [{'IsOpen(fridge)'}]
-priority_act_ls = ["Walk(milk)", "RightGrab(milk)", "Walk(fridge)", "Open(fridge)", "RightPutIn(milk,fridge)"]
+# priority_act_ls = ["Walk(milk)", "RightGrab(milk)", "Walk(fridge)", "Open(fridge)", "RightPutIn(milk,fridge)"]
 # priority_act_ls = ["Walk(milk)","RightGrab(milk)","Walk(fridge)","Open(fridge)","RightPutIn(milk,fridge)","Walk(chicken)",
 #                    "LeftGrab(chicken)","LeftPutIn(chicken,fridge)"]
 # priority_act_ls=[]
@@ -58,6 +59,11 @@ priority_act_ls = ["Walk(milk)", "RightGrab(milk)", "Walk(fridge)", "Open(fridge
 # goal_set = [{'IsIn(chips,fridge)'}]
 # priority_act_ls = ["Walk(chips)", "RightGrab(chips)", "Walk(fridge)", "Open(fridge)", "RightPutIn(chips,fridge)"]
 
+# goal_set = [{'IsClean(tv)'}]
+# priority_act_ls=['Walk(papertowel)','RightGrab(papertowel)','RightGrab(tv)',"Wipe(tv)"]
+
+goal_set = [{'IsSwitchedOn(tv)'}]
+priority_act_ls=['Walk(tv)','PlugIn(tv)','SwitchOn(tv)']
 
 # todo: BTExp:process
 cur_cond_set = env.agents[0].condition_set = {"IsSwitchedOff(tv)", "IsSwitchedOff(faucet)", "IsSwitchedOff(stove)",
@@ -73,6 +79,9 @@ cur_cond_set = env.agents[0].condition_set = {"IsSwitchedOff(tv)", "IsSwitchedOf
 
                                               "IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"
                                               }
+cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
+cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
+
 
 start_time = time.time()
 algo = BTExpInterface(env.behavior_lib, cur_cond_set, priority_act_ls, selected_algorithm="opt")

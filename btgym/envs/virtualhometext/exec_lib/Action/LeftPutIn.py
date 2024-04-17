@@ -1,5 +1,5 @@
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
-from btgym.envs.virtualhome.exec_lib.Action.PutIn import PutIn
+from btgym.envs.virtualhometext.exec_lib.Action.PutIn import PutIn
 
 class LeftPutIn(PutIn):
     can_be_expanded = True

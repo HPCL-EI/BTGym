@@ -18,7 +18,7 @@ class StandUp(VHTAction):
         info["pre"]={"IsSitting(self)"}
         info["add"]={f"IsStanding(self)"}
         info["del_set"] = {f"IsSitting(self)"}
-        info["del_set"] |= {f'IsSittingOn(self,{place})' for place in cls.SittablePlaces}
+        info["del_set"] |= {f'IsSittingOn(self,{place})' for place in cls.SITTABLE}
         info["cost"] = 15
         return info
     def change_condition_set(self):

@@ -1,11 +1,11 @@
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
 import itertools
-from btgym.envs.virtualhome.exec_lib.Action.Put import Put
+from btgym.envs.virtualhometext.exec_lib.Action.Put import Put
 
 class LeftPut(Put):
     can_be_expanded = True
     num_args = 2
-    valid_args = list(itertools.product(VHTAction.Objects, VHTAction.SurfacePlaces))
+    valid_args = list(itertools.product(VHTAction.GRABBABLE, VHTAction.SURFACES))
 
     def __init__(self, *args):
         super().__init__(*args)

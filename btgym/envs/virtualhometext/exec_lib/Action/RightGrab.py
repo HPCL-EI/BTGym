@@ -1,5 +1,5 @@
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
-from btgym.envs.virtualhome.exec_lib.Action.Grab import Grab
+from btgym.envs.virtualhometext.exec_lib.Action.Grab import Grab
 
 class RightGrab(Grab):
     can_be_expanded = True
@@ -20,9 +20,13 @@ class RightGrab(Grab):
         info = {}
         info["pre"]={"IsRightHandEmpty(self)",f"IsNear(self,{arg[0]})"} # 至少有一只手是空闲的
         info["add"]={f"IsRightHolding(self,{arg[0]})","IsRightHandFull(self)"}
+
+        if arg[0] in cls.cleaning_tools:
+            info["add"]|= {f"IsHoldingCleaningTool(self)"}
+
         info["del_set"] = {f"IsRightHandEmpty(self)"}
-        info["del_set"] |= {f'IsOn({arg[0]},{place})' for place in cls.SurfacePlaces}
-        info["del_set"] |= {f'IsIn({arg[0]},{place})' for place in cls.CanOpenPlaces}
+        info["del_set"] |= {f'IsOn({arg[0]},{place})' for place in cls.SURFACES}
+        info["del_set"] |= {f'IsIn({arg[0]},{place})' for place in cls.CONTAINERS}
         info["cost"] = 5
         return info
 

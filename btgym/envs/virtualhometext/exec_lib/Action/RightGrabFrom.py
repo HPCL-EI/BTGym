@@ -1,12 +1,12 @@
-from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
+from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
 import itertools
-from btgym.envs.virtualhome.exec_lib.Action.Grab import Grab
+from btgym.envs.virtualhometext.exec_lib.Action.Grab import Grab
 
 class RightGrabFrom(Grab):
     can_be_expanded = False
     num_args = 2
     # obj1 is reachable (not inside some closed container)
-    valid_args = list(itertools.product(VHAction.Objects, VHAction.CanOpenPlaces))
+    valid_args = list(itertools.product(VHTAction.GRABBABLE, VHTAction.CONTAINERS))
 
     def __init__(self, *args):
         super().__init__(*args)
@@ -22,7 +22,7 @@ class RightGrabFrom(Grab):
         info["pre"]={"IsRightHandEmpty(self)",f"IsIn({arg[0]},{arg[1]})",f"IsNear(self,{arg[1]})",f"IsOpen({arg[1]})"} # 至少有一只手是空闲的
         info["add"]={f"IsRightHolding(self,{arg[0]})","IsRightHandFull(self)"}
         info["del_set"] = {f"IsRightHandEmpty(self)"}
-        info["del_set"] |= {f'IsIn({arg[0]},{place})' for place in cls.CanPutInPlaces}
+        info["del_set"] |= {f'IsIn({arg[0]},{place})' for place in cls.CONTAINERS}
         info["cost"] = 5
         return info
 

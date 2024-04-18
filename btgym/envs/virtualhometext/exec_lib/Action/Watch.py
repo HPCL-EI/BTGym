@@ -1,7 +1,7 @@
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
 
 class Watch(VHTAction):
-    can_be_expanded = True
+    can_be_expanded = False
     num_args = 1
     # obj1 is reachable (not inside some closed container)
     valid_args = VHTAction.AllObject

@@ -6,7 +6,7 @@ class VHTAction(Action):
     can_be_expanded = True
     num_args = 1
 
-
+    # SURFACES = {"kitchentable","towelrack","plate","nightstand","desk","cabinet","bathroomcounter"}
     SURFACES = {"kitchentable", "towelrack", "bench", "kitchencabinet", "mousemat", "boardgame", "coffeetable","fryingpan", \
                 "radio", "cuttingboard", "floor", "tvstand", "bathroomcounter", "oventray", "chair", "kitchencounter","rug", \
                 "bookshelf", "nightstand", "cabinet", "desk", "stove", "bed", "sofa", "plate", "bathroomcabinet"}
@@ -25,12 +25,19 @@ class VHTAction(Action):
     # 窗帘, 衣柜, 盒子, 微波炉, 护发产品, 洗碗机, 收音机, 冰箱, 厕所, 书, \
     # 垃圾桶, 杂志, 床头柜, 柜子, 牛奶, 书桌, 炉灶, 门, 文件夹, 衣物堆, 浴室橱柜
 
-
+    # CONTAINERS = {"fridge","dishwasher","microwave","stove"}
     CONTAINERS = {"coffeemaker", "kitchencabinet", "washingmachine", "printer", "toaster", "closet", "box", "microwave", \
                   "dishwasher", "fryingpan", "fridge", "toilet", "garbagecan", "sink", "bookshelf", "nightstand","cabinet", \
                   "stove", "folder", "clothespile", "bathroomcabinet"}
     # 咖啡机, 厨房橱柜, 洗衣机, 打印机, 烤面包机, 衣柜, 盒子, 微波炉, \
     # 洗碗机, 煎锅, 冰箱, 厕所, 垃圾桶, 水槽, 书架, 床头柜, 柜子, 炉灶, 文件夹, 衣物堆, 浴室橱柜
+
+
+    # GRABBABLE = {"bananas",'chicken', 'cutlets','breadslice','chips','chocolatesyrup',
+    #              'cupcake','milk','juice','wine',
+    #              'cutleryknife','fryingpan','dishbowl','plate',
+    #              'book',"waterglass"
+    #          }
 
     GRABBABLE = {"sundae", "toothpaste", "clothesshirt", "crackers", "pudding", "alcohol", "boardgame", "wallphone","remotecontrol", \
                  "whippedcream", "hanger", "cutlets", "candybar", "wine", "toiletpaper", "slippers", "cereal", "apple","magazine", \

@@ -1,26 +1,47 @@
 selector
-    cond IsSwitchedOn(tv)
+    selector
+        cond IsSwitchedOn(tv)
+        sequence
+            cond IsNear(self,tv)
+            cond IsSwitchedOff(tv)
+            cond IsLeftHandEmpty(self)
+            cond IsPlugged(tv)
+            act SwitchOn(tv)
     sequence
-        cond IsLeftHandEmpty(self)
-        cond IsSwitchedOff(tv)
-        cond IsPlugged(tv)
-        cond IsNear(self,tv)
+        selector
+            cond IsLeftHandEmpty(self)
+            cond IsSwitchedOff(tv)
+            cond IsNear(self,tv)
+            cond IsPlugged(tv)
+            sequence
+                cond IsSwitchedOff(tv)
+                cond IsNear(self,tv)
+                cond IsLeftHandEmpty(self)
+                cond IsUnplugged(tv)
+                act PlugIn(tv)
+            sequence
+                cond IsSwitchedOff(tv)
+                cond IsStanding(self)
+                cond IsLeftHandEmpty(self)
+                cond IsPlugged(tv)
+                act Walk(tv)
         act SwitchOn(tv)
     sequence
-        cond IsUnplugged(tv)
-        cond IsSwitchedOff(tv)
-        cond IsLeftHandEmpty(self)
-        cond IsNear(self,tv)
+        selector
+            cond IsSwitchedOff(tv)
+            cond IsNear(self,tv)
+            cond IsLeftHandEmpty(self)
+            cond IsUnplugged(tv)
+            sequence
+                cond IsSwitchedOff(tv)
+                cond IsStanding(self)
+                cond IsLeftHandEmpty(self)
+                cond IsUnplugged(tv)
+                act Walk(tv)
         act PlugIn(tv)
     sequence
         cond IsSwitchedOff(tv)
-        cond IsLeftHandEmpty(self)
         cond IsStanding(self)
-        cond IsPlugged(tv)
-        act Walk(tv)
-    sequence
-        cond IsSwitchedOff(tv)
         cond IsLeftHandEmpty(self)
-        cond IsStanding(self)
         cond IsUnplugged(tv)
         act Walk(tv)

@@ -1,5 +1,5 @@
 import time
-
+import re
 from btgym import BehaviorTree
 from btgym import ExecBehaviorLibrary
 import btgym
@@ -53,6 +53,20 @@ env = btgym.make("VHT-PutMilkInFridge")
 #                    "LeftGrab(chicken)","LeftPutIn(chicken,fridge)"]
 # priority_act_ls=[]
 
+# 冰箱放入东西前要插上电
+# goal_set = [{'IsClose(fridge)', 'IsIn(milk,fridge)', 'IsIn(chicken,fridge)'}]
+# priority_act_ls = ["Walk(milk)","RightGrab(milk)","Walk(fridge)","Open(fridge)","RightPutIn(milk,fridge)","Walk(chicken)",
+#                    "LeftGrab(chicken)","LeftPutIn(chicken,fridge)",'PlugIn(fridge)']
+# priority_obj_ls = []
+
+# goal_set = [{'IsClean(fridge)','IsClean(tv)','IsClean(kitchentable)','IsClean(bench)','IsClean(sofa)','IsClean(dishwasher)'}]
+# priority_act_ls = ["Walk(brush)","RightGrab(brush)","Walk(bench)","Wipe(bench)",
+#                    "Walk(sofa)","Wipe(sofa)","Walk(dishwasher)"]
+# priority_obj_ls = ["brush"]
+
+# goal_set = [{'IsIn(milk,fridge)'}]
+# priority_act_ls = ["Walk(milk)", "RightGrab(milk)", "Walk(fridge)", "Open(fridge)", "RightPutIn(milk,fridge)",'PlugIn(fridge)'] #,
+
 # goal_set = [{'IsWatching(self,tv)'}]
 # priority_act_ls=['Walk(tv)','Watch(tv)']
 
@@ -64,6 +78,23 @@ env = btgym.make("VHT-PutMilkInFridge")
 
 goal_set = [{'IsSwitchedOn(tv)'}]
 priority_act_ls=['Walk(tv)','PlugIn(tv)','SwitchOn(tv)']
+
+priority_obj_ls = []
+# 提取目标中的所有物体
+objects = set()
+# 正则表达式用于找到括号中的内容
+pattern = re.compile(r'\((.*?)\)')
+# 遍历所有表达式，提取物体名称
+for expr in goal_set[0]:
+    # 找到括号内的内容
+    match = pattern.search(expr)
+    if match:
+        # 将括号内的内容按逗号分割并加入到集合中
+        objects.update(match.group(1).split(','))
+priority_obj_ls += list(objects)
+
+
+
 
 # todo: BTExp:process
 cur_cond_set = env.agents[0].condition_set = {"IsSwitchedOff(tv)", "IsSwitchedOff(faucet)", "IsSwitchedOff(stove)",
@@ -83,10 +114,13 @@ cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
 cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
 
 
+
+algo = BTExpInterface(env.behavior_lib, cur_cond_set, priority_act_ls, priority_obj_ls, selected_algorithm="opt")
+
 start_time = time.time()
-algo = BTExpInterface(env.behavior_lib, cur_cond_set, priority_act_ls, selected_algorithm="opt")
 algo.process(goal_set)
 end_time = time.time()
+
 planning_time_total = (end_time - start_time)
 print("planning_time_total:", planning_time_total)
 
@@ -99,12 +133,12 @@ with open(file_path, 'w') as file:
 
 # 读取执行
 bt = BehaviorTree(file_name + ".btml", env.behavior_lib)
-bt.print()
-bt.draw()
+# bt.print()
+# bt.draw()
 
 env.agents[0].bind_bt(bt)
 env.reset()
-env.print_ticks = True
+env.print_ticks = False
 
 # simulation and test
 print("\n================ ")

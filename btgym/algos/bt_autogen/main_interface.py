@@ -1,16 +1,17 @@
-
-from btgym.algos.bt_autogen.Action import  Action,state_transition
+from btgym.algos.bt_autogen.Action import Action, state_transition
 from btgym.algos.bt_autogen.OptimalBTExpansionAlgorithm import OptBTExpAlgorithm
 from btgym.algos.bt_autogen.BTExpansionAlgorithm import BTalgorithm
 from btgym.algos.bt_autogen.BTExpansionAlgorithmBFS import BTalgorithmBFS
 from btgym.algos.bt_autogen.BTExpansionAlgorithmDFS import BTalgorithmDFS
 from btgym.algos.bt_autogen.OptimalBTExpansionAlgorithmHeuristics import OptBTExpAlgorithmHeuristics
 from btgym.algos.bt_autogen.examples import *
+import re
 
 
 # 封装好的主接口
 class BTExpInterface:
-    def __init__(self, behavior_lib,cur_cond_set,priority_act_ls=[],selected_algorithm="opt",bt_algo_opt=True):
+    def __init__(self, behavior_lib, cur_cond_set, priority_act_ls=[], priority_obj_ls=[], selected_algorithm="opt",
+                 bt_algo_opt=True):
         """
         Initialize the BTOptExpansion with a list of actions.
         :param action_list: A list of actions to be used in the behavior tree.
@@ -19,16 +20,16 @@ class BTExpInterface:
         self.bt_algo_opt = bt_algo_opt
         self.selected_algorithm = selected_algorithm
 
-
         self.actions = collect_action_nodes(behavior_lib)
 
         self.priority_act_ls = priority_act_ls
-        self.actions = self.adjust_action_priority(self.actions,self.priority_act_ls,self.selected_algorithm)
+        self.priority_obj_ls = priority_obj_ls
+        self.actions = self.adjust_action_priority(self.actions, self.priority_act_ls, self.priority_obj_ls,
+                                                   self.selected_algorithm)
 
         self.has_processed = False
 
-        self.min_cost=float("inf")
-
+        self.min_cost = float("inf")
 
     def process(self, goal):
         """
@@ -41,22 +42,21 @@ class BTExpInterface:
         #     self.algo = OptBTExpAlgorithm(verbose=False)
         # else:
         #     self.algo = BTalgorithm(verbose=False)
-        if self.selected_algorithm=="opt":
+        if self.selected_algorithm == "opt":
             self.algo = OptBTExpAlgorithm(verbose=False)
 
-        elif self.selected_algorithm=="opt-h":
+        elif self.selected_algorithm == "opt-h":
             self.algo = OptBTExpAlgorithmHeuristics(verbose=False)
-        elif self.selected_algorithm=="bfs":
+        elif self.selected_algorithm == "bfs":
             self.algo = BTalgorithmBFS(verbose=False)
             # self.algo = BTalgorithm(verbose=False)
-        elif self.selected_algorithm=="dfs":
+        elif self.selected_algorithm == "dfs":
             self.algo = BTalgorithmDFS(verbose=False)
         else:
             print("Error in algorithm selection: This algorithm does not exist.")
 
         self.algo.clear()
-        self.algo.run_algorithm(self.cur_cond_set,self.goal, self.actions) # 调用算法得到行为树保存至 algo.bt
-
+        self.algo.run_algorithm(self.cur_cond_set, self.goal, self.actions)  # 调用算法得到行为树保存至 algo.bt
 
         # self.btml_string = self.algo.get_btml()
         self.has_processed = True
@@ -71,11 +71,10 @@ class BTExpInterface:
             self.min_cost = self.algo.min_cost
         else:
             self.min_cost = self.algo.get_cost()
-        return self.btml_string,self.min_cost
-
+        return self.btml_string, self.min_cost
 
     # 方法一：查找所有初始状态是否包含当前状态
-    def find_all_leaf_states_contain_start(self,start):
+    def find_all_leaf_states_contain_start(self, start):
         if not self.has_processed:
             raise RuntimeError("The process method must be called before find_all_leaf_states_contain_start!")
         # 返回所有能到达目标状态的初始状态
@@ -86,7 +85,7 @@ class BTExpInterface:
         return False
 
     # 方法二：模拟跑一遍行为树，看 start 能够通过执行一系列动作到达 goal
-    def run_bt_from_start(self,goal,start):
+    def run_bt_from_start(self, goal, start):
         if not self.has_processed:
             raise RuntimeError("The process method must be called before run_bt_from_start!")
         # 检查是否能到达目标
@@ -109,8 +108,7 @@ class BTExpInterface:
             # print("right solution", steps)
         return right_bt
 
-
-    def adjust_action_priority(self,action_list,priority_act_ls,selected_algorithm):
+    def adjust_action_priority(self, action_list, priority_act_ls, priority_obj_ls, selected_algorithm):
         # recommended_acts=["RightPutIn(bananas,fridge)",
         #                   "Open(fridge)",
         #                   "Walk(fridge)",
@@ -120,19 +118,46 @@ class BTExpInterface:
         #                   ]
 
         recommended_acts = priority_act_ls
+        recommended_objs = priority_obj_ls
 
-        if selected_algorithm == "opt-h":
-            for act in action_list:
-                if act.name in recommended_acts:
-                    act.priority = 0
-        else:
-            for act in action_list:
-                if act.name in recommended_acts:
-                    act.cost=0
-                    act.priority=0
+        # for act in action_list:
+        #     act.cost*=10000000000
+        #     act.priority*=10000000000
+
+        # if selected_algorithm == "opt-h":
+        #     for act in action_list:
+        #         if act.name in recommended_acts:
+        #             act.priority = 0
+        # else:
+
+        # 根据目标中的物体，调整有这些物体的优先级
+        # 正则表达式用于找到括号中的内容
+        print("============ Priority Objs: ==============")
+        pattern = re.compile(r'\((.*?)\)')
+        for act in action_list:
+            match = pattern.search(act.name)
+            if match:
+                # 将括号内的内容按逗号分割
+                action_objects = match.group(1).split(',')
+                # 遍历每个物体名称
+                if all(obj in recommended_objs for obj in action_objects):
+                    act.cost = 0.000001
+                    act.priority = 0.000001
+                    # act.cost = 0
+                    # act.priority = 0
+                    print(act)
+        print("============ Priority Objs: ==============")
+
+        for act in action_list:
+            if act.name in recommended_acts:
+                act.cost = 0
+                act.priority = 0
 
         # 对action排序
         action_list.sort(key=lambda x: x.cost)
+        # for act in action_list:
+        #     if act.priority <= 1 :
+        #         act.cost = 1000000
 
         return action_list
 
@@ -161,29 +186,30 @@ def collect_action_nodes(behavior_lib):
     return action_list
 
 
-
-
-
-
-
-if __name__ == '__main__' :
+if __name__ == '__main__':
 
     # todo: Example Cafe
     # todo: Define goal, start, actions
-    actions=[
-        Action(name='PutDown(Table,Coffee)', pre={'Holding(Coffee)','At(Robot,Table)'}, add={'At(Table,Coffee)','NotHolding'}, del_set={'Holding(Coffee)'}, cost=1),
-        Action(name='PutDown(Table,VacuumCup)', pre={'Holding(VacuumCup)','At(Robot,Table)'}, add={'At(Table,VacuumCup)','NotHolding'}, del_set={'Holding(VacuumCup)'}, cost=1),
+    actions = [
+        Action(name='PutDown(Table,Coffee)', pre={'Holding(Coffee)', 'At(Robot,Table)'},
+               add={'At(Table,Coffee)', 'NotHolding'}, del_set={'Holding(Coffee)'}, cost=1),
+        Action(name='PutDown(Table,VacuumCup)', pre={'Holding(VacuumCup)', 'At(Robot,Table)'},
+               add={'At(Table,VacuumCup)', 'NotHolding'}, del_set={'Holding(VacuumCup)'}, cost=1),
 
-        Action(name='PickUp(Coffee)', pre={'NotHolding','At(Robot,Coffee)'}, add={'Holding(Coffee)'}, del_set={'NotHolding'}, cost=1),
+        Action(name='PickUp(Coffee)', pre={'NotHolding', 'At(Robot,Coffee)'}, add={'Holding(Coffee)'},
+               del_set={'NotHolding'}, cost=1),
 
-        Action(name='MoveTo(Table)', pre={'Available(Table)'}, add={'At(Robot,Table)'}, del_set={'At(Robot,FrontDesk)','At(Robot,Coffee)','At(Robot,CoffeeMachine)'}, cost=1),
-        Action(name='MoveTo(Coffee)', pre={'Available(Coffee)'}, add={'At(Robot,Coffee)'}, del_set={'At(Robot,FrontDesk)','At(Robot,Table)','At(Robot,CoffeeMachine)'}, cost=1),
-        Action(name='MoveTo(CoffeeMachine)', pre={'Available(CoffeeMachine)'}, add={'At(Robot,CoffeeMachine)'}, del_set={'At(Robot,FrontDesk)','At(Robot,Coffee)','At(Robot,Table)'}, cost=1),
+        Action(name='MoveTo(Table)', pre={'Available(Table)'}, add={'At(Robot,Table)'},
+               del_set={'At(Robot,FrontDesk)', 'At(Robot,Coffee)', 'At(Robot,CoffeeMachine)'}, cost=1),
+        Action(name='MoveTo(Coffee)', pre={'Available(Coffee)'}, add={'At(Robot,Coffee)'},
+               del_set={'At(Robot,FrontDesk)', 'At(Robot,Table)', 'At(Robot,CoffeeMachine)'}, cost=1),
+        Action(name='MoveTo(CoffeeMachine)', pre={'Available(CoffeeMachine)'}, add={'At(Robot,CoffeeMachine)'},
+               del_set={'At(Robot,FrontDesk)', 'At(Robot,Coffee)', 'At(Robot,Table)'}, cost=1),
 
-        Action(name='OpCoffeeMachine', pre={'At(Robot,CoffeeMachine)','NotHolding'}, add={'Available(Coffee)','At(Robot,Coffee)'}, del_set=set(), cost=1),
+        Action(name='OpCoffeeMachine', pre={'At(Robot,CoffeeMachine)', 'NotHolding'},
+               add={'Available(Coffee)', 'At(Robot,Coffee)'}, del_set=set(), cost=1),
     ]
     algo = BTOptExpInterface(actions)
-
 
     goal = {'At(Table,Coffee)'}
     btml_string = algo.process(goal)
@@ -193,9 +219,9 @@ if __name__ == '__main__' :
     with open(f'./{file_name}.btml', 'w') as file:
         file.write(btml_string)
 
-
     # 判断初始状态能否到达目标状态
-    start = {'At(Robot,Bar)', 'Holding(VacuumCup)', 'Available(Table)', 'Available(CoffeeMachine)','Available(FrontDesk)'}
+    start = {'At(Robot,Bar)', 'Holding(VacuumCup)', 'Available(Table)', 'Available(CoffeeMachine)',
+             'Available(FrontDesk)'}
     # 方法一：算法返回所有可能的初始状态，在里面看看有没有对应的初始状态
     right_bt = algo.find_all_leaf_states_contain_start(start)
     if not right_bt:
@@ -203,7 +229,7 @@ if __name__ == '__main__' :
     else:
         print("Right1: The current state can reach the goal state!")
     # 方法二：预先跑一边行为树，看能否到达目标状态
-    right_bt2 = algo.run_bt_from_start(goal,start)
+    right_bt2 = algo.run_bt_from_start(goal, start)
     if not right_bt2:
         print("ERROR2: The current state cannot reach the goal state!")
     else:

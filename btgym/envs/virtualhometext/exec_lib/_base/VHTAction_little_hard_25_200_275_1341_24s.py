@@ -6,42 +6,60 @@ class VHTAction(Action):
     can_be_expanded = True
     num_args = 1
 
+    SURFACES = {"kitchentable","towelrack","plate","nightstand","desk","cabinet","bathroomcounter","sofa"}
 
-    SURFACES = {"kitchentable", "towelrack", "bench", "kitchencabinet", "mousemat", "boardgame", "coffeetable","fryingpan", \
-                "radio", "cuttingboard", "floor", "tvstand", "bathroomcounter", "oventray", "chair", "kitchencounter","rug", \
-                "bookshelf", "nightstand", "cabinet", "desk", "stove", "bed", "sofa", "plate", "bathroomcabinet"}
+    # SURFACES = {"kitchentable", "towelrack", "bench", "kitchencabinet", "mousemat", "boardgame", "coffeetable","fryingpan", \
+    #             "radio", "cuttingboard", "floor", "tvstand", "bathroomcounter", "oventray", "chair", "kitchencounter","rug", \
+    #             "bookshelf", "nightstand", "cabinet", "desk", "stove", "bed", "sofa", "plate", "bathroomcabinet"}
     # 厨房桌子, 毛巾架, 长凳, 厨房橱柜, 鼠标垫, 桌游, 咖啡桌, 煎锅, \
     # 收音机, 切菜板, 地板, 电视架, 浴室台面, 烤箱托盘, 椅子, 厨房台面, 地毯, \
     # 书架, 床头柜, 柜子, 书桌, 炉灶, 床, 沙发, 盘子, 浴室橱柜
 
-    SITTABLE = {"bathtub", "chair", "toilet", "bench", "bed", "rug", "sofa"}
+    SITTABLE = set()
+    # SITTABLE = {"bathtub", "chair", "toilet", "bench", "bed", "rug", "sofa"}
     # 浴缸, 椅子, 厕所, 长凳, 床, 地毯, 沙发
 
-    CAN_OPEN = {"coffeemaker", "cookingpot", "toothpaste", "coffeepot", "kitchencabinet", "washingmachine", "window","printer", \
-                "curtains", "closet", "box", "microwave", "hairproduct", "dishwasher", "radio", "fridge", "toilet","book", \
-                "garbagecan", "magazine", "nightstand", "cabinet", "milk", "desk", "stove", "door", "folder",
+    CAN_OPEN = {"cookingpot", "kitchencabinet", "washingmachine", "window","printer", \
+                "curtains", "closet", "box", "microwave", "dishwasher", "radio", "fridge", \
+                "garbagecan", "nightstand", "cabinet", "desk", "stove", "door", "folder",
                 "clothespile", "bathroomcabinet"}
+
+    # CAN_OPEN = {"coffeemaker", "cookingpot", "toothpaste", "coffeepot", "kitchencabinet", "washingmachine", "window","printer", \
+    #             "curtains", "closet", "box", "microwave", "hairproduct", "dishwasher", "radio", "fridge", "toilet","book", \
+    #             "garbagecan", "magazine", "nightstand", "cabinet", "milk", "desk", "stove", "door", "folder",
+    #             "clothespile", "bathroomcabinet"}
     # 咖啡机, 烹饪锅, 牙膏, 咖啡壶, 厨房橱柜, 洗衣机, 窗户, 打印机, \
     # 窗帘, 衣柜, 盒子, 微波炉, 护发产品, 洗碗机, 收音机, 冰箱, 厕所, 书, \
     # 垃圾桶, 杂志, 床头柜, 柜子, 牛奶, 书桌, 炉灶, 门, 文件夹, 衣物堆, 浴室橱柜
 
-
-    CONTAINERS = {"coffeemaker", "kitchencabinet", "washingmachine", "printer", "toaster", "closet", "box", "microwave", \
-                  "dishwasher", "fryingpan", "fridge", "toilet", "garbagecan", "sink", "bookshelf", "nightstand","cabinet", \
-                  "stove", "folder", "clothespile", "bathroomcabinet"}
+    CONTAINERS = {"washingmachine","dishwasher",
+                  "printer","kitchencabinet","garbagecan","clothespile",
+                  "fridge","microwave","stove"}
+    # CONTAINERS = {"coffeemaker", "kitchencabinet", "washingmachine", "printer", "toaster", "closet", "box", "microwave", \
+    #               "dishwasher", "fryingpan", "fridge", "toilet", "garbagecan", "sink", "bookshelf", "nightstand","cabinet", \
+    #               "stove", "folder", "clothespile", "bathroomcabinet"}
     # 咖啡机, 厨房橱柜, 洗衣机, 打印机, 烤面包机, 衣柜, 盒子, 微波炉, \
     # 洗碗机, 煎锅, 冰箱, 厕所, 垃圾桶, 水槽, 书架, 床头柜, 柜子, 炉灶, 文件夹, 衣物堆, 浴室橱柜
 
-    GRABBABLE = {"sundae", "toothpaste", "clothesshirt", "crackers", "pudding", "alcohol", "boardgame", "wallphone","remotecontrol", \
-                 "whippedcream", "hanger", "cutlets", "candybar", "wine", "toiletpaper", "slippers", "cereal", "apple","magazine", \
-                 "wineglass", "milk", "cupcake", "folder", "wallpictureframe", "cellphone", "coffeepot", "crayons","box", \
-                 "fryingpan", "radio", "chips", "cuttingboard", "lime", "mug", "rug", "carrot", "cutleryfork","clothespile", \
-                 "notes", "plum", "cookingpot", "toy", "salmon", "peach", "condimentbottle", "hairproduct", "salad","mouse", \
-                 "clock", "washingsponge", "bananas", "dishbowl", "oventray", "chocolatesyrup", "creamybuns", "pear","chair", \
-                 "condimentshaker", "bellpepper", "paper", "plate", "facecream", "breadslice", "candle", "towelrack","pancake", \
-                 "cutleryknife", "milkshake", "dishwashingliquid", "keyboard", "towel", "toothbrush", "book", "juice","waterglass", \
-                 "barsoap", "mincedmeat", "clothespants", "chicken", "poundcake", "pillow", "pie",
-                 "rag","duster","papertowel","brush"}
+
+    GRABBABLE = {
+                "bananas",'chicken','cutlets','breadslice','chips','chocolatesyrup',
+                 'cupcake','milk','juice','wine',"cereal",
+                 'cutleryknife','fryingpan','dishbowl','plate',
+                 'book',"waterglass",'towel',"radio","paper","facecream","clothesshirt","clothespants","facecream",
+                  "rag"
+             }
+
+    # GRABBABLE = {"sundae", "toothpaste", "clothesshirt", "crackers", "pudding", "alcohol", "boardgame", "wallphone","remotecontrol", \
+    #              "whippedcream", "hanger", "cutlets", "candybar", "wine", "toiletpaper", "slippers", "cereal", "apple","magazine", \
+    #              "wineglass", "milk", "cupcake", "folder", "wallpictureframe", "cellphone", "coffeepot", "crayons","box", \
+    #              "fryingpan", "radio", "chips", "cuttingboard", "lime", "mug", "rug", "carrot", "cutleryfork","clothespile", \
+    #              "notes", "plum", "cookingpot", "toy", "salmon", "peach", "condimentbottle", "hairproduct", "salad","mouse", \
+    #              "clock", "washingsponge", "bananas", "dishbowl", "oventray", "chocolatesyrup", "creamybuns", "pear","chair", \
+    #              "condimentshaker", "bellpepper", "paper", "plate", "facecream", "breadslice", "candle", "towelrack","pancake", \
+    #              "cutleryknife", "milkshake", "dishwashingliquid", "keyboard", "towel", "toothbrush", "book", "juice","waterglass", \
+    #              "barsoap", "mincedmeat", "clothespants", "chicken", "poundcake", "pillow", "pie",
+    #              "rag","duster","papertowel","brush"}
     # 圣代, 牙膏, 衬衫, 饼干, 布丁, 酒精, 桌游, 墙电话, 遥控器, \
     # 鲜奶油, 衣架, 切片肉, 糖果, 酒, 卫生纸, 拖鞋, 麦片, 苹果, 杂志, \
     # 酒杯, 牛奶, 纸杯蛋糕, 文件夹, 墙壁画框, 手机, 咖啡壶, 蜡笔, 盒子, \
@@ -53,7 +71,8 @@ class VHTAction(Action):
     # 鸡肉, 磅蛋糕, 枕头, 馅饼
     # 抹布, 掸子, 纸巾, 刷子
 
-    cleaning_tools = {"rag","duster","papertowel","brush"}
+    cleaning_tools = {"rag"}
+    # cleaning_tools = {"rag","duster","papertowel","brush"}
 
 
     HAS_SWITCH = {"coffeemaker", "cellphone", "candle", "faucet", "washingmachine", "printer", "wallphone","remotecontrol", \

@@ -5,7 +5,7 @@ from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
 from btgym.behavior_tree import Status
 
 class Sit(VHTAction):
-    can_be_expanded = True
+    can_be_expanded = False
     num_args = 1
     valid_args=VHTAction.SITTABLE
 

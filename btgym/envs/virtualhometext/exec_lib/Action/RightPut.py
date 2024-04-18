@@ -6,7 +6,6 @@ from btgym.envs.virtualhometext.exec_lib.Action.Put import Put
 class RightPut(Put):
     can_be_expanded = True
     num_args = 2
-    valid_args = list(itertools.product(VHTAction.GRABBABLE, VHTAction.SURFACES))
 
     def __init__(self, *args):
         super().__init__(*args)

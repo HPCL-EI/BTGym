@@ -117,8 +117,6 @@ class OptBTExpAlgorithm:
         self.output_just_best = True
         self.merge_time = 999999
 
-        self.act_bt = None
-
     def clear(self):
         self.bt = None
         self.start = None
@@ -136,8 +134,6 @@ class OptBTExpAlgorithm:
 
         self.bt_without_merge = None
         self.subtree_count = 1
-
-        self.act_bt = None
 
     def post_processing(self, pair_node, g_cond_anc_pair, subtree, bt, child_to_parent, cond_to_condActSeq):
         '''
@@ -183,7 +179,6 @@ class OptBTExpAlgorithm:
         self.tree_size = 0
 
         self.expanded = []  # Conditions for storing expanded nodes
-        self.expanded_pair = []  # Conditions for storing expanded nodes
         self.traversed = []  # Conditions for storing nodes that have been put into the priority queue
         self.traversed_state_num = 0
 
@@ -198,13 +193,6 @@ class OptBTExpAlgorithm:
         goal_condition_node = Leaf(type='cond', content=goal, min_cost=0)
         goal_action_node = Leaf(type='act', content=None, min_cost=0)
 
-        # ACTION TREE: self.act_bt = None
-        self.act_bt = ControlBT(type='cond')
-        self.act_bt.add_child([goal_condition_node])
-        act_bt_subtree = ControlBT(type='?')
-        act_bt_subtree.add_child([copy.deepcopy(goal_condition_node)])
-
-
         # Retain the expanded nodes in the subtree first
         subtree = ControlBT(type='?')
         subtree.add_child([goal_condition_node])
@@ -214,7 +202,6 @@ class OptBTExpAlgorithm:
         # Using priority queues to store extended nodes
         heapq.heappush(self.nodes, goal_cond_act_pair)
         self.expanded.append(goal)
-        self.expanded_pair.append(goal_cond_act_pair)
         self.traversed_state_num += 1
         self.traversed = [goal]  # Set of expanded conditions
 
@@ -224,9 +211,6 @@ class OptBTExpAlgorithm:
             return bt, 0
 
         while len(self.nodes) != 0:
-
-
-
 
             self.cycles += 1
 
@@ -246,11 +230,6 @@ class OptBTExpAlgorithm:
                 sequence_structure.add_child(
                     [current_pair.cond_leaf, current_pair.act_leaf])
                 self.expanded.append(c)
-
-                # ACTION TREE
-                self.expanded_pair.append(current_pair)
-                act_bt_subtree = ControlBT(type='?')
-                act_bt_subtree.add_child([copy.deepcopy(current_pair.cond_leaf)])  # 子树首先保留所扩展结点
 
                 if self.output_just_best:
                     cond_to_condActSeq[current_pair] = sequence_structure
@@ -277,17 +256,6 @@ class OptBTExpAlgorithm:
                 if current_pair.act_leaf.content!=None:
                     print("current act:",current_pair.act_leaf.content.name)
                     print("current cond:", c)
-
-
-            # 在这里询问大模型，然后更改 act 的值，同时也更新所有 self.nodes 中的值
-            # 把现在扩展的动作树异步打印出来
-            # 是只考虑 已扩展的结点？
-            # Only output the best
-            parent_of_c = current_pair.cond_leaf.parent
-            parent_of_c.children[0] = subtree
-            self.print_solution(act_bt_tree=True)
-
-
 
             # ====================== Action Trasvers ============================ #
             # Traverse actions to find applicable ones
@@ -334,11 +302,6 @@ class OptBTExpAlgorithm:
                             new_pair = CondActPair(cond_leaf=c_attr_node, act_leaf=a_attr_node)
                             heapq.heappush(self.nodes, new_pair)
 
-                            # ACTION TREE 将顺序结构添加到子树
-                            sequence_structure = ControlBT(type='>')
-                            sequence_structure.add_child([c_attr_node, a_attr_node])
-                            act_bt_subtree.add_child([sequence_structure])
-
                             # Need to record: The upper level of c_attr is c
                             if self.output_just_best:
                                 child_to_parent[new_pair] = current_pair
@@ -352,13 +315,6 @@ class OptBTExpAlgorithm:
 
             # print(len(traversed_current))
             self.traversed.extend(traversed_current)
-
-            # ACTION TREE
-            # 将原条件结点c_node替换为扩展后子树subtree
-            parent_of_c = current_pair.cond_leaf.parent
-            parent_of_c.children[0] = act_bt_subtree
-
-
             # ====================== End Action Trasvers ============================ #
 
         self.tree_size = self.bfs_cal_tree_size_subtree(bt)
@@ -530,16 +486,13 @@ class OptBTExpAlgorithm:
         bt_sel = bt
         return bt_sel
 
-    def print_solution(self, without_merge=False,act_bt_tree = False):
+    def print_solution(self, without_merge=False):
         print("========= BT ==========")  # 树的bfs遍历
         nodes_ls = []
         if without_merge == True:
             nodes_ls.append(self.bt_without_merge)
         else:
-            if act_bt_tree:
-                nodes_ls.append(self.act_bt)
-            else:
-                nodes_ls.append(self.bt)
+            nodes_ls.append(self.bt)
         while len(nodes_ls) != 0:
             parnode = nodes_ls[0]
             print("Parrent:", parnode.type)

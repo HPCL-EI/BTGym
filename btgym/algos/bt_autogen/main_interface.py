@@ -132,7 +132,7 @@ class BTExpInterface:
 
         # 根据目标中的物体，调整有这些物体的优先级
         # 正则表达式用于找到括号中的内容
-        print("============ Priority Objs: ==============")
+        # print("============ Priority Objs: ==============")
         pattern = re.compile(r'\((.*?)\)')
         for act in action_list:
             match = pattern.search(act.name)
@@ -141,12 +141,12 @@ class BTExpInterface:
                 action_objects = match.group(1).split(',')
                 # 遍历每个物体名称
                 if all(obj in recommended_objs for obj in action_objects):
-                    act.cost = 0.000001
-                    act.priority = 0.000001
-                    # act.cost = 0
-                    # act.priority = 0
-                    print(act)
-        print("============ Priority Objs: ==============")
+                    # act.cost = 0.000001
+                    # act.priority = 0.000001
+                    act.cost = 0
+                    act.priority = 0
+                    # print(act)
+        # print("============ Priority Objs: ==============")
 
         for act in action_list:
             if act.name in recommended_acts:

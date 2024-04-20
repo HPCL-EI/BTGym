@@ -4,7 +4,7 @@ import heapq
 import re
 from btgym.algos.bt_autogen.behaviour_tree import Leaf, ControlBT
 from btgym.algos.bt_autogen.Action import Action, state_transition
-
+from collections import deque
 
 class CondActPair:
     def __init__(self, cond_leaf, act_leaf):
@@ -232,11 +232,15 @@ class OptBTExpAlgorithm:
             # tmp_act_bt = copy.deepcopy(self.act_bt)
             # self.act_bt.children[0] = copy.deepcopy(parent_of_c)
             # self.print_solution(act_bt_tree=True)
-            if hasattr(self.act_bt.children[0], 'children'):
-                act_bt_btml_string = self.get_btml(act_bt_tree=True)
-                print("\n----------------")
-                print(act_bt_btml_string)
-            # self.act_bt = copy.deepcopy(tmp_act_bt)
+            # if hasattr(self.act_bt.children[0], 'children'):
+            #     act_bt_btml_string = self.get_btml(act_bt_tree=True)
+            #     print("\n----------------")
+            #     print(act_bt_btml_string)
+
+
+            # 恢复
+            # self.print_solution(bt=tmp_act_bt,act_bt_tree=True)
+
 
             self.cycles += 1
             #  Find the condition for the shortest cost path
@@ -527,14 +531,15 @@ class OptBTExpAlgorithm:
         bt_sel = bt
         return bt_sel
 
-    def print_solution(self, without_merge=False, act_bt_tree=False):
+    def print_solution(self, bt=None, without_merge=False, act_bt_tree=False):
         print("========= BT ==========")  # 树的bfs遍历
         nodes_ls = []
         if without_merge == True:
             nodes_ls.append(self.bt_without_merge)
         else:
             if act_bt_tree:
-                nodes_ls.append(self.act_bt)
+                bt=bt
+                nodes_ls.append(bt)
             else:
                 nodes_ls.append(self.bt)
         while len(nodes_ls) != 0:

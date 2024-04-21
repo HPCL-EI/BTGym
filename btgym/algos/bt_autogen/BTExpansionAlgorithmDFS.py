@@ -5,6 +5,11 @@ import re
 from btgym.algos.bt_autogen.behaviour_tree import Leaf, ControlBT
 from btgym.algos.bt_autogen.Action import Action,state_transition
 
+import random
+import numpy as np
+seed=0
+random.seed(seed)
+np.random.seed(seed)
 
 class CondActPair:
     def __init__(self, cond_leaf, act_leaf):

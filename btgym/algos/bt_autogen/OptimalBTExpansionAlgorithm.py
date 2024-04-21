@@ -5,6 +5,11 @@ import re
 from btgym.algos.bt_autogen.behaviour_tree import Leaf, ControlBT
 from btgym.algos.bt_autogen.Action import Action, state_transition
 from collections import deque
+import random
+import numpy as np
+seed=0
+random.seed(seed)
+np.random.seed(seed)
 
 class CondActPair:
     def __init__(self, cond_leaf, act_leaf):
@@ -12,6 +17,7 @@ class CondActPair:
         self.act_leaf = act_leaf
         self.parent = None
         self.children = []
+        self.isCostOneAdded=False
 
     def __lt__(self, other):
         # 定义优先级比较：按照 cost 的值来比较
@@ -95,9 +101,17 @@ def check_conflict(conds):
     return False
 
 
+def call_large_model(self):
+    # 这里模拟调用大型模型的过程
+    # 你需要替换这部分为真正的模型调用代码
+    print("调用大型模型，当前已展开节点数：", len(self.expanded))
+    feedback = "模拟反馈信息"
+    # 处理模型反馈
+    self.handle_model_feedback(feedback)
+
 
 class OptBTExpAlgorithm:
-    def __init__(self, verbose=False):
+    def __init__(self, verbose=False,llm_reflect=False):
         self.bt = None
         self.start = None
         self.goal = None
@@ -116,6 +130,7 @@ class OptBTExpAlgorithm:
         self.subtree_count = 1
 
         self.verbose = verbose
+        self.llm_reflect = llm_reflect
         self.bt_merge = False
         self.output_just_best = False
         self.merge_time = 999999
@@ -235,6 +250,43 @@ class OptBTExpAlgorithm:
         act_tree_string += build_act_tree(root_pair, 1, '')
         return act_tree_string
 
+
+    def call_large_model(self,goal_cond_act_pair):
+        # =================================================
+        # 在这里询问大模型，然后更改 act 的值，同时也更新所有 self.nodes 中的值
+        # 这里输出前5个cost最长的路径
+        top_five_leaves = heapq.nlargest(5, self.nodes)
+        # 存储路径上的所有结点
+        path_nodes = set()
+        # 追踪每个叶子结点到根节点的路径
+        for leaf in top_five_leaves:
+            current = leaf
+            while current.parent != None:
+                path_nodes.add(current)
+                current = current.parent
+            path_nodes.add(goal_cond_act_pair)  # 添加根节点
+        # for node in path_nodes:
+        #     print(node)
+
+        # 构建新的树 动作BT （父节点关系）
+        # self.act_bt = self.transfer_pair_node_to_bt(path_nodes=path_nodes,root_pair =goal_cond_act_pair)
+        # act_bt_btml_string = self.ACT_BT_get_btml()
+        # print(act_bt_btml_string)
+
+        # 如果不建立BT,之间里动作树
+        self.act_tree_string = self.transfer_pair_node_to_act_tree(path_nodes=path_nodes, root_pair=goal_cond_act_pair)
+        print(self.act_tree_string)
+        # =================================================
+
+        prompt=""
+        prompt += self.act_tree_string
+
+        # 大模型返回新的 最优动作，和原来比增加了什么，更新（只更新增加的？）
+        # 更新 self.nodes 中所有的cost值
+
+
+
+
     def run_algorithm_selTree(self, start, goal, actions, merge_time=99999999):
         '''
         Run the planning algorithm to calculate a behavior tree from the initial state, goal state, and available actions
@@ -297,32 +349,10 @@ class OptBTExpAlgorithm:
 
         while len(self.nodes) != 0:
 
-            # =================================================
-            # 在这里询问大模型，然后更改 act 的值，同时也更新所有 self.nodes 中的值
-            # 这里输出前5个cost最长的路径
-            top_five_leaves = heapq.nlargest(5, self.nodes)
-            # 存储路径上的所有结点
-            path_nodes = set()
-            # 追踪每个叶子结点到根节点的路径
-            for leaf in top_five_leaves:
-                current = leaf
-                while current.parent!=None:
-                    path_nodes.add(current)
-                    current = current.parent
-                path_nodes.add(goal_cond_act_pair)  # 添加根节点
-            # for node in path_nodes:
-            #     print(node)
-
-            # 构建新的树 动作BT （父节点关系）
-            # self.act_bt = self.transfer_pair_node_to_bt(path_nodes=path_nodes,root_pair =goal_cond_act_pair)
-            # act_bt_btml_string = self.ACT_BT_get_btml()
-            # print(act_bt_btml_string)
-
-            # 如果不建立BT,之间里动作树
-            self.act_tree_string = self.transfer_pair_node_to_act_tree(path_nodes=path_nodes, root_pair=goal_cond_act_pair)
-            print(self.act_tree_string)
-            #=================================================
-
+            # 调用大模型
+            if self.llm_reflect:
+                if len(self.expanded) % 10 == 0 and len(self.expanded)>=10:
+                    self.call_large_model(goal_cond_act_pair=goal_cond_act_pair)
 
 
             self.cycles += 1
@@ -399,22 +429,12 @@ class OptBTExpAlgorithm:
                                 valid = False
                                 break
 
-                        # tmp_heap = list(self.nodes)
-                        # # tmp_heap = copy.deepcopy(self.nodes)
-                        # while tmp_heap:  # 剪枝操作 self.expanded?
-                        #     cond_anc_pair = heapq.heappop(tmp_heap)
-                        #     j = cond_anc_pair.cond_leaf.content
-                        #     if j <= c_attr:
-                        #         if cond_anc_pair.cond_leaf.mincost < current_mincost + actions[i].cost:
-                        #             valid = False
-                        #             break
 
                         if valid:
+
                             c_attr_node = Leaf(type='cond', content=c_attr, min_cost=current_mincost + act.cost)
                             a_attr_node = Leaf(type='act', content=act, min_cost=current_mincost + act.cost)
 
-                            # c_attr_node = Leaf(type='cond', content=c_attr, trust_cost=current_trust+act.cost ,min_cost=current_trust + act.priority)
-                            # a_attr_node = Leaf(type='act', content=act, trust_cost=current_trust+act.cost ,min_cost=current_trust + act.priority)
 
                             new_pair = CondActPair(cond_leaf=c_attr_node, act_leaf=a_attr_node)
                             heapq.heappush(self.nodes, new_pair)
@@ -422,6 +442,16 @@ class OptBTExpAlgorithm:
                             # 记录结点的父子关系
                             new_pair.parent = current_pair
                             current_pair.children.append(new_pair)
+
+                            # 如果之前标记过/之前没标记但现在是1
+                            if (current_pair.isCostOneAdded==False and act.cost==1) or current_pair.isCostOneAdded == True:
+                                new_pair.isCostOneAdded=True
+                            # 之前标记过但现在是1 表示多加了1
+                            if current_pair.isCostOneAdded==True and act.cost==1:
+                                new_pair.cond_leaf.min_cost-=1
+                                new_pair.act_leaf.min_cost -= 1
+
+
 
                             # ACTION TREE 将顺序结构添加到子树
                             # sequence_structure = ControlBT(type='>')

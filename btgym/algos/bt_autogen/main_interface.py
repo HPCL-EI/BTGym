@@ -11,7 +11,7 @@ import re
 # 封装好的主接口
 class BTExpInterface:
     def __init__(self, behavior_lib, cur_cond_set, priority_act_ls=[], priority_obj_ls=[], selected_algorithm="opt",
-                 bt_algo_opt=True):
+                 bt_algo_opt=True,llm_reflect=False):
         """
         Initialize the BTOptExpansion with a list of actions.
         :param action_list: A list of actions to be used in the behavior tree.
@@ -28,6 +28,7 @@ class BTExpInterface:
                                                    self.selected_algorithm)
 
         self.has_processed = False
+        self.llm_reflect=llm_reflect
 
         self.min_cost = float("inf")
 
@@ -43,7 +44,7 @@ class BTExpInterface:
         # else:
         #     self.algo = BTalgorithm(verbose=False)
         if self.selected_algorithm == "opt":
-            self.algo = OptBTExpAlgorithm(verbose=False)
+            self.algo = OptBTExpAlgorithm(verbose=False,llm_reflect=self.llm_reflect)
 
         elif self.selected_algorithm == "opt-h":
             self.algo = OptBTExpAlgorithmHeuristics(verbose=False)
@@ -71,7 +72,7 @@ class BTExpInterface:
             self.min_cost = self.algo.min_cost
         else:
             self.min_cost = self.algo.get_cost()
-        return self.btml_string, self.min_cost
+        return self.btml_string, self.min_cost, len(self.algo.expanded)
 
     # 方法一：查找所有初始状态是否包含当前状态
     def find_all_leaf_states_contain_start(self, start):
@@ -143,8 +144,8 @@ class BTExpInterface:
                 if all(obj in recommended_objs for obj in action_objects):
                     # act.cost = 0.000001
                     # act.priority = 0.000001
-                    act.cost = 0
-                    act.priority = 0
+                    act.cost = 1
+                    act.priority = 1
                     # print(act)
         # print("============ Priority Objs: ==============")
 

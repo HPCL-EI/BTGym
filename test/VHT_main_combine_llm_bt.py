@@ -13,6 +13,12 @@ from sympy import symbols, simplify_logic
 import re
 
 from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process
+import random
+import numpy as np
+seed=0
+random.seed(seed)
+np.random.seed(seed)
+
 
 # env = btgym.make("VHT-WatchTV")
 env = btgym.make("VHT-PutMilkInFridge")
@@ -64,8 +70,8 @@ env = btgym.make("VHT-PutMilkInFridge")
 #                    "Walk(sofa)","Wipe(sofa)","Walk(dishwasher)"]
 # priority_obj_ls = ["brush"]
 
-# goal_set = [{'IsIn(milk,fridge)'}]
-# priority_act_ls = ["Walk(milk)", "RightGrab(milk)", "Walk(fridge)", "Open(fridge)", "RightPutIn(milk,fridge)",'PlugIn(fridge)'] #,
+goal_set = [{'IsIn(milk,fridge)'}]
+priority_act_ls = ["Walk(milk)", "RightGrab(milk)", "Walk(fridge)", "Open(fridge)", "RightPutIn(milk,fridge)",'PlugIn(fridge)'] #,
 
 # goal_set = [{'IsWatching(self,tv)'}]
 # priority_act_ls=['Walk(tv)','Watch(tv)']
@@ -76,8 +82,8 @@ env = btgym.make("VHT-PutMilkInFridge")
 # goal_set = [{'IsClean(tv)'}]
 # priority_act_ls=['Walk(papertowel)','RightGrab(papertowel)','RightGrab(tv)',"Wipe(tv)"]
 
-goal_set = [{'IsSwitchedOn(tv)'}]
-priority_act_ls=['Walk(tv)','PlugIn(tv)','SwitchOn(tv)']
+# goal_set = [{'IsSwitchedOn(tv)'}]
+# priority_act_ls=['Walk(tv)','PlugIn(tv)','SwitchOn(tv)']
 
 priority_obj_ls = []
 # 提取目标中的所有物体
@@ -115,16 +121,17 @@ cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
 
 
 
-algo = BTExpInterface(env.behavior_lib, cur_cond_set, priority_act_ls, priority_obj_ls, selected_algorithm="opt")
+algo = BTExpInterface(env.behavior_lib, cur_cond_set, priority_act_ls, priority_obj_ls,\
+                      selected_algorithm="opt",llm_reflect=True)
 
 start_time = time.time()
 algo.process(goal_set)
 end_time = time.time()
 
+ptml_string, cost, expanded_num = algo.post_process()  # 后处理
+print("Expanded Conditions: ",expanded_num)
 planning_time_total = (end_time - start_time)
 print("planning_time_total:", planning_time_total)
-
-ptml_string, cost = algo.post_process()  # 后处理
 print("cost_total:", cost)
 file_name = "grasp_milk"
 file_path = f'./{file_name}.btml'

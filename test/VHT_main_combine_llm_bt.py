@@ -25,16 +25,20 @@ env = btgym.make("VHT-PutMilkInFridge")
 # print(env.graph_input['nodes'])
 
 # # todo: LLMs
-# prompt_file = f"{ROOT_PATH}\\algos\\llm_client\\prompt.txt"
-# with open(prompt_file, 'r', encoding="utf-8") as f:
-#     prompt = f.read().strip()
-# # print(prompt)
+prompt_file = f"{ROOT_PATH}\\algos\\llm_client\\prompt_new.txt"
+with open(prompt_file, 'r', encoding="utf-8") as f:
+    prompt = f.read().strip()
+# print(prompt)
 #
 # # instuction = "Put the bowl in the dishwasher and wash it."
 # # instuction="Put the milk and chicken in the fridge."
 # # instuction="Put the milk or chicken in the fridge."
 # instuction="Turn on the computer, TV, and lights, then put the bowl in the dishwasher and wash it"
-#
+instuction="Prepare for a small birthday party by setting the dining table with candles, plates, and wine glasses. "+\
+    "Then, bake a cake using the oven, ensure the candles are switched on."+\
+    "Finally, make sure the kitchen counter is clean."
+
+
 # llm = LLMGPT3()
 # question = prompt+instuction
 # answer = llm.request(question=question)
@@ -49,15 +53,26 @@ env = btgym.make("VHT-PutMilkInFridge")
 # print("goal",goal_set)
 # print("act:",priority_act_ls)
 
-
-# goal_set = [{'IsClose(fridge)', 'IsIn(milk,fridge)', 'IsIn(chicken,fridge)'}]
-# goal_set = [{'IsIn(milk,fridge)'}]
-# goal_set = [{'IsOn(milk,sofa)'}]
-# goal_set = [{'IsOpen(fridge)'}]
-# priority_act_ls = ["Walk(milk)", "RightGrab(milk)", "Walk(fridge)", "Open(fridge)", "RightPutIn(milk,fridge)"]
-# priority_act_ls = ["Walk(milk)","RightGrab(milk)","Walk(fridge)","Open(fridge)","RightPutIn(milk,fridge)","Walk(chicken)",
-#                    "LeftGrab(chicken)","LeftPutIn(chicken,fridge)"]
-# priority_act_ls=[]
+goal_set = [
+    {'IsIn(poundcake,oven)','IsSwitchedOn(oven)','IsSwitchedOn(candle)',} #'IsClean(kitchencounter)'}
+]
+priority_act_ls=[
+    "Walk(poundcake)", "RightGrab(poundcake)", "Walk(oven)", "PlugIn(oven)", "Open(oven)", "RightPutIn(poundcake,oven)",
+    "Walk(candle)", "SwitchOn(candle)",
+    # "Walk(rag)", "RightGrab(rag)", "Walk(kitchencounter)", "Wipe(kitchencounter)"
+]
+# goal_set = [
+#     {'IsOn(candle,kitchentable)', 'IsOn(plate,kitchentable)', 'IsOn(wineglass,kitchentable)',
+#     'IsIn(poundcake,oven)','IsSwitchedOn(oven)', 'IsSwitchedOn(candle)', 'IsClean(kitchencounter)'}
+# ]
+# priority_act_ls=[
+#     #"Walk(candle)", "RightGrab(candle)", "Walk(plate)", "LeftGrab(plate)",
+#     #"Walk(kitchentable)", "RightPut(candle,kitchentable)", "LeftPut(plate,kitchentable)",
+#     #"Walk(wineglass)", "RightGrab(wineglass)", "Walk(kitchentable)", "RightPut(wineglass,kitchentable)",
+#     "Walk(poundcake)", "RightGrab(poundcake)", "Walk(oven)", "PlugIn(oven)", "Open(oven)", "RightPutIn(poundcake,oven)",
+#     "Walk(candle)", "SwitchOn(candle)",
+#     "Walk(rag)", "RightGrab(rag)", "Walk(kitchencounter)", "Wipe(kitchencounter)"
+# ]
 
 # 冰箱放入东西前要插上电
 # goal_set = [{'IsClose(fridge)', 'IsIn(milk,fridge)', 'IsIn(chicken,fridge)'}]
@@ -70,20 +85,10 @@ env = btgym.make("VHT-PutMilkInFridge")
 #                    "Walk(sofa)","Wipe(sofa)","Walk(dishwasher)"]
 # priority_obj_ls = ["brush"]
 
-goal_set = [{'IsIn(milk,fridge)'}]
-priority_act_ls = ["Walk(milk)", "RightGrab(milk)", "Walk(fridge)", "Open(fridge)", "RightPutIn(milk,fridge)",'PlugIn(fridge)'] #,
+# goal_set = [{'IsIn(milk,fridge)'}]
+# priority_act_ls = ["Walk(milk)", "RightGrab(milk)", "Walk(fridge)", "Open(fridge)", "RightPutIn(milk,fridge)",'PlugIn(fridge)'] #,
 
-# goal_set = [{'IsWatching(self,tv)'}]
-# priority_act_ls=['Walk(tv)','Watch(tv)']
 
-# goal_set = [{'IsIn(chips,fridge)'}]
-# priority_act_ls = ["Walk(chips)", "RightGrab(chips)", "Walk(fridge)", "Open(fridge)", "RightPutIn(chips,fridge)"]
-
-# goal_set = [{'IsClean(tv)'}]
-# priority_act_ls=['Walk(papertowel)','RightGrab(papertowel)','RightGrab(tv)',"Wipe(tv)"]
-
-# goal_set = [{'IsSwitchedOn(tv)'}]
-# priority_act_ls=['Walk(tv)','PlugIn(tv)','SwitchOn(tv)']
 
 priority_obj_ls = []
 # 提取目标中的所有物体
@@ -97,7 +102,7 @@ for expr in goal_set[0]:
     if match:
         # 将括号内的内容按逗号分割并加入到集合中
         objects.update(match.group(1).split(','))
-priority_obj_ls += list(objects)
+# priority_obj_ls += list(objects)
 
 
 

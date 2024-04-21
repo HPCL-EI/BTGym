@@ -12,10 +12,11 @@ class LLMGPT3():
     def request(self,question):
         completion = self.client.chat.completions.create(
           model="gpt-3.5-turbo",
-          messages=[
-            {"role": "system", "content": ""},#You are a helpful assistant.
-            {"role": "user", "content": question}
-          ]
+          # messages=[
+          #   {"role": "system", "content": ""},#You are a helpful assistant.
+          #   {"role": "user", "content": question}
+          # ]
+            messages=question
         )
 
         return completion.choices[0].message.content
@@ -30,7 +31,16 @@ class LLMGPT3():
 
 
 if __name__ == '__main__':
-    llm = LLMGPT3()
+    # llm = LLMGPT3()
     # answer = llm.request(question="who are you,gpt?")
-    answer = llm.embedding(question="who are you,gpt?")
-    print(answer)
+    # # answer = llm.embedding(question="who are you,gpt?")
+    # print(answer)
+
+    llm = LLMGPT3()
+    messages = [{"role": "system", "content": "你现在是很有用的助手！"}]
+    while True:
+        prompt = input("请输入你的问题:")
+        messages.append({"role": "user", "content": prompt})
+        res_msg = llm.request(messages)
+        messages.append({"role": "assistant", "content": res_msg})
+        print(res_msg)

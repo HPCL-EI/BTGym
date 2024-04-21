@@ -251,11 +251,13 @@ class OptBTExpAlgorithm:
         return act_tree_string
 
 
+    # 调用大模型进行反馈
     def call_large_model(self,goal_cond_act_pair):
         # =================================================
         # 在这里询问大模型，然后更改 act 的值，同时也更新所有 self.nodes 中的值
         # 这里输出前5个cost最长的路径
-        top_five_leaves = heapq.nlargest(5, self.nodes)
+        # top_five_leaves = heapq.nlargest(5, self.nodes)
+        top_five_leaves = heapq.nsmallest(5, self.nodes)
         # 存储路径上的所有结点
         path_nodes = set()
         # 追踪每个叶子结点到根节点的路径
@@ -282,7 +284,8 @@ class OptBTExpAlgorithm:
         prompt += self.act_tree_string
 
         # 大模型返回新的 最优动作，和原来比增加了什么，更新（只更新增加的？）
-        # 更新 self.nodes 中所有的cost值
+        # 更新所有动作的值
+        # 更新 self.nodes 中所有的cost值？：怎么更新呢，自顶向下bfs遍历更新吗？
 
 
 
@@ -322,12 +325,6 @@ class OptBTExpAlgorithm:
         goal_condition_node = Leaf(type='cond', content=goal, min_cost=0)
         goal_action_node = Leaf(type='act', content=None, min_cost=0)
 
-        # ACTION TREE: self.act_bt = None
-        # self.act_bt = ControlBT(type='cond')
-        # self.act_bt.add_child([goal_condition_node])
-        # act_bt_subtree = ControlBT(type='?')
-        # act_bt_subtree.add_child([copy.deepcopy(goal_condition_node)])
-        # parent_of_c = copy.deepcopy(act_bt_subtree)
 
         # Retain the expanded nodes in the subtree first
         subtree = ControlBT(type='?')
@@ -373,10 +370,6 @@ class OptBTExpAlgorithm:
                     [copy.deepcopy(current_pair.cond_leaf), copy.deepcopy(current_pair.act_leaf)])
                 self.expanded.append(c)
 
-                # ACTION TREE
-                # self.expanded_pair.append(current_pair)
-                # act_bt_subtree = ControlBT(type='?')
-                # act_bt_subtree.add_child([copy.deepcopy(current_pair.cond_leaf)])  # 子树首先保留所扩展结点
 
                 if self.output_just_best:
                     cond_to_condActSeq[current_pair] = sequence_structure
@@ -399,10 +392,11 @@ class OptBTExpAlgorithm:
             current_mincost = current_pair.cond_leaf.min_cost
             current_trust = current_pair.cond_leaf.trust_cost
 
-            if self.verbose:
-                if current_pair.act_leaf.content != None:
-                    print("current act:", current_pair.act_leaf.content.name)
-                    print("current cond:", c)
+            # if self.verbose:
+            if current_pair.act_leaf.content != None:
+                print("current act:", current_pair.act_leaf.content.name)
+                print("current cond:", c)
+                print("cost:",current_pair.cond_leaf.min_cost)
 
             # ====================== Action Trasvers ============================ #
             # Traverse actions to find applicable ones
@@ -452,12 +446,6 @@ class OptBTExpAlgorithm:
                                 new_pair.act_leaf.min_cost -= 1
 
 
-
-                            # ACTION TREE 将顺序结构添加到子树
-                            # sequence_structure = ControlBT(type='>')
-                            # sequence_structure.add_child([c_attr_node, a_attr_node])
-                            # act_bt_subtree.add_child([sequence_structure])
-
                             # Need to record: The upper level of c_attr is c
                             if self.output_just_best:
                                 child_to_parent[new_pair] = current_pair
@@ -469,14 +457,7 @@ class OptBTExpAlgorithm:
                             if self.verbose:
                                 print("———— -- Action={} meets conditions, new condition={}".format(act.name, c_attr))
 
-            # print(len(traversed_current))
             self.traversed.extend(traversed_current)
-
-            # ACTION TREE
-            # 将原条件结点c_node替换为扩展后子树subtree
-            # parent_of_c = current_pair.cond_leaf.parent
-            # parent_of_c.children[0] = act_bt_subtree
-
             # ====================== End Action Trasvers ============================ #
 
         self.tree_size = self.bfs_cal_tree_size_subtree(bt)

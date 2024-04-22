@@ -71,9 +71,12 @@ Actions: Walk_chicken, RightGrab_chicken, Walk_microwave, PlugIn_microwave, Open
 [Object] Lists all parameter sets.
 [Examples] Provide several examples of Instruction to Goal mapping and the list of actions required to complete the task.
 1. Your task involves interpreting the given instructions to deduce a goal, which should be represented as a structured proposition in first-order logic. Additionally, compile a list of requisite actions to achieve this goal.
-2. Structure your response according to the previously demonstrated format. Begin with 'Goals:' to indicate the desired outcome and 'Actions:' to detail the steps needed for accomplishment.
+2. Structure your response according to the previously demonstrated format. Begin with 'Goals:' to indicate the desired outcome and 'Actions:' to detail the steps needed for accomplishment.Do not appear [ ].
 3. For defining 'Goals,' employ [Conditions] and [Objects] to formulate this aim. Use logical connectors (&,|) judiciously to amalgamate these components.
    - & (AND Operator): Merges conditions ensuring the outcome is positive solely when both conditions are met.
    - | (OR Operator): Merges conditions ensuring a positive outcome if at least one condition is satisfied.
 4. For listing 'Actions,' separate items with commas without assigning any numerical order.
 5. Produce directly interpretable predicate logic formulas, omitting any supplementary elucidations.
+6. The object can only come from those listed above; if it does not exist, please replace it with the closest one listed above.
+
+Now, the given instruction is

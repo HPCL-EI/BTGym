@@ -1,12 +1,14 @@
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
 import itertools
 from btgym.envs.virtualhometext.exec_lib.Action.Grab import Grab
+from btgym.envs.virtualhometext.exec_lib._base.VHTAction_small import VHTAction_small
 
 class RightGrabFrom(Grab):
     can_be_expanded = False
     num_args = 2
     # obj1 is reachable (not inside some closed container)
     valid_args = list(itertools.product(VHTAction.GRABBABLE, VHTAction.CONTAINERS))
+    valid_args_small = list(itertools.product(VHTAction_small.GRABBABLE, VHTAction_small.CONTAINERS))
 
     def __init__(self, *args):
         super().__init__(*args)

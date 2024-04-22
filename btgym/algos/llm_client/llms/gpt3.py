@@ -9,14 +9,14 @@ class LLMGPT3():
             base_url="https://api.chatgptid.net/v1",            api_key="sk-U3lHYdKBlISo2gssCa715e292bF5463bAb5898638eC3D0Ea"
         )
 
-    def request(self,question):
+    def request(self,message): # question
         completion = self.client.chat.completions.create(
           model="gpt-3.5-turbo",
           # messages=[
           #   {"role": "system", "content": ""},#You are a helpful assistant.
           #   {"role": "user", "content": question}
           # ]
-            messages=question
+            messages=message
         )
 
         return completion.choices[0].message.content

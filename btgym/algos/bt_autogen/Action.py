@@ -11,6 +11,7 @@ class Action:
         self.add=copy.deepcopy(add)
         self.del_set=copy.deepcopy(del_set)
         self.name=name
+        self.real_cost=cost
         self.cost=cost
         self.priority = cost
         self.vaild_num=vaild_num

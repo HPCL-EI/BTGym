@@ -1,4 +1,5 @@
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
+from btgym.envs.virtualhometext.exec_lib._base.VHTAction_small import VHTAction_small
 import itertools
 
 class PutIn(VHTAction):
@@ -23,6 +24,8 @@ class PutIn(VHTAction):
                 + list(itertools.product(set_2_cloth,VHTAction.CONTAINERS-{"fridge","microwave","stove","fryingpan","dishwasher","printer","folder"})) \
             + list(itertools.product(VHTAction.GRABBABLE & {"dishbowl"}, {"dishwasher"})) \
             + list(itertools.product(VHTAction.GRABBABLE & {"paper"}, {"printer","folder"}))
+
+    valid_args_small = list(itertools.product(VHTAction_small.GRABBABLE, VHTAction_small.CONTAINERS))
 
     def __init__(self, *args):
         super().__init__(*args)

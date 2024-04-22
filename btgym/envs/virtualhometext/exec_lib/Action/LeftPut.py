@@ -1,6 +1,7 @@
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
 import itertools
 from btgym.envs.virtualhometext.exec_lib.Action.Put import Put
+from btgym.envs.virtualhometext.exec_lib._base.VHTAction_small import VHTAction_small
 
 class LeftPut(Put):
     can_be_expanded = True

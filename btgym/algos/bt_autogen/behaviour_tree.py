@@ -1,12 +1,13 @@
 # 叶结点
 class Leaf:
-    def __init__(self, type, content, min_cost=0, trust_cost=0):
+    def __init__(self, type, content, min_cost=99999, trust_cost=99999,parent_cost=99999):
         self.type = type
         self.content = content  # conditionset or action
         self.parent = None
         self.parent_index = 0
         self.min_cost = min_cost
         self.trust_cost = trust_cost
+        self.parent_cost = parent_cost
 
     # tick 叶节点，返回返回值以及对应的条件或行动对象self.content
     def tick(self, state):

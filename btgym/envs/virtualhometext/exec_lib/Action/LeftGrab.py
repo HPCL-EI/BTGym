@@ -1,5 +1,6 @@
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
 from btgym.envs.virtualhometext.exec_lib.Action.Grab import Grab
+from btgym.envs.virtualhometext.exec_lib._base.VHTAction_small import VHTAction_small
 
 class LeftGrab(Grab):
     can_be_expanded = True

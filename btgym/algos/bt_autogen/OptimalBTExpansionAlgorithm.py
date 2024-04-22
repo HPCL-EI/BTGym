@@ -7,6 +7,10 @@ from btgym.algos.bt_autogen.Action import Action, state_transition
 from collections import deque
 import random
 import numpy as np
+import asyncio
+from btgym.algos.llm_client.llms.gpt3 import LLMGPT3
+from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process
+
 seed=0
 random.seed(seed)
 np.random.seed(seed)
@@ -18,11 +22,17 @@ class CondActPair:
         self.parent = None
         self.children = []
         self.isCostOneAdded=False
+        self.path = 1
 
     def __lt__(self, other):
         # 定义优先级比较：按照 cost 的值来比较
         return self.act_leaf.min_cost < other.act_leaf.min_cost
 
+        # # 首先按照 min_cost 进行比较
+        # if self.act_leaf.min_cost != other.act_leaf.min_cost:
+        #     return self.act_leaf.min_cost < other.act_leaf.min_cost
+        # # 如果 min_cost 相等，则比较深度
+        # return self.path > other.path
 
 def set_to_tuple(s):
     """
@@ -101,17 +111,10 @@ def check_conflict(conds):
     return False
 
 
-def call_large_model(self):
-    # 这里模拟调用大型模型的过程
-    # 你需要替换这部分为真正的模型调用代码
-    print("调用大型模型，当前已展开节点数：", len(self.expanded))
-    feedback = "模拟反馈信息"
-    # 处理模型反馈
-    self.handle_model_feedback(feedback)
 
 
 class OptBTExpAlgorithm:
-    def __init__(self, verbose=False,llm_reflect=False):
+    def __init__(self, verbose=False,llm_reflect=False,llm=None,messages=None):
         self.bt = None
         self.start = None
         self.goal = None
@@ -130,12 +133,15 @@ class OptBTExpAlgorithm:
         self.subtree_count = 1
 
         self.verbose = verbose
-        self.llm_reflect = llm_reflect
         self.bt_merge = False
         self.output_just_best = False
         self.merge_time = 999999
 
         self.act_bt = None
+
+        self.llm_reflect = llm_reflect
+        self.llm=llm
+        self.messages=messages
 
     def clear(self):
         self.bt = None
@@ -287,7 +293,46 @@ class OptBTExpAlgorithm:
         # 更新所有动作的值
         # 更新 self.nodes 中所有的cost值？：怎么更新呢，自顶向下bfs遍历更新吗？
 
+        # 先写成同步
+        # 这是目前行为树反向扩展算法搜索到的动作树，为达到目标状态，请你在现有动作树的基础上重新推荐接下来达到目标状态还需要的关键动作,
+        # 这次不需要输出目标状态，只需要输出关键动作，关键动作的输出格式和此前一样，以 Actions: 开头, 不需要有其它的任何解释问题。
+        prompt+=("\nThis is the action tree currently found by the reverse expansion algorithm of the behavior tree. "+\
+                 "To reach the goal state, please recommend the key actions needed next to reach the goal state based on the existing action tree. "+\
+                 "This time, there is no need to output the goal state, only the key actions are needed. "+ \
+                 'The format for presenting key actions should start with the word \'Actions:\'. ')
+                 #
+                 # 'Connect predicates and objects with underscores, and do not use parentheses, brackets, or include any additional explanations or questions.'+\
+                 # 'For example: Actions: RightGrab_cake, Walk_oven')
 
+        self.messages.append({"role": "user", "content": prompt})
+        answer = self.llm.request(message=self.messages)
+        self.messages.append({"role": "assistant", "content": answer})
+        print("answer:",answer)
+
+        act_str = answer.split("Actions:")[1]
+        # act_str = re.sub(r'\s+|[\[\]\(\)\n]', '', act_str)
+        # priority_act_ls = act_str_process(act_str)
+
+        priority_act_ls = [action.replace(" ", "") for action in act_str.split(",")]
+
+        print(priority_act_ls)
+
+
+        print("before:", heapq.nsmallest(1, self.nodes)[0].act_leaf.content.name)
+        # 重新更新动作序列？和 self.nodes 中的值
+        for act in self.actions:
+            # act.cost = act.real_cost
+            if act.name in priority_act_ls:
+                act.cost = 0
+
+        temp_nodes = []
+        for node in self.nodes:
+            node.act_leaf.min_cost = node.act_leaf.parent_cost + node.act_leaf.content.cost
+            node.cond_leaf.min_cost = node.cond_leaf.parent_cost + node.act_leaf.content.cost
+            # 重新排序堆，保持最小堆的性质
+            heapq.heappush(temp_nodes, node)
+        self.nodes = temp_nodes.copy()
+        print("after:", heapq.nsmallest(1, self.nodes)[0].act_leaf.content.name)
 
 
     def run_algorithm_selTree(self, start, goal, actions, merge_time=99999999):
@@ -348,8 +393,8 @@ class OptBTExpAlgorithm:
 
             # 调用大模型
             if self.llm_reflect:
-                if len(self.expanded) % 10 == 0 and len(self.expanded)>=10:
-                    self.call_large_model(goal_cond_act_pair=goal_cond_act_pair)
+                if len(self.expanded) % 50 == 0 and len(self.expanded)>=50:
+                     self.call_large_model(goal_cond_act_pair=goal_cond_act_pair)
 
 
             self.cycles += 1
@@ -392,11 +437,11 @@ class OptBTExpAlgorithm:
             current_mincost = current_pair.cond_leaf.min_cost
             current_trust = current_pair.cond_leaf.trust_cost
 
-            # if self.verbose:
-            if current_pair.act_leaf.content != None:
-                print("current act:", current_pair.act_leaf.content.name)
-                print("current cond:", c)
-                print("cost:",current_pair.cond_leaf.min_cost)
+            if self.verbose:
+                if current_pair.act_leaf.content != None:
+                    print("current act:", current_pair.act_leaf.content.name)
+                    print("current cond:", c)
+                    print("cost:",current_pair.cond_leaf.min_cost)
 
             # ====================== Action Trasvers ============================ #
             # Traverse actions to find applicable ones
@@ -426,11 +471,12 @@ class OptBTExpAlgorithm:
 
                         if valid:
 
-                            c_attr_node = Leaf(type='cond', content=c_attr, min_cost=current_mincost + act.cost)
-                            a_attr_node = Leaf(type='act', content=act, min_cost=current_mincost + act.cost)
+                            c_attr_node = Leaf(type='cond', content=c_attr, min_cost=current_mincost + act.cost, parent_cost = current_mincost)
+                            a_attr_node = Leaf(type='act', content=act, min_cost=current_mincost + act.cost, parent_cost = current_mincost)
 
 
                             new_pair = CondActPair(cond_leaf=c_attr_node, act_leaf=a_attr_node)
+                            new_pair.path = current_pair.path +1
                             heapq.heappush(self.nodes, new_pair)
 
                             # 记录结点的父子关系

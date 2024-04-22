@@ -3,11 +3,13 @@ import py_trees as ptree
 from typing import Any
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
 from btgym.behavior_tree import Status
+from btgym.envs.virtualhometext.exec_lib._base.VHTAction_small import VHTAction_small
 
 class Sit(VHTAction):
     can_be_expanded = False
     num_args = 1
     valid_args=VHTAction.SITTABLE
+    valid_args_small = VHTAction_small.SITTABLE
 
     def __init__(self, *args):
         super().__init__(*args)

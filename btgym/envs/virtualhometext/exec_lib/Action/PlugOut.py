@@ -1,9 +1,12 @@
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
+from btgym.envs.virtualhometext.exec_lib._base.VHTAction_small import VHTAction_small
+
+
 class PlugOut(VHTAction):
     can_be_expanded = True
     num_args = 1
     valid_args = VHTAction.HAS_PLUG
-
+    valid_args_small = VHTAction_small.HAS_PLUG
 
     def __init__(self, *args):
         super().__init__(*args)

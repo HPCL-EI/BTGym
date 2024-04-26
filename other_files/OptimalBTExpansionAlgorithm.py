@@ -4,39 +4,16 @@ import heapq
 import re
 from btgym.algos.bt_autogen.behaviour_tree import Leaf, ControlBT
 from btgym.algos.bt_autogen.Action import Action, state_transition
-from collections import deque
-import random
-import numpy as np
-import asyncio
-from btgym.algos.llm_client.llms.gpt3 import LLMGPT3
-from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process
-
-seed = 0
-random.seed(seed)
-np.random.seed(seed)
 
 
 class CondActPair:
     def __init__(self, cond_leaf, act_leaf):
         self.cond_leaf = cond_leaf
         self.act_leaf = act_leaf
-        self.parent = None
-        self.children = []
-        self.isCostOneAdded = False
-        self.path = 1
-        # I(C,Act) 记录每个动作可以以 priority 出现几次
-        self.pact_dic = {}
 
     def __lt__(self, other):
         # 定义优先级比较：按照 cost 的值来比较
         return self.act_leaf.min_cost < other.act_leaf.min_cost
-
-        # 这种搜索不完备吗？
-        # 首先按照 min_cost 进行比较
-        # if self.act_leaf.min_cost != other.act_leaf.min_cost:
-        #     return self.act_leaf.min_cost < other.act_leaf.min_cost
-        # # 如果 min_cost 相等，则比较深度
-        # return self.path > other.path
 
 
 def set_to_tuple(s):
@@ -54,7 +31,7 @@ def set_to_tuple(s):
     return tuple(sorted(s))
 
 
-# self状态:互斥状态映射
+# 互斥状态映射
 mutually_exclusive_states = {
     'IsLeftHandEmpty': 'IsLeftHolding',
     'IsLeftHolding': 'IsLeftHandEmpty',
@@ -62,18 +39,15 @@ mutually_exclusive_states = {
     'IsRightHolding': 'IsRightHandEmpty',
 
     'IsSitting': 'IsStanding',
-    'IsStanding': 'IsSitting',
-
+    'IsStanding': 'IsSitting'
 }
 
-# 物体状态: Mapping from state to anti-state
+# Mapping from state to anti-state
 state_to_opposite = {
     'IsOpen': 'IsClose',
     'IsClose': 'IsOpen',
     'IsSwitchedOff': 'IsSwitchedOn',
-    'IsSwitchedOn': 'IsSwitchedOff',
-    'IsPlugged': 'IsUnplugged',
-    'IsUnplugged': 'IsPlugged',
+    'IsSwitchedOn': 'IsSwitchedOff'
 }
 
 
@@ -88,38 +62,33 @@ def update_state(c, state_dic):
     for state, opposite in state_to_opposite.items():
         if state in c:
             obj = extract_argument(c)
-            if obj in state_dic and opposite in state_dic[obj]:
-                return False
+            if obj in state_dic:
+                # 如果对象已经有一个反状态，返回False表示冲突
+                if state_dic[obj] == opposite:
+                    return False
             # 更新状态字典
-            elif obj in state_dic:
-                state_dic[obj].add(state)
-            else:
-                state_dic[obj] = set()
-                state_dic[obj].add(state)
+            state_dic[obj] = state
             break
     return True
 
 
 def check_conflict(conds):
     obj_state_dic = {}
-    self_state_dic = {}
-    self_state_dic['self'] = set()
     is_near = False
     for c in conds:
         if "IsNear" in c and is_near:
             return True
         elif "IsNear" in c:
             is_near = True
-            continue
         # Cannot be updated, the value already exists in the past
         if not update_state(c, obj_state_dic):
             return True
         # Check for mutually exclusive states without obj
         for state, opposite in mutually_exclusive_states.items():
-            if state in c and opposite in self_state_dic['self']:
+            if state in c and opposite in obj_state_dic.values():
                 return True
             elif state in c:
-                self_state_dic['self'].add(state)
+                obj_state_dic['self'] = state
                 break
     # 检查是否同时具有 'IsHoldingCleaningTool(self)', 'IsLeftHandEmpty(self)', 'IsRightHandEmpty(self)'
     required_states = {'IsHoldingCleaningTool(self)', 'IsLeftHandEmpty(self)', 'IsRightHandEmpty(self)'}
@@ -150,17 +119,8 @@ class OptBTExpAlgorithm:
 
         self.verbose = verbose
         self.bt_merge = False
-        self.output_just_best = False
+        self.output_just_best = True
         self.merge_time = 999999
-
-        self.act_bt = None
-
-        self.llm_reflect = llm_reflect
-        self.llm = llm
-        self.messages = messages
-        self.priority_act_ls = priority_act_ls
-
-        self.act_cost_dic = {}
 
     def clear(self):
         self.bt = None
@@ -180,8 +140,6 @@ class OptBTExpAlgorithm:
         self.bt_without_merge = None
         self.subtree_count = 1
 
-        self.act_bt = None
-
     def post_processing(self, pair_node, g_cond_anc_pair, subtree, bt, child_to_parent, cond_to_condActSeq):
         '''
         Process the summary work after the algorithm ends.
@@ -197,7 +155,7 @@ class OptBTExpAlgorithm:
 
             while output_stack != []:
                 tmp_seq_struct = output_stack.pop()
-                # print(tmp_seq_struct)
+                print(tmp_seq_struct)
                 subtree.add_child([copy.deepcopy(tmp_seq_struct)])
 
         self.tree_size = self.bfs_cal_tree_size_subtree(bt)
@@ -205,150 +163,6 @@ class OptBTExpAlgorithm:
         if self.bt_merge:
             bt = self.merge_adjacent_conditions_stack_time(bt, merge_time=self.merge_time)
         return bt
-
-    def transfer_pair_node_to_bt(self, path_nodes, root_pair):
-        bt = ControlBT(type='cond')
-
-        goal_condition_node = root_pair.cond_leaf
-        goal_action_node = root_pair.act_leaf
-        bt.add_child([goal_condition_node])
-
-        # subtree = ControlBT(type='?')
-        # # subtree.add_child([copy.deepcopy(goal_condition_node),copy.deepcopy(goal_action_node)])
-        # subtree.add_child([copy.deepcopy(goal_condition_node)])
-        # bt.add_child([subtree])
-
-        queue = deque([root_pair])
-        while queue:
-            current = queue.popleft()
-
-            # if current.cond_leaf.content != goal_condition_node.content:
-            # 建树
-            subtree = ControlBT(type='?')
-            # subtree.add_child([copy.deepcopy(current.cond_leaf)])
-            subtree.add_child([copy.deepcopy(current.cond_leaf)])
-
-            # 过滤掉不在path_nodes中的子节点
-            for child in current.children:
-                if child not in path_nodes:
-                    continue
-                # 将过滤后的子节点加入队列
-                queue.append(child)
-
-                seq = ControlBT(type='>')
-                # seq.add_child([copy.deepcopy(child.cond_leaf), copy.deepcopy(child.act_leaf)])
-                seq.add_child([child.cond_leaf, child.act_leaf])
-                subtree.add_child([seq])
-
-            parent_of_c = current.cond_leaf.parent
-            parent_of_c.children[0] = subtree
-        return bt
-
-    def transfer_pair_node_to_act_tree(self, path_nodes, root_pair):
-        # 初始化输出字符串，首先添加根节点
-        # 将集合中的条件转换为逗号分隔的字符串
-        conditions = ', '.join(root_pair.cond_leaf.content)
-        # 初始化输出字符串，首先添加根节点和它的条件
-        act_tree_string = f'GOAL {conditions}\n'
-
-        # 内部递归函数，用于构建每个节点及其子节点的输出字符串
-        def build_act_tree(node, indent, act_count):
-            # 存储这个层级生成的字符串，使用序号来标识动作
-            node_string = ''
-            current_act = 1  # 当前动作的编号，用于生成 ACT 1: 等标签
-            for child in node.children:
-                if child in path_nodes:
-                    # 格式化当前行动的文本
-                    prefix = '    ' * indent  # 根据缩进级别生成前缀空格
-                    act_label = f'ACT {act_count}.{current_act}: ' if act_count else f'ACT {current_act}: '
-                    # 添加当前行动
-                    node_string += f'{prefix}{act_label}{child.act_leaf.content.name}\n'
-                    # 递归添加子行动
-                    node_string += build_act_tree(child, indent + 1,
-                                                  f'{act_count}.{current_act}' if act_count else str(current_act))
-                    current_act += 1  # 更新行动编号
-
-            return node_string
-
-        # 调用递归函数，从根节点的孩子开始，缩进级别为1，活动编号为空字符串
-        act_tree_string += build_act_tree(root_pair, 1, '')
-        return act_tree_string
-
-    # 调用大模型进行反馈
-    def call_large_model(self, goal_cond_act_pair):
-        # =================================================
-        # 在这里询问大模型，然后更改 act 的值，同时也更新所有 self.nodes 中的值
-        # 这里输出前5个cost最长的路径
-        # top_five_leaves = heapq.nlargest(5, self.nodes)
-        top_five_leaves = heapq.nsmallest(20, self.nodes)
-        # 存储路径上的所有结点
-        path_nodes = set()
-        # 追踪每个叶子结点到根节点的路径
-        for leaf in top_five_leaves:
-            current = leaf
-            while current.parent != None:
-                path_nodes.add(current)
-                current = current.parent
-            path_nodes.add(goal_cond_act_pair)  # 添加根节点
-        # for node in path_nodes:
-        #     print(node)
-
-        # 构建新的树 动作BT （父节点关系）
-        # self.act_bt = self.transfer_pair_node_to_bt(path_nodes=path_nodes,root_pair =goal_cond_act_pair)
-        # act_bt_btml_string = self.ACT_BT_get_btml()
-        # print(act_bt_btml_string)
-
-        # 如果不建立BT,之间里动作树
-        self.act_tree_string = self.transfer_pair_node_to_act_tree(path_nodes=path_nodes, root_pair=goal_cond_act_pair)
-        print(self.act_tree_string)
-        # =================================================
-
-        prompt = ""
-        prompt += self.act_tree_string
-
-        # 大模型返回新的 最优动作，和原来比增加了什么，更新（只更新增加的？）
-        # 更新所有动作的值
-        # 更新 self.nodes 中所有的cost值？：怎么更新呢，自顶向下bfs遍历更新吗？
-
-        # 先写成同步
-        # 这是目前行为树反向扩展算法搜索到的动作树，为达到目标状态，请你在现有动作树的基础上重新推荐接下来达到目标状态还需要的关键动作,
-        # 这次不需要输出目标状态，只需要输出关键动作，关键动作的输出格式和此前一样，以 Actions: 开头, 不需要有其它的任何解释问题。
-        prompt += (
-                "\nThis is the action tree currently found by the reverse expansion algorithm of the behavior tree. " + \
-                "To reach the goal state, please recommend the key actions needed next to reach the goal state based on the existing action tree. " + \
-                "This time, there is no need to output the goal state, only the key actions are needed. " + \
-                'The format for presenting key actions should start with the word \'Actions:\'. ')
-        # 'Connect predicates and objects with underscores, and do not use parentheses, brackets, or include any additional explanations or questions.'+\
-        # 'For example: Actions: RightGrab_cake, Walk_oven')
-
-        # self.messages.append({"role": "user", "content": prompt})
-        # answer = self.llm.request(message=self.messages)
-        # self.messages.append({"role": "assistant", "content": answer})
-        # print("answer:",answer)
-        #
-        # act_str = answer.split("Actions:")[1]
-        # # act_str = re.sub(r'\s+|[\[\]\(\)\n]', '', act_str)
-        # # priority_act_ls = act_str_process(act_str)
-        #
-        # priority_act_ls = [action.replace(" ", "") for action in act_str.split(",")]
-        #
-        # print(priority_act_ls)
-
-        # print("before:", heapq.nsmallest(1, self.nodes)[0].act_leaf.content.name)
-        # # 重新更新动作序列？和 self.nodes 中的值
-        # for act in self.actions:
-        #     # act.cost = act.real_cost
-        #     if act.name in priority_act_ls:
-        #         act.cost = 0
-        #
-        # temp_nodes = []
-        # for node in self.nodes:
-        #     node.act_leaf.min_cost = node.act_leaf.parent_cost + node.act_leaf.content.cost
-        #     node.cond_leaf.min_cost = node.cond_leaf.parent_cost + node.act_leaf.content.cost
-        #     # 重新排序堆，保持最小堆的性质
-        #     heapq.heappush(temp_nodes, node)
-        # self.nodes = temp_nodes.copy()
-        # print("after:", heapq.nsmallest(1, self.nodes)[0].act_leaf.content.name)
 
     def run_algorithm_selTree(self, start, goal, actions, merge_time=99999999):
         '''
@@ -370,7 +184,6 @@ class OptBTExpAlgorithm:
         self.tree_size = 0
 
         self.expanded = []  # Conditions for storing expanded nodes
-        self.expanded_pair = []  # Conditions for storing expanded nodes
         self.traversed = []  # Conditions for storing nodes that have been put into the priority queue
         self.traversed_state_num = 0
 
@@ -380,47 +193,20 @@ class OptBTExpAlgorithm:
         if self.verbose:
             print("\nAlgorithm starts！")
 
-        # 初始化
-
-        for act in self.actions:
-            self.act_cost_dic[act.name] = act.cost
-
         # Initialize the behavior tree with only the target conditions
         bt = ControlBT(type='cond')
-        # goal_condition_node = Leaf(type='cond', content=goal, min_cost=0)
-        # goal_action_node = Leaf(type='act', content=None, min_cost=0)
-
         goal_condition_node = Leaf(type='cond', content=goal, min_cost=0)
         goal_action_node = Leaf(type='act', content=None, min_cost=0)
 
         # Retain the expanded nodes in the subtree first
         subtree = ControlBT(type='?')
-        subtree.add_child([copy.deepcopy(goal_condition_node)])
+        subtree.add_child([goal_condition_node])
         bt.add_child([subtree])
         goal_cond_act_pair = CondActPair(cond_leaf=goal_condition_node, act_leaf=goal_action_node)
-
-        # I(C,act)
-        for act in self.priority_act_ls:
-            if act not in goal_cond_act_pair.pact_dic:
-                goal_cond_act_pair.pact_dic[act] = 1
-            else:
-                goal_cond_act_pair.pact_dic[act] += 1
-
-        D_first_cost = 0
-        D_first_num = 0
-        for key, value in goal_cond_act_pair.pact_dic.items():
-            # print(key, value)
-            D_first_cost += self.act_cost_dic[key] * value
-            D_first_num += value
-        goal_condition_node.trust_cost = 0
-        goal_action_node.trust_cost = 0
-        goal_condition_node.min_cost = D_first_cost
-        goal_action_node.min_cost = D_first_cost
 
         # Using priority queues to store extended nodes
         heapq.heappush(self.nodes, goal_cond_act_pair)
         self.expanded.append(goal)
-        self.expanded_pair.append(goal_cond_act_pair)
         self.traversed_state_num += 1
         self.traversed = [goal]  # Set of expanded conditions
 
@@ -429,19 +215,10 @@ class OptBTExpAlgorithm:
             print("goal <= start, no need to generate bt.")
             return bt, 0
 
-        epsh = 0
         while len(self.nodes) != 0:
 
-            # 调用大模型
-            if self.llm_reflect:
-                if len(self.expanded) % 2000 == 0 and len(self.expanded) >= 100:
-                    print(len(self.expanded))
-                # if len(self.expanded) % 1000 == 0 and len(self.expanded)>=100:
-                #      self.call_large_model(goal_cond_act_pair=goal_cond_act_pair)
-                # if len(self.expanded) >= 1:
-                #     self.call_large_model(goal_cond_act_pair=goal_cond_act_pair)
-
             self.cycles += 1
+
             #  Find the condition for the shortest cost path
             # min_cost = float('inf')
             current_pair = heapq.heappop(self.nodes)
@@ -455,8 +232,8 @@ class OptBTExpAlgorithm:
             # # Mount the action node and extend the behavior tree if condition is not the goal and not an empty set
             if c != goal and c != set():
                 sequence_structure = ControlBT(type='>')
-                sequence_structure.add_child(  # 这里做 ACT TREE 时候，没有copy 被更新了父节点
-                    [copy.deepcopy(current_pair.cond_leaf), copy.deepcopy(current_pair.act_leaf)])
+                sequence_structure.add_child(
+                    [current_pair.cond_leaf, current_pair.act_leaf])
                 self.expanded.append(c)
 
                 if self.output_just_best:
@@ -480,17 +257,16 @@ class OptBTExpAlgorithm:
             current_mincost = current_pair.cond_leaf.min_cost
             current_trust = current_pair.cond_leaf.trust_cost
 
-            # if self.verbose:
-            # if current_pair.act_leaf.content != None:
-            #     print("current act:", current_pair.act_leaf.content.name)
-            #     print("current cond:", c)
-            #     print("cost:", current_pair.cond_leaf.min_cost)
+            if self.verbose:
+                if current_pair.act_leaf.content!=None:
+                    print("current act:",current_pair.act_leaf.content.name)
+                    print("current cond:", c)
 
             # ====================== Action Trasvers ============================ #
             # Traverse actions to find applicable ones
             traversed_current = []
             for act in actions:
-                epsh += 0.00000000001
+
                 if not c & ((act.pre | act.add) - act.del_set) <= set():
                     if (c - act.del_set) == c:
                         # if self.verbose:
@@ -511,82 +287,25 @@ class OptBTExpAlgorithm:
                                 valid = False
                                 break
 
+                        # tmp_heap = list(self.nodes)
+                        # # tmp_heap = copy.deepcopy(self.nodes)
+                        # while tmp_heap:  # 剪枝操作 self.expanded?
+                        #     cond_anc_pair = heapq.heappop(tmp_heap)
+                        #     j = cond_anc_pair.cond_leaf.content
+                        #     if j <= c_attr:
+                        #         if cond_anc_pair.cond_leaf.mincost < current_mincost + actions[i].cost:
+                        #             valid = False
+                        #             break
+
                         if valid:
+                            c_attr_node = Leaf(type='cond', content=c_attr, min_cost=current_mincost + act.cost)
+                            a_attr_node = Leaf(type='act', content=act, min_cost=current_mincost + act.cost)
 
-                            # g=trust_cost
-                            # h= h_cost
-                            c_attr_node = Leaf(type='cond', content=c_attr, trust_cost=current_trust + act.cost)
-                            a_attr_node = Leaf(type='act', content=act, trust_cost=current_trust + act.cost)
-
-                            # c_attr_node = Leaf(type='cond', content=c_attr, parent_cost=current_mincost)
-                            # a_attr_node = Leaf(type='act', content=act, parent_cost=current_mincost)
-
-                            # c_attr_node = Leaf(type='cond', content=c_attr, min_cost=current_mincost + act.cost, parent_cost = current_mincost)
-                            # a_attr_node = Leaf(type='act', content=act, min_cost=current_mincost + act.cost, parent_cost = current_mincost)
+                            # c_attr_node = Leaf(type='cond', content=c_attr, trust_cost=current_trust+act.cost ,min_cost=current_trust + act.priority)
+                            # a_attr_node = Leaf(type='act', content=act, trust_cost=current_trust+act.cost ,min_cost=current_trust + act.priority)
 
                             new_pair = CondActPair(cond_leaf=c_attr_node, act_leaf=a_attr_node)
-                            new_pair.path = current_pair.path + 1
-
-                            # I(C,act)
-                            # new_cost = current_mincost + act.cost
-                            # new_pair.pact_dic = copy.deepcopy(current_pair.pact_dic)
-                            # if act.name in new_pair.pact_dic and new_pair.pact_dic[act.name] > 0:
-                            #     new_cost = current_mincost + act.priority
-                            #     new_pair.pact_dic[act.name] -= 1
-                            # c_attr_node.min_cost = new_cost
-                            # a_attr_node.min_cost = new_cost
-
-                            # 最迟启发式：h 是到重点的距离，通过计算 new_pair.pact_dic得到
-                            h = 0
-                            new_pair.pact_dic = copy.deepcopy(current_pair.pact_dic)
-                            if act.name in new_pair.pact_dic and new_pair.pact_dic[act.name] > 0:
-                                new_pair.pact_dic[act.name] -= 1
-
-                            for key, value in new_pair.pact_dic.items():
-                                # print(key, value)
-                                h += self.act_cost_dic[key] * value
-                            c_attr_node.min_cost = c_attr_node.trust_cost + h - epsh
-                            a_attr_node.min_cost = a_attr_node.trust_cost + h - epsh
-
-                            # 启发式：乘一下
-                            new_pair.pact_dic = copy.deepcopy(current_pair.pact_dic)
-                            if act.name in new_pair.pact_dic and new_pair.pact_dic[act.name] > 0:
-                                new_pair.pact_dic[act.name] -= 1
-                            remaining = 0
-                            remaining_num = 0
-                            for key, value in new_pair.pact_dic.items():
-                                # print(key, value)
-                                remaining += self.act_cost_dic[key] * value
-                                remaining_num += value
-                            h = remaining * (remaining_num / D_first_num)
-                            c_attr_node.min_cost = c_attr_node.trust_cost + h - epsh
-                            a_attr_node.min_cost = a_attr_node.trust_cost + h - epsh
-
-
-                            # 0425启发式：h=max(0,D-g)* (剩余/D)
-                            # g=current_trust + act.cost
-                            # # max(0,D_first_cost-g)
-                            # remaining = 0
-                            # for key, value in new_pair.pact_dic.items():
-                            #     remaining+=self.act_cost_dic[key] * value
-                            # h=max(0,D_first_cost-g)*(remaining/D_first_cost)
-                            # c_attr_node.min_cost = c_attr_node.trust_cost + h - epsh
-                            # a_attr_node.min_cost = a_attr_node.trust_cost + h - epsh
-
                             heapq.heappush(self.nodes, new_pair)
-
-                            # 记录结点的父子关系
-                            new_pair.parent = current_pair
-                            current_pair.children.append(new_pair)
-
-                            # 如果之前标记过/之前没标记但现在是1
-                            if (
-                                    current_pair.isCostOneAdded == False and act.cost == 1) or current_pair.isCostOneAdded == True:
-                                new_pair.isCostOneAdded = True
-                            # 之前标记过但现在是1 表示多加了1
-                            if current_pair.isCostOneAdded == True and act.cost == 1:
-                                new_pair.cond_leaf.min_cost -= 1
-                                new_pair.act_leaf.min_cost -= 1
 
                             # Need to record: The upper level of c_attr is c
                             if self.output_just_best:
@@ -599,6 +318,7 @@ class OptBTExpAlgorithm:
                             if self.verbose:
                                 print("———— -- Action={} meets conditions, new condition={}".format(act.name, c_attr))
 
+            # print(len(traversed_current))
             self.traversed.extend(traversed_current)
             # ====================== End Action Trasvers ============================ #
 
@@ -771,17 +491,13 @@ class OptBTExpAlgorithm:
         bt_sel = bt
         return bt_sel
 
-    def print_solution(self, bt=None, without_merge=False, act_bt_tree=False):
+    def print_solution(self, without_merge=False):
         print("========= BT ==========")  # 树的bfs遍历
         nodes_ls = []
         if without_merge == True:
             nodes_ls.append(self.bt_without_merge)
         else:
-            if act_bt_tree:
-                bt = bt
-                nodes_ls.append(bt)
-            else:
-                nodes_ls.append(self.bt)
+            nodes_ls.append(self.bt)
         while len(nodes_ls) != 0:
             parnode = nodes_ls[0]
             print("Parrent:", parnode.type)
@@ -814,7 +530,7 @@ class OptBTExpAlgorithm:
         return state_leafs
 
     # 树的dfs
-    def dfs_btml(self, parnode, is_root=False, act_bt_tree=False):
+    def dfs_btml(self, parnode, is_root=False):
         for child in parnode.children:
             if isinstance(child, Leaf):
                 if child.type == 'cond':
@@ -822,17 +538,14 @@ class OptBTExpAlgorithm:
                     if is_root and len(child.content) > 1:
                         # 把多个 cond 串起来
                         self.btml_string += "sequence{\n"
-
-                        if act_bt_tree == False:
-                            self.btml_string += "cond "
-                            c_set_str = '\n cond '.join(map(str, child.content)) + "\n"
-                            self.btml_string += c_set_str
-                            self.btml_string += '}\n'
+                        self.btml_string += "cond "
+                        c_set_str = '\n cond '.join(map(str, child.content)) + "\n"
+                        self.btml_string += c_set_str
+                        self.btml_string += '}\n'
                     else:
-                        if act_bt_tree == False:
-                            self.btml_string += "cond "
-                            c_set_str = '\n cond '.join(map(str, child.content)) + "\n"
-                            self.btml_string += c_set_str
+                        self.btml_string += "cond "
+                        c_set_str = '\n cond '.join(map(str, child.content)) + "\n"
+                        self.btml_string += c_set_str
 
                 elif child.type == 'act':
                     if '(' not in child.content.name:
@@ -848,7 +561,7 @@ class OptBTExpAlgorithm:
                     self.dfs_btml(parnode=child)
                 self.btml_string += '}\n'
 
-    def dfs_btml_indent(self, parnode, level=0, is_root=False, act_bt_tree=False):
+    def dfs_btml_indent(self, parnode, level=0, is_root=False):
         indent = " " * (level * 4)  # 4 spaces per indent level
         for child in parnode.children:
             if isinstance(child, Leaf):
@@ -856,78 +569,37 @@ class OptBTExpAlgorithm:
                 if is_root and len(child.content) > 1:
                     # 把多个 cond 串起来
                     self.btml_string += " " * (level * 4) + "sequence\n"
-                    if act_bt_tree == False:
-                        for c in child.content:
-                            self.btml_string += " " * ((level + 1) * 4) + "cond " + str(c) + "\n"
+                    for c in child.content:
+                        self.btml_string += " " * ((level + 1) * 4) + "cond " + str(c) + "\n"
 
                 elif child.type == 'cond':
                     # 直接添加cond及其内容，不需要特别处理根节点下多个cond的情况
                     # self.btml_string += indent + "cond " + ', '.join(map(str, child.content)) + "\n"
                     # 对每个条件独立添加，确保它们各占一行
-                    if act_bt_tree == False:
-                        for c in child.content:
-                            self.btml_string += indent + "cond " + str(c) + "\n"
+                    for c in child.content:
+                        self.btml_string += indent + "cond " + str(c) + "\n"
                 elif child.type == 'act':
                     # 直接添加act及其内容
                     self.btml_string += indent + 'act ' + child.content.name + "\n"
             elif isinstance(child, ControlBT):
                 if child.type == '?':
                     self.btml_string += indent + "selector\n"
-                    self.dfs_btml_indent(child, level + 1, act_bt_tree=act_bt_tree)  # 增加缩进级别
+                    self.dfs_btml_indent(child, level + 1)  # 增加缩进级别
                 elif child.type == '>':
                     self.btml_string += indent + "sequence\n"
-                    self.dfs_btml_indent(child, level + 1, act_bt_tree=act_bt_tree)  # 增加缩进级别
+                    self.dfs_btml_indent(child, level + 1)  # 增加缩进级别
 
-    def get_btml(self, use_braces=True, act_bt_tree=False):
+    def get_btml(self, use_braces=True):
 
         if use_braces:
             self.btml_string = "selector\n"
-            if act_bt_tree == False:
-                self.dfs_btml_indent(self.bt.children[0], 1, is_root=True)
-            else:
-                self.dfs_btml_indent(self.act_bt.children[0], 1, is_root=True, act_bt_tree=act_bt_tree)
+            self.dfs_btml_indent(self.bt.children[0], 1, is_root=True)
             return self.btml_string
         else:
             self.btml_string = "selector{\n"
-            if act_bt_tree == False:
-                self.dfs_btml(self.bt.children[0], is_root=True)
-            else:
-                self.dfs_btml(self.act_bt.children[0], is_root=True, act_bt_tree=True)
+            self.dfs_btml(self.bt.children[0], is_root=True)
             self.btml_string += '}\n'
         return self.btml_string
-
-    def ACT_BT_dfs_btml_indent(self, parnode, level=0, is_root=False):
-        indent = " " * (level * 4)  # 4 spaces per indent level
-        for child in parnode.children:
-            if isinstance(child, Leaf):
-
-                if is_root and len(child.content) > 1:
-                    # 把多个 cond 串起来
-                    self.ACT_BT_btml_string += " " * (level * 4) + "sequence\n"
-                    for c in child.content:
-                        self.ACT_BT_btml_string += " " * ((level + 1) * 4) + "cond " + str(c) + "\n"
-
-                elif child.type == 'cond':
-                    # 直接添加cond及其内容，不需要特别处理根节点下多个cond的情况
-                    # self.btml_string += indent + "cond " + ', '.join(map(str, child.content)) + "\n"
-                    # 对每个条件独立添加，确保它们各占一行
-                    for c in child.content:
-                        self.ACT_BT_btml_string += indent + "cond " + str(c) + "\n"
-                elif child.type == 'act':
-                    # 直接添加act及其内容
-                    self.ACT_BT_btml_string += indent + 'act ' + child.content.name + "\n"
-            elif isinstance(child, ControlBT):
-                if child.type == '?':
-                    self.ACT_BT_btml_string += indent + "selector\n"
-                    self.ACT_BT_dfs_btml_indent(child, level + 1)  # 增加缩进级别
-                elif child.type == '>':
-                    self.ACT_BT_btml_string += indent + "sequence\n"
-                    self.ACT_BT_dfs_btml_indent(child, level + 1)  # 增加缩进级别
-
-    def ACT_BT_get_btml(self):
-        self.ACT_BT_btml_string = "selector\n"
-        self.ACT_BT_dfs_btml_indent(self.act_bt.children[0], 1, is_root=True)
-        return self.ACT_BT_btml_string
 
     # def dfs_btml_many_act(self, parnode, is_root=False):
     #     for child in parnode.children:

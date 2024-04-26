@@ -6,8 +6,8 @@ class VHTAction_small(Action):
     can_be_expanded = True
     num_args = 1
 
-    SURFACES = {"kitchentable", "kitchencabinet", "coffeetable","fryingpan", "tvstand", "bathroomcounter", \
-                "kitchencounter", "bookshelf", "cabinet", "desk", "stove", "bed", "sofa"}
+    SURFACES = {"kitchentable",  "fryingpan","plate", "tvstand", "bathroomcounter", \
+                "kitchencounter", "bookshelf", "cabinet", "desk", "bed", "sofa","nightstand"}
     # SURFACES = {"kitchentable", "towelrack", "bench", "kitchencabinet", "mousemat", "boardgame", "coffeetable","fryingpan", \
     #             "radio", "cuttingboard", "floor", "tvstand", "bathroomcounter", "oventray", "chair", "kitchencounter","rug", \
     #             "bookshelf", "nightstand", "cabinet", "desk", "stove", "bed", "sofa", "plate", "bathroomcabinet"}
@@ -18,20 +18,23 @@ class VHTAction_small(Action):
     SITTABLE = {"chair", "bench", "bed", "rug", "sofa"}
     # 浴缸, 椅子, 厕所, 长凳, 床, 地毯, 沙发
 
-    CAN_OPEN = {"fridge","dishwasher","microwave","stove"}
+    CAN_OPEN = {"fridge","dishwasher","microwave","washingmachine","window"}
     # 咖啡机, 烹饪锅, 牙膏, 咖啡壶, 厨房橱柜, 洗衣机, 窗户, 打印机, \
     # 窗帘, 衣柜, 盒子, 微波炉, 护发产品, 洗碗机, 收音机, 冰箱, 厕所, 书, \
     # 垃圾桶, 杂志, 床头柜, 柜子, 牛奶, 书桌, 炉灶, 门, 文件夹, 衣物堆, 浴室橱柜
 
 
-    CONTAINERS = CAN_OPEN
+    CONTAINERS = {"fridge","dishwasher","microwave","washingmachine","garbagecan"}
     # 咖啡机, 厨房橱柜, 洗衣机, 打印机, 烤面包机, 衣柜, 盒子, 微波炉, \
     # 洗碗机, 煎锅, 冰箱, 厕所, 垃圾桶, 水槽, 书架, 床头柜, 柜子, 炉灶, 文件夹, 衣物堆, 浴室橱柜
 
+    # GRABBABLE = {"bananas",'chicken','cutlets','breadslice','chips',
+    #          'cupcake','milk','dishbowl','plate',"rag"
+    #          }
     GRABBABLE = {"bananas",'chicken', 'cutlets','breadslice','chips','chocolatesyrup',
-             'cupcake','milk','juice','wine',
-             'cutleryknife','fryingpan','dishbowl','plate',
-             'book',"waterglass"
+             'cupcake','milk','wine',
+             'clothesshirt','fryingpan','dishbowl','plate',
+             'book',"waterglass","clock","rag"
              }
     # 圣代, 牙膏, 衬衫, 饼干, 布丁, 酒精, 桌游, 墙电话, 遥控器, \
     # 鲜奶油, 衣架, 切片肉, 糖果, 酒, 卫生纸, 拖鞋, 麦片, 苹果, 杂志, \
@@ -47,12 +50,13 @@ class VHTAction_small(Action):
     cleaning_tools = {"rag"}
 
 
-    HAS_SWITCH = {"tv","faucet","lightswitch","dishwasher","coffeemaker","toaster","microwave","tablelamp","computer"}
+    HAS_SWITCH = {"tv","faucet","lightswitch","dishwasher","candle",\
+                  "coffeemaker","microwave","tablelamp","computer","washingmachine"}
 
     # 咖啡机, 手机, 蜡烛, 水龙头, 洗衣机, 打印机, 墙电话, 遥控器, \
     # 电脑, 烤面包机, 微波炉, 洗碗机, 时钟, 收音机, 开关, 冰箱, 台灯, 炉灶, 电视
 
-    HAS_PLUG = {"tv","mouse", "dishwasher","coffeemaker","toaster","microwave","fright"}
+    HAS_PLUG = {"tv","mouse", "dishwasher","coffeemaker","toaster","microwave","fright","washingmachine","clock","keyboard"}
     # 墙电话, 咖啡机, 开关, 手机, 冰箱, 烤面包机, 台灯, 微波炉, 电视, \
     # 鼠标, 时钟, 键盘, 收音机, 洗衣机, 打印机
 

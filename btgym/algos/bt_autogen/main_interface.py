@@ -11,7 +11,8 @@ import re
 # 封装好的主接口
 class BTExpInterface:
     def __init__(self, behavior_lib, cur_cond_set, priority_act_ls=[], priority_obj_ls=[], selected_algorithm="opt",
-                 bt_algo_opt=True,llm_reflect=False,llm=None,messages=None):
+                 choose_small_action_space=False,
+                 bt_algo_opt=True, llm_reflect=False, llm=None, messages=None, action_list=None):
         """
         Initialize the BTOptExpansion with a list of actions.
         :param action_list: A list of actions to be used in the behavior tree.
@@ -20,7 +21,19 @@ class BTExpInterface:
         self.bt_algo_opt = bt_algo_opt
         self.selected_algorithm = selected_algorithm
 
-        self.actions = collect_action_nodes(behavior_lib)
+        # 自定义动作空间
+        if behavior_lib == None:
+            self.actions = action_list
+        # 默认的大动作空间
+        else:
+            self.actions = collect_action_nodes(behavior_lib)
+
+        # 选择小动作空间
+        if choose_small_action_space:
+            self.actions = [act for act in self.actions if act.name in priority_act_ls]
+            print(f"选择小动作空间：收集到 {len(self.actions)} 个动作")
+            print("----------------------------------------------")
+
 
         self.priority_act_ls = priority_act_ls
         self.priority_obj_ls = priority_obj_ls
@@ -28,9 +41,9 @@ class BTExpInterface:
                                                    self.selected_algorithm)
 
         self.has_processed = False
-        self.llm_reflect=llm_reflect
-        self.llm=llm
-        self.messages=messages
+        self.llm_reflect = llm_reflect
+        self.llm = llm
+        self.messages = messages
 
         self.min_cost = float("inf")
 
@@ -46,7 +59,9 @@ class BTExpInterface:
         # else:
         #     self.algo = BTalgorithm(verbose=False)
         if self.selected_algorithm == "opt":
-            self.algo = OptBTExpAlgorithm(verbose=False,llm_reflect=self.llm_reflect,llm=self.llm,messages=self.messages)
+            self.algo = OptBTExpAlgorithm(verbose=False, \
+                                          llm_reflect=self.llm_reflect, llm=self.llm, messages=self.messages, \
+                                          priority_act_ls=self.priority_act_ls)
 
         elif self.selected_algorithm == "opt-h":
             self.algo = OptBTExpAlgorithmHeuristics(verbose=False)
@@ -124,8 +139,7 @@ class BTExpInterface:
         recommended_objs = priority_obj_ls
 
         # for act in action_list:
-        #     act.cost*=10000000000
-        #     act.priority*=10000000000
+        #     act.cost = 0
 
         # if selected_algorithm == "opt-h":
         #     for act in action_list:
@@ -144,20 +158,19 @@ class BTExpInterface:
                 action_objects = match.group(1).split(',')
                 # 遍历每个物体名称
                 if all(obj in recommended_objs for obj in action_objects):
-                    # act.cost = 0.000001
                     # act.priority = 0.000001
-                    act.cost = 1
-                    # act.priority = 1
+                    act.priority = 1
                     # print(act)
         # print("============ Priority Objs: ==============")
 
         for act in action_list:
             if act.name in recommended_acts:
-                act.cost = 0
-                # act.priority = 0
+                act.priority = 0
+                # act.priority = act.cost*1.0/100000
 
         # 对action排序
-        action_list.sort(key=lambda x: x.cost)
+        action_list.sort(key=lambda x: x.priority)
+        # action_list.sort(key=lambda x: x.cost)
         # for act in action_list:
         #     if act.priority <= 1 :
         #         act.cost = 1000000

@@ -23,6 +23,9 @@ class RightPut(Put):
             info["add"] = {f'IsRightHandEmpty(self)',f'IsOn({arg[0]},{arg[1]})'}
             info["del_set"] = {f'IsRightHolding(self,{arg[0]})'}
             info["cost"] = 6
+
+            if arg[0] in VHTAction.cleaning_tools:
+                info["del_set"] = {f'IsHoldingCleaningTool(self)'}
         return info
 
 

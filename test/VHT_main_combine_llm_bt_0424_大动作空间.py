@@ -65,16 +65,16 @@ messages = []
 # ]
 
 
-# goal_set = [
-#     {'IsIn(poundcake,microwave)', 'IsSwitchedOn(microwave)',
-#      'IsClean(kitchencounter)'
-#      }
-# ]
-# priority_act_ls = [
-#     "Walk(poundcake)", "RightGrab(poundcake)", "Walk(microwave)", "Open(microwave)","RightPutIn(poundcake,microwave)",
-#     "PlugIn(microwave)","Close(microwave)","SwitchOn(microwave)",
-#     "Walk(rag)", "RightGrab(rag)", "Walk(kitchencounter)", "Wipe(kitchencounter)"
-# ]
+goal_set = [
+    {'IsIn(poundcake,microwave)', 'IsSwitchedOn(microwave)',
+     'IsClean(kitchencounter)'
+     }
+]
+priority_act_ls = [
+    "Walk(poundcake)", "RightGrab(poundcake)", "Walk(microwave)", "Open(microwave)","RightPutIn(poundcake,microwave)",
+    "PlugIn(microwave)","Close(microwave)","SwitchOn(microwave)",
+    "Walk(rag)", "RightGrab(rag)", "Walk(kitchencounter)", "Wipe(kitchencounter)"
+]
 
 
 
@@ -83,29 +83,21 @@ messages = []
 # ]
 # priority_act_ls = [
 #     "Walk(poundcake)", "RightGrab(poundcake)", "Walk(oven)", "PlugIn(oven)", "Open(oven)","RightPutIn(poundcake,oven)",
-#     "SwitchOn(oven)",
+#     "SwitchOn(oven)", #"Close(oven)",
 #     "Walk(candle)", "SwitchOn(candle)",
 #     "Walk(rag)", "RightGrab(rag)", "Walk(kitchencounter)", "Wipe(kitchencounter)"
 # ]
 
 # goal_set = [
-#     {
-#         'IsOn(candle,kitchentable)',
-#         'IsOn(plate,kitchentable)',
-#         'IsOn(wineglass,kitchentable)',
-#         'IsIn(poundcake,oven)','IsSwitchedOn(oven)',
-#         'IsSwitchedOn(candle)',
-#         'IsClean(kitchencounter)'
-#     }
+#     {'IsOn(candle,kitchentable)', 'IsOn(plate,kitchentable)', 'IsOn(wineglass,kitchentable)',
+#     'IsIn(poundcake,oven)','IsSwitchedOn(oven)', 'IsSwitchedOn(candle)', 'IsClean(kitchencounter)'}
 # ]
 # priority_act_ls=[
-#     "Walk(candle)", "RightGrab(candle)",
-#     "Walk(plate)", "LeftGrab(plate)",
+#     "Walk(candle)", "RightGrab(candle)", "Walk(plate)", "LeftGrab(plate)",
 #     "Walk(kitchentable)", "RightPut(candle,kitchentable)", "LeftPut(plate,kitchentable)",
 #     "Walk(wineglass)", "RightGrab(wineglass)", "Walk(kitchentable)", "RightPut(wineglass,kitchentable)",
-#     "Walk(poundcake)", "RightGrab(poundcake)", "Walk(oven)", "PlugIn(oven)", "Open(oven)", "RightPutIn(poundcake,oven)","SwitchOn(oven)",
+#     "Walk(poundcake)", "RightGrab(poundcake)", "Walk(oven)", "PlugIn(oven)", "Open(oven)", "RightPutIn(poundcake,oven)",
 #     "Walk(candle)", "SwitchOn(candle)",
-#
 #     "Walk(rag)", "RightGrab(rag)", "Walk(kitchencounter)", "Wipe(kitchencounter)"
 # ]
 
@@ -122,20 +114,14 @@ messages = []
 # priority_obj_ls = ["brush"]
 
 # goal_set = [{'IsIn(milk,fridge)'}]
-# priority_act_ls = ["Walk(milk)", "RightGrab(milk)", "Walk(fridge)",
-#                    "RightPutIn(milk,fridge)",'PlugIn(fridge)'] #,
+# priority_act_ls = ["Walk(milk)", "RightGrab(milk)", "Walk(fridge)", "Open(fridge)", "RightPutIn(milk,fridge)",'PlugIn(fridge)'] #,
 
 # goal_set = [{'IsIn(milk,microwave)','IsSwitchedOn(microwave)'}]
 # priority_act_ls = ["Walk(milk)", "RightGrab(milk)", "Walk(microwave)", "Open(microwave)", "RightPutIn(milk,fridge)",'PlugIn(microwave)','SwitchOn(microwave)'] #,
 
 # goal_set = [{'IsIn(milk,microwave)','IsSwitchedOn(microwave)'}]
-# priority_act_ls = ["RightGrab(milk)", "Walk(microwave)", "Open(microwave)", \
+# priority_act_ls = [ "Walk(milk)", "RightGrab(milk)", "Walk(microwave)", "Open(microwave)", \
 #                     "RightPutIn(milk,microwave)",'PlugIn(microwave)','SwitchOn(microwave)'] #,
-
-goal_set = [{'IsIn(milk,fridge)','IsSwitchedOn(candle)'}]
-priority_act_ls = ["Walk(milk)", "RightGrab(milk)", "Walk(fridge)",'Open(fridge)',
-                   "RightPutIn(milk,fridge)",'PlugIn(fridge)', 'Walk(candle)',"SwitchOn(candle)"]
-
 
 priority_obj_ls = []
 # 提取目标中的所有物体
@@ -158,11 +144,8 @@ cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction.CAN_OPEN}
 cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
 cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
 
-
-# 在小动作空间里搜索
 algo = BTExpInterface(env.behavior_lib, cur_cond_set, priority_act_ls, priority_obj_ls, \
-                      selected_algorithm="opt", choose_small_action_space=True,\
-                      llm_reflect=True, llm=llm, messages=messages,)
+                      selected_algorithm="opt", llm_reflect=True, llm=llm, messages=messages)
 
 start_time = time.time()
 algo.process(goal_set)
@@ -185,7 +168,7 @@ bt = BehaviorTree(file_name + ".btml", env.behavior_lib)
 
 env.agents[0].bind_bt(bt)
 env.reset()
-env.print_ticks = True
+env.print_ticks = False
 
 # simulation and test
 print("\n================ ")
@@ -197,17 +180,14 @@ steps = 0
 current_cost = 0
 current_tick_time = 0
 
-act_num=1
-
 val, obj, cost, tick_time = algo.algo.bt.cost_tick(state, 0, 0)  # tick行为树，obj为所运行的行动
-print(f"Action: {act_num}  {obj.__str__().ljust(35)}cost: {cost}")
+print("Action:  ", obj)
 current_tick_time += tick_time
 current_cost += cost
 while val != 'success' and val != 'failure':
     state = state_transition(state, obj)
     val, obj, cost, tick_time = algo.algo.bt.cost_tick(state, 0, 0)
-    act_num+=1
-    print(f"Action: {act_num}  {obj.__str__().ljust(35)}cost: {cost}")
+    print("Action:  ", obj)
     current_cost += cost
     current_tick_time += tick_time
     if (val == 'failure'):
@@ -219,8 +199,6 @@ while val != 'success' and val != 'failure':
         break
 if goal <= state:  # 错误解，目标条件不在执行后状态满足
     print("Finished!")
-print(f"一定运行了 {act_num-1} 个动作步")
-print("current_cost:",current_cost)
 print("================ ")
 env.close()
 

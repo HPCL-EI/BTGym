@@ -73,7 +73,6 @@ state_to_opposite = {
     'IsSwitchedOff': 'IsSwitchedOn',
     'IsSwitchedOn': 'IsSwitchedOff',
     'IsPlugged': 'IsUnplugged',
-    'IsUnplugged': 'IsPlugged',
 }
 
 
@@ -88,38 +87,33 @@ def update_state(c, state_dic):
     for state, opposite in state_to_opposite.items():
         if state in c:
             obj = extract_argument(c)
-            if obj in state_dic and opposite in state_dic[obj]:
-                return False
+            if obj in state_dic:
+                # 如果对象已经有一个反状态，返回False表示冲突
+                if state_dic[obj] == opposite:
+                    return False
             # 更新状态字典
-            elif obj in state_dic:
-                state_dic[obj].add(state)
-            else:
-                state_dic[obj] = set()
-                state_dic[obj].add(state)
+            state_dic[obj] = state
             break
     return True
 
 
 def check_conflict(conds):
     obj_state_dic = {}
-    self_state_dic = {}
-    self_state_dic['self'] = set()
     is_near = False
     for c in conds:
         if "IsNear" in c and is_near:
             return True
         elif "IsNear" in c:
             is_near = True
-            continue
         # Cannot be updated, the value already exists in the past
         if not update_state(c, obj_state_dic):
             return True
         # Check for mutually exclusive states without obj
         for state, opposite in mutually_exclusive_states.items():
-            if state in c and opposite in self_state_dic['self']:
+            if state in c and opposite in obj_state_dic.values():
                 return True
             elif state in c:
-                self_state_dic['self'].add(state)
+                obj_state_dic['self'] = state
                 break
     # 检查是否同时具有 'IsHoldingCleaningTool(self)', 'IsLeftHandEmpty(self)', 'IsRightHandEmpty(self)'
     required_states = {'IsHoldingCleaningTool(self)', 'IsLeftHandEmpty(self)', 'IsRightHandEmpty(self)'}
@@ -160,8 +154,6 @@ class OptBTExpAlgorithm:
         self.messages = messages
         self.priority_act_ls = priority_act_ls
 
-        self.act_cost_dic = {}
-
     def clear(self):
         self.bt = None
         self.start = None
@@ -197,7 +189,7 @@ class OptBTExpAlgorithm:
 
             while output_stack != []:
                 tmp_seq_struct = output_stack.pop()
-                # print(tmp_seq_struct)
+                print(tmp_seq_struct)
                 subtree.add_child([copy.deepcopy(tmp_seq_struct)])
 
         self.tree_size = self.bfs_cal_tree_size_subtree(bt)
@@ -314,10 +306,10 @@ class OptBTExpAlgorithm:
         # 这是目前行为树反向扩展算法搜索到的动作树，为达到目标状态，请你在现有动作树的基础上重新推荐接下来达到目标状态还需要的关键动作,
         # 这次不需要输出目标状态，只需要输出关键动作，关键动作的输出格式和此前一样，以 Actions: 开头, 不需要有其它的任何解释问题。
         prompt += (
-                "\nThis is the action tree currently found by the reverse expansion algorithm of the behavior tree. " + \
-                "To reach the goal state, please recommend the key actions needed next to reach the goal state based on the existing action tree. " + \
-                "This time, there is no need to output the goal state, only the key actions are needed. " + \
-                'The format for presenting key actions should start with the word \'Actions:\'. ')
+                    "\nThis is the action tree currently found by the reverse expansion algorithm of the behavior tree. " + \
+                    "To reach the goal state, please recommend the key actions needed next to reach the goal state based on the existing action tree. " + \
+                    "This time, there is no need to output the goal state, only the key actions are needed. " + \
+                    'The format for presenting key actions should start with the word \'Actions:\'. ')
         # 'Connect predicates and objects with underscores, and do not use parentheses, brackets, or include any additional explanations or questions.'+\
         # 'For example: Actions: RightGrab_cake, Walk_oven')
 
@@ -380,16 +372,8 @@ class OptBTExpAlgorithm:
         if self.verbose:
             print("\nAlgorithm starts！")
 
-        # 初始化
-
-        for act in self.actions:
-            self.act_cost_dic[act.name] = act.cost
-
         # Initialize the behavior tree with only the target conditions
         bt = ControlBT(type='cond')
-        # goal_condition_node = Leaf(type='cond', content=goal, min_cost=0)
-        # goal_action_node = Leaf(type='act', content=None, min_cost=0)
-
         goal_condition_node = Leaf(type='cond', content=goal, min_cost=0)
         goal_action_node = Leaf(type='act', content=None, min_cost=0)
 
@@ -406,17 +390,6 @@ class OptBTExpAlgorithm:
             else:
                 goal_cond_act_pair.pact_dic[act] += 1
 
-        D_first_cost = 0
-        D_first_num = 0
-        for key, value in goal_cond_act_pair.pact_dic.items():
-            # print(key, value)
-            D_first_cost += self.act_cost_dic[key] * value
-            D_first_num += value
-        goal_condition_node.trust_cost = 0
-        goal_action_node.trust_cost = 0
-        goal_condition_node.min_cost = D_first_cost
-        goal_action_node.min_cost = D_first_cost
-
         # Using priority queues to store extended nodes
         heapq.heappush(self.nodes, goal_cond_act_pair)
         self.expanded.append(goal)
@@ -429,15 +402,12 @@ class OptBTExpAlgorithm:
             print("goal <= start, no need to generate bt.")
             return bt, 0
 
-        epsh = 0
         while len(self.nodes) != 0:
 
             # 调用大模型
             if self.llm_reflect:
-                if len(self.expanded) % 2000 == 0 and len(self.expanded) >= 100:
-                    print(len(self.expanded))
-                # if len(self.expanded) % 1000 == 0 and len(self.expanded)>=100:
-                #      self.call_large_model(goal_cond_act_pair=goal_cond_act_pair)
+                if len(self.expanded) % 500 == 0 and len(self.expanded)>=50:
+                     self.call_large_model(goal_cond_act_pair=goal_cond_act_pair)
                 # if len(self.expanded) >= 1:
                 #     self.call_large_model(goal_cond_act_pair=goal_cond_act_pair)
 
@@ -490,7 +460,7 @@ class OptBTExpAlgorithm:
             # Traverse actions to find applicable ones
             traversed_current = []
             for act in actions:
-                epsh += 0.00000000001
+
                 if not c & ((act.pre | act.add) - act.del_set) <= set():
                     if (c - act.del_set) == c:
                         # if self.verbose:
@@ -513,14 +483,8 @@ class OptBTExpAlgorithm:
 
                         if valid:
 
-                            # g=trust_cost
-                            # h= h_cost
-                            c_attr_node = Leaf(type='cond', content=c_attr, trust_cost=current_trust + act.cost)
-                            a_attr_node = Leaf(type='act', content=act, trust_cost=current_trust + act.cost)
-
-                            # c_attr_node = Leaf(type='cond', content=c_attr, parent_cost=current_mincost)
-                            # a_attr_node = Leaf(type='act', content=act, parent_cost=current_mincost)
-
+                            c_attr_node = Leaf(type='cond', content=c_attr, parent_cost=current_mincost)
+                            a_attr_node = Leaf(type='act', content=act, parent_cost=current_mincost)
                             # c_attr_node = Leaf(type='cond', content=c_attr, min_cost=current_mincost + act.cost, parent_cost = current_mincost)
                             # a_attr_node = Leaf(type='act', content=act, min_cost=current_mincost + act.cost, parent_cost = current_mincost)
 
@@ -528,50 +492,13 @@ class OptBTExpAlgorithm:
                             new_pair.path = current_pair.path + 1
 
                             # I(C,act)
-                            # new_cost = current_mincost + act.cost
-                            # new_pair.pact_dic = copy.deepcopy(current_pair.pact_dic)
-                            # if act.name in new_pair.pact_dic and new_pair.pact_dic[act.name] > 0:
-                            #     new_cost = current_mincost + act.priority
-                            #     new_pair.pact_dic[act.name] -= 1
-                            # c_attr_node.min_cost = new_cost
-                            # a_attr_node.min_cost = new_cost
-
-                            # 最迟启发式：h 是到重点的距离，通过计算 new_pair.pact_dic得到
-                            h = 0
+                            new_cost = current_mincost + act.cost
                             new_pair.pact_dic = copy.deepcopy(current_pair.pact_dic)
                             if act.name in new_pair.pact_dic and new_pair.pact_dic[act.name] > 0:
+                                new_cost = current_mincost + act.priority
                                 new_pair.pact_dic[act.name] -= 1
-
-                            for key, value in new_pair.pact_dic.items():
-                                # print(key, value)
-                                h += self.act_cost_dic[key] * value
-                            c_attr_node.min_cost = c_attr_node.trust_cost + h - epsh
-                            a_attr_node.min_cost = a_attr_node.trust_cost + h - epsh
-
-                            # 启发式：乘一下
-                            new_pair.pact_dic = copy.deepcopy(current_pair.pact_dic)
-                            if act.name in new_pair.pact_dic and new_pair.pact_dic[act.name] > 0:
-                                new_pair.pact_dic[act.name] -= 1
-                            remaining = 0
-                            remaining_num = 0
-                            for key, value in new_pair.pact_dic.items():
-                                # print(key, value)
-                                remaining += self.act_cost_dic[key] * value
-                                remaining_num += value
-                            h = remaining * (remaining_num / D_first_num)
-                            c_attr_node.min_cost = c_attr_node.trust_cost + h - epsh
-                            a_attr_node.min_cost = a_attr_node.trust_cost + h - epsh
-
-
-                            # 0425启发式：h=max(0,D-g)* (剩余/D)
-                            # g=current_trust + act.cost
-                            # # max(0,D_first_cost-g)
-                            # remaining = 0
-                            # for key, value in new_pair.pact_dic.items():
-                            #     remaining+=self.act_cost_dic[key] * value
-                            # h=max(0,D_first_cost-g)*(remaining/D_first_cost)
-                            # c_attr_node.min_cost = c_attr_node.trust_cost + h - epsh
-                            # a_attr_node.min_cost = a_attr_node.trust_cost + h - epsh
+                            c_attr_node.min_cost = new_cost
+                            a_attr_node.min_cost = new_cost
 
                             heapq.heappush(self.nodes, new_pair)
 

@@ -19,6 +19,9 @@ class SwitchOn(VHTAction):
         info["add"]={f"IsSwitchedOn({arg[0]})"}
         info["del_set"] = {f"IsSwitchedOff({arg[0]})"}
 
+        if arg[0] in VHTAction.CAN_OPEN:
+            info["pre"] |= {f"IsClose({arg[0]})"}
+
         if arg[0] in VHTAction.HAS_PLUG:
             info["pre"] |= {f"IsPlugged({arg[0]})"}
 

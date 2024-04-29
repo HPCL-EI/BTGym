@@ -20,17 +20,19 @@ class BTExpInterface:
         self.cur_cond_set = cur_cond_set
         self.bt_algo_opt = bt_algo_opt
         self.selected_algorithm = selected_algorithm
+        self.big_actions = collect_action_nodes(behavior_lib)
 
         # 自定义动作空间
         if behavior_lib == None:
             self.actions = action_list
         # 默认的大动作空间
         else:
-            self.actions = collect_action_nodes(behavior_lib)
+            self.actions = self.big_actions
 
         # 选择小动作空间
         if choose_small_action_space:
-            self.actions = [act for act in self.actions if act.name in priority_act_ls]
+            # self.actions = [act for act in self.actions if act.name in priority_act_ls]
+            self.actions = self.collect_small_action_nodes(priority_obj_ls)
             print(f"选择小动作空间：收集到 {len(self.actions)} 个动作")
             print("----------------------------------------------")
 
@@ -176,6 +178,22 @@ class BTExpInterface:
         #         act.cost = 1000000
 
         return action_list
+
+
+    def collect_small_action_nodes(self, recommended_objs):
+
+        small_act=[]
+        pattern = re.compile(r'\((.*?)\)')
+        for act in self.big_actions:
+            match = pattern.search(act.name)
+            if match:
+                # 将括号内的内容按逗号分割
+                action_objects = match.group(1).split(',')
+                # 遍历每个物体名称
+                if all(obj in recommended_objs for obj in action_objects):
+                    small_act.append(act)
+        return small_act
+
 
 
 def collect_action_nodes(behavior_lib):

@@ -108,3 +108,53 @@ def goal_transfer_str(goal):
     return goal_set
 
 
+
+def act_format_records(act_record_list):
+    # 初始化一个空列表来存储格式化后的结果
+    formatted_records = []
+    predicate = []
+    objects= []
+    # 遍历列表中的每个记录
+    for record in act_record_list:
+
+        if "," not in record:
+            # 找到括号的位置
+            start = record.find('(')
+            end = record.find(')')
+            # 提取动作和对象
+            action = record[:start]
+            obj = record[start+1:end]
+            # 格式化为新的字符串格式
+            formatted_record = f"{action}_{obj}"
+            # 将格式化后的字符串添加到结果列表中
+            formatted_records.append(formatted_record)
+            predicate.append(action)
+            objects.append(obj)
+        else:
+            # 有逗号，即涉及两个物体
+            start = record.find('(')
+            end = record.find(')')
+            action = record[:start]
+            objects = record[start + 1:end].split(',')
+            obj1 = objects[0].strip()  # 去除可能的空白字符
+            obj2 = objects[1].strip()
+            formatted_record = f"{action}_{obj1}_{obj2}"
+            # 将格式化后的字符串添加到结果列表中
+            formatted_records.append(formatted_record)
+            predicate.append(action)
+            objects.append(obj1)
+            objects.append(obj2)
+    return formatted_records,predicate,objects
+
+
+
+def remove_duplicates_using_set(lst):
+    return list(set(lst))
+
+
+def update_objects_from_expressions(expressions, pattern, objects):
+    for expr in expressions:
+        match = pattern.search(expr)
+        if match:
+            # 将括号内的内容按逗号分割并加入到集合中
+            objects.update(match.group(1).split(','))

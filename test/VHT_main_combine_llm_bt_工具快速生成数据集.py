@@ -124,10 +124,18 @@ print("================ \n")
 record_act = record_act[:-1]
 formatted_act,predicate,objects = act_format_records(record_act)
 
+# 函数来提取并格式化输出
+def extract_and_format(items):
+    return ', '.join(items)
+# 调用函数并打印结果
+formatted_act = extract_and_format(formatted_act)
+formatted_predicates = extract_and_format(predicate)
+formatted_objects = extract_and_format(objects)
+
 print("Goals:",goal_str)
 print("Actions:",formatted_act)
-print("key Predicate:",list(set(predicate)))
-print("key Objects:",list(set(objects)))
+print("key Predicate:",formatted_predicates)
+print("key Objects:",formatted_objects)
 
 
 

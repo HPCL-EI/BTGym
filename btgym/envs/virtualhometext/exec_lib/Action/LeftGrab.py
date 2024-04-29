@@ -22,6 +22,8 @@ class LeftGrab(Grab):
 
         if arg[0] in cls.cleaning_tools:
             info["add"]|= {f"IsHoldingCleaningTool(self)"}
+        if arg[0] in cls.cutting_tools:
+            info["add"]|= {f"IsHoldingKnife(self)"}
 
         info["del_set"] = {f"IsLeftHandEmpty(self)"}
         info["del_set"] |= {f'IsOn({arg[0]},{place})' for place in cls.SURFACES}

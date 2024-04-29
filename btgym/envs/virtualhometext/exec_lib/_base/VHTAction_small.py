@@ -48,7 +48,7 @@ class VHTAction_small(Action):
     # 抹布, 掸子, 纸巾, 刷子
 
     cleaning_tools = {"rag"}
-
+    cutting_tools = {"cutleryknife"}
 
     HAS_SWITCH = {"tv","faucet","lightswitch","dishwasher","candle",\
                   "coffeemaker","microwave","tablelamp","computer","washingmachine"}
@@ -60,13 +60,16 @@ class VHTAction_small(Action):
     # 墙电话, 咖啡机, 开关, 手机, 冰箱, 烤面包机, 台灯, 微波炉, 电视, \
     # 鼠标, 时钟, 键盘, 收音机, 洗衣机, 打印机
 
-    CUTABLE = set()
+    # CUTABLE = set()
     # 无可切割物品
+    CUTABLE = {"apple","bananas","breadslice", "cutlets","poundcake","pancake","pie","carrot","chicken","lime","salmon", "peach",\
+               "pear","plum"}
 
     EATABLE = {"sundae", "breadslice", "whippedcream", "condimentshaker", "chocolatesyrup", "candybar", "creamybuns","pancake", \
                "poundcake", "cereal", "cupcake", "pudding", "salad", "pie", "carrot", "milkshake"}
     # 圣代, 面包片, 鲜奶油, 调料瓶, 巧克力糖浆, 糖果, 奶油面包, 煎饼, \
     # 磅蛋糕, 麦片, 纸杯蛋糕, 布丁, 沙拉, 馅饼, 胡萝卜, 奶昔
+    WASHBLE={"apple","bananas","carrot","chicken","lime","salmon", "peach","pear","plum"}
 
     RECIPIENT = {"dishbowl", "wineglass", "coffeemaker", "cookingpot", "box", "mug", "toothbrush", "coffeepot","fryingpan", \
                  "waterglass", "sink", "plate", "washingmachine"}

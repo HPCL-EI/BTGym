@@ -549,18 +549,18 @@ class OptBTExpAlgorithm:
                             a_attr_node.min_cost = a_attr_node.trust_cost + h - epsh
 
                             # 启发式：乘一下
-                            new_pair.pact_dic = copy.deepcopy(current_pair.pact_dic)
-                            if act.name in new_pair.pact_dic and new_pair.pact_dic[act.name] > 0:
-                                new_pair.pact_dic[act.name] -= 1
-                            remaining = 0
-                            remaining_num = 0
-                            for key, value in new_pair.pact_dic.items():
-                                # print(key, value)
-                                remaining += self.act_cost_dic[key] * value
-                                remaining_num += value
-                            h = remaining * (remaining_num / D_first_num)
-                            c_attr_node.min_cost = c_attr_node.trust_cost + h - epsh
-                            a_attr_node.min_cost = a_attr_node.trust_cost + h - epsh
+                            # new_pair.pact_dic = copy.deepcopy(current_pair.pact_dic)
+                            # if act.name in new_pair.pact_dic and new_pair.pact_dic[act.name] > 0:
+                            #     new_pair.pact_dic[act.name] -= 1
+                            # remaining = 0
+                            # remaining_num = 0
+                            # for key, value in new_pair.pact_dic.items():
+                            #     # print(key, value)
+                            #     remaining += self.act_cost_dic[key] * value
+                            #     remaining_num += value
+                            # h = remaining * (remaining_num / D_first_num)
+                            # c_attr_node.min_cost = c_attr_node.trust_cost + h - epsh
+                            # a_attr_node.min_cost = a_attr_node.trust_cost + h - epsh
 
 
                             # 0425启发式：h=max(0,D-g)* (剩余/D)

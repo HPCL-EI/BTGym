@@ -1,0 +1,240 @@
+1
+Environment:2
+Instruction: Place the apple on the kitchen counter and make sure the kitchen cabinet is open.
+Goals: IsOn_apple_kitchencounter & IsOpen_kitchencabinet
+Actions: Walk_apple, RightGrab_apple, Walk_kitchencounter, RightPut_apple_kitchencounter
+Key_Predicate: Walk, RightGrab, RightPut
+Key_Object: apple, kitchencounter
+
+2
+Environment:2
+Instruction: Grab the pillow from the bed and put it on the sofa, then ensure the TV is switched on.
+Goals: IsOn_pillow_sofa & IsPlugged_tv & IsSwitchedOn_tv
+Actions: Walk_pillow, RightGrab_pillow, Walk_sofa, RightPut_pillow, Walk_tv, PlugIn_tv, SwitchOn_tv
+Key_Predicate: Walk, RightGrab, RightPut, PlugIn, SwitchOn
+Key_Object: pillow, sofa, tv
+
+3
+Environment:2
+Instruction: Place the toothbrush in the bathroom cabinet and the towel on the towel rack, then close the bathroom cabinet.
+Goals: IsIn_toothbrush_bathroomcabinet & IsOn_towel_towelrack & IsClose_bathroomcabinet
+Actions: Walk_toothbrush, RightGrab_toothbrush, Walk_towel, LeftGrab_towel, Walk_bathroomcabinet, RightPutIn_toothbrush_bathroomcabinet, Walk_towelrack, LeftPut_towel, Close_bathroomcabinet
+Key_Predicate: Walk, RightGrab, LeftGrab, RightPutIn, LeftPut, Close
+Key_Object: toothbrush, towel, bathroomcabinet, towelrack
+
+4
+Environment:3
+Instruction: Grab the toy from the desk and place it on the bed, then trun on the computer on the desk.
+Goals: IsOn_toy_bed & IsSwitchedOn_computer
+Actions: Walk_toy, RightGrab_toy, Walk_bed, RightPut_toy, Walk_computer, SwitchOn_computer
+Key_Predicate: Walk, RightGrab, RightPut, SwitchOn
+Key_Object: toy, bed, computer
+
+5
+Environment:1
+Instruction: Put the cupcake in the fridge, the waterglass on the kitchentable, and the slippers under the bed.
+Goals: IsIn_cupcake_fridge & IsOn_waterglass_kitchentable
+Actions: Walk_cupcake, RightGrab_cupcake, Walk_fridge, Open_fridge, RightPutIn_cupcake_fridge, Walk_waterglass, RightGrab_waterglass, Walk_kitchentable, RightPut_waterglass_kitchentable, Walk_slippers, RightGrab_slippers, Walk_bed, RightPut_slippers
+Key_Predicate: Walk, RightGrab, Open, RightPutIn, RightPut
+Key_Object: cupcake, fridge, waterglass, kitchentable, slippers, bed
+
+6
+Environment:2
+Instruction: Take the boardgame and place it on the kitchentable, then make sure the kitchencabinet is closed.
+Goals: IsOn_boardgame_kitchentable & IsClose_kitchencabinet
+Actions: Walk_boardgame, RightGrab_boardgame, Walk_kitchentable, RightPut_boardgame, Walk_kitchencabinet, Close_kitchencabinet
+Key_Predicate: Walk, RightGrab, RightPut, Close
+Key_Object: boardgame, kitchentable, kitchencabinet
+
+7
+Environment:3
+Instruction: Grab the bellpepper from the fridge, put it on the cuttingboard, the cutleryknife on the kitchentable, and make sure the computer is switched off.
+Goals: IsOn_bellpepper_cuttingboard & IsOn_chefknife_desk & IsSwitchedOff_computer
+Actions: Walk_bellpepper, RightGrab_bellpepper, Walk_fridge, Open_fridge, RightPut_bellpepper_cuttingboard, Walk_chefknife, RightGrab_chefknife, Walk_desk, RightPut_chefknife_desk, Walk_computer, SwitchOff_computer
+Key_Predicate: Walk, RightGrab, Open, RightPut, SwitchOff
+Key_Object: bellpepper, fridge, cuttingboard, chefknife, desk, computer
+
+8
+Environment:2
+Instruction: Place the papertowel on the kitchentable, the wineglass in the cabinet, and ensure the tv is turned on.
+Goals: IsOn_papertowel_kitchentable & IsIn_wineglass_kitchencabinet & IsSwitchedOn_tv & IsPlugged_tv & IsSwitchedOn_tv
+Actions: Walk_chessboard, RightGrabFrom_chessboard_bookshelf, Walk_table, RightPut_chessboard_table, Walk_wineglass, RightGrab_wineglass, Walk_kitchencabinet, RightPutIn_wineglass_kitchencabinet, Walk_tv, SwitchOn_tv
+Key_Predicate: Walk, RightGrabFrom, RightPut, RightGrab, RightPutIn, SwitchOn
+Key_Object: chessboard, bookshelf, table, wineglass, kitchencabinet, tv
+
+9
+Environment:2
+Instruction: Put the milk and juice in the fridge to chill, then grab a rag to wipe down the kitchen counter.
+Goals: IsIn_milk_fridge & IsIn_juice_fridge & IsPlugged_fridge & IsSwitchedOn_fridge & IsHoldingCleaningTool_rag & IsClean_kitchencounter
+Actions: 
+Key_Predicate: 
+Key_Object: 
+
+10
+Environment:2
+Instruction: Bring the book and notes to the desk, turn on the desklamp, pour a glass of juice into the waterglass, and place it on the desk.
+Goals: IsOn_notes_desk & IsOn_book_desk & IsSwitchedOn_tablelamp & IsOn_juice_desk & IsOn_waterglass_desk
+Actions: Walk_book, RightGrab_book, Walk_notes, RightGrab_notes, Walk_desk, RightGrab_desklamp, SwitchOn_desklamp, Walk_juice, RightGrab_juice, Walk_waterglass, RightGrab_waterglass, Walk_desk, RightPut_juice_waterglass, RightPut_waterglass_desk, RightPut_book_desk, RightPut_notes_desk
+Key_Predicate: Walk, RightGrab, SwitchOn, RightPut
+Key_Object: book, notes, desk, desklamp, juice, waterglass
+
+11
+Environment:1
+Instruction: Please put the cutleryfork into the box, confirm that the folder is closed, keep the oventray and stove clean, and open the curtains.
+Goals: IsIn_cutleryfork_box & IsClose_folder & IsClean_oventray & IsClean_stove & IsOpen_curtains
+Actions: Walk_cutleryfork, RightGrab_cutleryfork, Walk_box, Open_box, RightPutIn_notes_box, Close_box, Walk_rag, IsHoldingCleaningTool_rag, Wipe_oventray, Wipe_stove, Walk_curtains, Open_curtains
+Key_Predicate: Walk, RightGrab, Open, RightPutIn, Close, IsHoldingCleaningTool, Wipe
+Key_Object: cutleryfork, box, notes, rag, oventray, stove, curtains
+
+12
+Environment:2
+Instruction: Place the magazine on the sofa and relax by reading while enjoying a cup of freshly brewed coffee.
+Goals: IsOn_magazine_sofa & IsPlugged_coffeemaker & IsSwitchedOn_coffeemaker
+Actions: Walk_magazine, RightGrab_magazine, Walk_sofa, RightPut_magazine_sofa, Walk_coffeemaker, PlugIn_coffeemaker, SwitchOn_coffeemaker
+Key_Predicate: Walk, RightGrab, RightPut, PlugIn, SwitchOn
+Key_Object: magazine, sofa, coffeemaker
+
+13
+Environment:2
+Instruction: Place the remotecontrol on the bench, and then turn on the TV.
+Goals: IsOn_remotecontrol_bench & IsPlugged_tv & IsSwitchedOn_tv
+Actions: Walk_remotecontrol, RightGrab_remotecontrol, Walk_bench, RightPut_remotecontrol_bench, Walk_tv, PlugIn_tv, SwitchOn_tv
+Key_Predicate: Walk, RightGrab, RightPut, PlugIn, SwitchOn
+Key_Object: remotecontrol, bench, tv
+
+14
+Environment:1
+Instruction: Put the apple and bread slices on the kitchentable, and place the cutleryknife and cutleryfork beside them.
+Goals: IsOn_apple_kitchentable & IsOn_breadslices_kitchentable & IsOn_cutleryknife_kitchentable & IsOn_cutleryfork_kitchentable
+Actions: Walk_apple, RightGrab_apple, Walk_kitchentable, RightPut_apple_kitchentable, Walk_breadslice, RightGrab_breadslice, Walk_kitchentable, RightPut_breadslice_kitchentable, Walk_cutleryknife, RightGrab_cutleryknife_kitchentable, Walk_cutleryfork, LeftGrab_cutleryfork_kitchentable, Walk_kitchentable, RightPut_cutleryknife_kitchentable, LeftPut_cutleryfork_kitchentable
+Key_Predicate: Walk, RightGrab, RightPut, LeftGrab, LeftPut
+Key_Object: apple, kitchentable, breadslice, cutleryknife, cutleryfork
+
+15
+Environment:1
+Instruction: Place the computer on the desk, and arrange the keyboard and mouse alongside it.
+Goals: IsOn_computer_desk & IsOn_keyboard_desk & IsOn_mouse_desk
+Actions: Walk_computer, RightGrab_computer, Walk_desk, RightPut_computer_desk, Walk_keyboard, RightGrab_keyboard, Walk_desk, RightPut_keyboard_desk, Walk_mouse, RightGrab_mouse, Walk_desk, RightPut_mouse_desk
+Key_Predicate: Walk, RightGrab, RightPut
+Key_Object: computer, desk, keyboard, mouse
+
+16
+Environment:1
+Instruction: Pile clothespile in the washingmachine, and then start the washing machine.
+Goals: IsIn_clothespile_washingmachine & IsSwitchedOn_washingmachine
+Actions: Walk_clothespile, RightGrab_clothespile, Walk_washingmachine, SwitchOff_washingmachine, Open_washingmachine, RightPutIn_clothespile_washingmachine, Close_washingmachine, SwitchOn_washingmachine
+Key_Predicate: Walk, RightGrab, SwitchOff, Open, RightPutIn, Close, SwitchOn
+Key_Object: clothespile, washingmachine
+
+17
+Environment:1
+Instruction: Open the fridge, take out the milk, pour it into the coffeepot, and place the coffeepot on the stove to heat up.
+Goals: IsIn_milk_coffeepot & IsOn_coffeepot_stove & IsSwitchedOn_stove
+Actions: Walk_fridge, Open_fridge, RightGrabFrom_milk_fridge, Close_fridge, Walk_coffeepot, Open_milk, RightPutIn_milk_coffeepot, RightGrab_coffeepot, Walk_stove, SwitchOff_stove, Open_stove, RightPutIn_coffeepot_stove, SwitchOn_stove
+Key_Predicate: Walk, Open, RightGrabFrom, Close, RightPutIn, RightGrab, SwitchOff, SwitchOn
+Key_Object: fridge, milk, coffeepot, stove
+
+18
+Environment:2
+Instruction: Take the rag and clean the tablelamp, then turn on the tablelamp.
+Goals: IsHoldingCleaningTool_rag & IsClean_tablelamp & IsPlugged_tablelamp & IsSwitchedOn_tablelamp
+Actions: Walk_rag, RightGrab_rag, Walk_tablelamp, Wipe_tablelamp, PlugIn_tablelamp, SwitchOn_tablelamp
+Key_Predicate: Walk, RightGrab, Wipe, PlugIn, SwitchOn
+Key_Object: rag, tablelamp
+
+19
+Environment:1
+Instruction: Take the duster and clean the rug, and store the duster in the kitchencabinet when finished.
+Goals: IsHoldingCleaningTool_duster & IsClean_rug & IsClose_microwave & IsSwitchedOn_microwave
+Actions: Walk_duster, RightGrab_duster, Walk_rug, Wipe_rug, Walk_kitchencabinet, Open_kitchencabinet, RightPutIn_duster_kitchencabinet, Close_kitchencabinet
+Key_Predicate: Walk, RightGrab, Wipe, Open, RightPutIn, Close
+Key_Object: duster, rug, kitchencabinet
+
+20
+Environment:2
+Instruction: Please put the cutleryfork into the box, confirm that the folder is closed, keep the oventray and stove clean, and open the curtains.
+Goals: IsIn_cutleryfork_box & IsClose_folder & IsClean_oventray & IsClean_stove & IsOpen_curtains
+Actions: Walk_cutleryfork, RightGrab_cutleryfork, Walk_box, RightPutIn_cutleryfork_box, Walk_folder, Close_folder, Walk_rag, RightGrab_rag, Walk_oventray, Wipe_tablelamp, Walk_stove, Wipe_stove, Walk_curtains, Open_curtains
+Key_Predicate: Walk, RightGrab, RightPutIn, Close, Wipe, Open
+Key_Object: cutleryfork, box, folder, rag, oventray, tablelamp, stove, curtains
+
+21
+Environment:4
+Instruction: Insert the cellphone into the plug, turn off the candle, turn on the lights to ensure that the room is bright, plug the mouse into the power, and prepare for cleaning with a cloth.
+Goals: IsPlugged_cellphone & IsSwitchedOff_candle & IsPlugged_mouse & IsHoldingCleaningTool_duster & IsPlugged_lightswitch
+Actions: Walk_cellphone, PlugIn_cellphone, Walk_lightswitch, PlugIn_lightswitch, SwitchOn_lightswitch, PlugIn_mouse, Walk_duster, RightGrab_duster
+Key_Predicate: Walk, PlugIn, SwitchOn, RightGrab
+Key_Object: cellphone, lightswitch, mouse, duster
+
+22
+Environment:4
+Instruction: Confirm that the cellphone is plugged in and turned on, place the dishbowl in the dishwasher for cleaning, turn on the radio, and turn on the faucet.
+Goals: IsPlugged_cellphone & IsSwitchedOn_cellphone & IsIn_dishbowl_dishwasher & IsSwitchedOn_dishwasher & IsSwitchedOn_radio & IsClose_coffeemaker & IsSwitchedOn_faucet
+Actions: Walk_cellphone, PlugIn_cellphone, SwitchedOn_cellphone, Walk_dishbowl, RightGrab_dishbowl, Walk_dishwasher, Open_dishwasher, RightPutIn_dishbowl_dishwasher, Close_dishwasher, SwitchedOn_dishwasher, Walk_radio, PlugIn_radio, SwitchedOn_radio, Walk_faucet, SwitchedOn_faucet
+Key_Predicate: Walk, PlugIn, SwitchedOn, RightGrab, Open, RightPutIn, Close
+Key_Object: cellphone, dishbowl, dishwasher, radio, faucet
+
+23
+Environment:4
+Instruction: Turn off the printer, open the drawer of the desk, put the carrots in the fryingpan to prepare for cooking, open the curtains, and make sure the washingmachine is connected to the power supply.
+Goals: IsSwitchedOff_printer & IsOpen_desk & IsIn_carrot_fryingpan & IsOpen_curtains & IsPlugged_washingmachine
+Actions: Walk_desk, Open_desk, Walk_carrots, RightGrab_carrots, Walk_fryingpan, RightPut_carrots_fryingpan, Walk_curtains, Open_curtains, Walk_washingmachine, PlugIn_washingmachine
+Key_Predicate: Walk, Open, RightGrab, RightPut, PlugIn
+Key_Object: desk, carrots, fryingpan, curtains, washingmachine
+
+24
+Environment:4
+Instruction: Ensure that the coffeemaker is plugged in and turned on, turn off the printer power, turn on the clock, and turn on the TV.
+Goals: IsPlugged_coffeemaker & IsSwitchedOn_coffeemaker & IsSwitchedOff_printer & IsSwitchedOn_clock & IsSwitchedOn_tv
+Actions: Walk_coffeemaker, PlugIn_coffeemaker, SwitchedOn_coffeemaker, Walk_clock, PlugIn_clock, SwitchedOn_clock, Walk_tv, PlugIn_tv, SwitchedOn_tv
+Key_Predicate: Walk, PlugIn, SwitchedOn
+Key_Object: coffeemaker, clock, tv
+
+25
+Environment:4
+Instruction: Please hold the cleaning tool duster, clean the mouse, unplug the fridge, open the toothpaste, and turn on the computer.
+Goals: IsHoldingCleaningTool_duster & IsClean_mouse & IsUnplugged_fridge & IsOpen_toothpaste & IsSwitchedOn_computer
+Actions: Walk_duster, RightGrab_duster, Walk_mouse, Wipe_mouse, Walk_toothpaste, Open_toothpaste, Walk_computer, PlugIn_computer, SwitchedOn_computer
+Key_Predicate: Walk, RightGrab, Wipe, Open, PlugIn, SwitchedOn
+Key_Object: duster, mouse, toothpaste, computer
+
+26
+Environment:4
+Instruction: Please turn on the radio, place the toothbrush on it, close the magazine, move the board game off the sofa to continue using it, open the desk to have a clear workspace, and hold the cleaning rag to start wiping surfaces.
+Goals: IsOn_toothbrush_radio & IsClose_magazine & IsOn_boardgame_sofa & IsOpen_desk & IsHoldingCleaningTool_rag
+Actions: Walk_radio, PlugIn_radio, SwitchedOn_radio, Walk_toothbrush, RightGrab_toothbrush, Walk_radio, RightPut_toothbrush_radio, Walk_boardgame, RightGrab_boardgame, Walk_sofa, RightPut_boardgame_sofa, Walk_desk, Open_desk, Walk_rag, RightGrab_rag
+Key_Predicate: Walk, PlugIn, SwitchedOn, RightGrab, RightPut, Open
+Key_Object: radio, toothbrush, boardgame, sofa, desk, rag
+
+27
+Environment:4
+Instruction: Please turn on the washing machine, plug in the printer if it's not currently connected to the power source, close the cabinet, ensure that the radio is plugged in and tuned to your preferred station for entertainment or news, and place yourself near the notes to review them.
+Goals: IsSwitchedOn_washingmachine & IsUnplugged_printer & IsClose_cabinet & IsPlugged_radio & IsNear_self_notes
+Actions: Walk_washingmachine, PlugIn_washingmachine, SwitchedOn_washingmachine, Walk_printer, PlugIn_printer, Walk_radio, PlugIn_radio, SwitchedOn_radio, Walk_notes
+Key_Predicate: Walk, PlugIn, SwitchedOn
+Key_Object: washingmachine, printer, radio, notes
+
+28
+Environment:4
+Instruction: Place the water glass in the bathroom cabinet , put the hanger in the bathroomcabinet, check that the cellphone is unplugged, store the barsoap in the bathroom cabinet, and ensure that the printer is unplugged.
+Goals: IsIn_waterglass_bathroomcabinet & IsIn_hanger_bathroomcabinet & IsUnplugged_wallphone & IsIn_barsoap_bathroomcabinet & IsUnplugged_printer
+Actions: Walk_waterglass, RightGrab_waterglass, Walk_bathroomcabinet, Open_bathroomcabinet, RightPutIn_waterglass_bathroomcabinet, Walk_hanger, RightGrab_hanger, Walk_bathroomcabinet, RightPutIn_hanger_bathroomcabinet, Walk_cellphone, Walk_barsoap, RightGrab_barsoap, Walk_bathroomcabinet, RightPutIn_barsoap_bathroomcabinet, Close_bathroomcabinet, Walk_printer
+Key_Predicate: Walk, RightGrab, Open, RightPutIn, Close
+Key_Object: waterglass, bathroomcabinet, hanger, cellphone, barsoap, printer
+
+29
+Environment:4
+Instruction: Please unplug the TV, ensure that the coffeemaker is plugged in, hold the duster to dust surfaces, and close the coffeepot.
+Goals: IsUnplugged_tv & IsPlugged_coffeemaker & IsHoldingCleaningTool_duster & IsClose_coffeepot
+Actions: Walk_coffeemaker, PlugIn_coffeemaker, Walk_duster, RightGrab_duster, Walk_coffeepot
+Key_Predicate: Walk, PlugIn, RightGrab
+Key_Object: coffeemaker, duster, coffeepot
+
+30
+Environment:4
+Instruction: Please position the rag near yourself to be ready for wiping and cleaning tasks, place the chicken on the kitchen table, ensure that the cellphone is unplugged, and ensure that the washingmachine is clean before using it.
+Goals: IsHoldingCleaningTool_rag & IsUnplugged_wallphone & IsOn_chicken_kitchentable & IsClean_washingmachine
+Actions: Walk_rag, RightGrab_rag, Walk_chicken, LeftGrab_chicken, Walk_kitchentable, LeftPut_chicken_kitchentable, Walk_cellphone, Walk_washingmachine, Wipe_washingmachine
+Key_Predicate: Walk, RightGrab, LeftGrab, LeftPut, Wipe
+Key_Object: rag, chicken, kitchentable, cellphone, washingmachine
+

@@ -66,9 +66,12 @@ messages = []
 # answer = llm.request(message=messages)
 # messages.append({"role": "assistant", "content": answer})
 
-goal_set = [{'IsIn(milk,fridge)','IsSwitchedOn(candle)'}]
-priority_act_ls = ["Walk(milk)", "RightGrab(milk)", "Walk(fridge)",'Open(fridge)',
-                   "RightPutIn(milk,fridge)",'PlugIn(fridge)', 'Walk(candle)',"SwitchOn(candle)"]
+# goal_set = [{'IsIn(milk,fridge)','IsSwitchedOn(candle)'}]
+# priority_act_ls = ["Walk(milk)", "RightGrab(milk)", "Walk(fridge)",'Open(fridge)',
+#                    "RightPutIn(milk,fridge)",'PlugIn(fridge)', 'Walk(candle)',"SwitchOn(candle)"]
+goal_set = [{'IsPlugged(fridge)'}]
+
+priority_act_ls = ['Walk(fridge)']
 
 
 priority_obj_ls = []
@@ -83,7 +86,7 @@ for expr in goal_set[0]:
     if match:
         # 将括号内的内容按逗号分割并加入到集合中
         objects.update(match.group(1).split(','))
-# priority_obj_ls += list(objects)
+priority_obj_ls += list(objects)
 
 
 # todo: BTExp:process

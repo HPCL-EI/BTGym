@@ -124,10 +124,10 @@ print("================ \n")
 record_act = record_act[:-1]
 formatted_act,predicate,objects = act_format_records(record_act)
 
-print("Goals:",goal_str)
-print("Actions:",formatted_act)
-print("key Predicate:",list(set(predicate)))
-print("key Objects:",list(set(objects)))
+print("Goals:", goal_str)
+print("Actions:", formatted_act)
+print("key Predicate:", list(set(predicate)))
+print("key Objects:", list(set(objects)))
 
 
 

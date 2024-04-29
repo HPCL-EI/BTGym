@@ -1,2 +1,51 @@
 selector
+<<<<<<< Updated upstream
     cond IsPlugged(fridge)
+=======
+    selector
+        cond IsSwitchedOn(tv)
+        sequence
+            cond IsSwitchedOff(tv)
+            cond IsPlugged(tv)
+            cond IsLeftHandEmpty(self)
+            cond IsNear(self,tv)
+            act SwitchOn(tv)
+    sequence
+        selector
+            cond IsSwitchedOff(tv)
+            cond IsPlugged(tv)
+            cond IsLeftHandEmpty(self)
+            cond IsNear(self,tv)
+            sequence
+                cond IsSwitchedOff(tv)
+                cond IsUnplugged(tv)
+                cond IsLeftHandEmpty(self)
+                cond IsNear(self,tv)
+                act PlugIn(tv)
+            sequence
+                cond IsSwitchedOff(tv)
+                cond IsPlugged(tv)
+                cond IsLeftHandEmpty(self)
+                cond IsStanding(self)
+                act Walk(tv)
+        act SwitchOn(tv)
+    sequence
+        selector
+            cond IsSwitchedOff(tv)
+            cond IsUnplugged(tv)
+            cond IsLeftHandEmpty(self)
+            cond IsNear(self,tv)
+            sequence
+                cond IsSwitchedOff(tv)
+                cond IsUnplugged(tv)
+                cond IsLeftHandEmpty(self)
+                cond IsStanding(self)
+                act Walk(tv)
+        act PlugIn(tv)
+    sequence
+        cond IsSwitchedOff(tv)
+        cond IsUnplugged(tv)
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        act Walk(tv)
+>>>>>>> Stashed changes

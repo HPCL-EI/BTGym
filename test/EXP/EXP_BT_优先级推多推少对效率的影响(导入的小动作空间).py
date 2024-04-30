@@ -18,46 +18,33 @@ seed=0
 random.seed(seed)
 np.random.seed(seed)
 
+from tools import collect_action_nodes
+
+
 env = btgym.make("VHT-Small")
-
-action_list=[]
-for cls in env.behavior_lib["Action"].values():
-    if cls.can_be_expanded:
-        print(f"可扩展动作：{cls.__name__}, 存在{len(cls.valid_args_small)}个有效论域组合")
-        if cls.num_args == 0:
-            action_list.append(Action(name=cls.get_ins_name(), **cls.get_info()))
-        if cls.num_args == 1:
-            for arg in cls.valid_args_small:
-                action_list.append(Action(name=cls.get_ins_name(arg), **cls.get_info(arg)))
-        if cls.num_args > 1:
-            for args in cls.valid_args_small:
-                action_list.append(Action(name=cls.get_ins_name(*args), **cls.get_info(*args)))
-print(f"共收集到{len(action_list)}个实例化动作:")
-all_actions_set = set()
-for act in action_list:
-    all_actions_set.add(act.name)
-
+action_list = collect_action_nodes(env.behavior_lib)
+all_actions_set = set(action_list)
 
 # Easy
 # goal_set = [{'IsClean(nightstand)'}]
 # true_priority_act_set = {'Walk(rag)','RightGrab(rag)','Walk(nightstand)','Wipe(nightstand)'}
 
 # Medium
-# goal_set = [{'IsClean(nightstand)','IsOn(clock,nightstand)'}]
-# true_priority_act_set = {'Walk(rag)','RightGrab(rag)','Walk(clock)','LeftGrab(clock)',\
-#                          'Walk(nightstand)','Wipe(nightstand)','LeftPut(clock,nightstand)'}
+goal_set = [{'IsClean(nightstand)','IsOn(clock,nightstand)'}]
+true_priority_act_set = {'Walk(rag)','RightGrab(rag)','Walk(clock)','LeftGrab(clock)',\
+                         'Walk(nightstand)','Wipe(nightstand)','LeftPut(clock,nightstand)'}
 
 # Hard
-goal_set = [{'IsIn(milk,microwave)','IsSwitchedOn(microwave)'}]
-true_priority_act_set = {"Walk(milk)", "RightGrab(milk)", "Walk(microwave)", "Open(microwave)","PlugIn(microwave)", \
-                    "RightPutIn(milk,microwave)",'SwitchOn(microwave)'}
+# goal_set = [{'IsIn(milk,microwave)','IsSwitchedOn(microwave)'}]
+# true_priority_act_set = {"Walk(milk)", "RightGrab(milk)", "Walk(microwave)", "Open(microwave)","PlugIn(microwave)", \
+#                     "RightPutIn(milk,microwave)",'SwitchOn(microwave)'}
 
 error_priority_act_set = all_actions_set-true_priority_act_set
 # 推荐优先级
 
 priority_act_ls=set()
-error_rate = 0
-correct_rate = 1
+error_rate = 0.5
+correct_rate = 0.5
 
 error_num=int(len(true_priority_act_set)*error_rate)
 correct_num=int(len(true_priority_act_set)*correct_rate)
@@ -75,6 +62,11 @@ cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction_small.HAS_PLUG}
 
 
 priority_obj_ls=[]
+# 这里写错了 baseline 应该是不推荐的
+# algo = BTExpInterface(None, cur_cond_set, priority_act_ls, priority_obj_ls,\
+#                       selected_algorithm="baseline",action_list=action_list)
+
+# 这里应该是推荐错了怎么处理
 algo = BTExpInterface(None, cur_cond_set, priority_act_ls, priority_obj_ls,\
                       selected_algorithm="opt",action_list=action_list)
 

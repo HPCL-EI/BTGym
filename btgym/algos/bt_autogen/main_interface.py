@@ -1,5 +1,6 @@
 from btgym.algos.bt_autogen.Action import Action, state_transition
 from btgym.algos.bt_autogen.OptimalBTExpansionAlgorithm import OptBTExpAlgorithm
+from btgym.algos.bt_autogen.OptimalBTExpansionAlgorithm_baseline import OptBTExpAlgorithm_BaseLine
 from btgym.algos.bt_autogen.BTExpansionAlgorithm import BTalgorithm
 from btgym.algos.bt_autogen.BTExpansionAlgorithmBFS import BTalgorithmBFS
 from btgym.algos.bt_autogen.BTExpansionAlgorithmDFS import BTalgorithmDFS
@@ -20,13 +21,14 @@ class BTExpInterface:
         self.cur_cond_set = cur_cond_set
         self.bt_algo_opt = bt_algo_opt
         self.selected_algorithm = selected_algorithm
-        self.big_actions = collect_action_nodes(behavior_lib)
+
 
         # 自定义动作空间
         if behavior_lib == None:
             self.actions = action_list
         # 默认的大动作空间
         else:
+            self.big_actions = collect_action_nodes(behavior_lib)
             self.actions = self.big_actions
 
         # 选择小动作空间
@@ -64,7 +66,10 @@ class BTExpInterface:
             self.algo = OptBTExpAlgorithm(verbose=False, \
                                           llm_reflect=self.llm_reflect, llm=self.llm, messages=self.messages, \
                                           priority_act_ls=self.priority_act_ls)
-
+        elif self.selected_algorithm == "baseline":
+            self.algo = OptBTExpAlgorithm_BaseLine(verbose=False, \
+                                          llm_reflect=self.llm_reflect, llm=self.llm, messages=self.messages, \
+                                          priority_act_ls=self.priority_act_ls)
         elif self.selected_algorithm == "opt-h":
             self.algo = OptBTExpAlgorithmHeuristics(verbose=False)
         elif self.selected_algorithm == "bfs":

@@ -4,10 +4,10 @@ from btgym import BehaviorTree
 from btgym import ExecBehaviorLibrary
 import btgym
 from btgym.utils import ROOT_PATH
-from btgym.algos.llm_client.llms.gpt3 import LLMGPT3
+# from btgym.algos.llm_client.llms.gpt3 import LLMGPT3
 from btgym.algos.bt_autogen.main_interface import BTExpInterface
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
-
+from btgym.algos.bt_autogen.tools import state_transition
 from sympy import symbols, Not, Or, And, to_dnf
 from sympy import symbols, simplify_logic
 import re
@@ -47,14 +47,14 @@ with open(prompt_file, 'r', encoding="utf-8") as f:
 instuction = "Prepare for a small birthday party by baking a cake using the oven, ensure the candles are switched on." + \
              "Finally, make sure the kitchen counter is clean."
 
-llm = LLMGPT3()
+# llm = LLMGPT3()
 # message=[{"role": "system", "content": ""}]
 # question = prompt+instuction
 
 # 补充：向量数据库检索，拼接上最相近的 Example cur_cond_set
 cur_env_state = ', '.join(map(str, cur_cond_set))
 cur_data = instuction+"\n[current environmental condition]\n"+cur_env_state # 可能还要再调整
-cur_emb = llm.embedding(question=cur_data)
+# cur_emb = llm.embedding(question=cur_data)
 # 导入向量数据库，找到最近的前5条。
 # 准备好的 30条数据 作为 向量数据库
 example = ""
@@ -96,7 +96,7 @@ for try_time in range(MAX_TIME):
     # 在小动作空间里搜索
     algo = BTExpInterface(env.behavior_lib, cur_cond_set, priority_act_ls, priority_obj_ls, \
                           selected_algorithm="opt", choose_small_action_space=True,\
-                          llm_reflect=False, llm=llm, messages=messages,)
+                          llm_reflect=False)
 
     start_time = time.time()
     algo.process(goal_set)
@@ -123,7 +123,7 @@ for try_time in range(MAX_TIME):
 
     # simulation and test
     print("\n================ ")
-    from btgym.algos.bt_autogen.tools import state_transition
+
 
     goal = goal_set[0]
     state = cur_cond_set

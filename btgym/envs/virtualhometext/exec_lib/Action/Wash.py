@@ -4,8 +4,8 @@ from btgym.envs.virtualhometext.exec_lib._base.VHTAction_small import VHTAction_
 class Wash(VHTAction):
     can_be_expanded = True
     num_args = 1
-    valid_args = VHTAction.WASHBLE
-    valid_args_small = VHTAction_small.WASHBLE
+    valid_args = VHTAction.WASHABLE
+    valid_args_small = VHTAction_small.WASHABLE
 
     def __init__(self, *args):
         super().__init__(*args)

@@ -1,6 +1,6 @@
 
 
-from tabulate import tabulate
+# from tabulate import tabulate
 import numpy as np
 import random
 import time
@@ -14,7 +14,7 @@ def print_action_data_table(goal,start,actions):
     for a in actions:
         data.append([a.name , a.pre , a.add , a.del_set , a.cost])
     data.append(["Goal" ,goal ," " ,"Start" ,start])
-    print(tabulate(data, headers=["Name", "Pre", "Add" ,"Del" ,"Cost"], tablefmt="fancy_grid"))  # grid plain simple github fancy_grid
+    # print(tabulate(data, headers=["Name", "Pre", "Add" ,"Del" ,"Cost"], tablefmt="fancy_grid"))  # grid plain simple github fancy_grid
 
 
 # 从状态随机生成一个行动

@@ -1,92 +1,89 @@
 from btgym.behavior_tree.base_nodes import Action
 from btgym.behavior_tree import Status
 from btgym.behavior_tree.behavior_trees import BehaviorTree
-
+from btgym.utils import ROOT_PATH
 class VHTAction_small(Action):
     can_be_expanded = True
     num_args = 1
 
-    SURFACES = {"kitchentable",  "fryingpan","plate", "tvstand", "bathroomcounter", \
-                "kitchencounter", "bookshelf", "cabinet", "desk", "bed", "sofa","nightstand"}
-    # SURFACES = {"kitchentable", "towelrack", "bench", "kitchencabinet", "mousemat", "boardgame", "coffeetable","fryingpan", \
-    #             "radio", "cuttingboard", "floor", "tvstand", "bathroomcounter", "oventray", "chair", "kitchencounter","rug", \
-    #             "bookshelf", "nightstand", "cabinet", "desk", "stove", "bed", "sofa", "plate", "bathroomcabinet"}
-    # 厨房桌子, 毛巾架, 长凳, 厨房橱柜, 鼠标垫, 桌游, 咖啡桌, 煎锅, \
-    # 收音机, 切菜板, 地板, 电视架, 浴室台面, 烤箱托盘, 椅子, 厨房台面, 地毯, \
-    # 书架, 床头柜, 柜子, 书桌, 炉灶, 床, 沙发, 盘子, 浴室橱柜
 
-    SITTABLE = {"chair", "bench", "bed", "rug", "sofa"}
-    # 浴缸, 椅子, 厕所, 长凳, 床, 地毯, 沙发
+    import pickle
+    ctg_objs_path = f"{ROOT_PATH}/../test/EXP/ctg_objs.pickle"
+    # 打开之前写入的文件，注意使用二进制模式读取
+    with open(ctg_objs_path, 'rb') as file:
+        # 使用pickle.load()函数从文件加载数据
+        categories_objs_dic = pickle.load(file)
 
-    CAN_OPEN = {"fridge","dishwasher","microwave","washingmachine","window"}
-    # 咖啡机, 烹饪锅, 牙膏, 咖啡壶, 厨房橱柜, 洗衣机, 窗户, 打印机, \
-    # 窗帘, 衣柜, 盒子, 微波炉, 护发产品, 洗碗机, 收音机, 冰箱, 厕所, 书, \
-    # 垃圾桶, 杂志, 床头柜, 柜子, 牛奶, 书桌, 炉灶, 门, 文件夹, 衣物堆, 浴室橱柜
+    SURFACES = categories_objs_dic['SURFACES']
+    SITTABLE = categories_objs_dic['SITTABLE']
+    CAN_OPEN = categories_objs_dic['CAN_OPEN']
+    CONTAINERS = categories_objs_dic['CONTAINERS']
+    GRABBABLE = categories_objs_dic['GRABBABLE']
+    cleaning_tools = categories_objs_dic['cleaning_tools']
+    cutting_tools = categories_objs_dic['cutting_tools']
+    HAS_SWITCH = categories_objs_dic['HAS_SWITCH']
+    HAS_PLUG = categories_objs_dic['HAS_PLUG']
+    CUTABLE = categories_objs_dic['CUTABLE']
+    EATABLE = categories_objs_dic['EATABLE']
+    WASHABLE = categories_objs_dic['WASHABLE']  # Corrected typo from WASHBLE to WASHABLE
+    RECIPIENT = categories_objs_dic['RECIPIENT']
+    POURABLE = categories_objs_dic['POURABLE']
+    DRINKABLE = categories_objs_dic['DRINKABLE']
 
-
-    CONTAINERS = {"fridge","dishwasher","microwave","washingmachine","garbagecan"}
-    # 咖啡机, 厨房橱柜, 洗衣机, 打印机, 烤面包机, 衣柜, 盒子, 微波炉, \
-    # 洗碗机, 煎锅, 冰箱, 厕所, 垃圾桶, 水槽, 书架, 床头柜, 柜子, 炉灶, 文件夹, 衣物堆, 浴室橱柜
-
-    # GRABBABLE = {"bananas",'chicken','cutlets','breadslice','chips',
-    #          'cupcake','milk','dishbowl','plate',"rag"
-    #          }
-    GRABBABLE = {"bananas",'chicken', 'cutlets','breadslice','chips','chocolatesyrup',
-             'cupcake','milk','wine',
-             'clothesshirt','fryingpan','dishbowl','plate',
-             'book',"waterglass","clock","rag"
-             }
-    # 圣代, 牙膏, 衬衫, 饼干, 布丁, 酒精, 桌游, 墙电话, 遥控器, \
-    # 鲜奶油, 衣架, 切片肉, 糖果, 酒, 卫生纸, 拖鞋, 麦片, 苹果, 杂志, \
-    # 酒杯, 牛奶, 纸杯蛋糕, 文件夹, 墙壁画框, 手机, 咖啡壶, 蜡笔, 盒子, \
-    # 煎锅, 收音机, 薯片, 切菜板, 青柠, 杯子, 地毯, 胡落哇, 餐具叉, 衣物堆, \
-    # 笔记, 李子, 烹饪锅, 玩具, 鲑鱼, 桃子, 调料瓶, 护发产品, 沙拉, 鼠标, \
-    # 时钟, 洗碗海绵, 香蕉, 碗, 烤箱托盘, 巧克力糖浆, 奶油面包, 梨, 椅子, \
-    # 调料瓶, 彩椒, 纸张, 盘子, 面霜, 面包片, 蜡烛, 毛巾架, 煎饼, 餐具刀, \
-    # 奶昔, 洗碗液, 键盘, 毛巾, 牙刷, 书, 果汁, 水杯, 香皂, 肉末, 裤子, \
-    # 鸡肉, 磅蛋糕, 枕头, 馅饼
-    # 抹布, 掸子, 纸巾, 刷子
-
-    cleaning_tools = {"rag"}
-    cutting_tools = {"cutleryknife"}
-
-    HAS_SWITCH = {"tv","faucet","lightswitch","dishwasher","candle",\
-                  "coffeemaker","microwave","tablelamp","computer","washingmachine"}
-
-    # 咖啡机, 手机, 蜡烛, 水龙头, 洗衣机, 打印机, 墙电话, 遥控器, \
-    # 电脑, 烤面包机, 微波炉, 洗碗机, 时钟, 收音机, 开关, 冰箱, 台灯, 炉灶, 电视
-
-    HAS_PLUG = {"tv","mouse", "dishwasher","coffeemaker","toaster","microwave","fright","washingmachine","clock","keyboard"}
-    # 墙电话, 咖啡机, 开关, 手机, 冰箱, 烤面包机, 台灯, 微波炉, 电视, \
-    # 鼠标, 时钟, 键盘, 收音机, 洗衣机, 打印机
-
-    # CUTABLE = set()
-    # 无可切割物品
-    CUTABLE = {"apple","bananas","breadslice", "cutlets","poundcake","pancake","pie","carrot","chicken","lime","salmon", "peach",\
-               "pear","plum"}
-
-    EATABLE = {"sundae", "breadslice", "whippedcream", "condimentshaker", "chocolatesyrup", "candybar", "creamybuns","pancake", \
-               "poundcake", "cereal", "cupcake", "pudding", "salad", "pie", "carrot", "milkshake"}
-    # 圣代, 面包片, 鲜奶油, 调料瓶, 巧克力糖浆, 糖果, 奶油面包, 煎饼, \
-    # 磅蛋糕, 麦片, 纸杯蛋糕, 布丁, 沙拉, 馅饼, 胡萝卜, 奶昔
-    WASHBLE={"apple","bananas","carrot","chicken","lime","salmon", "peach","pear","plum"}
-
-    RECIPIENT = {"dishbowl", "wineglass", "coffeemaker", "cookingpot", "box", "mug", "toothbrush", "coffeepot","fryingpan", \
-                 "waterglass", "sink", "plate", "washingmachine"}
-    # 碗, 酒杯, 咖啡机, 烹饪锅, 盒子, 杯子, 牙刷, 咖啡壶, 煎锅, \
-    # 水杯, 水槽, 盘子, 洗衣机
-
-    POURABLE = {"wineglass", "milk", "condimentshaker", "toothpaste", "bottlewater", "mug", "condimentbottle", "hairproduct", \
-                "dishwashingliquid", "alcohol", "wine", "juice", "waterglass", "facecream"}
-    # 酒杯, 牛奶, 调料瓶, 牙膏, 瓶装水, 杯子, 调料瓶, 护发产品, \
-    # 洗碗液, 酒精, 酒, 果汁, 水杯, 面霜
-
-    DRINKABLE = {"milk", "bottlewater", "wine", "alcohol", "juice"}
-    # 牛奶, 瓶装水, 酒, 酒精, 果汁
-
-    # switch on #candle  cellphone wallphone washingmachine不行# faucet 浴室龙头
     AllObject = SURFACES | SITTABLE | CAN_OPEN | CONTAINERS | GRABBABLE |\
                  HAS_SWITCH | CUTABLE | EATABLE | RECIPIENT | POURABLE | DRINKABLE
+
+
+    # categories = ['SURFACES','SITTABLE', 'CAN_OPEN', 'CONTAINERS', 'GRABBABLE', 'cleaning_tools', \
+    #      'cutting_tools', 'HAS_SWITCH', 'HAS_PLUG', 'CUTABLE', 'EATABLE', 'WASHBLE', 'RECIPIENT', \
+    #      'POURABLE', 'DRINKABLE']
+    # print(globals())
+    # 使用字典推导式创建变量字典
+    # ctg_name_dic = {category: globals()[category] for category in categories}
+    # 创建一个字典，存储每个类别对应的集合对象
+    # ctg_ls = [SURFACES,SITTABLE,CAN_OPEN,CONTAINERS,GRABBABLE,cleaning_tools,\
+    #     cutting_tools,HAS_SWITCH,HAS_PLUG,CUTABLE,EATABLE,WASHBLE,RECIPIENT,POURABLE,\
+    #     DRINKABLE]
+    # ctg_name_ls = ['SURFACES','SITTABLE', 'CAN_OPEN', 'CONTAINERS', 'GRABBABLE', 'cleaning_tools', \
+    #          'cutting_tools', 'HAS_SWITCH', 'HAS_PLUG', 'CUTABLE', 'EATABLE', 'WASHABLE', 'RECIPIENT', \
+    #          'POURABLE', 'DRINKABLE']
+
+    # import pickle
+    # ctg_objs_path = f"{ROOT_PATH}/../test/EXP/ctg_objs.pickle"
+    # # 打开之前写入的文件，注意使用二进制模式读取
+    # with open(ctg_objs_path, 'rb') as file:
+    #     # 使用pickle.load()函数从文件加载数据
+    #     categories_objs_dic = pickle.load(file)
+    #
+    # for ctg,name in zip(ctg_ls,ctg_name_ls):
+    #     ctg = categories_objs_dic[name]
+    #
+    # AllObject = SURFACES | SITTABLE | CAN_OPEN | CONTAINERS | GRABBABLE |\
+    #              HAS_SWITCH | CUTABLE | EATABLE | RECIPIENT | POURABLE | DRINKABLE
+
+
+
+    # def __init__(self):
+    #     super().__init__()  # 调用父类的初始化方法
+    #     ctg_objs_path = f"{ROOT_PATH}/../test/EXP/ctg_objs.pickle"
+    #     self.reload_objs_ls(objs_path)  # 在初始化方法中调用 reload_objs_ls 方法
+    #
+    # def reload_objs_ls(self,objs_path):
+    #     categories = ['SURFACES','SITTABLE', 'CAN_OPEN', 'CONTAINERS', 'GRABBABLE', 'cleaning_tools', \
+    #          'cutting_tools', 'HAS_SWITCH', 'HAS_PLUG', 'CUTABLE', 'EATABLE', 'WASHBLE', 'RECIPIENT', \
+    #          'POURABLE', 'DRINKABLE']
+    #     import pickle
+    #     # 打开之前写入的文件，注意使用二进制模式读取
+    #     with open(behavior_lib_path, 'rb') as file:
+    #         # 使用pickle.load()函数从文件加载数据
+    #         categories_objs_dic = pickle.load(file)
+    #
+    #     for ctg in categories:
+    #         # self.ctg = categories_objs_dic[ctg]
+    #         setattr(self, ctg, categories_objs_dic[ctg])
+    #
+    #     self.AllObject = self.SURFACES | self.SITTABLE | self.CAN_OPEN | self.CONTAINERS | self.GRABBABLE | \
+    #                 self.HAS_SWITCH | self.CUTABLE | self.EATABLE | self.RECIPIENT | self.POURABLE | self.DRINKABLE
 
     @property
     def action_class_name(self):

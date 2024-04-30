@@ -88,3 +88,11 @@ class VHTEnv(object):
         behavior_lib_path = f"{ROOT_PATH}/envs/virtualhometext/exec_lib"
 
         self.behavior_lib = ExecBehaviorLibrary(behavior_lib_path)
+
+    # def reload_behavior_lib(self,behavior_lib_path):
+    #     # behavior_lib_path = f"{ROOT_PATH}/envs/virtualhometext/exec_lib.pickle"
+    #     import pickle
+    #     # 打开之前写入的文件，注意使用二进制模式读取
+    #     with open(behavior_lib_path, 'rb') as file:
+    #         # 使用pickle.load()函数从文件加载数据
+    #         self.behavior_lib = pickle.load(file)

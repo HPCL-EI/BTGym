@@ -7,7 +7,11 @@ from btgym.algos.bt_autogen.BTExpansionAlgorithmDFS import BTalgorithmDFS
 from btgym.algos.bt_autogen.OptimalBTExpansionAlgorithmHeuristics import OptBTExpAlgorithmHeuristics
 from btgym.algos.bt_autogen.examples import *
 import re
-
+import random
+import numpy as np
+seed=0
+random.seed(seed)
+np.random.seed(seed)
 
 # 封装好的主接口
 class BTExpInterface:
@@ -166,6 +170,7 @@ class BTExpInterface:
                 # 遍历每个物体名称
                 if all(obj in recommended_objs for obj in action_objects):
                     # act.priority = 0.000001
+                    # act.priority = 1
                     act.priority = 1
                     # print(act)
         # print("============ Priority Objs: ==============")
@@ -176,8 +181,10 @@ class BTExpInterface:
                 # act.priority = act.cost*1.0/100000
 
         # 对action排序
-        action_list.sort(key=lambda x: x.priority)
+        # action_list.sort(key=lambda x: x.priority)
         # action_list.sort(key=lambda x: x.cost)
+        action_list.sort(key=lambda x: (x.priority, x.name))
+
         # for act in action_list:
         #     if act.priority <= 1 :
         #         act.cost = 1000000

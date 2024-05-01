@@ -69,9 +69,12 @@ messages = []
 # goal_set = [{'IsIn(milk,fridge)','IsSwitchedOn(candle)'}]
 # priority_act_ls = ["Walk(milk)", "RightGrab(milk)", "Walk(fridge)",'Open(fridge)',
 #                    "RightPutIn(milk,fridge)",'PlugIn(fridge)', 'Walk(candle)',"SwitchOn(candle)"]
-goal_set = [{'IsPlugged(fridge)'}]
 
-priority_act_ls = ['Walk(fridge)']
+# goal_set = [{'IsPlugged(fridge)'}]
+# priority_act_ls = ['Walk(fridge)']
+
+goal_set = [{'IsOn(apple,kitchencounter)', 'IsOpen(kitchencabinet)'}]
+priority_act_ls = {'RightPut(apple,kitchencounter)', 'RightGrab(apple)', 'Walk(kitchencabinet)', 'Walk(kitchencounter)', 'Walk(apple)'}
 
 
 priority_obj_ls = []

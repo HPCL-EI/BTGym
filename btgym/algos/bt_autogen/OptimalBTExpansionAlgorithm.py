@@ -125,6 +125,10 @@ def check_conflict(conds):
     required_states = {'IsHoldingCleaningTool(self)', 'IsLeftHandEmpty(self)', 'IsRightHandEmpty(self)'}
     if all(state in conds for state in required_states):
         return True
+    required_states = {'IsHoldingKnife(self)', 'IsLeftHandEmpty(self)', 'IsRightHandEmpty(self)'}
+    if all(state in conds for state in required_states):
+        return True
+
 
     return False
 

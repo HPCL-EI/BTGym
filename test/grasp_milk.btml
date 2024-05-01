@@ -1,12 +1,38 @@
 selector
-    cond IsPlugged(fridge)
     sequence
-        cond IsNear(self,fridge)
-        cond IsUnplugged(fridge)
-        cond IsLeftHandEmpty(self)
-        act PlugIn(fridge)
+        cond IsOn(apple,kitchencounter)
+        cond IsOpen(kitchencabinet)
     sequence
-        cond IsUnplugged(fridge)
+        cond IsRightHolding(self,apple)
+        cond IsNear(self,kitchencounter)
+        cond IsOpen(kitchencabinet)
+        act RightPut(apple,kitchencounter)
+    sequence
+        cond IsRightHolding(self,apple)
         cond IsStanding(self)
+        cond IsOpen(kitchencabinet)
+        act Walk(kitchencounter)
+    sequence
+        cond IsOpen(kitchencabinet)
+        cond IsRightHandEmpty(self)
+        cond IsStanding(self)
+        cond IsNear(self,apple)
+        act RightGrab(apple)
+    sequence
+        cond IsRightHandEmpty(self)
+        cond IsStanding(self)
+        cond IsOpen(kitchencabinet)
+        act Walk(apple)
+    sequence
+        cond IsStanding(self)
+        cond IsNear(self,kitchencabinet)
+        cond IsRightHandEmpty(self)
         cond IsLeftHandEmpty(self)
-        act Walk(fridge)
+        cond IsClose(kitchencabinet)
+        act Open(kitchencabinet)
+    sequence
+        cond IsRightHandEmpty(self)
+        cond IsLeftHandEmpty(self)
+        cond IsClose(kitchencabinet)
+        cond IsStanding(self)
+        act Walk(kitchencabinet)

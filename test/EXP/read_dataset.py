@@ -13,7 +13,7 @@ example =
     ......
 ]
 """
-
+from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process
 
 def read_dataset(filename='./dataset.txt'):
     with open(filename, 'r') as f:
@@ -50,8 +50,32 @@ def read_dataset(filename='./dataset.txt'):
         example.append(dict)
     return example
 
+def read_environment(filename,style=False):
+    # Create a dictionary to store the environment data
+    environment_data = {}
+    current_key = None
+
+    # Open the file and read line by line
+    with open(filename, 'r') as file:
+        for line in file:
+            line = line.strip()
+            if line.isdigit():  # Check if the line is just a number (section identifier)
+                current_key = line
+                environment_data[int(current_key)] = []
+            else:
+                items = line.split(", ")
+                environment_data[int(current_key)].extend(items)
+    if style==True:
+       for key,value in environment_data.items():
+           environment_data[key]=act_str_process(value,already_split=True)
+
+    return environment_data
+
+
 
 if __name__ == '__main__':
-    example = read_dataset('C:/Users/yangz/Desktop/dataset0429.txt')
-    print(example[0])
+    # example = read_dataset('C:/Users/yangz/Desktop/dataset0429.txt')
+    # print(example[0])
 
+    env = read_environment('environment.txt')
+    print(env[1])

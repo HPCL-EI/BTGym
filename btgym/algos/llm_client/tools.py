@@ -5,9 +5,12 @@ from sympy import symbols, simplify_logic
 import re
 
 
-def act_str_process(act_str):
+def act_str_process(act_str,already_split=False):
 
-    act_str_ls = act_str.replace(" ", "").split(",")
+    if already_split:
+        act_str_ls = act_str
+    else:
+        act_str_ls = act_str.replace(" ", "").split(",")
 
     priority_act_ls = []
     # rl_dic = {}

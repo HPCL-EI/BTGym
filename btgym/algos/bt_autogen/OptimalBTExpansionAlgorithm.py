@@ -410,6 +410,8 @@ class OptBTExpAlgorithm:
         D_first_num = 0
         for key, value in goal_cond_act_pair.pact_dic.items():
             # print(key, value)
+            # if key not in self.act_cost_dic.keys():
+            #     print("key",key)
             D_first_cost += self.act_cost_dic[key] * value
             D_first_num += value
         goal_condition_node.trust_cost = 0

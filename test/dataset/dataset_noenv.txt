@@ -10,40 +10,40 @@ Key_Object: apple, kitchencounter, kitchencabinet
 Environment:4
 Instruction: Grab the pillow from the bed and put it on the sofa, then ensure the TV is switched on.
 Goals: IsOn_pillow_sofa & IsSwitchedOn_tv
-Actions: Walk_pillow, RightGrabFrom_pillow_bed, Walk_sofa, RightPut_pillow_sofa, Walk_tv, SwitchOn_tv
-Key_Predicate: Walk, RightGrabFrom, RightPut, SwitchOn
+Actions: Walk_pillow, RightGrab_pillow, Walk_sofa, RightPut_pillow_sofa, Walk_tv, SwitchOn_tv
+Key_Predicate: Walk, RightGrab, RightPut, SwitchOn
 Key_Object: pillow, bed, sofa, tv
 
 3
 Environment:4
 Instruction: Place the toothbrush in the bathroom cabinet and the towel on the towel rack, then close the bathroom cabinet.
-Goals: IsIn_toothbrush_bathroomcabinet & IsOn_towel_towelrack & IsClose_bathroomcabinet
-Actions: Walk_toothbrush, RightGrab_toothbrush, Walk_bathroomcabinet, Open_bathroomcabinet, RightPutIn_toothbrush_bathroomcabinet, Walk_towel, RightGrab_towel, Walk_towelrack, RightPut_towel_towelrack, Close_bathroomcabinet
+Goals: IsIn_toothbrush_bathroomcabinet & IsOn_towel_towelrack
+Actions: Walk_toothbrush, RightGrab_toothbrush, Walk_bathroomcabinet, Open_bathroomcabinet, RightPutIn_toothbrush_bathroomcabinet, Walk_towel, RightGrab_towel, Walk_towelrack, RightPut_towel_towelrack
 Key_Predicate: Walk, RightGrab, Open, RightPutIn, RightPut, Close
 Key_Object: toothbrush, bathroomcabinet, towel, towelrack
 
 4
 Environment:4
-Instruction: Grab the teddy bear from the desk and place it on the bed, then open the laptop on the desk and ensure it is switched on.
-Goals: IsOn_teddybear_bed & IsOpen_desk & IsSwitchedOn_computer
-Actions: Walk_teddybear, RightGrabFrom_teddybear_desk, Walk_bed, RightPut_teddybear_bed, Walk_desk, Open_desk, Walk_computer, SwitchOn_computer
-Key_Predicate: Walk, RightGrabFrom, RightPut, Open, SwitchOn
-Key_Object: teddybear, bed, desk, computer
+Instruction: Grab the toy bear from the desk and place it on the bed, then open the laptop on the desk and ensure it is switched on.
+Goals: IsOn_toy_bed & IsOpen_desk & IsSwitchedOn_computer
+Actions: Walk_toy, RightGrab_toy, Walk_bed, RightPut_toy_bed, Walk_desk, Open_desk, Walk_computer, SwitchOn_computer
+Key_Predicate: Walk, RightGrab, RightPut, Open, SwitchOn
+Key_Object: toy, bed, desk, computer
 
 5
 Environment:4
-Instruction: Put the cupcake in the fridge, the watering can on the kitchen table, and the slippers under the table.
-Goals: IsIn_cupcake_fridge & IsOn_wateringcan_kitchentable & IsUnder_slippers_table
-Actions: Walk_cupcake, RightGrab_cupcake, Walk_fridge, Open_fridge, RightPutIn_cupcake_fridge, Walk_wateringcan, RightGrab_wateringcan, Walk_kitchentable, RightPut_wateringcan_kitchentable, Walk_slippers, RightGrab_slippers, Walk_table, LeftPut_slippers_table
-Key_Predicate: Walk, RightGrab, Open, RightPutIn, RightPut, LeftPut
-Key_Object: cupcake, fridge, wateringcan, kitchentable, slippers, table
+Instruction: Put the cupcake in the fridge, the cutlery knife on the kitchen table.
+Goals: IsIn_cupcake_fridge & IsOn_cutleryknife_kitchentable
+Actions: Walk_cupcake, RightGrab_cupcake, Walk_fridge, Open_fridge, PlugIn_fridge, RightPutIn_cupcake_fridge, Walk_cutleryknife, RightGrab_cutleryknife, Walk_kitchentable, RightPut_cutleryknife_kitchentable
+Key_Predicate: Walk, RightGrab, Open, RightPutIn, RightPut
+Key_Object: cupcake, fridge, cutleryknife, kitchentable
 
 6
 Environment:4
 Instruction: Take the board game from the bookshelf, place it on the dining table, then make sure the kitchen cabinet is closed.
 Goals: IsOn_boardgame_diningtable & IsClose_kitchencabinet
-Actions: Walk_boardgame, RightGrabFrom_boardgame_bookshelf, Walk_diningtable, RightPut_boardgame_diningtable, Walk_kitchencabinet, Close_kitchencabinet
-Key_Predicate: Walk, RightGrabFrom, RightPut, Close
+Actions: Walk_boardgame, RightGrab_boardgame, Walk_diningtable, RightPut_boardgame_diningtable, Walk_kitchencabinet, Close_kitchencabinet
+Key_Predicate: Walk, RightGrab, RightPut, Close
 Key_Object: boardgame, bookshelf, diningtable, kitchencabinet
 
 7
@@ -58,8 +58,8 @@ Key_Object: bellpepper, fridge, cuttingboard, chefknife, desk, computer
 Environment:4
 Instruction: Take the chess board from the bookshelf, place it on the table, the wineglass in the cabinet, and ensure the TV is turned on.
 Goals: IsOn_chessboard_table & IsIn_wineglass_kitchencabinet & IsSwitchedOn_tv
-Actions: Walk_chessboard, RightGrabFrom_chessboard_bookshelf, Walk_table, RightPut_chessboard_table, Walk_wineglass, RightGrab_wineglass, Walk_kitchencabinet, RightPutIn_wineglass_kitchencabinet, Walk_tv, SwitchOn_tv
-Key_Predicate: Walk, RightGrabFrom, RightPut, RightPutIn, SwitchOn
+Actions: Walk_chessboard, RightGrab_chessboard, Walk_table, RightPut_chessboard_table, Walk_wineglass, RightGrab_wineglass, Walk_kitchencabinet, RightPutIn_wineglass_kitchencabinet, Walk_tv, SwitchOn_tv
+Key_Predicate: Walk, RightGrab, RightPut, RightPutIn, SwitchOn
 Key_Object: chessboard, bookshelf, table, wineglass, kitchencabinet, tv
 
 9

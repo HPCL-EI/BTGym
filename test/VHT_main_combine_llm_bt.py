@@ -73,9 +73,12 @@ messages = []
 # goal_set = [{'IsPlugged(fridge)'}]
 # priority_act_ls = ['Walk(fridge)']
 
-goal_set = [{'IsOn(apple,kitchencounter)', 'IsOpen(kitchencabinet)'}]
-priority_act_ls = {'RightPut(apple,kitchencounter)', 'RightGrab(apple)', 'Walk(kitchencabinet)', 'Walk(kitchencounter)', 'Walk(apple)'}
+# goal_set = [{'IsOn(apple,kitchencounter)', 'IsOpen(kitchencabinet)'}]
+# priority_act_ls = {'RightPut(apple,kitchencounter)', 'RightGrab(apple)', 'Walk(kitchencabinet)', 'Walk(kitchencounter)', 'Walk(apple)'}
 
+goal_set = [{'IsOn(cutleryknife,kitchentable)', 'IsIn(cupcake,fridge)'}]
+priority_act_ls = {'PlugIn(fridge)', 'Open(fridge)', 'RightPut(cutleryknife,kitchentable)', 'Walk(cutleryknife)', 'Walk(fridge)', 'Walk(cupcake)', 'RightGrab(cutleryknife)', 'RightGrab(cupcake)', 'Walk(kitchentable)', 'RightPutIn(cupcake,fridge)'}
+priority_act_ls =set()
 
 priority_obj_ls = []
 # 提取目标中的所有物体

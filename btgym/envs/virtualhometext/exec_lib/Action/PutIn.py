@@ -8,7 +8,7 @@ class PutIn(VHTAction):
     # valid_args = list(itertools.product(VHTAction.GRABBABLE, VHTAction.CONTAINERS))
 
     set_1_food = VHTAction.GRABBABLE & (VHTAction.EATABLE|VHTAction.DRINKABLE|{"bananas",'chicken','cutlets','breadslice','chips','chocolatesyrup',
-                 'milk','wine',"cereal"})
+                 'milk','wine',"cereal","plate"})
     set_2_cloth =  VHTAction.GRABBABLE & {"clothespile","clothesshirt","clothespants"}
     # 食物只能放冰箱或者加热的地方，其它东西都不能放在这里面，只有衣服能洗或者放在衣服堆里
 

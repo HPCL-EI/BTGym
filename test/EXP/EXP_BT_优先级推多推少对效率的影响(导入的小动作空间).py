@@ -37,10 +37,11 @@ import pickle
 # 读入数据集合
 # data_path = f"{ROOT_PATH}/../test/dataset/data0429.txt"
 # data = read_dataset(data_path)
-data_path = f"{ROOT_PATH}/../test/dataset/dataset_noenv.txt"
+# data_path = f"{ROOT_PATH}/../test/dataset/dataset_noenv.txt"
+data_path = f"{ROOT_PATH}/../test/dataset/data_cys.txt"
 data = read_dataset(data_path)
 
-data = data[:3]
+data = data[:10]
 
 data_num = len(data)
 print(f"导入 {data_num} 条数据")
@@ -49,7 +50,7 @@ print(data[0])
 # 数据集中涉及的所有物体集合
 objs = set()
 for d in data:
-    objs |= set(d['Key_Object'])
+    objs |= set(d['Key_Objects'])
 
 categories = ['SURFACES', 'SITTABLE', 'CAN_OPEN', 'CONTAINERS', 'GRABBABLE', 'cleaning_tools', \
               'cutting_tools', 'HAS_SWITCH', 'HAS_PLUG', 'CUTABLE', 'EATABLE', 'WASHABLE', 'RECIPIENT', \
@@ -289,8 +290,8 @@ df_summary = pd.DataFrame(summary_results, columns=[
 ])
 
 # Save detailed data and summary data to CSV
-csv_file_path_details = 'output_detailed_bt2.csv'
-csv_file_path_summary = 'output_summary_bt2.csv'
+csv_file_path_details = 'output_detailed_bt_cys.csv'
+csv_file_path_summary = 'output_summary_bt_cys.csv'
 df_details.to_csv(csv_file_path_details, index=False)
 df_summary.to_csv(csv_file_path_summary, index=False)
 

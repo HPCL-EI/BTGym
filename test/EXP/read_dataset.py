@@ -41,7 +41,7 @@ def read_dataset(filename='./dataset.txt'):
             if key == 'Environment':
                 v = int(value)
                 dict[key] = v
-            if key in ('Key_Predicate', 'Key_Object', 'Actions'):
+            if key in ('Key_Predicate', 'Key_Objects', 'Actions'):
                 parts = [v.strip() for v in value.split(",")]
                 dict[key] = parts
             if key == 'Goals':

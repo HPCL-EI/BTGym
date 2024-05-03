@@ -7,7 +7,9 @@ import matplotlib.pyplot as plt
 
 
 # Assuming the CSV data is saved in a file called 'data.csv'
-file_path = 'output_summary_bt.csv'
+# file_name = 'output_summary_bt_cys'
+file_name = 'output_summary_bt'
+file_path = file_name+'.csv'
 df = pd.read_csv(file_path)
 
 # Plotting
@@ -24,6 +26,7 @@ ax.set_ylabel('Total Expanded Num')
 ax.set_title('Total Expanded Num vs Correct Rate for Different Error Rates')
 ax.legend()
 plt.grid(True)
+plt.savefig('plot1_total_expanded_num_'+file_name+'.png')  # Save the first plot
 plt.show()
 
 
@@ -41,4 +44,5 @@ plt.xlabel('Correct Rate')
 plt.ylabel('Average Expanded Num')
 plt.title('Average Expanded Num vs Correct Rate')
 plt.grid(True)
+plt.savefig('plot2_average_expanded_num_'+file_name+'.png')  # Save the second plot
 plt.show()

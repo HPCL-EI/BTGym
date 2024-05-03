@@ -2,15 +2,15 @@
 
 [Condition]
 IsNear_self_<ALL>, IsOn_<GRABBABLE>_<SURFACES>, IsIn_<GRABBABLE>_<CONTAINERS>, IsOpen_<CAN_OPEN>, IsClose_<CAN_OPEN>,
-IsSwitchedOn_<HAS_SWITCH>, IsSwitchedOff_<HAS_SWITCH>, IsClean_<ALL>, IsHoldingCleaningTool_<TOOLS>,
-IsPlugged_<HAS_PLUG>,IsUnplugged_<HAS_PLUG>
+IsSwitchedOn_<HAS_SWITCH>, IsSwitchedOff_<HAS_SWITCH>, IsClean_<ALL>, IsHoldingCleaningTool, IsHoldingKnife,
+IsPlugged_<HAS_PLUG>, IsUnplugged_<HAS_PLUG>, IsCut_<CUTABLE>
 
 
 [Action]
 Walk_<ALL>, RightGrab_<GRABBABLE>, LeftGrab_<GRABBABLE>, RightPut_<GRABBABLE>_<SURFACES>, LeftPut_<GRABBABLE>_<SURFACES>,
 RightPutIn_<GRABBABLE>_<CONTAINERS>, LeftPutIn_<GRABBABLE>_<CONTAINERS>, RightGrabFrom_<GRABBABLE>_<CONTAINERS>, LeftGrabFrom_<GRABBABLE>_<CONTAINERS>,
 Open_<CAN_OPEN>, Close_<CAN_OPEN>, SwitchOn_<HAS_SWITCH>, SwitchOff_<HAS_SWITCH>,
-Wipe_<ALL>, PlugIn_<HAS_PLUG>, PlugOut_<HAS_PLUG>
+Wipe_<ALL>, PlugIn_<HAS_PLUG>, PlugOut_<HAS_PLUG>, Cut_<CUTABLE>, Wash_<WASHABLE>
 
 
 [Object]
@@ -39,31 +39,42 @@ Wipe_<ALL>, PlugIn_<HAS_PLUG>, PlugOut_<HAS_PLUG>
                 "clothespile", "bathroomcabinet"]
 <HAS_PLUG>=["wallphone", "coffeemaker", "lightswitch", "cellphone", "fridge", "toaster", "tablelamp", "microwave", "tv",
                 "clock", "radio", "washingmachine","mouse", "keyboard", "printer"]
-<TOOLS>=["rag","duster","papertowel","brush"]
-<ALL>=<GRABBABLE>+<SURFACES>+<<CONTAINERS>+<HAS_SWITCH>+<CAN_OPEN>+<HAS_PLUG>+<TOOLS>
+<CUTABLE> = ["apple","bananas","breadslice", "cutlets","poundcake","pancake","pie","carrot","chicken","lime","salmon", "peach",\
+               "pear","plum"]
+<WASHABLE> = ["apple","bananas","carrot","chicken","lime","salmon", "peach","pear","plum"]
+<ALL>=<GRABBABLE>+<SURFACES>+<<CONTAINERS>+<HAS_SWITCH>+<CAN_OPEN>+<HAS_PLUG>+<CUTABLE>+<WASHABLE>
 
 
 [Examples]
 Instruction: Put the bag of chips on the corner of my desk.
 Goals: IsOn_chips_desk
 Actions: Walk_chips, RightGrab_chips, Walk_desk, RightPut_chips_desk
+key Predicate: Walk, RightGrab, Walk, RightPut
+key Objects: chips, desk
 
 Instruction: Ensure the coffee maker is powered on to brew your morning cup, and also turn on the TV to catch up with the early news
 Goals: IsSwitchedOn_coffeemaker & IsSwitchedOn_tv
 Actions: Walk_coffeemaker, PlugIn_coffeemaker, SwitchOn_coffeemaker, Walk_tv, PlugIn_tv, SwitchOn_tv
+key Predicate: Walk, PlugIn, SwitchOn, Walk, PlugIn, SwitchOn
+key Objects: coffeemaker, tv
 
-Instruction: Spread chocolate syrup on a slice of bread and place it on a plate for a quick snack.
-Goals: IsOn(breadslice,kitchentable) & IsOn_chocolatesyrup_kitchentable & IsOn_juice_kitchentable
-Actions: Walk_chocolatesyrup, RightGrab_chocolatesyrup, Walk_juice, LeftGrab_juice, Walk_kitchentable, LeftPut_juice_kitchentable, Walk_breadslice, LeftGrab_breadslice, Walk_kitchentable, LeftPut_breadslice_kitchentable, RightPut_chocolatesyrup_kitchentable
+Instruction: Place a slice of bread and a bottle of chocolate syrup on the kitchen table.
+Goals: IsOn_breadslice_kitchentable & IsOn_chocolatesyrup_kitchentable
+Actions: Walk_breadslice, RightGrab_breadslice, Walk_chocolatesyrup, LeftGrab_chocolatesyrup, Walk_kitchentable, RightPut_breadslice_kitchentable, LeftPut_chocolatesyrup_kitchentable
+key Predicate: Walk, LeftGrab, Walk, RightGrab, Walk, LeftPut, RightPut
+key Objects: chocolatesyrup, kitchentable, breadslice
 
-Instruction: Put the milk and wine in the fridge, and make sure the fridge door is closed.
-Goals: IsIn_milk_fridge & IsClose_fridge
-Actions: Walk_milk, RightGrab_milk, Walk_wine, LeftGrab_wine, Walk_fridge, PlugIn_fridge, Open_fridge, RightPutIn_milk_fridge, LeftPutIn_wine_fridge,Close_fridge
+Instruction: Put the milk in the fridge and clean the kitchen counter.
+Goals: IsIn_milk_fridge & IsClean_kitchencounter
+Actions: Walk_milk, RightGrab_milk, Walk_fridge, Open_fridge, PlugIn_fridge, RightPut_milk_fridge, Close_fridge, Walk_rag, RightGrab_rag, Walk_kitchencounter, Wipe_kitchencounter
+key Predicate: Walk, RightGrab, Walk, Wipe, Walk, RightGrab, Walk, Open, PlugIn, RightPutIn
+key Objects: kitchencounter, milk, rag, fridge
 
-Instruction: Place the chicken in the microwave, and then switch the microwave on to start cooking.
-Goals: IsIn_chicken_microwave & IsClose_microwave & IsSwitchedOn_microwave
-Actions: Walk_chicken, RightGrab_chicken, Walk_microwave, PlugIn_microwave, Open_microwave, RightPutIn_chicken_microwave, Close_microwave, SwitchOn_microwave
-
+Instruction: Wash and then cut the apple.
+Goals: IsClean_apple & IsCut_apple
+Actions: Walk_apple, RightGrab_apple, Walk_faucet, SwitchOn_faucet, Wash_apple, Walk_cutleryknife, LeftGrab_cutleryknife, Cut_apple
+key Predicate: Walk, SwitchOn, Walk, LeftGrab, Walk, Cut, RightGrab, Walk, Wash
+key Objects: faucet,  cutleryknife, apple
 
 [Prompt]
 [Condition] Lists all predicates representing conditions and their optional parameter sets.

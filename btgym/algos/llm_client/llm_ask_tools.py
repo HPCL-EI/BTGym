@@ -42,12 +42,12 @@ def extract_initial_llm_outputs(llm,default_prompt_file,instuction,cur_cond_set)
     messages.append({"role": "assistant", "content": answer})
     print(answer)
 
-    goal_set, priority_act_ls, key_predicate, key_objects = parse_llm_output(answer)
+    goal_set, priority_act_ls, key_predicates, key_objects = parse_llm_output(answer)
 
     print("goal",goal_set)
     print("act:",priority_act_ls)
-    print("key_predicate",goal_set)
-    print("key_objects:",priority_act_ls)
+    print("key_predicate",key_predicates)
+    print("key_objects:",key_objects)
 
 
     # 提取目标中的所有物体
@@ -64,7 +64,7 @@ def extract_initial_llm_outputs(llm,default_prompt_file,instuction,cur_cond_set)
     key_objects += list(objects)
     key_objects = list(set(key_objects))
 
-    return goal_set, priority_act_ls, key_predicate, key_objects, messages
+    return goal_set, priority_act_ls, key_predicates, key_objects, messages
 
 def llm_reflect(llm, messages, reflect_prompt):
     messages.append({"role": "user", "content": reflect_prompt})
@@ -73,11 +73,11 @@ def llm_reflect(llm, messages, reflect_prompt):
 
     print(answer)
 
-    goal_set, priority_act_ls, key_predicate, key_objects = parse_llm_output(answer)
+    goal_set, priority_act_ls, key_predicates, key_objects = parse_llm_output(answer)
 
     print("goal",goal_set)
     print("act:",priority_act_ls)
-    print("key_predicate",goal_set)
-    print("key_objects:",priority_act_ls)
+    print("key_predicate",key_predicates)
+    print("key_objects:",key_objects)
 
-    return goal_set, priority_act_ls, key_predicate, key_objects, messages
+    return goal_set, priority_act_ls, key_predicates, key_objects, messages

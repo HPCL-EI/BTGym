@@ -11,7 +11,7 @@ from btgym.algos.bt_autogen.tools import state_transition
 from sympy import symbols, Not, Or, And, to_dnf
 from sympy import symbols, simplify_logic
 from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process
-from btgym.algos.llm_client.llm_ask_tools import extract_initial_llm_outputs
+from btgym.algos.llm_client.llm_ask_tools import extract_initial_llm_outputs,llm_reflect
 
 import random
 import numpy as np
@@ -38,12 +38,12 @@ default_prompt_file = f"{ROOT_PATH}\\algos\\llm_client\\prompt_VHT.txt"
 # instuction="Prepare for a small birthday party by setting the dining table with candles, plates, and wine glasses. "+\
 #     "Then, bake a cake using the oven, ensure the candles are switched on."+\
 #     "Finally, make sure the kitchen counter is clean."
-instuction = "Prepare for a small birthday party by baking a cake using the oven, ensure the candles are switched on." + \
-             "Finally, make sure the kitchen counter is clean."
+# instuction = "Prepare for a small birthday party by baking a cake using the oven, ensure the candles are switched on." + \
+#              "Finally, make sure the kitchen counter is clean."
 
-# instuction = "Wash the bananas, cut the bananas and put it in the fridge"
+instuction = "Wash the bananas, cut the bananas and put it in the fridge"
 
-goal_set, priority_act_ls, key_predicate, key_objects,messages = \
+goal_set, priority_act_ls, key_predicates, key_objects,messages = \
     extract_initial_llm_outputs(llm,default_prompt_file,instuction,cur_cond_set)
 
 # goal_set = [{'IsOn(cutleryknife,kitchentable)', 'IsIn(cupcake,fridge)'}]
@@ -115,7 +115,7 @@ for try_time in range(MAX_TIME):
     # priority_act_ls = [action.replace(" ", "") for action in act_str.split(",")]
     # print(priority_act_ls)
 
-    goal_set, priority_act_ls, key_predicate, key_objects, messages = \
+    goal_set, priority_act_ls, key_predicates, key_objects, messages = \
         llm_reflect(llm, messages, reflect_prompt)
 
     # priority_act_ls, priority_obj_ls

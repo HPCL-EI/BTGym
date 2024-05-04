@@ -8,7 +8,7 @@ class VHTAction_small(Action):
 
 
     import pickle
-    ctg_objs_path = f"{ROOT_PATH}/../test/EXP/ctg_objs.pickle"
+    ctg_objs_path = f"{ROOT_PATH}/../test/BT_EXP/ctg_objs.pickle"
     # 打开之前写入的文件，注意使用二进制模式读取
     with open(ctg_objs_path, 'rb') as file:
         # 使用pickle.load()函数从文件加载数据

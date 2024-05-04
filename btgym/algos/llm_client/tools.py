@@ -5,6 +5,8 @@ from sympy import symbols, simplify_logic
 import re
 
 
+
+
 def act_str_process(act_str,already_split=False):
 
     if already_split:

@@ -102,40 +102,6 @@ class BTExpInterface:
             self.min_cost = self.algo.get_cost()
         return self.btml_string, self.min_cost, len(self.algo.expanded)
 
-    # 方法一：查找所有初始状态是否包含当前状态
-    def find_all_leaf_states_contain_start(self, start):
-        if not self.has_processed:
-            raise RuntimeError("The process method must be called before find_all_leaf_states_contain_start!")
-        # 返回所有能到达目标状态的初始状态
-        state_leafs = self.algo.get_all_state_leafs()
-        for state in state_leafs:
-            if start >= state:
-                return True
-        return False
-
-    # 方法二：模拟跑一遍行为树，看 start 能够通过执行一系列动作到达 goal
-    def run_bt_from_start(self, goal, start):
-        if not self.has_processed:
-            raise RuntimeError("The process method must be called before run_bt_from_start!")
-        # 检查是否能到达目标
-        right_bt = True
-        state = start
-        steps = 0
-        val, obj = self.algo.bt.tick(state)
-        while val != 'success' and val != 'failure':
-            state = state_transition(state, obj)
-            val, obj = self.algo.bt.tick(state)
-            if (val == 'failure'):
-                # print("bt fails at step", steps)
-                right_bt = False
-            steps += 1
-        if not goal <= state:
-            # print("wrong solution", steps)
-            right_bt = False
-        else:
-            pass
-            # print("right solution", steps)
-        return right_bt
 
     def adjust_action_priority(self, action_list, priority_act_ls, priority_obj_ls, selected_algorithm):
         # recommended_acts=["RightPutIn(bananas,fridge)",
@@ -207,6 +173,84 @@ class BTExpInterface:
         return small_act
 
 
+    def execute_bt(self,goal,state,verbose=True):
+        from btgym.algos.bt_autogen.tools import state_transition
+        steps = 0
+        current_cost = 0
+        current_tick_time = 0
+        act_num=1
+        record_act = []
+        error=False
+
+        val, obj, cost, tick_time = self.algo.bt.cost_tick(state, 0, 0)  # tick行为树，obj为所运行的行动
+        if verbose:
+            print(f"Action: {act_num}  {obj.__str__().ljust(35)}cost: {cost}")
+        record_act.append(obj.__str__())
+        current_tick_time += tick_time
+        current_cost += cost
+        while val != 'success' and val != 'failure':
+            state = state_transition(state, obj)
+            val, obj, cost, tick_time = self.algo.bt.cost_tick(state, 0, 0)
+            act_num+=1
+            if verbose:
+                print(f"Action: {act_num}  {obj.__str__().ljust(35)}cost: {cost}")
+            record_act.append(obj.__str__())
+            current_cost += cost
+            current_tick_time += tick_time
+            if (val == 'failure'):
+                if verbose:
+                    print("bt fails at step", steps)
+                error = True
+                break
+            steps += 1
+            if (steps >= 500):  # 至多运行500步
+                break
+        if goal <= state:  # 错误解，目标条件不在执行后状态满足
+            if verbose:
+                print("Finished!")
+        else:
+            error = True
+        # if verbose:
+        #     print(f"一定运行了 {act_num-1} 个动作步")
+        #     print("current_cost:",current_cost)
+        return error,state,act_num-1,current_cost,record_act[:-1]
+
+
+    # 方法一：查找所有初始状态是否包含当前状态
+    def find_all_leaf_states_contain_start(self, start):
+        if not self.has_processed:
+            raise RuntimeError("The process method must be called before find_all_leaf_states_contain_start!")
+        # 返回所有能到达目标状态的初始状态
+        state_leafs = self.algo.get_all_state_leafs()
+        for state in state_leafs:
+            if start >= state:
+                return True
+        return False
+
+    # 方法二：模拟跑一遍行为树，看 start 能够通过执行一系列动作到达 goal
+    def run_bt_from_start(self, goal, start):
+        if not self.has_processed:
+            raise RuntimeError("The process method must be called before run_bt_from_start!")
+        # 检查是否能到达目标
+        right_bt = True
+        state = start
+        steps = 0
+        val, obj = self.algo.bt.tick(state)
+        while val != 'success' and val != 'failure':
+            state = state_transition(state, obj)
+            val, obj = self.algo.bt.tick(state)
+            if (val == 'failure'):
+                # print("bt fails at step", steps)
+                right_bt = False
+            steps += 1
+        if not goal <= state:
+            # print("wrong solution", steps)
+            right_bt = False
+        else:
+            pass
+            # print("right solution", steps)
+        return right_bt
+
 
 def collect_action_nodes(behavior_lib):
     action_list = []
@@ -230,6 +274,8 @@ def collect_action_nodes(behavior_lib):
     print("--------------------\n")
 
     return action_list
+
+
 
 
 if __name__ == '__main__':

@@ -15,7 +15,7 @@ example =
 """
 from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process
 
-def read_dataset(filename='./dataset.txt'):
+def read_dataset(filename='./dataset_old_0410.txt'):
     with open(filename, 'r') as f:
         # 读取文件内容
         lines = f.readlines()

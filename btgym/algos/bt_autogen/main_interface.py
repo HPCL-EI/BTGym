@@ -15,8 +15,8 @@ np.random.seed(seed)
 
 # 封装好的主接口
 class BTExpInterface:
-    def __init__(self, behavior_lib, cur_cond_set, priority_act_ls=[], priority_obj_ls=[], selected_algorithm="opt",
-                 choose_small_action_space=False,
+    def __init__(self, behavior_lib, cur_cond_set, priority_act_ls=[], key_predicates=[], key_objects=[], selected_algorithm="opt",
+                 mode="big",
                  bt_algo_opt=True, llm_reflect=False, llm=None, messages=None, action_list=None):
         """
         Initialize the BTOptExpansion with a list of actions.
@@ -30,21 +30,30 @@ class BTExpInterface:
         # 自定义动作空间
         if behavior_lib == None:
             self.actions = action_list
+            self.big_actions=self.actions
         # 默认的大动作空间
         else:
             self.big_actions = collect_action_nodes(behavior_lib)
-            self.actions = self.big_actions
 
-        # 选择小动作空间
-        if choose_small_action_space:
-            # self.actions = [act for act in self.actions if act.name in priority_act_ls]
-            self.actions = self.collect_small_action_nodes(priority_obj_ls)
-            print(f"选择小动作空间：收集到 {len(self.actions)} 个动作")
+
+        if mode == "big":
+            self.actions = self.big_actions
+        elif mode=="user-defined":
+            self.actions = action_list
+            print(f"自定义小动作空间：收集到 {len(self.actions)} 个动作")
+            print("----------------------------------------------")
+        elif mode=="small-objs":
+            self.actions = self.collect_compact_object_actions(key_objects)
+            print(f"选择小动作空间，只考虑物体：收集到 {len(self.actions)} 个动作")
+            print("----------------------------------------------")
+        elif mode=="small-predicate-objs":
+            self.actions = self.collect_compact_predicate_object_actions(key_predicates,key_objects)
+            print(f"选择小动作空间，考虑谓词和物体：收集到 {len(self.actions)} 个动作")
             print("----------------------------------------------")
 
 
-        self.priority_act_ls = priority_act_ls
-        self.priority_obj_ls = priority_obj_ls
+        self.priority_act_ls = self.filter_actions(priority_act_ls)
+        self.priority_obj_ls = key_objects
         self.actions = self.adjust_action_priority(self.actions, self.priority_act_ls, self.priority_obj_ls,
                                                    self.selected_algorithm)
 
@@ -102,6 +111,13 @@ class BTExpInterface:
             self.min_cost = self.algo.get_cost()
         return self.btml_string, self.min_cost, len(self.algo.expanded)
 
+    def filter_actions(self, priority_act_ls):
+        # 创建一个集合，包含所有标准动作的名称
+        standard_actions_set = {act.name for act in self.big_actions}
+        # 过滤 priority_act_ls，只保留名称在标准集合中的动作
+        filtered_priority_act_ls = [act for act in priority_act_ls if act.name in standard_actions_set]
+        return filtered_priority_act_ls
+
 
     def adjust_action_priority(self, action_list, priority_act_ls, priority_obj_ls, selected_algorithm):
         # recommended_acts=["RightPutIn(bananas,fridge)",
@@ -158,8 +174,7 @@ class BTExpInterface:
         return action_list
 
 
-    def collect_small_action_nodes(self, recommended_objs):
-
+    def collect_compact_object_actions(self, key_objects):
         small_act=[]
         pattern = re.compile(r'\((.*?)\)')
         for act in self.big_actions:
@@ -168,8 +183,26 @@ class BTExpInterface:
                 # 将括号内的内容按逗号分割
                 action_objects = match.group(1).split(',')
                 # 遍历每个物体名称
-                if all(obj in recommended_objs for obj in action_objects):
+                if all(obj in key_objects for obj in action_objects):
                     small_act.append(act)
+        return small_act
+
+    def collect_compact_predicate_object_actions(self, key_predicates, key_objects):
+        small_act = []
+        # 正则表达式提取括号内的内容
+        pattern = re.compile(r'\((.*?)\)')
+
+        for act in self.big_actions:
+            # 使用 `any()` 函数检查 act.name 是否包含任何一个 key_predicates 中的谓词
+            if any(predicate in act.name for predicate in key_predicates):
+                # 提取括号内的对象列表
+                match = pattern.search(act.name)
+                if match:
+                    action_objects = match.group(1).split(',')
+                    # 检查所有对象是否都在 key_objects 中
+                    if all(obj in key_objects for obj in action_objects):
+                        small_act.append(act)
+
         return small_act
 
 

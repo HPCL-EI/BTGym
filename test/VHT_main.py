@@ -41,26 +41,29 @@ default_prompt_file = f"{ROOT_PATH}\\algos\\llm_client\\prompt_VHT.txt"
 # instuction = "Prepare for a small birthday party by baking a cake using the oven, ensure the candles are switched on." + \
 #              "Finally, make sure the kitchen counter is clean."
 
-instuction = "Wash the bananas, cut the bananas and put it in the fridge"
-
+instuction = "4: Wash the bananas, cut the bananas and put it in the fridge"
 goal_set, priority_act_ls, key_predicates, key_objects,messages = \
-    extract_initial_llm_outputs(llm,default_prompt_file,instuction,cur_cond_set)
+    extract_initial_llm_outputs(llm,default_prompt_file,instuction,cur_cond_set,\
+                                choose_database = True)
 
+# goal_set = [{'IsIn(cupcake,fridge)'}]
 # goal_set = [{'IsOn(cutleryknife,kitchentable)', 'IsIn(cupcake,fridge)'}]
 # priority_act_ls = {'PlugIn(fridge)', 'Open(fridge)', 'RightPut(cutleryknife,kitchentable)', 'Walk(cutleryknife)',
 #                    'Walk(fridge)', 'Walk(cupcake)', 'RightGrab(cutleryknife)', 'RightGrab(cupcake)',
 #                    'Walk(kitchentable)', 'RightPutIn(cupcake,fridge)'}
 
 # todo: BTExp:process
-MAX_TIME = 3
+MAX_TIME = 1
 for try_time in range(MAX_TIME):
 
     # 在小动作空间里搜索
     # 需要重新写一下，小动作空间是 key_predicate 和 key_objects 的组合
     # 这个函数提供四种模式： 大动作空间、指定的动作空间、由物体组成的小动作空间、key_predicate和key_objects的小动作空间、
-    algo = BTExpInterface(env.behavior_lib, cur_cond_set, priority_act_ls, key_objects, \
-                          selected_algorithm="opt", choose_small_action_space=True, \
+    algo = BTExpInterface(env.behavior_lib,cur_cond_set=cur_cond_set,\
+                          key_predicates=key_predicates,key_objects=key_objects,\
+                          selected_algorithm="opt", mode="small-predicate-objs", \
                           llm_reflect=False)
+
 
     start_time = time.time()
     algo.process(goal_set)
@@ -115,8 +118,8 @@ for try_time in range(MAX_TIME):
     # priority_act_ls = [action.replace(" ", "") for action in act_str.split(",")]
     # print(priority_act_ls)
 
-    goal_set, priority_act_ls, key_predicates, key_objects, messages = \
-        llm_reflect(llm, messages, reflect_prompt)
+    # goal_set, priority_act_ls, key_predicates, key_objects, messages = \
+    #     llm_reflect(llm, messages, reflect_prompt)
 
     # priority_act_ls, priority_obj_ls
     # 问题：小动作空间，是不是不是分级启发式，priority_obj_ls限制动作空间，priority_act_ls采用计数的启发式

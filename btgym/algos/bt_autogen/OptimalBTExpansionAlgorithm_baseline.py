@@ -125,15 +125,11 @@ def check_conflict(conds):
     required_states = {'IsHoldingCleaningTool(self)', 'IsLeftHandEmpty(self)', 'IsRightHandEmpty(self)'}
     if all(state in conds for state in required_states):
         return True
-    required_states = {'IsHoldingKnife(self)', 'IsLeftHandEmpty(self)', 'IsRightHandEmpty(self)'}
-    if all(state in conds for state in required_states):
-        return True
-
 
     return False
 
 
-class OptBTExpAlgorithm:
+class OptBTExpAlgorithm_BaseLine:
     def __init__(self, verbose=False, llm_reflect=False, llm=None, messages=None, priority_act_ls=None):
         self.bt = None
         self.start = None
@@ -414,8 +410,6 @@ class OptBTExpAlgorithm:
         D_first_num = 0
         for key, value in goal_cond_act_pair.pact_dic.items():
             # print(key, value)
-            # if key not in self.act_cost_dic.keys():
-            #     print("key",key)
             D_first_cost += self.act_cost_dic[key] * value
             D_first_num += value
         goal_condition_node.trust_cost = 0
@@ -521,14 +515,14 @@ class OptBTExpAlgorithm:
 
                             # g=trust_cost
                             # h= h_cost
-                            c_attr_node = Leaf(type='cond', content=c_attr, trust_cost=current_trust + act.cost)
-                            a_attr_node = Leaf(type='act', content=act, trust_cost=current_trust + act.cost)
+                            # c_attr_node = Leaf(type='cond', content=c_attr, trust_cost=current_trust + act.cost)
+                            # a_attr_node = Leaf(type='act', content=act, trust_cost=current_trust + act.cost)
 
                             # c_attr_node = Leaf(type='cond', content=c_attr, parent_cost=current_mincost)
                             # a_attr_node = Leaf(type='act', content=act, parent_cost=current_mincost)
 
-                            # c_attr_node = Leaf(type='cond', content=c_attr, min_cost=current_mincost + act.cost, parent_cost = current_mincost)
-                            # a_attr_node = Leaf(type='act', content=act, min_cost=current_mincost + act.cost, parent_cost = current_mincost)
+                            c_attr_node = Leaf(type='cond', content=c_attr, min_cost=current_mincost + act.cost, parent_cost = current_mincost)
+                            a_attr_node = Leaf(type='act', content=act, min_cost=current_mincost + act.cost, parent_cost = current_mincost)
 
                             new_pair = CondActPair(cond_leaf=c_attr_node, act_leaf=a_attr_node)
                             new_pair.path = current_pair.path + 1
@@ -543,16 +537,16 @@ class OptBTExpAlgorithm:
                             # a_attr_node.min_cost = new_cost
 
                             # 最迟启发式：h 是到重点的距离，通过计算 new_pair.pact_dic得到
-                            h = 0
-                            new_pair.pact_dic = copy.deepcopy(current_pair.pact_dic)
-                            if act.name in new_pair.pact_dic and new_pair.pact_dic[act.name] > 0:
-                                new_pair.pact_dic[act.name] -= 1
-
-                            for key, value in new_pair.pact_dic.items():
-                                # print(key, value)
-                                h += self.act_cost_dic[key] * value
-                            c_attr_node.min_cost = c_attr_node.trust_cost + h - epsh
-                            a_attr_node.min_cost = a_attr_node.trust_cost + h - epsh
+                            # h = 0
+                            # new_pair.pact_dic = copy.deepcopy(current_pair.pact_dic)
+                            # if act.name in new_pair.pact_dic and new_pair.pact_dic[act.name] > 0:
+                            #     new_pair.pact_dic[act.name] -= 1
+                            #
+                            # for key, value in new_pair.pact_dic.items():
+                            #     # print(key, value)
+                            #     h += self.act_cost_dic[key] * value
+                            # c_attr_node.min_cost = c_attr_node.trust_cost + h - epsh
+                            # a_attr_node.min_cost = a_attr_node.trust_cost + h - epsh
 
                             # 启发式：乘一下
                             # new_pair.pact_dic = copy.deepcopy(current_pair.pact_dic)

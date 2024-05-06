@@ -1,0 +1,199 @@
+1
+Environment:4
+Instruction: Put the bag of chips on the corner of my desk.
+Goals: IsOn_chips_desk
+Actions: Walk_chips, RightGrab_chips, Walk_desk, RightPut_chips_desk
+Key_Predicate: Walk, RightGrab, RightPut
+Key_Objects: chips, desk
+
+2
+Environment: 4
+Instruction: Place the magazine on the coffee table before you sit down to relax.
+Goals: IsOn_magazine_coffeetable
+Actions: RightGrab_magazine, Walk_coffeetable, RightPut_magazine_coffeetable, Walk_magazine
+Key_Predicate: Walk, RightGrab, RightPut
+Key_Objects: magazine, coffeetable
+
+3
+Environment: 4
+Instruction: Ensure the milk is refrigerated before you go to bed.
+Goals: IsIn_milk_fridge
+Actions: Walk_fridge, Walk_milk, RightGrab_milk, PlugIn_fridge, Open_fridge, RightPutIn_milk_fridge
+Key_Predicate: PlugIn, RightGrab, RightPutIn, Walk, Open
+Key_Objects: milk, fridge
+
+4
+Environment: 4
+Instruction: Make sure the light in the bathroom is turned on.
+Goals: IsSwitchedOn_lightswitch
+Actions: PlugIn_lightswitch, SwitchOn_lightswitch, Walk_lightswitch
+Key_Predicate: SwitchOn, Walk, PlugIn
+Key_Objects: lightswitch
+
+5
+Environment: 4
+Instruction: Check that the pie is in the oven for tonight's dessert.
+Goals: IsIn_pie_oven
+Actions: PlugIn_oven, Open_oven, Walk_pie, RightPutIn_pie_oven, Walk_oven, RightGrab_pie
+Key_Predicate: Open, Walk, RightPutIn, RightGrab, PlugIn
+Key_Objects: oven, pie
+
+6
+Environment: 4
+Instruction: Before leaving, grab your cellphone from the desk.
+Goals: IsOn_cellphone_desk
+Actions: Walk_desk, Walk_cellphone, RightGrab_cellphone, RightPut_cellphone_desk
+Key_Predicate: RightPut, RightGrab, Walk
+Key_Objects: desk, cellphone
+
+7
+Environment: 4
+Instruction: Put the clean dishes back into the kitchen cabinet.
+Goals: IsIn_dishbowl_kitchencabinet
+Actions: Walk_dishbowl, Open_kitchencabinet, RightPutIn_dishbowl_kitchencabinet, RightGrab_dishbowl, Walk_kitchencabinet
+Key_Predicate: RightPutIn, Walk, RightGrab, Open
+Key_Objects: kitchencabinet, dishbowl
+
+8
+Environment: 4
+Instruction: Turn on the coffee maker in the morning.
+Goals: IsSwitchedOn_coffeemaker
+Actions: SwitchOn_coffeemaker, PlugIn_coffeemaker, Walk_coffeemaker
+Key_Predicate: PlugIn, Walk, SwitchOn
+Key_Objects: coffeemaker
+
+9
+Environment: 4
+Instruction: Ensure the remote control is on the sofa for easy access.
+Goals: IsOn_remotecontrol_sofa
+Actions: RightGrab_remotecontrol, Walk_sofa, RightPut_remotecontrol_sofa, Walk_remotecontrol
+Key_Predicate: Walk, RightPut, RightGrab
+Key_Objects: remotecontrol, sofa
+
+10
+Environment: 4
+Instruction: After dinner, make sure the chicken bones are thrown in the garbage can.
+Goals: IsIn_chicken_garbagecan
+Actions: RightGrab_chicken, Open_garbagecan, RightPutIn_chicken_garbagecan, Walk_chicken, Walk_garbagecan
+Key_Predicate: RightGrab, Open, Walk, RightPutIn
+Key_Objects: garbagecan, chicken
+
+51
+Environment:4
+Instruction: Ensure the coffee maker is powered on to brew your morning cup, and also turn on the TV to catch up with the early news
+Goals: IsSwitchedOn_coffeemaker & IsSwitchedOn_tv
+Actions: Walk_coffeemaker, PlugIn_coffeemaker, SwitchOn_coffeemaker, Walk_tv, PlugIn_tv, SwitchOn_tv
+Key_Predicate: Walk, PlugIn, SwitchOn
+Key_Objects: coffeemaker, tv
+
+52
+Environment:4
+Instruction: Place a slice of bread and a bottle of chocolate syrup on the kitchen table.
+Goals: IsOn_breadslice_kitchentable & IsOn_chocolatesyrup_kitchentable
+Actions: Walk_breadslice, RightGrab_breadslice, Walk_chocolatesyrup, LeftGrab_chocolatesyrup, Walk_kitchentable, RightPut_breadslice_kitchentable, LeftPut_chocolatesyrup_kitchentable
+Key_Predicate: Walk, LeftGrab, RightGrab, LeftPut, RightPut
+Key_Objects: chocolatesyrup, kitchentable, breadslice
+
+53
+Environment:4
+Instruction: Put the milk in the fridge and clean the kitchen counter.
+Goals: IsIn_milk_fridge & IsClean_kitchencounter
+Actions: Walk_milk, RightGrab_milk, Walk_fridge, Open_fridge, PlugIn_fridge, RightPut_milk_fridge, Close_fridge, Walk_rag, RightGrab_rag, Walk_kitchencounter, Wipe_kitchencounter
+Key_Predicate: Walk, RightGrab, Wipe, Open, PlugIn, RightPutIn
+Key_Objects: kitchencounter, milk, rag, fridge
+
+54
+Environment:4
+Instruction: Wash and then cut the apple.
+Goals: IsClean_apple & IsCut_apple
+Actions: Walk_apple, RightGrab_apple, Walk_faucet, SwitchOn_faucet, Wash_apple, Walk_cutleryknife, LeftGrab_cutleryknife, Cut_apple
+Key_Predicate: Walk, SwitchOn, LeftGrab, Cut, RightGrab, Wash
+Key_Objects: faucet,  cutleryknife, apple
+
+55
+Environment:4
+Instruction: Plug in and switch on the radio for some music, then dim the lights for a cozy atmosphere.
+Goals: IsSwitchedOn_radio & IsSwitchedOn_lightswitch
+Actions: Walk_radio, PlugIn_radio, SwitchOn_radio, Walk_lightswitch, PlugIn_lightswitch, SwitchOn_lightswitch
+Key_Predicate: SwitchOn, Walk, PlugIn
+Key_Objects: lightswitch, radio
+
+56
+Environment:4
+Instruction: Put the toothpaste and a mug on the bathroom counter.
+Goals: IsOn_toothpaste_bathroomcounter & IsOn_mug_bathroomcounter
+Actions: Walk_toothpaste, RightGrab_toothpaste, Walk_mug, LeftGrab_mug, Walk_bathroomcounter, RightPut_toothpaste_bathroomcounter, LeftPut_mug_bathroomcounter
+Key_Predicate: LeftPut, RightGrab, Walk, LeftGrab, RightPut
+Key_Objects: bathroomcounter, toothpaste, mug
+
+57
+Environment:4
+Instruction: Open the microwave and place a plate inside it.
+Goals: IsOpen_microwave & IsIn_plate_microwave
+Actions: PlugIn_microwave, Open_microwave, Walk_microwave, Walk_plate, RightGrab_plate, RightPutIn_plate_microwave
+Key_Predicate: Open, PlugIn, RightPutIn, Walk, RightGrab
+Key_Objects: microwave, plate
+
+58
+Environment:4
+Instruction: Make sure the candles are lit and the wine glasses are clean for the dinner party.
+Goals: IsSwitchedOn_candle & IsClean_wineglass
+Actions: SwitchOn_candle, Walk_rag, Walk_wineglass, Wipe_wineglass, Walk_candle, RightGrab_rag
+Key_Predicate: Walk, Wipe, SwitchOn, RightGrab
+Key_Objects: candle, wineglass, rag
+
+59
+Environment:4
+Instruction: Cut the chicken and put it on a plate on the kitchencounter.
+Goals: IsCut_chicken & IsOn_chicken_kitchencounter
+Actions: Walk_chicken, Cut_chicken, Walk_kitchencounter, LeftGrab_cutleryknife, RightPut_chicken_kitchencounter, Walk_cutleryknife, RightGrab_chicken
+Key_Predicate: Walk, RightPut, LeftGrab, Cut, RightGrab
+Key_Objects: cutleryknife, kitchencounter, chicken
+
+100
+Environment: 4
+Instruction: Place the remote control on the sofa, make sure the TV is switched on, and close the curtains.
+Goals: IsOn_remotecontrol_sofa & IsSwitchedOn_tv & IsClose_curtains
+Actions: PlugIn_tv, SwitchOn_tv, Walk_tv, RightPut_remotecontrol_sofa, Walk_sofa, RightGrab_remotecontrol, Walk_remotecontrol
+Key_Predicate: PlugIn, Walk, SwitchOn, RightGrab, RightPut
+Key_Objects: sofa, tv, remotecontrol
+
+101
+Environment: 4
+Instruction: Before the guests arrive, make sure the pie is in the oven, the wine is chilled in the fridge, and the candles on the dining table are lit.
+Goals: IsIn_pie_oven & IsIn_wine_fridge & IsSwitchedOn_candle
+Actions: RightPutIn_pie_oven, LeftGrab_wine, RightGrab_wine, Open_oven, SwitchOn_candle, Walk_wine, PlugIn_oven, Open_fridge, RightGrab_pie, PlugIn_fridge, Walk_fridge, Walk_candle, LeftPutIn_wine_fridge, Walk_pie, Walk_oven
+Key_Predicate: Open, SwitchOn, LeftGrab, RightPutIn, Walk, LeftPutIn, RightGrab, PlugIn
+Key_Objects: fridge, pie, wine, oven, candle
+
+102
+Environment: 4
+Instruction: Switch off the oven, place the pie in the oven tray, and ensure the kitchen counter is clean.
+Goals: IsSwitchedOff_oven & IsOn_pie_oventray & IsClean_kitchencounter
+Actions: RightPut_pie_oventray, Wipe_kitchencounter, Walk_pie, Walk_rag, Walk_oventray, LeftGrab_rag, Walk_kitchencounter, RightGrab_pie
+Key_Predicate: RightPut, RightGrab, Walk, LeftGrab, Wipe
+Key_Objects: pie, rag, kitchencounter, oventray
+
+103
+Environment: 4
+Instruction: Turn on the light switch, ensure the towel is on the towel rack, and that the bathroom counter is clean.
+Goals: IsSwitchedOn_lightswitch & IsOn_towel_towelrack & IsClean_bathroomcounter
+Actions: Walk_bathroomcounter, Wipe_bathroomcounter, Walk_lightswitch, Walk_towel, PlugIn_lightswitch, RightGrab_rag, RightGrab_towel, Walk_towelrack, SwitchOn_lightswitch, Walk_rag, RightPut_towel_towelrack
+Key_Predicate: RightPut, RightGrab, Walk, Wipe, SwitchOn, PlugIn
+Key_Objects: lightswitch, rag, bathroomcounter, towelrack, towel
+
+104
+Environment: 4
+Instruction: Ensure the clothes shirt are in the washing machine, that the bar soap is available on the bathroom cabinet, and the floor is clean.
+Goals: IsIn_clothesshirt_washingmachine & IsOn_barsoap_bathroomcabinet & IsClean_floor
+Actions: Walk_washingmachine, RightPutIn_clothesshirt_washingmachine, Walk_floor, Walk_bathroomcabinet, Walk_clothesshirt, Walk_rag, Open_washingmachine, RightGrab_clothesshirt, Wipe_floor, Walk_barsoap, LeftPut_barsoap_bathroomcabinet, LeftGrab_barsoap, RightGrab_rag, PlugIn_washingmachine
+Key_Predicate: LeftPut, Wipe, RightGrab, LeftGrab, RightPutIn, PlugIn, Open, Walk
+Key_Objects: floor, rag, barsoap, bathroomcabinet, washingmachine, clothesshirt
+
+105
+Environment: 4
+Instruction: Before hosting the dinner party, ensure the wine is on the kitchen table, the plates are set on the kitchen counter, the kitchen lights are turned on, the hand towel is placed on the towel rack in the bathroom, and the chicken is placed in the oven.
+Goals: IsOn_wine_kitchentable & IsOn_plate_kitchencounter & IsSwitchedOn_lightswitch & IsOn_towel_towelrack & IsIn_chicken_oven
+Actions: Walk_towel, Open_oven, RightGrab_wine, Walk_chicken, LeftGrab_chicken, LeftPut_plate_kitchencounter, Walk_towelrack, LeftPutIn_chicken_oven, PlugIn_oven, RightGrab_towel, Walk_lightswitch, Walk_kitchentable, Walk_wine, Walk_kitchencounter, RightPut_towel_towelrack, SwitchOn_lightswitch, RightPut_wine_kitchentable, Walk_plate, RightGrab_chicken, LeftGrab_plate, PlugIn_lightswitch, Walk_oven
+Key_Predicate: SwitchOn, Walk, LeftPutIn, Open, LeftPut, LeftGrab, RightGrab, PlugIn, RightPut
+Key_Objects: plate, kitchentable, oven, towelrack, wine, towel, kitchencounter, lightswitch, chicken

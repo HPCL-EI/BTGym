@@ -30,8 +30,8 @@ cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
 cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
 
 
-goal_str = "IsIn_milk_fridge & IsClose_fridge"
-act_str= "Walk_wine, LeftGrab_wine, PlugIn_fridge, RightPutIn_milk_fridge,Close_fridge"
+goal_str = "IsSwitchedOff_tablelamp"
+act_str = "Walk_desk"
 
 
 goal_set = goal_transfer_str(goal_str)

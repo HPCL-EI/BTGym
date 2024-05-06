@@ -1,19 +1,13 @@
 import time
 
 from btgym import BehaviorTree
-from btgym import ExecBehaviorLibrary
 import btgym
 from btgym.utils import ROOT_PATH
-from btgym.algos.llm_client.llms.gpt3 import LLMGPT3
-from btgym.algos.bt_autogen.main_interface import BTExpInterface, collect_action_nodes
+from btgym.algos.bt_autogen.main_interface import BTExpInterface
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction_small import VHTAction_small
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
 from btgym.algos.bt_autogen.tools import state_transition
-from sympy import symbols, Not, Or, And, to_dnf
-from sympy import symbols, simplify_logic
-import re
 from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process
-from btgym.algos.bt_autogen.Action import Action
 import random
 import numpy as np
 import pandas as pd
@@ -22,8 +16,8 @@ seed = 0
 random.seed(seed)
 np.random.seed(seed)
 
-from tools import collect_action_nodes
-from read_dataset import read_dataset, read_environment
+from btgym.utils.tools import collect_action_nodes
+from btgym.utils.read_dataset import read_dataset
 
 # env_path = f"{ROOT_PATH}/../test/dataset/environment.txt"
 # env_dic = read_environment(env_path,style=True)
@@ -60,7 +54,7 @@ for ctg in categories:
     categories_objs_dic[ctg] = getattr(VHTAction, ctg)
     categories_objs_dic[ctg] &= objs
 
-ctg_objs_path = f"{ROOT_PATH}/../test/EXP/ctg_objs.pickle"
+ctg_objs_path = f"{ROOT_PATH}/../test/BT_EXP/ctg_objs.pickle"
 # 打开一个文件用于写入，注意'b'表示二进制模式
 with open(ctg_objs_path, 'wb') as file:
     # 使用pickle.dump()函数将数据写入文件
@@ -99,7 +93,8 @@ all_actions_str_set = {act.name for act in all_actions_set}
 len_data = len(data)
 # len_data = 3
 # Rate range list
-rate_range_ls = [0, 0.25, 0.5, 0.75, 1]
+error_rate_range_ls = [0, 1, 5, 10, 20]
+correct_rate_range_ls = [0, 0.25, 0.5, 0.75, 1]
 #   0     1          0  6       7   0.0241
 #  0.2  0.8          1  5      813  2.08544
 #  0.5  0.5          3  3     1579  4.50097
@@ -111,7 +106,7 @@ rate_range_ls = [0, 0.25, 0.5, 0.75, 1]
 data_storage_dic = {(e, c): {'error_num': [], 'correct_num': [], \
                              'expanded_num': [], 'planning_time_total': [], \
                              'current_cost': [], 'act_steps': [], 'bt_status': []}
-                    for e in rate_range_ls for c in rate_range_ls}
+                    for e in error_rate_range_ls for c in correct_rate_range_ls}
 
 for data_ind in range(len_data):
     # for data_ind in range(4,5):
@@ -124,8 +119,8 @@ for data_ind in range(len_data):
 
     error_priority_act_set = all_actions_str_set - true_priority_act_set
 
-    for error_rate in rate_range_ls:
-        for correct_rate in rate_range_ls:
+    for error_rate in error_rate_range_ls:
+        for correct_rate in correct_rate_range_ls:
     # for error_rate in [0.5]:
     #     for correct_rate in [0.25]:
             # error_rate = 0.5
@@ -250,7 +245,7 @@ for key, values in data_storage_dic.items():
     error_rate, correct_rate = key
     for i in range(len(values['expanded_num'])):
         record = {
-            'Data ID': i % (len(rate_range_ls) * len(rate_range_ls)),
+            'Data ID': i % (len(error_rate_range_ls) * len(correct_rate_range_ls)),
             'Error Rate': error_rate,
             'Correct Rate': correct_rate,
             'Error Num': values['error_num'][i],
@@ -290,8 +285,8 @@ df_summary = pd.DataFrame(summary_results, columns=[
 ])
 
 # Save detailed data and summary data to CSV
-csv_file_path_details = 'output_detailed_bt_cys.csv'
-csv_file_path_summary = 'output_summary_bt_cys.csv'
+csv_file_path_details = 'output_detailed_bt_cys_10_bigerror.csv'
+csv_file_path_summary = 'output_summary_bt_cys_10_bigerror.csv'
 df_details.to_csv(csv_file_path_details, index=False)
 df_summary.to_csv(csv_file_path_summary, index=False)
 

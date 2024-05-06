@@ -115,7 +115,7 @@ class BTExpInterface:
         # 创建一个集合，包含所有标准动作的名称
         standard_actions_set = {act.name for act in self.big_actions}
         # 过滤 priority_act_ls，只保留名称在标准集合中的动作
-        filtered_priority_act_ls = [act for act in priority_act_ls if act.name in standard_actions_set]
+        filtered_priority_act_ls = [act for act in priority_act_ls if act in standard_actions_set]
         return filtered_priority_act_ls
 
 

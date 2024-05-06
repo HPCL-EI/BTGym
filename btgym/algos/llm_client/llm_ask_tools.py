@@ -6,22 +6,28 @@ from btgym.algos.llm_client.vector_database import search_nearest_examples
 
 
 
-def parse_llm_output(answer):
+def parse_llm_output(answer,goals=True):
 
+    if goals:
+        goal_str = answer.split("Actions:")[0].replace("Goals:", "").strip()
+        goal_set = goal_transfer_str(goal_str)
+    else:
+        goal_set=set()
 
-    goal_str = answer.split("Actions:")[0].replace("Goals:", "").strip()
-    act_str = answer.split("Actions:")[1].split("Key Predicates:")[0].strip()
-    predicate_str = answer.split("Key Predicates:")[1].split("Key Objects:")[0].strip()
-    objects_str = answer.split("Key Objects:")[1].strip()
-
-    goal_set = goal_transfer_str(goal_str)
+    act_str = answer.split("Actions:")[1].split("Key_Predicates:")[0].strip()
+    predicate_str = answer.split("Key_Predicates:")[1].split("Key_Objects:")[0].strip()
+    objects_str = answer.split("Key_Objects:")[1].strip()
     priority_act_ls = act_str_process(act_str)
 
     # Remove all spaces, Split by comma to create a list
     key_predicate = predicate_str.replace(" ", "").split(",")
     key_objects = objects_str.replace(" ", "").split(",")
 
-    return goal_set,priority_act_ls,key_predicate,key_objects
+    if goals:
+        return goal_set,priority_act_ls,key_predicate,key_objects
+    else:
+        return priority_act_ls, key_predicate, key_objects
+
 
 
 def format_example(metadata):
@@ -33,8 +39,28 @@ def format_example(metadata):
             f"Key Predicates: {example_value.get('Key_Predicates', '')}\n"
             f"Key Objects: {example_value['Key_Objects']}\n")
 
+def extract_llm_from_instr_goal(llm,default_prompt_file,instruction,goals,cur_cond_set=None,\
+                                choose_database=False,\
+                                index_path=f"{ROOT_PATH}/../test/dataset/env_instruction_vectors.index",verbose=False):
+    with open(default_prompt_file, 'r', encoding="utf-8") as f:
+        prompt = f.read().strip()
 
-def extract_initial_llm_outputs(llm,default_prompt_file,instruction,cur_cond_set,\
+    # 构建完整的 prompt，包括检索的 Examples 和当前的指令
+    question = f"{prompt}\nInstruction: {instruction}\nGoals: {goals}"
+    if verbose:
+        print("============ Question ================\n",question)
+    messages = []
+    messages.append({"role": "user", "content": question})
+    answer = llm.request(message=messages)
+    messages.append({"role": "assistant", "content": answer})
+    if verbose:
+        print("============ Answer ================\n",answer)
+    priority_act_ls, key_predicates, key_objects = parse_llm_output(answer,goals=False)
+
+    return priority_act_ls, key_predicates, key_objects, messages
+
+
+def extract_llm_from_instr(llm,default_prompt_file,instruction,cur_cond_set,\
                                 choose_database=False,\
                                 index_path=f"{ROOT_PATH}/../test/dataset/env_instruction_vectors.index"):
     """从向量数据库检索并生成初始 prompt"""

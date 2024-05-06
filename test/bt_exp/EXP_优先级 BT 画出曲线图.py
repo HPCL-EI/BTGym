@@ -8,7 +8,8 @@ import matplotlib.pyplot as plt
 
 # Assuming the CSV data is saved in a file called 'data.csv'
 # file_name = 'output_summary_bt_cys'
-file_name = 'output_summary_bt'
+# file_name = 'output_summary_bt'
+file_name = 'output_summary_bt_cys_10_bigerror'
 file_path = file_name+'.csv'
 df = pd.read_csv(file_path)
 
@@ -19,7 +20,7 @@ error_rates = df['Error Rate'].unique()
 
 for err_rate in error_rates:
     subset = df[df['Error Rate'] == err_rate]
-    ax.plot(subset['Correct Rate'], subset['Total Expanded Num'], marker='o', label=f'Error Rate = {err_rate}')
+    ax.plot(subset['Correct Rate'], subset['Total Expanded Num'], marker='o', label=f'Error Rate = {err_rate*100}%')
 
 ax.set_xlabel('Correct Rate')
 ax.set_ylabel('Total Expanded Num')

@@ -11,7 +11,7 @@ from btgym.algos.bt_autogen.tools import state_transition
 from sympy import symbols, Not, Or, And, to_dnf
 from sympy import symbols, simplify_logic
 from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process
-from btgym.algos.llm_client.llm_ask_tools import extract_initial_llm_outputs,llm_reflect
+from btgym.algos.llm_client.llm_ask_tools import extract_llm_from_instr,llm_reflect
 
 import random
 import numpy as np
@@ -43,7 +43,7 @@ default_prompt_file = f"{ROOT_PATH}\\algos\\llm_client\\prompt_VHT.txt"
 
 instuction = "4: Wash the bananas, cut the bananas and put it in the fridge"
 goal_set, priority_act_ls, key_predicates, key_objects,messages = \
-    extract_initial_llm_outputs(llm,default_prompt_file,instuction,cur_cond_set,\
+    extract_llm_from_instr(llm,default_prompt_file,instuction,cur_cond_set,\
                                 choose_database = True)
 
 # goal_set = [{'IsIn(cupcake,fridge)'}]

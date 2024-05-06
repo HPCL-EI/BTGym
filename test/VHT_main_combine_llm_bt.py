@@ -4,10 +4,10 @@ from btgym import BehaviorTree
 from btgym import ExecBehaviorLibrary
 import btgym
 from btgym.utils import ROOT_PATH
-# from btgym.algos.llm_client.llms.gpt3 import LLMGPT3
+from btgym.algos.llm_client.llms.gpt3 import LLMGPT3
 from btgym.algos.bt_autogen.main_interface import BTExpInterface
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
-from btgym.algos.bt_autogen.tools import state_transition
+
 from sympy import symbols, Not, Or, And, to_dnf
 from sympy import symbols, simplify_logic
 import re
@@ -47,14 +47,14 @@ with open(prompt_file, 'r', encoding="utf-8") as f:
 instuction = "Prepare for a small birthday party by baking a cake using the oven, ensure the candles are switched on." + \
              "Finally, make sure the kitchen counter is clean."
 
-# llm = LLMGPT3()
+llm = LLMGPT3()
 # message=[{"role": "system", "content": ""}]
 # question = prompt+instuction
 
 # 补充：向量数据库检索，拼接上最相近的 Example cur_cond_set
 cur_env_state = ', '.join(map(str, cur_cond_set))
 cur_data = instuction+"\n[current environmental condition]\n"+cur_env_state # 可能还要再调整
-# cur_emb = llm.embedding(question=cur_data)
+cur_emb = llm.embedding(question=cur_data)
 # 导入向量数据库，找到最近的前5条。
 # 准备好的 30条数据 作为 向量数据库
 example = ""
@@ -69,16 +69,10 @@ messages = []
 # goal_set = [{'IsIn(milk,fridge)','IsSwitchedOn(candle)'}]
 # priority_act_ls = ["Walk(milk)", "RightGrab(milk)", "Walk(fridge)",'Open(fridge)',
 #                    "RightPutIn(milk,fridge)",'PlugIn(fridge)', 'Walk(candle)',"SwitchOn(candle)"]
+goal_set = [{'IsPlugged(fridge)'}]
 
-# goal_set = [{'IsPlugged(fridge)'}]
-# priority_act_ls = ['Walk(fridge)']
+priority_act_ls = ['Walk(fridge)']
 
-# goal_set = [{'IsOn(apple,kitchencounter)', 'IsOpen(kitchencabinet)'}]
-# priority_act_ls = {'RightPut(apple,kitchencounter)', 'RightGrab(apple)', 'Walk(kitchencabinet)', 'Walk(kitchencounter)', 'Walk(apple)'}
-
-goal_set = [{'IsOn(cutleryknife,kitchentable)', 'IsIn(cupcake,fridge)'}]
-priority_act_ls = {'PlugIn(fridge)', 'Open(fridge)', 'RightPut(cutleryknife,kitchentable)', 'Walk(cutleryknife)', 'Walk(fridge)', 'Walk(cupcake)', 'RightGrab(cutleryknife)', 'RightGrab(cupcake)', 'Walk(kitchentable)', 'RightPutIn(cupcake,fridge)'}
-priority_act_ls =set()
 
 priority_obj_ls = []
 # 提取目标中的所有物体
@@ -102,7 +96,7 @@ for try_time in range(MAX_TIME):
     # 在小动作空间里搜索
     algo = BTExpInterface(env.behavior_lib, cur_cond_set, priority_act_ls, priority_obj_ls, \
                           selected_algorithm="opt", choose_small_action_space=True,\
-                          llm_reflect=False)
+                          llm_reflect=False, llm=llm, messages=messages,)
 
     start_time = time.time()
     algo.process(goal_set)
@@ -129,7 +123,7 @@ for try_time in range(MAX_TIME):
 
     # simulation and test
     print("\n================ ")
-
+    from btgym.algos.bt_autogen.tools import state_transition
 
     goal = goal_set[0]
     state = cur_cond_set
@@ -137,6 +131,31 @@ for try_time in range(MAX_TIME):
     current_cost = 0
     current_tick_time = 0
 
+    act_num=1
+
+    val, obj, cost, tick_time = algo.algo.bt.cost_tick(state, 0, 0)  # tick行为树，obj为所运行的行动
+    print(f"Action: {act_num}  {obj.__str__().ljust(35)}cost: {cost}")
+    current_tick_time += tick_time
+    current_cost += cost
+    while val != 'success' and val != 'failure':
+        state = state_transition(state, obj)
+        val, obj, cost, tick_time = algo.algo.bt.cost_tick(state, 0, 0)
+        act_num+=1
+        print(f"Action: {act_num}  {obj.__str__().ljust(35)}cost: {cost}")
+        current_cost += cost
+        current_tick_time += tick_time
+        if (val == 'failure'):
+            print("bt fails at step", steps)
+            error = True
+            break
+        steps += 1
+        if (steps >= 500):  # 至多运行500步
+            break
+    if goal <= state:  # 错误解，目标条件不在执行后状态满足
+        print("Finished!")
+    print(f"一定运行了 {act_num-1} 个动作步")
+    print("current_cost:",current_cost)
+    print("================ ")
 
 
     # 大模型反馈

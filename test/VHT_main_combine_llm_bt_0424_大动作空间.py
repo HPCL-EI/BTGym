@@ -65,16 +65,16 @@ messages = []
 # ]
 
 
-# goal_set = [
-#     {'IsIn(poundcake,microwave)', 'IsSwitchedOn(microwave)',
-#      'IsClean(kitchencounter)'
-#      }
-# ]
-# priority_act_ls = [
-#     "Walk(poundcake)", "RightGrab(poundcake)", "Walk(microwave)", "Open(microwave)","RightPutIn(poundcake,microwave)",
-#     "PlugIn(microwave)","Close(microwave)","SwitchOn(microwave)",
-#     "Walk(rag)", "RightGrab(rag)", "Walk(kitchencounter)", "Wipe(kitchencounter)"
-# ]
+goal_set = [
+    {'IsIn(poundcake,microwave)', 'IsSwitchedOn(microwave)',
+     'IsClean(kitchencounter)'
+     }
+]
+priority_act_ls = [
+    "Walk(poundcake)", "RightGrab(poundcake)", "Walk(microwave)", "Open(microwave)","RightPutIn(poundcake,microwave)",
+    "PlugIn(microwave)","Close(microwave)","SwitchOn(microwave)",
+    "Walk(rag)", "RightGrab(rag)", "Walk(kitchencounter)", "Wipe(kitchencounter)"
+]
 
 
 
@@ -88,18 +88,18 @@ messages = []
 #     "Walk(rag)", "RightGrab(rag)", "Walk(kitchencounter)", "Wipe(kitchencounter)"
 # ]
 
-goal_set = [
-    {'IsOn(candle,kitchentable)', 'IsOn(plate,kitchentable)', 'IsOn(wineglass,kitchentable)',
-    'IsIn(poundcake,oven)','IsSwitchedOn(oven)', 'IsSwitchedOn(candle)', 'IsClean(kitchencounter)'}
-]
-priority_act_ls=[
-    "Walk(candle)", "RightGrab(candle)", "Walk(plate)", "LeftGrab(plate)",
-    "Walk(kitchentable)", "RightPut(candle,kitchentable)", "LeftPut(plate,kitchentable)",
-    "Walk(wineglass)", "RightGrab(wineglass)", "Walk(kitchentable)", "RightPut(wineglass,kitchentable)",
-    "Walk(poundcake)", "RightGrab(poundcake)", "Walk(oven)", "PlugIn(oven)", "Open(oven)", "RightPutIn(poundcake,oven)",
-    "Walk(candle)", "SwitchOn(candle)",
-    "Walk(rag)", "RightGrab(rag)", "Walk(kitchencounter)", "Wipe(kitchencounter)"
-]
+# goal_set = [
+#     {'IsOn(candle,kitchentable)', 'IsOn(plate,kitchentable)', 'IsOn(wineglass,kitchentable)',
+#     'IsIn(poundcake,oven)','IsSwitchedOn(oven)', 'IsSwitchedOn(candle)', 'IsClean(kitchencounter)'}
+# ]
+# priority_act_ls=[
+#     "Walk(candle)", "RightGrab(candle)", "Walk(plate)", "LeftGrab(plate)",
+#     "Walk(kitchentable)", "RightPut(candle,kitchentable)", "LeftPut(plate,kitchentable)",
+#     "Walk(wineglass)", "RightGrab(wineglass)", "Walk(kitchentable)", "RightPut(wineglass,kitchentable)",
+#     "Walk(poundcake)", "RightGrab(poundcake)", "Walk(oven)", "PlugIn(oven)", "Open(oven)", "RightPutIn(poundcake,oven)",
+#     "Walk(candle)", "SwitchOn(candle)",
+#     "Walk(rag)", "RightGrab(rag)", "Walk(kitchencounter)", "Wipe(kitchencounter)"
+# ]
 
 
 # 冰箱放入东西前要插上电

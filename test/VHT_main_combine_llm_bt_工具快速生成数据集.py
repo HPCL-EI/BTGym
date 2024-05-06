@@ -30,13 +30,8 @@ cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
 cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
 
 
-<<<<<<< HEAD
 goal_str = "IsSwitchedOff_tablelamp"
 act_str = "Walk_desk"
-=======
-goal_str = "IsOn_wine_kitchentable & IsOn_plate_kitchencounter & IsSwitchedOn_lightswitch & IsOn_towel_towelrack & IsIn_chicken_oven"
-act_str= "Walk_wine, RightGrab_wine, Walk_kitchentable, RightPut_wine_kitchentable, Walk_plate, LeftGrab_plate, Walk_kitchencounter, LeftPut_plate_kitchencounter, Walk_lightswitch, SwitchOn_lightswitch, Walk_towel, RightGrab_towel, Walk_towelrack, RightPut_towel_towelrack, Walk_chicken, LeftGrab_chicken, Walk_oven, Open_oven, PlugIn_oven, LeftPutIn_chicken_oven"
->>>>>>> 76cc4d82b2783a63f718d0705c14fa1219a38758
 
 
 goal_set = goal_transfer_str(goal_str)
@@ -127,24 +122,12 @@ print("================ \n")
 
 # 输出结果：
 record_act = record_act[:-1]
-correct_act,predicate,objects = act_format_records(record_act)
+formatted_act,predicate,objects = act_format_records(record_act)
 
-# 函数来提取并格式化输出
-def extract_and_format(items):
-    return ', '.join(items)
-# 调用函数并打印结果
-formatted_act = extract_and_format(correct_act)
-formatted_predicates = extract_and_format(predicate)
-formatted_objects = extract_and_format(objects)
-
-print("Goals:",goal_str)
-print("Actions:",formatted_act)
-print("Key_Predicate:",formatted_predicates)
-print("Key_Object:",formatted_objects)
-
-priority_act = set(act_str.replace(" ", "").split(","))
-print("增加了：",set(correct_act)-priority_act)
-print("减少了：",priority_act-set(correct_act))
+print("Goals:", goal_str)
+print("Actions:", formatted_act)
+print("key Predicate:", list(set(predicate)))
+print("key Objects:", list(set(objects)))
 
 
 

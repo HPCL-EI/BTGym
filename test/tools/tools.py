@@ -1,6 +1,5 @@
 
 from sympy import symbols, Not, Or, And, to_dnf
-import re
 
 def goal_transfer_str(goal):
     goal_dnf = str(to_dnf(goal, simplify=True))
@@ -61,7 +60,4 @@ def act_str_process(act_str):
             literal = literal.replace('_', ',')
         priority_act_ls.append(literal)
     return priority_act_ls
-
-
-
 

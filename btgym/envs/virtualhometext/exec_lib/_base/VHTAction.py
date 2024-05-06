@@ -79,7 +79,7 @@ class VHTAction(Action):
                "pear","plum"}
     # 无可切割物品
 
-    WASHABLE={"apple","bananas","carrot","chicken","lime","salmon", "peach","pear","plum"}
+    WASHBLE={"apple","bananas","carrot","chicken","lime","salmon", "peach","pear","plum"}
 
     RECIPIENT = {"dishbowl", "wineglass", "coffeemaker", "cookingpot", "box", "mug", "toothbrush", "coffeepot","fryingpan", \
                  "waterglass", "sink", "plate", "washingmachine"}
@@ -97,8 +97,6 @@ class VHTAction(Action):
     # switch on #candle  cellphone wallphone washingmachine不行# faucet 浴室龙头
     AllObject = SURFACES | SITTABLE | CAN_OPEN | CONTAINERS | GRABBABLE |\
                  HAS_SWITCH | CUTABLE | EATABLE | RECIPIENT | POURABLE | DRINKABLE
-
-
 
     @property
     def action_class_name(self):

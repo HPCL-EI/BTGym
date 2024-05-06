@@ -41,7 +41,7 @@ default_prompt_file = f"{ROOT_PATH}\\algos\\llm_client\\prompt_VHT.txt"
 # instuction = "Prepare for a small birthday party by baking a cake using the oven, ensure the candles are switched on." + \
 #              "Finally, make sure the kitchen counter is clean."
 
-instuction = "4: Wash the bananas, cut the bananas and put it in the fridge，and make sure the fridge is close."
+instuction = "4: Wash the bananas, cut the bananas and put it in the fridge"
 goal_set, priority_act_ls, key_predicates, key_objects,messages = \
     extract_initial_llm_outputs(llm,default_prompt_file,instuction,cur_cond_set,\
                                 choose_database = True)

@@ -2,15 +2,15 @@
 
 [Condition]
 IsNear_self_<ALL>, IsOn_<GRABBABLE>_<SURFACES>, IsIn_<GRABBABLE>_<CONTAINERS>, IsOpen_<CAN_OPEN>, IsClose_<CAN_OPEN>,
-IsSwitchedOn_<HAS_SWITCH>, IsSwitchedOff_<HAS_SWITCH>, IsClean_<ALL>, IsHoldingCleaningTool_<TOOLS>,
-IsPlugged_<HAS_PLUG>,IsUnplugged_<HAS_PLUG>
+IsSwitchedOn_<HAS_SWITCH>, IsSwitchedOff_<HAS_SWITCH>, IsClean_<ALL>, IsHoldingCleaningTool, IsHoldingKnife,
+IsPlugged_<HAS_PLUG>, IsUnplugged_<HAS_PLUG>, IsCut_<CUTABLE>
 
 
 [Action]
 Walk_<ALL>, RightGrab_<GRABBABLE>, LeftGrab_<GRABBABLE>, RightPut_<GRABBABLE>_<SURFACES>, LeftPut_<GRABBABLE>_<SURFACES>,
 RightPutIn_<GRABBABLE>_<CONTAINERS>, LeftPutIn_<GRABBABLE>_<CONTAINERS>, RightGrabFrom_<GRABBABLE>_<CONTAINERS>, LeftGrabFrom_<GRABBABLE>_<CONTAINERS>,
 Open_<CAN_OPEN>, Close_<CAN_OPEN>, SwitchOn_<HAS_SWITCH>, SwitchOff_<HAS_SWITCH>,
-Wipe_<ALL>, PlugIn_<HAS_PLUG>, PlugOut_<HAS_PLUG>
+Wipe_<ALL>, PlugIn_<HAS_PLUG>, PlugOut_<HAS_PLUG>, Cut_<CUTABLE>, Wash_<WASHABLE>
 
 
 [Object]
@@ -39,44 +39,31 @@ Wipe_<ALL>, PlugIn_<HAS_PLUG>, PlugOut_<HAS_PLUG>
                 "clothespile", "bathroomcabinet"]
 <HAS_PLUG>=["wallphone", "coffeemaker", "lightswitch", "cellphone", "fridge", "toaster", "tablelamp", "microwave", "tv",
                 "clock", "radio", "washingmachine","mouse", "keyboard", "printer"]
-<TOOLS>=["rag","duster","papertowel","brush"]
-<ALL>=<GRABBABLE>+<SURFACES>+<<CONTAINERS>+<HAS_SWITCH>+<CAN_OPEN>+<HAS_PLUG>+<TOOLS>
+<CUTABLE> = ["apple","bananas","breadslice", "cutlets","poundcake","pancake","pie","carrot","chicken","lime","salmon", "peach",\
+               "pear","plum"]
+<WASHABLE> = ["apple","bananas","carrot","chicken","lime","salmon", "peach","pear","plum"]
+<ALL>=<GRABBABLE>+<SURFACES>+<<CONTAINERS>+<HAS_SWITCH>+<CAN_OPEN>+<HAS_PLUG>+<CUTABLE>+<WASHABLE>
 
 
 [Examples]
-Instruction: Put the bag of chips on the corner of my desk.
-Goals: IsOn_chips_desk
-Actions: Walk_chips, RightGrab_chips, Walk_desk, RightPut_chips_desk
-
-Instruction: Ensure the coffee maker is powered on to brew your morning cup, and also turn on the TV to catch up with the early news
-Goals: IsSwitchedOn_coffeemaker & IsSwitchedOn_tv
-Actions: Walk_coffeemaker, PlugIn_coffeemaker, SwitchOn_coffeemaker, Walk_tv, PlugIn_tv, SwitchOn_tv
-
-Instruction: Spread chocolate syrup on a slice of bread and place it on a plate for a quick snack.
-Goals: IsOn(breadslice,kitchentable) & IsOn_chocolatesyrup_kitchentable & IsOn_juice_kitchentable
-Actions: Walk_chocolatesyrup, RightGrab_chocolatesyrup, Walk_juice, LeftGrab_juice, Walk_kitchentable, LeftPut_juice_kitchentable, Walk_breadslice, LeftGrab_breadslice, Walk_kitchentable, LeftPut_breadslice_kitchentable, RightPut_chocolatesyrup_kitchentable
-
-Instruction: Put the milk and wine in the fridge, and make sure the fridge door is closed.
-Goals: IsIn_milk_fridge & IsClose_fridge
-Actions: Walk_milk, RightGrab_milk, Walk_wine, LeftGrab_wine, Walk_fridge, PlugIn_fridge, Open_fridge, RightPutIn_milk_fridge, LeftPutIn_wine_fridge,Close_fridge
-
-Instruction: Place the chicken in the microwave, and then switch the microwave on to start cooking.
-Goals: IsIn_chicken_microwave & IsClose_microwave & IsSwitchedOn_microwave
-Actions: Walk_chicken, RightGrab_chicken, Walk_microwave, PlugIn_microwave, Open_microwave, RightPutIn_chicken_microwave, Close_microwave, SwitchOn_microwave
 
 
 [Prompt]
-[Condition] Lists all predicates representing conditions and their optional parameter sets.
-[Action] Listed all the actions.
-[Object] Lists all parameter sets.
-[Examples] Provide several examples of Instruction to Goal mapping and the list of actions required to complete the task.
-1. Your task involves interpreting the given instructions to deduce a goal, which should be represented as a structured proposition in first-order logic. Additionally, compile a list of requisite actions to achieve this goal.
-2. Structure your response according to the previously demonstrated format. Begin with 'Goals:' to indicate the desired outcome and 'Actions:' to detail the steps needed for accomplishment.Do not appear [ ].
-3. For defining 'Goals,' employ [Conditions] and [Objects] to formulate this aim. Use logical connectors (&,|) judiciously to amalgamate these components.
-   - & (AND Operator): Merges conditions ensuring the outcome is positive solely when both conditions are met.
-   - | (OR Operator): Merges conditions ensuring a positive outcome if at least one condition is satisfied.
-4. For listing 'Actions,' separate items with commas without assigning any numerical order.
-5. Produce directly interpretable predicate logic formulas, omitting any supplementary elucidations.
+[Goal] List all predicates representing goals and their optional parameter sets.
+[Action] List all the actions needed to achieve the goals.
+[Predicate] List key predicates used within the actions.
+[Object] List all key objects involved in the actions.
+[Example] Provide several examples of Instruction to Goal mapping and the list of actions, predicates, and objects required to complete the task.
+
+Prompt:
+1. Analyze the given instruction to define specific goals. Begin your response with 'Goals:', and list goals using predicates connected by logical operators (&, |).
+2. List all actions necessary to achieve these goals. Start with 'Actions:', and continue with a comma-separated list of the actions, simply as verbs followed by the objects.
+3. Identify the key predicates involved in these actions. These should be only the action verbs. Begin with 'Key Predicate:', followed by a comma-separated list of these verbs.
+4. List all key objects involved in these actions. These should be only the nouns representing items interacted with during the actions. Begin with 'Key Objects:', followed by a comma-separated list of these nouns.
+
+5. Provide examples that demonstrate how instructions are mapped to goals, actions, key predicates, and key objects. Start each example with 'Example:', ensuring it aligns with the instructed formatting without using brackets or additional headings.
 6. The object can only come from those listed above; if it does not exist, please replace it with the closest one listed above.
+7. Produce directly interpretable predicate logic formulas, omitting any supplementary elucidations.
+8. The format of the answers should refer to the above [Example], with "Goals:", "Actions:". ", "Key Predicates:", "Key Objects:" do not appear [], do not start "[Goals]", "[Actions]", "[Key Predicate]", "[Key Objects]". No line breaks are required.
 
 Now, the given instruction is

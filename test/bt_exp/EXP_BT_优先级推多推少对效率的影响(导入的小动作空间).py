@@ -60,7 +60,7 @@ for ctg in categories:
     categories_objs_dic[ctg] = getattr(VHTAction, ctg)
     categories_objs_dic[ctg] &= objs
 
-ctg_objs_path = f"{ROOT_PATH}/../test/bt_exp/ctg_objs.pickle"
+ctg_objs_path = f"{ROOT_PATH}/../test/EXP/ctg_objs.pickle"
 # 打开一个文件用于写入，注意'b'表示二进制模式
 with open(ctg_objs_path, 'wb') as file:
     # 使用pickle.dump()函数将数据写入文件

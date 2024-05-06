@@ -5,9 +5,14 @@ from sympy import symbols, simplify_logic
 import re
 
 
-def act_str_process(act_str):
 
-    act_str_ls = act_str.replace(" ", "").split(",")
+
+def act_str_process(act_str,already_split=False):
+
+    if already_split:
+        act_str_ls = act_str
+    else:
+        act_str_ls = act_str.replace(" ", "").split(",")
 
     priority_act_ls = []
     # rl_dic = {}
@@ -113,7 +118,7 @@ def act_format_records(act_record_list):
     # 初始化一个空列表来存储格式化后的结果
     formatted_records = []
     predicate = []
-    objects= []
+    objects_ls= []
     # 遍历列表中的每个记录
     for record in act_record_list:
 
@@ -129,7 +134,7 @@ def act_format_records(act_record_list):
             # 将格式化后的字符串添加到结果列表中
             formatted_records.append(formatted_record)
             predicate.append(action)
-            objects.append(obj)
+            objects_ls.append(obj)
         else:
             # 有逗号，即涉及两个物体
             start = record.find('(')
@@ -142,9 +147,9 @@ def act_format_records(act_record_list):
             # 将格式化后的字符串添加到结果列表中
             formatted_records.append(formatted_record)
             predicate.append(action)
-            objects.append(obj1)
-            objects.append(obj2)
-    return formatted_records,predicate,objects
+            objects_ls.append(obj1)
+            objects_ls.append(obj2)
+    return list(set(formatted_records)),list(set(predicate)),list(set(objects_ls))
 
 
 

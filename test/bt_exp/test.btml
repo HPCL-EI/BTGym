@@ -1,0 +1,32 @@
+selector
+    cond IsOn(chips,desk)
+    sequence
+        cond IsRightHolding(self,chips)
+        cond IsNear(self,desk)
+        act RightPut(chips,desk)
+    sequence
+        cond IsLeftHolding(self,chips)
+        cond IsNear(self,desk)
+        act LeftPut(chips,desk)
+    sequence
+        cond IsStanding(self)
+        cond IsLeftHolding(self,chips)
+        act Walk(desk)
+    sequence
+        cond IsStanding(self)
+        cond IsRightHolding(self,chips)
+        act Walk(desk)
+    sequence
+        cond IsNear(self,chips)
+        cond IsRightHandEmpty(self)
+        cond IsStanding(self)
+        act RightGrab(chips)
+    sequence
+        cond IsNear(self,chips)
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        act LeftGrab(chips)
+    sequence
+        cond IsStanding(self)
+        cond IsLeftHandEmpty(self)
+        act Walk(chips)

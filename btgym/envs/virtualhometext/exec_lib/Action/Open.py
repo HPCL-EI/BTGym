@@ -14,6 +14,10 @@ class Open(VHTAction):
     def get_info(cls,*arg):
         info = {}
         info["pre"]={f"IsClose({arg[0]})",f"IsNear(self,{arg[0]})","IsLeftHandEmpty(self)"} # IsLeftHandEmpty()至少有一只手是空闲的
+
+        if arg[0] in VHTAction.HAS_SWITCH:
+            info["pre"] |= {f"IsSwitchedOff({arg[0]})"}
+
         info["add"]={f"IsOpen({arg[0]})"}
         info["del_set"] = {f"IsClose({arg[0]})"}
         info["cost"] = 3

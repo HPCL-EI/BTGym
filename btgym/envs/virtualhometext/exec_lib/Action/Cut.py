@@ -13,7 +13,8 @@ class Cut(VHTAction):
     @classmethod
     def get_info(cls,*arg):
         info = {}
-        info["pre"]={f"IsHoldingKnife(self)",f"IsNear(self,{arg[0]})"} # IsLeftHandEmpty()至少有一只手是空闲的
+        # info["pre"]={f"IsHoldingKnife(self)",f"IsNear(self,{arg[0]})"} # IsLeftHandEmpty()至少有一只手是空闲的
+        info["pre"] = {f"IsHoldingKnife(self)", f"IsLeftHolding(self,{arg[0]})"}  # IsLeftHandEmpty()至少有一只手是空闲的
         info["add"]={f"IsCut({arg[0]})"}
         info["del_set"] = set()
         info["cost"] = 9

@@ -52,7 +52,7 @@ def read_dataset(filename='./dataset.txt'):
 
 
 if __name__ == '__main__':
-    example = read_dataset('./dataset0506.txt')
+    example = read_dataset('dataset0506_revby_cys.txt')
     print(example[0])
     print(example[1])
 

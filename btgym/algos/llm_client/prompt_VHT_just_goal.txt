@@ -21,7 +21,7 @@ Wipe_<ALL>, PlugIn_<HAS_PLUG>, PlugOut_<HAS_PLUG>, Cut_<CUTABLE>, Wash_<WASHABLE
                  "notes", "plum", "cookingpot", "toy", "salmon", "peach", "condimentbottle", "hairproduct", "salad","mouse",
                  "clock", "washingsponge", "bananas", "dishbowl", "oventray", "chocolatesyrup", "creamybuns", "pear","chair",
                  "condimentshaker", "bellpepper", "paper", "plate", "facecream", "breadslice", "candle", "towelrack","pancake",
-                 "cutleryknife", "milkshake", "dishwashingliquid", "keyboard", "towel", "toothbrush", "book", "juice","waterglass",
+                 "cutleryknife", "kitchenknife",""milkshake", "dishwashingliquid", "keyboard", "towel", "toothbrush", "book", "juice","waterglass",
                  "barsoap", "mincedmeat", "clothespants", "chicken", "poundcake", "pillow", "pie",
                  "rag","duster","papertowel","brush"]
 <SURFACES>=["kitchentable", "towelrack", "bench", "kitchencabinet", "mousemat", "boardgame", "coffeetable","fryingpan",
@@ -41,7 +41,7 @@ Wipe_<ALL>, PlugIn_<HAS_PLUG>, PlugOut_<HAS_PLUG>, Cut_<CUTABLE>, Wash_<WASHABLE
                 "clock", "radio", "washingmachine","mouse", "keyboard", "printer"]
 <CUTABLE> = ["apple","bananas","breadslice", "cutlets","poundcake","pancake","pie","carrot","chicken","lime","salmon", "peach",\
                "pear","plum"]
-<WASHABLE> = ["apple","bananas","carrot","chicken","lime","salmon", "peach","pear","plum"]
+<WASHABLE> = ["apple","bananas","carrot","chicken","lime","salmon", "peach","pear","plum","rag","brush"]
 <ALL>=<GRABBABLE>+<SURFACES>+<<CONTAINERS>+<HAS_SWITCH>+<CAN_OPEN>+<HAS_PLUG>+<CUTABLE>+<WASHABLE>
 
 

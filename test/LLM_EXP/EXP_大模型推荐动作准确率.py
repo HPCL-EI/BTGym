@@ -28,7 +28,7 @@ from btgym.algos.llm_client.llm_ask_tools import extract_llm_from_instr_goal
 from tools import count_accuracy
 
 # # 读入数据集
-# data_path = f"{ROOT_PATH}/../test/dataset/dataset0506/dataset0506.txt"
+# data_path = f"{ROOT_PATH}/../test/dataset/dataset0506/dataset0506_revby_cys.txt"
 # data = read_dataset(data_path)
 # len_data = len(data)
 # print(f"导入 {len_data} 条数据")

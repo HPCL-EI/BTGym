@@ -39,7 +39,7 @@ class VHTAction(Action):
                  "notes", "plum", "cookingpot", "toy", "salmon", "peach", "condimentbottle", "hairproduct", "salad","mouse", \
                  "clock", "washingsponge", "bananas", "dishbowl", "oventray", "chocolatesyrup", "creamybuns", "pear","chair", \
                  "condimentshaker", "bellpepper", "paper", "plate", "facecream", "breadslice", "candle", "towelrack","pancake", \
-                 "cutleryknife", "milkshake", "dishwashingliquid", "keyboard", "towel", "toothbrush", "book", "juice","waterglass", \
+                 "cutleryknife", "kitchenknife", "milkshake", "dishwashingliquid", "keyboard", "towel", "toothbrush", "book", "juice","waterglass", \
                  "barsoap", "mincedmeat", "clothespants", "chicken", "poundcake", "pillow", "pie",
                  "rag","duster","papertowel","brush"}
     # 圣代, 牙膏, 衬衫, 饼干, 布丁, 酒精, 桌游, 墙电话, 遥控器, \
@@ -53,8 +53,12 @@ class VHTAction(Action):
     # 鸡肉, 磅蛋糕, 枕头, 馅饼
     # 抹布, 掸子, 纸巾, 刷子
 
-    cleaning_tools = {"rag","duster","papertowel","brush"}
-    cutting_tools={"cutleryknife"}
+
+    cleaning_tools = {"rag", "duster", "papertowel", "brush"}
+    cutting_tools={"cutleryknife","kitchenknife"}
+
+
+
 
 
     HAS_SWITCH = {"coffeemaker", "cellphone", "candle", "faucet", "washingmachine", "printer", "wallphone","remotecontrol", \
@@ -79,7 +83,7 @@ class VHTAction(Action):
                "pear","plum"}
     # 无可切割物品
 
-    WASHABLE={"apple","bananas","carrot","chicken","lime","salmon", "peach","pear","plum"}
+    WASHABLE={"apple","bananas","carrot","chicken","lime","salmon", "peach","pear","plum","rag","brush"}
 
     RECIPIENT = {"dishbowl", "wineglass", "coffeemaker", "cookingpot", "box", "mug", "toothbrush", "coffeepot","fryingpan", \
                  "waterglass", "sink", "plate", "washingmachine"}
@@ -98,6 +102,24 @@ class VHTAction(Action):
     AllObject = SURFACES | SITTABLE | CAN_OPEN | CONTAINERS | GRABBABLE |\
                  HAS_SWITCH | CUTABLE | EATABLE | RECIPIENT | POURABLE | DRINKABLE
 
+
+
+    things_need_duster={
+    "wallpictureframe", "clock", "towelrack", "toy", "cellphone",
+    "notes", "crayons", "magazine", "boardgame", "bookshelf",
+    "cabinet", "closet", "bench", "bed", "sofa", "bathroomcounter"}
+    things_need_brush={
+    "hairproduct", "facecream", "dishbowl", "oventray", "barsoap",
+    "mincedmeat", "toothbrush", "cutleryfork", "cutleryknife",
+    "kitchenknife", "brush", "salad", "cereal", "slippers",
+    "clothespants", "mouse", "floor", "bathroomcabinet"}
+    things_need_papertowel = {
+    "whippedcream", "wineglass", "milkshake", "chocolatesyrup",
+    "creamybuns", "pear", "bellpepper", "pancake", "breadslice",
+    "candle", "pie", "papertowel", "condimentshaker", "lime",
+    "apple", "bananas", "waterglass", "condimentbottle",
+    "alcohol", "wine", "juice", "sundae", "poundcake", "pudding"}
+    things_need_rag = AllObject-things_need_duster-things_need_brush-things_need_papertowel-WASHABLE
 
 
     @property

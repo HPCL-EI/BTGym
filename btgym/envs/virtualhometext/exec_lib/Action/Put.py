@@ -8,8 +8,8 @@ class Put(VHTAction):
     num_args = 2
     # valid_args = list(itertools.product(VHTAction.GRABBABLE, VHTAction.SURFACES))
 
-    set_1_food = VHTAction.GRABBABLE & (VHTAction.EATABLE|VHTAction.DRINKABLE|{"bananas",'chicken','cutlets','breadslice','chips','chocolatesyrup',
-                 'milk','wine',"cereal"})
+    set_1_food = VHTAction.GRABBABLE & (VHTAction.EATABLE|VHTAction.DRINKABLE|{"apple","bananas",'chicken','cutlets','breadslice','chips','chocolatesyrup',
+                 'milk','wine',"cereal","lime","salmon", "peach","pear","plum"})
 
 
     valid_args = list(itertools.product(VHTAction.GRABBABLE-set_1_food, VHTAction.SURFACES-{"towelrack","plate","fryingpan"})) \

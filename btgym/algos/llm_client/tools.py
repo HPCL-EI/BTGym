@@ -64,7 +64,7 @@ def act_str_process(act_str, already_split=False):
 
 
 def goal_transfer_str(goal):
-    goal_dnf = str(to_dnf(goal, simplify=True))
+    goal_dnf = str(to_dnf(goal, simplify=True,force=True))
     # print(goal_dnf)
     goal_set = []
     if ('|' in goal or '&' in goal or 'Not' in goal) or not '(' in goal:

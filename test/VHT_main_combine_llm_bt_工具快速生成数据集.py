@@ -30,8 +30,8 @@ cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
 cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
 
 
-goal_str = "IsIn_washingsponge_sink & IsIn_dishbowl_sink & IsIn_plate_sink & IsIn_dishwashingliquid_sink"
-act_str=  "Walk_washingsponge, RightGrab_washingsponge, Walk_dishwashingliquid, LeftGrab_dishwashingliquid, Walk_sink, RightPutIn_washingsponge_sink, LeftPutIn_dishwashingliquid_sink, Walk_dishbowl, RightGrab_dishbowl, Walk_plate, LeftGrab_plate, Walk_sink, RightPutIn_dishbowl_sink, LeftPutIn_plate_sink"
+goal_str = "IsIn_paper_folder & IsOn_folder_bookshelf & IsOn_book_bookshelf & IsOn_magazine_bookshelf & IsSwitchedOn_lightswitch & IsHoldingCleaningTool_rag & IsClean_bookshelf & IsClean_desk"
+act_str= "Walk_paper, RightGrab_paper, Walk_folder, Open_folder, RightPutIn_paper_folder, Close_folder, RightGrab_folder, Walk_bookshelf, RightPut_folder_bookshelf, Walk_book, RightGrab_book, Walk_bookshelf, RightPut_book_bookshelf, Walk_magazine, RightGrab_magazine, Walk_bookshelf, RightPut_magazine_bookshelf, Walk_lightswitch, PlugIn_lightswitch, SwitchOn_lightswitch, Walk_rag, RightGrab_rag, Walk_bookshelf, Wipe_bookshelf, Walk_desk, Wipe_desk"
 
 goal_set = goal_transfer_str(goal_str)
 print("goal_set:",goal_set)

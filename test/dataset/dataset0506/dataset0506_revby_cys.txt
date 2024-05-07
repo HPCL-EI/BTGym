@@ -82,9 +82,9 @@ Key_Objects: toothpaste, towel, bathroomcabinet
 Environment:1
 Instruction: Put the notes, the magazine, and the book on the desk.
 Goals: IsOn_notes_desk & IsOn_magazine_desk & IsOn_book_desk
-Actions: Walk_book, RightGrab_book, Walk_desk, RightPut_book_desk, Walk_magazine, RightGrab_magazine, RightPut_magazine_desk, Walk_notes, RightGrab_notes, RightPut_notes_desk
-Key_Predicates: Walk, RightGrab, RightPut
-Key_Objects: book, desk, magazine, notes
+Actions: Walk_magazine, RightGrab_magazine, Walk_notes, LeftGrab_notes, Walk_desk, LeftPut_notes_desk, RightPut_magazine_desk, Walk_book, RightGrab_book, RightPut_book_desk
+Key_Predicates: Walk, RightGrab, LeftGrab, LeftPut, RightPut
+Key_Objects: magazine, notes, desk, book
 
 12
 Environment:2
@@ -162,9 +162,9 @@ Key_Objects: washingsponge, sink, dishbowl, plate
 Environment:1
 Instruction: Put the crackers, the pudding, the cupcake, and creamybuns on the kitchencounter.
 Goals: IsOn_crackers_kitchencounter & IsOn_pudding_kitchencounter & IsOn_cupcake_kitchencounter & IsOn_creamybuns_kitchencounter
-Actions: Walk_crackers, RightGrab_crackers, Walk_kitchencounter, RightPut_crackers_kitchencounter, Walk_pudding, RightGrab_pudding, Walk_kitchencounter, RightPut_pudding_kitchencounter, Walk_cupcake, RightGrab_cupcake, Walk_kitchencounter, RightPut_cupcake_kitchencounter, Walk_creamybuns, RightGrab_creamybuns, Walk_kitchencounter, RightPut_creamybuns_kitchencounter
-Key_Predicates: Walk, RightGrab, RightPut
-Key_Objects: crackers, kitchencounter, pudding, cupcake, creamybuns
+Actions: Walk_cupcake, RightGrab_cupcake, Walk_pudding, LeftGrab_pudding, Walk_kitchencounter, LeftPut_pudding_kitchencounter, RightPut_cupcake_kitchencounter, Walk_crackers, LeftGrab_crackers, Walk_creamybuns, RightGrab_creamybuns, RightPut_creamybuns_kitchencounter, RightGrab_crackers, RightPut_crackers_kitchencounter
+Key_Predicates: Walk, RightGrab, LeftGrab, LeftPut, RightPut
+Key_Objects: cupcake, pudding, kitchencounter, crackers, creamybuns
 
 22
 Environment:2
@@ -242,9 +242,9 @@ Key_Objects: toy, nightstand
 Environment:1
 Instruction: Put the pillow on the bed, the coffeepot on the coffeetable, and the towel on the towelrack.
 Goals: IsOn_pillow_bed & IsOn_coffeepot_coffeetable & IsOn_towel_towelrack
-Actions: Walk_coffeetable, RightGrab_coffeepot, Walk_bed, RightPut_pillow_bed, RightGrab_pillow, Walk_coffeepot, RightPut_towel_towelrack, Walk_towel, Walk_pillow, Walk_towelrack, RightPut_coffeepot_coffeetable, RightGrab_towel
+Actions: Walk_coffeepot, RightGrab_coffeepot, Walk_coffeetable, RightPut_coffeepot_coffeetable, Walk_pillow, RightGrab_pillow, Walk_bed, RightPut_pillow_bed, Walk_towel, RightGrab_towel, Walk_towelrack, RightPut_towel_towelrack
 Key_Predicates: Walk, RightGrab, RightPut
-Key_Objects: coffeepot, towel, pillow, coffeetable, bed, towelrack
+Key_Objects: coffeepot, coffeetable, pillow, bed, towel, towelrack
 
 32
 Environment:2
@@ -401,7 +401,7 @@ Key_Objects: creamybuns, plate, kitchentable, fridge, milk
 51
 Environment:1
 Instruction: Put the chicken and the peach in the fridge and make sure it's turned on.
-Goals: IsIn_chicken_fridge & IsIn_peach_fridge & Isplugged_fridge & IsSwitchedOn_fridge
+Goals: IsIn_chicken_fridge & IsIn_peach_fridge & IsPlugged_fridge & IsSwitchedOn_fridge & IsClose_fridge
 Actions: Walk_chicken, RightGrab_chicken, Walk_fridge, Open_fridge, RightPutIn_chicken_fridge, Close_fridge, Walk_peach, RightGrab_peach, Walk_fridge, Open_fridge, RightPutIn_peach_fridge, Close_fridge, PlugIn_fridge, SwitchOn_fridge
 Key_Predicates: Walk, RightGrab, Open, RightPutIn, Close, PlugIn, SwitchOn
 Key_Objects: chicken, fridge, peach
@@ -409,7 +409,7 @@ Key_Objects: chicken, fridge, peach
 52
 Environment:2
 Instruction: Put the chicken and the peach in the fridge and make sure it's turned on.
-Goals: IsIn_chicken_fridge & IsIn_peach_fridge & Isplugged_fridge & IsSwitchedOn_fridge
+Goals: IsIn_chicken_fridge & IsIn_peach_fridge & IsPlugged_fridge & IsSwitchedOn_fridge & IsClose_fridge
 Actions: Walk_chicken, RightGrab_chicken, Walk_peach, LeftGrab_peach, Walk_fridge, RightPutIn_chicken_fridge, LeftPutIn_peach_fridge, Close_fridge
 Key_Predicates: Walk, RightGrab, LeftGrab, RightPutIn, LeftPutIn, Close
 Key_Objects: chicken, peach, fridge
@@ -417,7 +417,7 @@ Key_Objects: chicken, peach, fridge
 53
 Environment:3
 Instruction: Put the chicken and the peach in the fridge and make sure it's turned on.
-Goals: IsIn_chicken_fridge & IsIn_peach_fridge & Isplugged_fridge & IsSwitchedOn_fridge
+Goals: IsIn_chicken_fridge & IsIn_peach_fridge & IsPlugged_fridge & IsSwitchedOn_fridge & IsClose_fridge
 Actions: Walk_chicken, RightGrab_chicken, Walk_fridge, Open_fridge, RightPutIn_chicken_fridge, Close_fridge, Walk_peach, RightGrab_peach, Walk_fridge, Open_fridge, RightPutIn_peach_fridge, Close_fridge
 Key_Predicates: Walk, RightGrab, Open, RightPutIn, Close
 Key_Objects: chicken, fridge, peach
@@ -425,7 +425,7 @@ Key_Objects: chicken, fridge, peach
 54
 Environment:4
 Instruction: Put the chicken and the peach in the fridge and make sure it's turned on.
-Goals: IsIn_chicken_fridge & IsIn_peach_fridge & Isplugged_fridge & IsSwitchedOn_fridge
+Goals: IsIn_chicken_fridge & IsIn_peach_fridge & IsPlugged_fridge & IsSwitchedOn_fridge & IsClose_fridge
 Actions: Walk_chicken, RightGrab_chicken, Walk_peach, LeftGrab_peach, Walk_fridge, RightPutIn_chicken_fridge, LeftPutIn_peach_fridge, Close_fridge, PlugIn_fridge, SwitchOn_fridge
 Key_Predicates: Walk, RightGrab, LeftGrab, RightPutIn, LeftPutIn, Close, PlugIn, SwitchOn
 Key_Objects: chicken, peach, fridge
@@ -433,7 +433,7 @@ Key_Objects: chicken, peach, fridge
 55
 Environment:5
 Instruction: Put the chicken and the peach in the fridge and make sure it's turned on.
-Goals: IsIn_chicken_fridge & IsIn_peach_fridge & Isplugged_fridge & IsSwitchedOn_fridge
+Goals: IsIn_chicken_fridge & IsIn_peach_fridge & Isplugged_fridge & IsSwitchedOn_fridge & IsClose_fridge
 Actions: Walk_peach, RightGrab_peach, Walk_fridge, Open_fridge, RightPutIn_peach_fridge, Close_fridge
 Key_Predicates: Walk, RightGrab, Open, RightPutIn, Close
 Key_Objects: peach, fridge
@@ -441,7 +441,7 @@ Key_Objects: peach, fridge
 56
 Environment:1
 Instruction: Put the remotecontrol on the sofa, turn on the TV, and put the clothespants in the closet.
-Goals: IsOn_remotecontrol_sofa & IsPlugged_tv & IsSwitchedOn_tv & IsIn_clothespants_closet
+Goals: IsOn_remotecontrol_sofa & IsPlugged_tv & IsSwitchedOn_tv & IsIn_clothespants_closet & IsClose_closet
 Actions: Walk_remotecontrol, RightGrab_remotecontrol, Walk_sofa, RightPut_remotecontrol_sofa, Walk_tv, PlugIn_tv, SwitchOn_tv, Walk_clothespants, RightGrab_clothespants, Walk_closet, Open_closet, RightPutIn_clothespants_closet, Close_closet
 Key_Predicates: Walk, RightGrab, RightPut, PlugIn, SwitchOn, Open, RightPutIn, Close
 Key_Objects: remotecontrol, sofa, tv, clothespants, closet
@@ -449,7 +449,7 @@ Key_Objects: remotecontrol, sofa, tv, clothespants, closet
 57
 Environment:2
 Instruction: Put the remotecontrol on the sofa, turn on the TV, and put the clothespants in the closet.
-Goals: IsOn_remotecontrol_sofa & IsPlugged_tv & IsSwitchedOn_tv & IsIn_clothespants_closet
+Goals: IsOn_remotecontrol_sofa & IsPlugged_tv & IsSwitchedOn_tv & IsIn_clothespants_closet & IsClose_closet
 Actions: Walk_remotecontrol, RightGrab_remotecontrol, Walk_sofa, RightPut_remotecontrol_sofa, Walk_clothespants, RightGrab_clothespants, Walk_closet, RightPutIn_clothespants_closet, Close_closet
 Key_Predicates: Walk, RightGrab, RightPut, RightPutIn, Close
 Key_Objects: remotecontrol, sofa, clothespants, closet
@@ -457,7 +457,7 @@ Key_Objects: remotecontrol, sofa, clothespants, closet
 58
 Environment:3
 Instruction: Put the remotecontrol on the sofa, turn on the TV, and put the clothespants in the closet.
-Goals: IsOn_remotecontrol_sofa & IsPlugged_tv & IsSwitchedOn_tv & IsIn_clothespants_closet
+Goals: IsOn_remotecontrol_sofa & IsPlugged_tv & IsSwitchedOn_tv & IsIn_clothespants_closet & IsClose_closet
 Actions: Walk_remotecontrol, RightGrab_remotecontrol, Walk_sofa, RightPut_remotecontrol_sofa, Walk_clothespants, RightGrab_clothespants, Walk_closet, Open_closet, RightPutIn_clothespants_closet, Close_closet
 Key_Predicates: Walk, RightGrab, RightPut, Open, RightPutIn, Close
 Key_Objects: remotecontrol, sofa, clothespants, closet
@@ -465,7 +465,7 @@ Key_Objects: remotecontrol, sofa, clothespants, closet
 59
 Environment:4
 Instruction: Put the remotecontrol on the sofa, turn on the TV, and put the clothespants in the closet.
-Goals: IsOn_remotecontrol_sofa & IsPlugged_tv & IsSwitchedOn_tv & IsIn_clothespants_closet
+Goals: IsOn_remotecontrol_sofa & IsPlugged_tv & IsSwitchedOn_tv & IsIn_clothespants_closet & IsClose_closet
 Actions: Walk_remotecontrol, RightGrab_remotecontrol, Walk_sofa, RightPut_remotecontrol_sofa, Walk_tv, PlugIn_tv, SwitchOn_tv, Walk_clothespants, RightGrab_clothespants, Walk_closet, RightPutIn_clothespants_closet, Close_closet
 Key_Predicates: Walk, RightGrab, RightPut, PlugIn, SwitchOn, RightPutIn, Close
 Key_Objects: remotecontrol, sofa, tv, clothespants, closet
@@ -473,7 +473,7 @@ Key_Objects: remotecontrol, sofa, tv, clothespants, closet
 60
 Environment:5
 Instruction: Put the remotecontrol on the sofa, turn on the TV, and put the clothespants in the closet.
-Goals: IsOn_remotecontrol_sofa & IsPlugged_tv & IsSwitchedOn_tv & IsIn_clothespants_closet
+Goals: IsOn_remotecontrol_sofa & IsPlugged_tv & IsSwitchedOn_tv & IsIn_clothespants_closet & IsClose_closet
 Actions: Walk_remotecontrol, RightGrab_remotecontrol, Walk_sofa, RightPut_remotecontrol_sofa, Walk_tv, SwitchOn_tv, Walk_clothespants, RightGrab_clothespants, Walk_closet, Open_closet, RightPutIn_clothespants_closet, Close_closet
 Key_Predicates: Walk, RightGrab, RightPut, SwitchOn, Open, RightPutIn, Close
 Key_Objects: remotecontrol, sofa, tv, clothespants, closet
@@ -561,7 +561,7 @@ Key_Objects: fridge, milk, microwave, breadslice, kitchentable
 71
 Environment:1
 Instruction: Organize the paper and put it in the folder, then put the book on the desk and open it.
-Goals: IsIn_paper_folder & IsOn_book_desk & IsOpen_book
+Goals: IsIn_paper_folder & IsOn_book_desk & IsOpen_book & IsClose_folder
 Actions: Walk_paper, RightGrab_paper, Walk_folder, Open_folder, RightPutIn_paper_folder, Close_folder, Walk_book, RightGrab_book, Walk_desk, RightPut_book_desk, Open_book
 Key_Predicates: Walk, RightGrab, Open, RightPutIn, Close, RightPut
 Key_Objects: paper, folder, book, desk
@@ -569,7 +569,7 @@ Key_Objects: paper, folder, book, desk
 72
 Environment:2
 Instruction: Organize the paper and put it in the folder, then put the book on the desk and open it.
-Goals: IsIn_paper_folder & IsOn_book_desk & IsOpen_book
+Goals: IsIn_paper_folder & IsOn_book_desk & IsOpen_book & IsClose_folder
 Actions: Walk_paper, RightGrab_paper, Walk_folder, RightPutIn_paper_folder, Close_folder, Walk_book, Close_book, RightGrab_book, Walk_desk, RightPut_book_desk, Open_book
 Key_Predicates: Walk, RightGrab, RightPutIn, Close, RightPut, Open
 Key_Objects: paper, folder, book, desk
@@ -577,7 +577,7 @@ Key_Objects: paper, folder, book, desk
 73
 Environment:3
 Instruction: Organize the paper and put it in the folder, then put the book on the desk and open it.
-Goals: IsIn_paper_folder & IsOn_book_desk & IsOpen_book
+Goals: IsIn_paper_folder & IsOn_book_desk & IsOpen_book & IsClose_folder
 Actions: Walk_paper, RightGrab_paper, Walk_folder, Open_folder, RightPutIn_paper_folder, Close_folder, Walk_book, RightGrab_book, Walk_desk, RightPut_book_desk, Open_book
 Key_Predicates: Walk, RightGrab, Open, RightPutIn, Close, RightPut
 Key_Objects: paper, folder, book, desk
@@ -585,7 +585,7 @@ Key_Objects: paper, folder, book, desk
 74
 Environment:4
 Instruction: Organize the paper and put it in the folder, then put the book on the desk and open it.
-Goals: IsIn_paper_folder & IsOn_book_desk & IsOpen_book
+Goals: IsIn_paper_folder & IsOn_book_desk & IsOpen_book & IsClose_folder
 Actions: Walk_paper, RightGrab_paper, Walk_folder, RightPutIn_paper_folder, Close_folder, Walk_book, Close_book, RightGrab_book, Walk_desk, RightPut_book_desk, Open_book
 Key_Predicates: Walk, RightGrab, RightPutIn, Close, RightPut, Open
 Key_Objects: paper, folder, book, desk
@@ -593,7 +593,7 @@ Key_Objects: paper, folder, book, desk
 75
 Environment:5
 Instruction: Organize the paper and put it in the folder, then put the book on the desk and open it.
-Goals: IsIn_paper_folder & IsOn_book_desk & IsOpen_book
+Goals: IsIn_paper_folder & IsOn_book_desk & IsOpen_book & IsClose_folder
 Actions: Walk_paper, RightGrab_paper, Walk_folder, Open_folder, RightPutIn_paper_folder, Close_folder, Walk_book, RightGrab_book, Walk_desk, RightPut_book_desk, Open_book
 Key_Predicates: Walk, RightGrab, Open, RightPutIn, Close, RightPut
 Key_Objects: paper, folder, book, desk
@@ -601,40 +601,40 @@ Key_Objects: paper, folder, book, desk
 76
 Environment:1
 Instruction: Put the pancake in the fryingpan and place the fryingpan on the stove to heat up.
-Goals: IsIn_pancake_fryingpan & IsOn_fryingpan_stove
-Actions: Walk_pancake, RightGrab_pancake, Walk_fryingpan, RightPut_pancake_fryingpan, RightGrab_fryingpan, Walk_stove, RightPut_fryingpan_stove, SwitchOn_stove
-Key_Predicates: Walk, RightGrab, RightPut, SwitchOn
+Goals: IsIn_pancake_fryingpan & IsOn_fryingpan_stove & IsSwitchedOn_stove
+Actions: Walk_pancake, RightGrab_pancake, Walk_fryingpan, RightPutIn_pancake_fryingpan, RightGrab_fryingpan, Walk_stove, RightPut_fryingpan_stove, SwitchOn_stove
+Key_Predicates: Walk, RightGrab, RightPutIn, RightPut, SwitchOn
 Key_Objects: pancake, fryingpan, stove
 
 77
 Environment:2
 Instruction: Put the pancake in the fryingpan and place the fryingpan on the stove to heat up.
-Goals: IsIn_pancake_fryingpan & IsOn_fryingpan_stove
-Actions: Walk_pancake, RightGrab_pancake, Walk_fryingpan, RightPut_pancake_fryingpan, RightGrab_fryingpan, Walk_stove, RightPut_fryingpan_stove
+Goals: IsIn_pancake_fryingpan & IsOn_fryingpan_stove & IsSwitchedOn_stove
+Actions: Walk_pancake, RightGrab_pancake, Walk_fryingpan, RightPutIn_pancake_fryingpan, RightGrab_fryingpan, Walk_stove, RightPut_fryingpan_stove
 Key_Predicates: Walk, RightGrab, RightPut
 Key_Objects: pancake, fryingpan, stove
 
 78
 Environment:3
 Instruction: Put the pancake in the fryingpan and place the fryingpan on the stove to heat up.
-Goals: IsIn_pancake_fryingpan & IsOn_fryingpan_stove
-Actions: Walk_pancake, RightGrab_pancake, Walk_fryingpan, RightPut_pancake_fryingpan, RightGrab_fryingpan, Walk_stove, RightPut_fryingpan_stove
+Goals: IsIn_pancake_fryingpan & IsOn_fryingpan_stove & IsSwitchedOn_stove
+Actions: Walk_pancake, RightGrab_pancake, Walk_fryingpan, RightPutIn_pancake_fryingpan, RightGrab_fryingpan, Walk_stove, RightPut_fryingpan_stove
 Key_Predicates: Walk, RightGrab, RightPut
 Key_Objects: pancake, fryingpan, stove
 
 79
 Environment:4
 Instruction: Put the pancake in the fryingpan and place the fryingpan on the stove to heat up.
-Goals: IsIn_pancake_fryingpan & IsOn_fryingpan_stove
-Actions: Walk_pancake, RightGrab_pancake, Walk_fryingpan, RightPut_pancake_fryingpan, RightGrab_fryingpan, Walk_stove, RightPut_fryingpan_stove, SwitchOn_stove
+Goals: IsIn_pancake_fryingpan & IsOn_fryingpan_stove & IsSwitchedOn_stove
+Actions: Walk_pancake, RightGrab_pancake, Walk_fryingpan, RightPutIn_pancake_fryingpan, RightGrab_fryingpan, Walk_stove, RightPut_fryingpan_stove, SwitchOn_stove
 Key_Predicates: Walk, RightGrab, RightPut, SwitchOn
 Key_Objects: pancake, fryingpan, stove
 
 80
 Environment:5
 Instruction: Put the pancake in the fryingpan and place the fryingpan on the stove to heat up.
-Goals: IsIn_pancake_fryingpan & IsOn_fryingpan_stove
-Actions: Walk_pancake, RightGrab_pancake, Walk_fryingpan, RightPut_pancake_fryingpan, RightGrab_fryingpan, Walk_stove, RightPut_fryingpan_stove, SwitchOn_stove
+Goals: IsIn_pancake_fryingpan & IsOn_fryingpan_stove & IsSwitchedOn_stove
+Actions: Walk_pancake, RightGrab_pancake, Walk_fryingpan, RightPutIn_pancake_fryingpan, RightGrab_fryingpan, Walk_stove, RightPut_fryingpan_stove, SwitchOn_stove
 Key_Predicates: Walk, RightGrab, RightPut, SwitchOn
 Key_Objects: pancake, fryingpan, stove
 
@@ -642,15 +642,15 @@ Key_Objects: pancake, fryingpan, stove
 Environment:1
 Instruction: Put the hairproduct, the facecream, and the barsoap in the bathroomcabinet and turn on the radio.
 Goals: IsIn_hairproduct_bathroomcabinet & IsIn_facecream_bathroomcabinet & IsIn_barsoap_bathroomcabinet & IsClose_bathroomcabinet & IsSwitchedOn_radio
-Actions: Walk_hairproduct, RightGrab_hairproduct, Walk_bathroomcabinet, Open_bathroomcabinet, RightPut_hairproduct_bathroomcabinet, Walk_facecream, RightGrab_facecream, Walk_bathroomcabinet, RightPut_facecream_bathroomcabinet, Walk_barsoap, RightGrab_barsoap, Walk_bathroomcabinet, RightPut_barsoap_bathroomcabinet, Close_bathroomcabinet, Walk_radio, PlugIn_radio, SwitchOn_radio
-Key_Predicates: Walk, RightGrab, Open, RightPut, Close, PlugIn, SwitchOn
-Key_Objects: hairproduct, bathroomcabinet, facecream, barsoap, radio
+Actions: Walk_hairproduct, RightGrab_hairproduct, Walk_radio, PlugIn_radio, SwitchOn_radio, Walk_bathroomcabinet, Open_bathroomcabinet, RightPutIn_hairproduct_bathroomcabinet, Walk_barsoap, LeftGrab_barsoap, Walk_facecream, RightGrab_facecream, LeftPut_barsoap_bathroomcabinet, RightPutIn_facecream_bathroomcabinet, RightGrab_barsoap, RightPutIn_barsoap_bathroomcabinet, Close_bathroomcabinet
+Key_Predicates: Walk, RightGrab, PlugIn, SwitchOn, Open, RightPutIn, LeftGrab, LeftPut, Close
+Key_Objects: hairproduct, radio, bathroomcabinet, barsoap, facecream
 
 82
 Environment:2
 Instruction: Put the hairproduct, the facecream, and the barsoap in the bathroomcabinet and turn on the radio.
 Goals: IsIn_hairproduct_bathroomcabinet & IsIn_facecream_bathroomcabinet & IsIn_barsoap_bathroomcabinet & IsClose_bathroomcabinet & IsSwitchedOn_radio
-Actions: Walk_hairproduct, RightGrab_hairproduct, Walk_bathroomcabinet, RightPut_hairproduct_bathroomcabinet, Walk_facecream, RightGrab_facecream, Walk_bathroomcabinet, RightPut_facecream_bathroomcabinet, Walk_barsoap, RightGrab_barsoap, Walk_bathroomcabinet, RightPut_barsoap_bathroomcabinet, Close_bathroomcabinet
+Actions: Walk_hairproduct, RightGrab_hairproduct, Walk_bathroomcabinet, RightPutIn_hairproduct_bathroomcabinet, Walk_facecream, RightGrab_facecream, Walk_bathroomcabinet, RightPutIn_facecream_bathroomcabinet, Walk_barsoap, RightGrab_barsoap, Walk_bathroomcabinet, RightPutIn_barsoap_bathroomcabinet, Close_bathroomcabinet
 Key_Predicates: Walk, RightGrab, RightPut, Close
 Key_Objects: hairproduct, bathroomcabinet, facecream, barsoap
 
@@ -658,7 +658,7 @@ Key_Objects: hairproduct, bathroomcabinet, facecream, barsoap
 Environment:3
 Instruction: Put the hairproduct, the facecream, and the barsoap in the bathroomcabinet and turn on the radio.
 Goals: IsIn_hairproduct_bathroomcabinet & IsIn_facecream_bathroomcabinet & IsIn_barsoap_bathroomcabinet & IsClose_bathroomcabinet & IsSwitchedOn_radio
-Actions: Walk_hairproduct, RightGrab_hairproduct, Walk_bathroomcabinet, Open_bathroomcabinet, RightPut_hairproduct_bathroomcabinet, Walk_facecream, RightGrab_facecream, Walk_bathroomcabinet, RightPut_facecream_bathroomcabinet, Walk_barsoap, RightGrab_barsoap, Walk_bathroomcabinet, RightPut_barsoap_bathroomcabinet, Close_bathroomcabinet
+Actions: Walk_hairproduct, RightGrab_hairproduct, Walk_bathroomcabinet, Open_bathroomcabinet, RightPutIn_hairproduct_bathroomcabinet, Walk_facecream, RightGrab_facecream, Walk_bathroomcabinet, RightPutIn_facecream_bathroomcabinet, Walk_barsoap, RightGrab_barsoap, Walk_bathroomcabinet, RightPutIn_barsoap_bathroomcabinet, Close_bathroomcabinet
 Key_Predicates: Walk, RightGrab, Open, RightPut, Close
 Key_Objects: hairproduct, bathroomcabinet, facecream, barsoap
 
@@ -666,7 +666,7 @@ Key_Objects: hairproduct, bathroomcabinet, facecream, barsoap
 Environment:4
 Instruction: Put the hairproduct, the facecream, and the barsoap in the bathroomcabinet and turn on the radio.
 Goals: IsIn_hairproduct_bathroomcabinet & IsIn_facecream_bathroomcabinet & IsIn_barsoap_bathroomcabinet & IsClose_bathroomcabinet & IsSwitchedOn_radio
-Actions: Walk_hairproduct, RightGrab_hairproduct, Walk_bathroomcabinet, RightPut_hairproduct_bathroomcabinet, Walk_facecream, RightGrab_facecream, Walk_bathroomcabinet, RightPut_facecream_bathroomcabinet, Walk_barsoap, RightGrab_barsoap, Walk_bathroomcabinet, RightPut_barsoap_bathroomcabinet, Close_bathroomcabinet, Walk_radio, PlugIn_radio, SwitchOn_radio
+Actions: Walk_hairproduct, RightGrab_hairproduct, Walk_bathroomcabinet, RightPutIn_hairproduct_bathroomcabinet, Walk_facecream, RightGrab_facecream, Walk_bathroomcabinet, RightPutIn_facecream_bathroomcabinet, Walk_barsoap, RightGrab_barsoap, Walk_bathroomcabinet, RightPutIn_barsoap_bathroomcabinet, Close_bathroomcabinet, Walk_radio, PlugIn_radio, SwitchOn_radio
 Key_Predicates: Walk, RightGrab, RightPut, Close, PlugIn, SwitchOn
 Key_Objects: hairproduct, bathroomcabinet, facecream, barsoap, radio
 
@@ -674,7 +674,7 @@ Key_Objects: hairproduct, bathroomcabinet, facecream, barsoap, radio
 Environment:5
 Instruction: Put the hairproduct, the facecream, and the barsoap in the bathroomcabinet and turn on the radio.
 Goals: IsIn_hairproduct_bathroomcabinet & IsIn_facecream_bathroomcabinet & IsIn_barsoap_bathroomcabinet & IsClose_bathroomcabinet & IsSwitchedOn_radio
-Actions: Walk_hairproduct, RightGrab_hairproduct, Walk_bathroomcabinet, Open_bathroomcabinet, RightPut_hairproduct_bathroomcabinet, Walk_facecream, RightGrab_facecream, Walk_bathroomcabinet, RightPut_facecream_bathroomcabinet, Walk_barsoap, RightGrab_barsoap, Walk_bathroomcabinet, RightPut_barsoap_bathroomcabinet, Close_bathroomcabinet, Walk_radio, PlugIn_radio, SwitchOn_radio
+Actions: Walk_hairproduct, RightGrab_hairproduct, Walk_bathroomcabinet, Open_bathroomcabinet, RightPutIn_hairproduct_bathroomcabinet, Walk_facecream, RightGrab_facecream, Walk_bathroomcabinet, RightPutIn_facecream_bathroomcabinet, Walk_barsoap, RightGrab_barsoap, Walk_bathroomcabinet, RightPutIn_barsoap_bathroomcabinet, Close_bathroomcabinet, Walk_radio, PlugIn_radio, SwitchOn_radio
 Key_Predicates: Walk, RightGrab, Open, RightPut, Close, PlugIn, SwitchOn
 Key_Objects: hairproduct, bathroomcabinet, facecream, barsoap, radio
 
@@ -722,9 +722,9 @@ Key_Objects: plate, dishwasher, dishbowl, lightswitch
 Environment:1
 Instruction: Turn off the tv, turn on the computer, open the curtains, and make sure the mouse and keyboard are plugged in.
 Goals: IsSwitchedOff_tv & IsSwitchedOn_computer & IsOpen_curtains & IsPlugged_mouse & IsPlugged_keyboard
-Actions: Walk_computer, SwitchOn_computer, Walk_curtains, Open_curtains, PlugIn_mouse, PlugIn_keyboard
-Key_Predicates: Walk, SwitchOn, Open, PlugIn
-Key_Objects: computer, curtains, mouse, keyboard
+Actions: Walk_curtains, Open_curtains, Walk_computer, SwitchOn_computer, Walk_keyboard, PlugIn_keyboard, Walk_mouse, PlugIn_mouse
+Key_Predicates: Walk, Open, SwitchOn, PlugIn
+Key_Objects: curtains, computer, keyboard, mouse
 
 92
 Environment:2
@@ -881,15 +881,15 @@ Key_Objects: lightswitch, rag, wallpictureframe, towelrack, bookshelf
 111
 Environment:1
 Instruction: Take the rag to the sink to clean it, and then use it to wipe the desk and the nightstand.
-Goals: IsClean_rag & IsHoldingCleaningTool_rag & IsClean_desk & IsClean_nightstand
-Actions: Walk_rag, RightGrab_rag, Walk_sink, Wash_rag, Walk_desk, Wipe_desk, Walk_nightstand, Wipe_nightstand
-Key_Predicates: Walk, RightGrab, Wash, Wipe
-Key_Objects: rag, sink, desk, nightstand
+Goals: IsClean_rag & IsClean_desk & IsClean_nightstand
+Actions: Walk_rag, RightGrab_rag, Wipe_rag, Walk_desk, Wipe_desk, Walk_nightstand, Wipe_nightstand
+Key_Predicates: Walk, RightGrab, Wipe
+Key_Objects: rag, desk, nightstand
 
 112
 Environment:2
 Instruction: Take the rag to the sink to clean it, and then use it to wipe the desk and the nightstand.
-Goals: IsClean_rag & IsHoldingCleaningTool_rag & IsClean_desk & IsClean_nightstand
+Goals: IsClean_rag  & IsClean_desk & IsClean_nightstand
 Actions: Walk_rag, RightGrab_rag, Walk_sink, Wash_rag, Walk_desk, Wipe_desk, Walk_nightstand, Wipe_nightstand
 Key_Predicates: Walk, RightGrab, Wash, Wipe
 Key_Objects: rag, sink, desk, nightstand
@@ -897,7 +897,7 @@ Key_Objects: rag, sink, desk, nightstand
 113
 Environment:3
 Instruction: Take the rag to the sink to clean it, and then use it to wipe the desk and the nightstand.
-Goals: IsClean_rag & IsHoldingCleaningTool_rag & IsClean_desk & IsClean_nightstand
+Goals: IsClean_rag & IsClean_desk & IsClean_nightstand
 Actions: Walk_rag, RightGrab_rag, Walk_sink, Wash_rag, Walk_desk, Wipe_desk, Walk_nightstand, Wipe_nightstand
 Key_Predicates: Walk, RightGrab, Wash, Wipe
 Key_Objects: rag, sink, desk, nightstand
@@ -905,7 +905,7 @@ Key_Objects: rag, sink, desk, nightstand
 114
 Environment:4
 Instruction: Take the rag to the sink to clean it, and then use it to wipe the desk and the nightstand.
-Goals: IsClean_rag & IsHoldingCleaningTool_rag & IsClean_desk & IsClean_nightstand
+Goals: IsClean_rag & IsClean_desk & IsClean_nightstand
 Actions: Walk_rag, RightGrab_rag, Walk_sink, Wash_rag, Walk_desk, Wipe_desk, Walk_nightstand, Wipe_nightstand
 Key_Predicates: Walk, RightGrab, Wash, Wipe
 Key_Objects: rag, sink, desk, nightstand
@@ -913,7 +913,7 @@ Key_Objects: rag, sink, desk, nightstand
 115
 Environment:5
 Instruction: Take the rag to the sink to clean it, and then use it to wipe the desk and the nightstand.
-Goals: IsClean_rag & IsHoldingCleaningTool_rag & IsClean_desk & IsClean_nightstand
+Goals: IsClean_rag & IsClean_desk & IsClean_nightstand
 Actions: Walk_rag, RightGrab_rag, Walk_sink, Wash_rag, Walk_desk, Wipe_desk, Walk_nightstand, Wipe_nightstand
 Key_Predicates: Walk, RightGrab, Wash, Wipe
 Key_Objects: rag, sink, desk, nightstand
@@ -922,9 +922,9 @@ Key_Objects: rag, sink, desk, nightstand
 Environment:1
 Instruction: Take the apple to the faucet, wash it clean, cut them into slices, put them on the plate, and place the plate on the coffeetable.
 Goals: IsClean_apple & IsCut_apple & IsOn_apple_plate & IsOn_plate_coffeetable
-Actions: Walk_apple, LeftGrab_apple, Walk_faucet, SwitchedOn_faucet, Wash_apple, SwitchedOff_faucet, Walk_kitchenknife, RightGrab_kitchenknife, Cut_apple, Walk_plate, LeftPut_apple_plate, RightGrab_plate, Walk_coffeetable, RightPut_plate_coffeetable
-Key_Predicates: Walk, LeftGrab, SwitchedOn, Wash, SwitchedOff, RightGrab, Cut, LeftPut, RightPut
-Key_Objects: apple, faucet, kitchenknife, plate, coffeetable
+Actions: Walk_faucet, SwitchOn_faucet, Walk_apple, RightGrab_apple, LeftGrab_apple, Wash_apple, Walk_plate, RightPut_apple_plate, RightGrab_plate, Walk_coffeetable, RightPut_plate_coffeetable, Walk_kitchenknife, RightGrab_kitchenknife, Cut_apple
+Key_Predicates: Walk, SwitchOn, RightGrab, LeftGrab, Wash, RightPut, Cut
+Key_Objects: faucet, apple, plate, coffeetable, kitchenknife
 
 117
 Environment:2
@@ -961,15 +961,15 @@ Key_Objects: fridge, apple, faucet, kitchenknife, plate, coffeetable
 121
 Environment:1
 Instruction: Use the duster to remove dust from the rug, unplug the toaster, and clean it with the rag.
-Goals: IsClean_rug & IsUnplugged_toaster & IsHoldingCleaningTool_rag
-Actions: Walk_duster, RightGrab_duster, Walk_rug, Wipe_rug, RightPut_duster_rug, Walk_rag, RightGrab_rag, Walk_toaster, Wipe_toaster
-Key_Predicates: Walk, RightGrab, Wipe, RightPut
-Key_Objects: duster, rug, rag, toaster
+Goals: IsClean_rug & IsUnplugged_toaster & IsClean_toaster
+Actions: Walk_rag, RightGrab_rag, Walk_rug, Wipe_rug, Walk_toaster, Wipe_toaster
+Key_Predicates: Walk, RightGrab, Wipe
+Key_Objects: rag, rug, toaster
 
 122
 Environment:2
 Instruction: Use the duster to remove dust from the rug, unplug the toaster, and clean it with the rag.
-Goals: IsClean_rug & IsUnplugged_toaster & IsHoldingCleaningTool_rag
+Goals: IsClean_rug & IsUnplugged_toaster
 Actions: Walk_duster, RightGrab_duster, Walk_rug, Wipe_rug, RightPut_duster_rug, Walk_rag, RightGrab_rag, Walk_toaster, SwitchedOff_faucet, PlugOut_toaster, Wipe_toaster
 Key_Predicates: Walk, RightGrab, Wipe, RightPut, SwitchedOff, PlugOut
 Key_Objects: duster, rug, rag, toaster, faucet
@@ -977,7 +977,7 @@ Key_Objects: duster, rug, rag, toaster, faucet
 123
 Environment:3
 Instruction: Use the duster to remove dust from the rug, unplug the toaster, and clean it with the rag.
-Goals: IsClean_rug & IsUnplugged_toaster & IsHoldingCleaningTool_rag
+Goals: IsClean_rug & IsUnplugged_toaster
 Actions: Walk_duster, RightGrab_duster, Walk_rug, Wipe_rug, RightPut_duster_rug, Walk_rag, RightGrab_rag, Walk_toaster, SwitchedOff_faucet, PlugOut_toaster, Wipe_toaster
 Key_Predicates: Walk, RightGrab, Wipe, RightPut, SwitchedOff, PlugOut
 Key_Objects: duster, rug, rag, toaster, faucet
@@ -985,7 +985,7 @@ Key_Objects: duster, rug, rag, toaster, faucet
 124
 Environment:4
 Instruction: Use the duster to remove dust from the rug, unplug the toaster, and clean it with the rag.
-Goals: IsClean_rug & IsUnplugged_toaster & IsHoldingCleaningTool_rag
+Goals: IsClean_rug & IsUnplugged_toaster
 Actions: Walk_duster, RightGrab_duster, Walk_rug, Wipe_rug, RightPut_duster_rug, Walk_rag, RightGrab_rag, Walk_toaster, Wipe_toaster
 Key_Predicates: Walk, RightGrab, Wipe, RightPut
 Key_Objects: duster, rug, rag, toaster
@@ -993,23 +993,23 @@ Key_Objects: duster, rug, rag, toaster
 125
 Environment:5
 Instruction: Use the duster to remove dust from the rug, unplug the toaster, and clean it with the rag.
-Goals: IsClean_rug & IsUnplugged_toaster & IsHoldingCleaningTool_rag
+Goals: IsClean_rug & IsUnplugged_toaster
 Actions: Walk_duster, RightGrab_duster, Walk_rug, Wipe_rug, RightPut_duster_rug, Walk_rag, RightGrab_rag, Walk_toaster, Wipe_toaster
 Key_Predicates: Walk, RightGrab, Wipe, RightPut
 Key_Objects: duster, rug, rag, toaster
 
 126
 Environment:1
-Instruction: Take the brush to the sink to clean it, and then use it to sweep the floor clean.
-Goals: IsClean_brush & IsHoldingCleaningTool_brush & IsClean_floor
-Actions: Walk_brush, RightGrab_brush, Walk_sink, Wash_brush, Walk_floor, Wipe_floor
-Key_Predicates: Walk, RightGrab, Wash, Wipe
-Key_Objects: brush, sink, floor
+Instruction: Use a brush to clean the remote control, picture frame, and clock, then wipe down the TV stand with a cloth
+Goals: IsClean_remotecontrol & IsClean_wallpictureframe & IsClean_clock & IsClean_tvstand
+Actions: Walk_rag, RightGrab_rag, Walk_remotecontrol, Wipe_remotecontrol, Walk_tvstand, Wipe_tvstand, RightPut_rag_tvstand, Walk_duster, RightGrab_duster, Walk_wallpictureframe, Wipe_wallpictureframe, Walk_clock, Wipe_clock
+Key_Predicates: Walk, RightGrab, Wipe, RightPut
+Key_Objects: rag, remotecontrol, tvstand, duster, wallpictureframe, clock
 
 127
 Environment:2
 Instruction: Take the brush to the sink to clean it, and then use it to sweep the floor clean.
-Goals: IsClean_brush & IsHoldingCleaningTool_brush & IsClean_floor
+Goals: IsClean_brush & IsClean_floor
 Actions: Walk_brush, RightGrab_brush, Walk_sink, Wash_brush, Walk_floor, Wipe_floor
 Key_Predicates: Walk, RightGrab, Wash, Wipe
 Key_Objects: brush, sink, floor
@@ -1017,7 +1017,7 @@ Key_Objects: brush, sink, floor
 128
 Environment:3
 Instruction: Take the brush to the sink to clean it, and then use it to sweep the floor clean.
-Goals: IsClean_brush & IsHoldingCleaningTool_brush & IsClean_floor
+Goals: IsClean_brush & IsClean_floor
 Actions: Walk_brush, RightGrab_brush, Walk_sink, Wash_brush, Walk_floor, Wipe_floor
 Key_Predicates: Walk, RightGrab, Wash, Wipe
 Key_Objects: brush, sink, floor
@@ -1025,7 +1025,7 @@ Key_Objects: brush, sink, floor
 129
 Environment:4
 Instruction: Take the brush to the sink to clean it, and then use it to sweep the floor clean.
-Goals: IsClean_brush & IsHoldingCleaningTool_brush & IsClean_floor
+Goals: IsClean_brush  & IsClean_floor
 Actions: Walk_brush, RightGrab_brush, Walk_sink, Wash_brush, Walk_floor, Wipe_floor
 Key_Predicates: Walk, RightGrab, Wash, Wipe
 Key_Objects: brush, sink, floor
@@ -1033,18 +1033,18 @@ Key_Objects: brush, sink, floor
 130
 Environment:5
 Instruction: Take the brush to the sink to clean it, and then use it to sweep the floor clean.
-Goals: IsClean_brush & IsHoldingCleaningTool_brush & IsClean_floor
+Goals: IsClean_brush & IsClean_floor
 Actions: Walk_brush, RightGrab_brush, Walk_sink, Wash_brush, Walk_floor, Wipe_floor
 Key_Predicates: Walk, RightGrab, Wash, Wipe
 Key_Objects: brush, sink, floor
 
 131
 Environment:1
-Instruction: Cut the chicken and the carrot into pieces, place them on the oventray, season with the condimentbottle, and heat them up in the microwave.
-Goals: IsCut_chicken & IsCut_carrot & IsOn_chicken_oventray & IsOn_carrot_oventray & IsClose_microwave & IsSwitchedOn_microwave
-Actions: Walk_chicken, RightGrab_chicken, Walk_cuttingboard, RightPut_chicken_cuttingboard, Walk_kitchenknife, RightGrab_kitchenknife, Cut_chicken, RightGrab_chicken, Walk_oventray, RightPut_chicken_oventray,Walk_carrot, RightGrab_carrot, Walk_cuttingboard, RightPut_carrot_cuttingboard, Cut_carrot, RightGrab_carrot, Walk_oventray, RightPut_carrot_oventray, Walk_condimentbottle, RightGrab_condimentbottle, Walk_oventray, RightPut_condimentbottle_oventray, RightGrab_oventray, Walk_microwave, Open_microwave, RightPutIn_oventray_microwave, Close_microwave, PlugIn_microwave, SwitchOn_microwave
-Key_Predicates: Walk, RightGrab, RightPut, Cut, Open, RightPutIn, Close, PlugIn, SwitchOn
-Key_Objects: chicken, cuttingboard, kitchenknife, oventray, carrot, condimentbottle, microwave
+Instruction: Cut the chicken and the carrot into pieces, place them on the oventray, season with the condimentbottle.
+Goals: IsCut_chicken & IsCut_carrot & IsOn_carrot_oventray & IsOn_chicken_oventray
+Actions: Walk_kitchenknife, RightGrab_kitchenknife, Walk_chicken, LeftGrab_chicken, Cut_chicken, Walk_oventray, LeftPut_chicken_oventray, Walk_carrot, LeftGrab_carrot, Cut_carrot, LeftPut_carrot_oventray
+Key_Predicates: Walk, RightGrab, LeftGrab, Cut, LeftPut
+Key_Objects: kitchenknife, chicken, oventray, carrot
 
 132
 Environment:2
@@ -1079,12 +1079,12 @@ Key_Predicates: Walk, RightGrab, RightPut, Cut, Open, RightPutIn, Close, PlugIn,
 Key_Objects: chicken, cuttingboard, kitchenknife, oventray, carrot, condimentbottle, microwave
 
 136
-Environment:1
-Instruction: Take the carrot and the bellpepper to the cuttingboard, cut them into pieces, put the cookingpot on the stove, and then add the cut carrot, bellpepper, and the mincedmeat to the pot.
-Goals: IsCut_carrot & IsCut_bellpepper & IsOn_cookingpot_stove & IsIn_carrot_cookingpot & IsIn_bellpepper_cookingpot & IsIn_mincedmeat_cookingpot
-Actions: Walk_carrot, RightGrab_carrot, Walk_cuttingboard, RightPut_carrot_cuttingboard, Walk_kitchenknife, RightGrab_kitchenknife, Walk_cuttingboard, Cut_carrot, RightPut_kitchenknife_cuttingboard, Walk_bellpepper, RightGrab_bellpepper, Walk_cuttingboard, RightPut_bellpepper_cuttingboard, RightGrab_kitchenknife, Cut_bellpepper, RightPut_kitchenknife_cuttingboard, Walk_cookingpot, RightGrab_cookingpot, Walk_stove, RightPut_cookingpot_stove, Walk_cuttingboard,RightGrab_carrot, LeftGrab_bellpepper, Walk_cookingpot, RightPutIn_carrot_cookingpot, LeftPutIn_bellpepper_cookingpot, Walk_mincedmeat, RightGrab_mincedmeat, Walk_cookingpot, RightPutIn_mincedmeat_cookingpot
-Key_Predicates: Walk, RightGrab, RightPut, Cut, LeftGrab, RightPutIn, LeftPutIn
-Key_Objects: carrot, cuttingboard, kitchenknife, bellpepper, cookingpot, stove, cuttingboard,RightGrab, mincedmeat
+Environment: 1
+Instruction: Wash the apples and plums, slice the apples with the kitchenknife, and place the apples neatly on the cutting board.
+Goals: IsClean_apple & IsClean_plum & IsClean_plum  & IsOn_apple_cuttingboard
+Actions: Walk_apple, RightGrab_apple, Walk_faucet, SwitchOn_faucet, Wash_apple, Walk_cuttingboard, RightPut_apple_cuttingboard, Walk_plum, RightGrab_plum, Wash_plum
+Key_Predicates: Walk, RightGrab, SwitchOn, Wash, RightPut
+Key_Objects: apple, faucet, cuttingboard, plum
 
 137
 Environment:2
@@ -1120,11 +1120,11 @@ Key_Objects: carrot, cuttingboard, kitchenknife, bellpepper, cookingpot, stove, 
 
 141
 Environment:1
-Instruction: Take the clothespile to the sink to wash, and then use the rag to clean the sink.
-Goals: IsOn_clothespile_sink & IsClean_clothespile & IsClean_sink & IsHoldingCleaningTool_rag
-Actions: Walk_clothespile, RightGrab_clothespile, Walk_sink, RightPut_clothespile_sink, Wash_clothespile, Walk_rag, RightGrab_rag, Walk_sink, Wipe_sink
-Key_Predicates: Walk, RightGrab, RightPut, Wash, Wipe
-Key_Objects: clothespile, sink, rag
+Instruction: Put the clothespile in the sink to wash it, and then use the rag to clean the sink.
+Goals: IsIn_clothespile_sink & IsClean_clothespile & IsClean_sink
+Actions: Walk_rag, RightGrab_rag, Walk_clothespile, LeftGrab_clothespile, Wipe_clothespile, Walk_sink, Wipe_sink, LeftPutIn_clothespile_sink
+Key_Predicates: Walk, RightGrab, LeftGrab, Wipe, LeftPutIn
+Key_Objects: rag, clothespile, sink
 
 142
 Environment:2
@@ -1162,9 +1162,9 @@ Key_Objects: clothespile, sink, rag
 Environment:1
 Instruction: Use the rag to clean the bookshelf, and then put the magazine and book on it.
 Goals: IsClean_bookshelf & IsOn_magazine_bookshelf & IsOn_book_bookshelf
-Actions: Walk_rag, RightGrab_rag, Walk_bookshelf, Wipe_bookshelf, RightPut_rag_bookshelf, Walk_magazine, RightGrab_rag, Walk_book, LeftGrab_book, Walk_bookshelf, RightPut_magazine_bookshelf, LeftPut_book_bookshelf
-Key_Predicates: Walk, RightGrab, Wipe, RightPut, LeftGrab, LeftPut
-Key_Objects: rag, bookshelf, magazine, book
+Actions: Walk_duster, RightGrab_duster, Walk_book, LeftGrab_book, Walk_bookshelf, LeftPut_book_bookshelf, Wipe_bookshelf, Walk_magazine, LeftGrab_magazine, LeftPut_magazine_bookshelf
+Key_Predicates: Walk, RightGrab, LeftGrab, LeftPut, Wipe
+Key_Objects: duster, book, bookshelf, magazine
 
 147
 Environment:2
@@ -1203,8 +1203,8 @@ Environment:1
 Instruction: Pull the curtains, turn on the lightswitch, use the rag to clean the surface of the desk, then put the book and the magazine on the desk and open them, bring the juice and crackers to the desk, and turn on the tablelamp.
 Goals: IsOpen_curtains & IsSwitchedOn_lightswitch & IsClean_desk & IsOn_book_desk & IsOpen_book & IsOn_magazine_desk & IsOpen_magazine & IsOn_juice_desk & IsOn_crackers_desk & IsSwitchedOn_tablelamp
 Actions: Walk_curtains, Open_curtains, Walk_lightswitch, PlugIn_lightswitch, SwitchOn_lightswitch, Walk_rag, RightGrab_rag, Walk_desk, Wipe_desk, Walk_book, RightGrab_book, Walk_desk, RightPut_book_desk, Open_book, Walk_magazine, RightGrab_magazine, Walk_desk, RightPut_magazine_desk, Open_magazine, Walk_juice, RightGrab_juice, Walk_desk, RightPut_juice_desk, Walk_crackers, RightGrab_crackers, Walk_desk, RightPut_crackers_desk, Walk_tablelamp, PlugIn_tablelamp, SwitchOn_tablelamp
-Key_Predicates: Walk, Open, PlugIn, SwitchOn, RightGrab, Wipe, RightPut
-Key_Objects: curtains, lightswitch, rag, desk, book, magazine, juice, crackers, tablelamp
+Key_Predicates: Walk, Open, RightGrab, RightPut, PlugIn, SwitchOn, Wipe
+Key_Objects: curtains, book, desk, crackers, juice, magazine, rag, lightswitch, tablelamp
 
 152
 Environment:2

@@ -14,6 +14,16 @@ class Wipe(VHTAction):
     def get_info(cls,*arg):
         info = {}
         info["pre"]={f"IsHoldingCleaningTool(self)",f"IsNear(self,{arg[0]})"} # IsLeftHandEmpty()至少有一只手是空闲的
+
+        if arg[0] in VHTAction.things_need_rag:
+            info["pre"] |= {f"IsRightHolding(self,rag)"}
+        elif arg[0] in VHTAction.things_need_duster:
+            info["pre"] |= {f"IsRightHolding(self,duster)"}
+        elif arg[0] in VHTAction.things_need_brush:
+            info["pre"] |= {f"IsRightHolding(self,brush)"}
+        elif arg[0] in VHTAction.things_need_papertowel:
+            info["pre"] |= {f"IsRightHolding(self,papertowel)"}
+
         info["add"]={f"IsClean({arg[0]})"}
         info["del_set"] = set()
         info["cost"] = 9

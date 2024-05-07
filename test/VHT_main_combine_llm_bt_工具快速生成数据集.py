@@ -30,8 +30,8 @@ cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
 cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
 
 
-goal_str = "IsOn_pillow_bed & IsOn_coffeepot_coffeetable & IsOn_towel_towelrack"
-act_str= "Walk_pillow, RightGrab_pillow, Walk_bed, RightPut_pillow_bed, Walk_coffeepot, RightGrab_coffeepot, Walk_coffeetable, RightPut_coffeepot_coffeetable, Walk_towel, RightGrab_towel, Walk_towelrack, RightPut_towel_towelrack"
+goal_str = "IsIn_washingsponge_sink & IsIn_dishbowl_sink & IsIn_plate_sink & IsIn_dishwashingliquid_sink"
+act_str=  "Walk_washingsponge, RightGrab_washingsponge, Walk_dishwashingliquid, LeftGrab_dishwashingliquid, Walk_sink, RightPutIn_washingsponge_sink, LeftPutIn_dishwashingliquid_sink, Walk_dishbowl, RightGrab_dishbowl, Walk_plate, LeftGrab_plate, Walk_sink, RightPutIn_dishbowl_sink, LeftPutIn_plate_sink"
 
 goal_set = goal_transfer_str(goal_str)
 print("goal_set:",goal_set)

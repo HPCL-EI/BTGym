@@ -59,7 +59,7 @@ for try_time in range(MAX_TIME):
     # 在小动作空间里搜索
     # 需要重新写一下，小动作空间是 key_predicate 和 key_objects 的组合
     # 这个函数提供四种模式： 大动作空间、指定的动作空间、由物体组成的小动作空间、key_predicate和key_objects的小动作空间、
-    algo = BTExpInterface(env.behavior_lib,cur_cond_set=cur_cond_set,\
+    algo = BTExpInterface(env.behavior_lib,cur_cond_set=cur_cond_set,priority_act_ls=priority_act_ls,\
                           key_predicates=key_predicates,key_objects=key_objects,\
                           selected_algorithm="opt", mode="small-predicate-objs", \
                           llm_reflect=False)

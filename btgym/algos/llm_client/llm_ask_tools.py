@@ -50,7 +50,9 @@ def extract_llm_from_instr_goal(llm,default_prompt_file,instruction,goals,cur_co
         prompt = f.read().strip()
 
     # 构建完整的 prompt，包括检索的 Examples 和当前的指令
-    question = f"{prompt}\nInstruction: {instruction}\nGoals: {goals}"
+    goals_str =' & '.join(goals)
+    # question = f"{prompt}\nInstruction: {instruction}\nGoals: {goals_str}"
+    question = f"{prompt}\nGoals: {goals_str}"
     if verbose:
         print("============ Question ================\n",question)
     messages = []

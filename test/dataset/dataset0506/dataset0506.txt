@@ -2,9 +2,9 @@
 Environment:1
 Instruction: Put the pear, bananas, and the apple on the kitchentable.
 Goals: IsOn_pear_kitchentable & IsOn_bananas_kitchentable & IsOn_apple_kitchentable
-Actions: Walk_pear, RightGrab_pear, Walk_kitchentable, RightPut_pear_kitchentable, Walk_bananas, RightGrab_bananas, Walk_apple, LeftGrab_apple, Walk_kitchentable, RightPut_bananas_kitchentable, LeftPut_apple_kitchentable
-Key_Predicates: Walk, RightGrab, RightPut, LeftGrab, LeftPut
-Key_Objects: pear, kitchentable, bananas, apple
+Actions: Walk_apple, LeftGrab_apple, Walk_bananas, RightGrab_bananas, Walk_kitchentable, LeftPut_apple_kitchentable, RightPut_bananas_kitchentable, Walk_pear, RightGrab_pear, RightPut_pear_kitchentable
+Key_Predicates: Walk, LeftGrab, RightGrab, LeftPut, RightPut
+Key_Objects: apple, bananas, kitchentable, pear
 
 2
 Environment:2
@@ -42,9 +42,9 @@ Key_Objects: bananas, apple, kitchentable
 Environment:1
 Instruction: Put the toothpaste, toothbrush, and towel on the bathroomcabinet.
 Goals: IsOn_toothpaste_bathroomcabinet & IsOn_toothbrush_bathroomcabinet & IsOn_towel_bathroomcabinet
-Actions: Walk_toothpaste, RightGrab_toothpaste, Walk_toothbrush, LeftGrab_toothbrush, Walk_bathroomcabinet, RightPut_toothpaste_bathroomcabinet, LeftPut_toothbrush_bathroomcabinet, Walk_towel, RightGrab_towel, Walk_bathroomcabinet, RightPut_towel_bathroomcabinet
-Key_Predicates: Walk, RightGrab, LeftGrab, RightPut, LeftPut
-Key_Objects: toothpaste, toothbrush, bathroomcabinet, towel
+Actions: Walk_toothbrush, LeftGrab_toothbrush, Walk_toothpaste, RightGrab_toothpaste, Walk_bathroomcabinet, LeftPut_toothbrush_bathroomcabinet, RightPut_toothpaste_bathroomcabinet, Walk_towel, RightGrab_towel, RightPut_towel_bathroomcabinet
+Key_Predicates: Walk, LeftGrab, RightGrab, LeftPut, RightPut
+Key_Objects: toothbrush, toothpaste, bathroomcabinet, towel
 
 7
 Environment:2
@@ -82,9 +82,9 @@ Key_Objects: toothpaste, towel, bathroomcabinet
 Environment:1
 Instruction: Put the notes, the magazine, and the book on the desk.
 Goals: IsOn_notes_desk & IsOn_magazine_desk & IsOn_book_desk
-Actions: Walk_notes, RightGrab_notes, Walk_desk, RightPut_notes_desk, Walk_magazine, RightGrab_magazine, Walk_desk, RightPut_magazine_desk, Walk_book, RightGrab_book, Walk_desk, RightPut_book_desk
+Actions: Walk_book, RightGrab_book, Walk_desk, RightPut_book_desk, Walk_magazine, RightGrab_magazine, RightPut_magazine_desk, Walk_notes, RightGrab_notes, RightPut_notes_desk
 Key_Predicates: Walk, RightGrab, RightPut
-Key_Objects: notes, desk, magazine, book
+Key_Objects: book, desk, magazine, notes
 
 12
 Environment:2
@@ -122,9 +122,9 @@ Key_Objects: notes, desk, magazine
 Environment:1
 Instruction: Put the washingsponge, dishbowl, the plate, and the dishwashingliquid in the sink.
 Goals: IsIn_washingsponge_sink & IsIn_dishbowl_sink & IsIn_plate_sink & IsIn_dishwashingliquid_sink
-Actions: Walk_washingsponge, RightGrab_washingsponge, Walk_dishwashingliquid, LeftGrab_dishwashingliquid, Walk_sink, RightPutIn_washingsponge_sink, LeftPutIn_dishwashingliquid_sink, Walk_dishbowl, RightGrab_dishbowl, Walk_plate, LeftGrab_plate, Walk_sink, RightPutIn_dishbowl_sink, LeftPutIn_plate_sink
-Key_Predicates: Walk, RightGrab, LeftGrab, RightPutIn, LeftPutIn
-Key_Objects: washingsponge, dishwashingliquid, sink, dishbowl, plate
+Actions: Walk_plate, LeftGrab_plate, Walk_dishbowl, RightGrab_dishbowl, Walk_sink, LeftPutIn_plate_sink, Walk_dishwashingliquid, LeftGrab_dishwashingliquid, LeftPutIn_dishwashingliquid_sink, RightPutIn_dishbowl_sink, Walk_washingsponge, RightGrab_washingsponge, RightPutIn_washingsponge_sink
+Key_Predicates: Walk, LeftGrab, RightGrab, LeftPutIn, RightPutIn
+Key_Objects: plate, dishbowl, sink, dishwashingliquid, washingsponge
 
 17
 Environment:2

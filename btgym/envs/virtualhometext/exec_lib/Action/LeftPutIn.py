@@ -19,11 +19,14 @@ class LeftPutIn(PutIn):
     def get_info(cls,*arg):
         info = {}
         if arg[0] != 'Anything':
-            info["pre"] = {f'IsLeftHolding(self,{arg[0]})',f"IsNear(self,{arg[1]})",f"IsOpen({arg[1]})"}
+            info["pre"] = {f'IsLeftHolding(self,{arg[0]})',f"IsNear(self,{arg[1]})"}
 
             # puin 之前要插上电？
             if arg[1] in VHTAction.HAS_PLUG:
                 info["pre"] |= {f"IsPlugged({arg[1]})"}
+            # 能打开就需要先打开
+            if arg[1] in VHTAction.CAN_OPEN:
+                info["pre"] |= {f"IsOpen({arg[1]})"}
 
             info["add"] = {f'IsLeftHandEmpty(self)',f'IsIn({arg[0]},{arg[1]})'}
             info["del_set"] = {f'IsLeftHolding(self,{arg[0]})'}

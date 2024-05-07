@@ -21,7 +21,12 @@ class RightGrabFrom(Grab):
     @classmethod
     def get_info(cls,*arg):
         info = {}
-        info["pre"]={"IsRightHandEmpty(self)",f"IsIn({arg[0]},{arg[1]})",f"IsNear(self,{arg[1]})",f"IsOpen({arg[1]})"} # 至少有一只手是空闲的
+        info["pre"]={"IsRightHandEmpty(self)",f"IsIn({arg[0]},{arg[1]})",f"IsNear(self,{arg[1]})"} # 至少有一只手是空闲的
+
+        # 能打开就需要先打开
+        if arg[1] in VHTAction.CAN_OPEN:
+            info["pre"] |= {f"IsOpen({arg[1]})"}
+
         info["add"]={f"IsRightHolding(self,{arg[0]})","IsRightHandFull(self)"}
         info["del_set"] = {f"IsRightHandEmpty(self)"}
         info["del_set"] |= {f'IsIn({arg[0]},{place})' for place in cls.CONTAINERS}

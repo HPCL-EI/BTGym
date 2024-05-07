@@ -179,6 +179,11 @@ class BTExpInterface:
         pattern = re.compile(r'\((.*?)\)')
         for act in self.big_actions:
             match = pattern.search(act.name)
+
+            # if "PutIn" in act.name and "apple" in act.name:
+            #     print(act.name)
+            #     pass
+
             if match:
                 # 将括号内的内容按逗号分割
                 action_objects = match.group(1).split(',')

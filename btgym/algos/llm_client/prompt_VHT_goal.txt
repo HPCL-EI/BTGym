@@ -84,7 +84,7 @@ Key Objects: faucet,  cutleryknife, apple
 [Example] Illustrates mappings from instructions and goals to actions, key predicates, and key objects, which are essential for completing the tasks outlined in the instructions.
 
 1. Analyze the given instruction and goals to determine the necessary actions.
-2. List all actions necessary to achieve these goals. Start with 'Actions:', and continue with a comma-separated list of the actions, simply as verbs followed by the objects.
+2. List all actions required to achieve these goals. Begin with 'Actions:' followed by a comma-separated list of actions, with an underscore between the verb and the object.
 3. Identify the key predicates involved in these actions. These should be only the action verbs. Begin with 'Key_Predicate:', followed by a comma-separated list of these verbs.
 4. List all key objects involved in these actions. These should be only the nouns representing items interacted with during the actions. Begin with 'Key_Objects:', followed by a comma-separated list of these nouns.
 5. The actions, predicates and objects can only come from those listed above; if it does not exist, please replace it with the closest one listed above.

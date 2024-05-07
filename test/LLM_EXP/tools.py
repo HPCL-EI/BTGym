@@ -12,7 +12,7 @@ def count_accuracy(expected, actual):
 
     # 计算正确率和错误率
     total = correct + incorrect
-    accuracy = (correct / total) * 100
-    error_rate = (incorrect / total) * 100
+    accuracy = (correct / len(expected)) * 100
+    error_rate = (incorrect / len(expected)) * 100
 
     return correct, incorrect, accuracy, error_rate

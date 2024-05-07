@@ -30,9 +30,8 @@ cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
 cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
 
 
-goal_str = "IsOn_wine_kitchentable & IsOn_plate_kitchencounter & IsSwitchedOn_lightswitch & IsOn_towel_towelrack & IsIn_chicken_oven"
-act_str= "Walk_wine, RightGrab_wine, Walk_kitchentable, RightPut_wine_kitchentable, Walk_plate, LeftGrab_plate, Walk_kitchencounter, LeftPut_plate_kitchencounter, Walk_lightswitch, SwitchOn_lightswitch, Walk_towel, RightGrab_towel, Walk_towelrack, RightPut_towel_towelrack, Walk_chicken, LeftGrab_chicken, Walk_oven, Open_oven, PlugIn_oven, LeftPutIn_chicken_oven"
-
+goal_str = "IsOn_pillow_bed & IsOn_coffeepot_coffeetable & IsOn_towel_towelrack"
+act_str= "Walk_pillow, RightGrab_pillow, Walk_bed, RightPut_pillow_bed, Walk_coffeepot, RightGrab_coffeepot, Walk_coffeetable, RightPut_coffeepot_coffeetable, Walk_towel, RightGrab_towel, Walk_towelrack, RightPut_towel_towelrack"
 
 goal_set = goal_transfer_str(goal_str)
 print("goal_set:",goal_set)
@@ -134,8 +133,8 @@ formatted_objects = extract_and_format(objects)
 
 print("Goals:",goal_str)
 print("Actions:",formatted_act)
-print("Key_Predicate:",formatted_predicates)
-print("Key_Object:",formatted_objects)
+print("Key_Predicates:",formatted_predicates)
+print("Key_Objects:",formatted_objects)
 
 priority_act = set(act_str.replace(" ", "").split(","))
 print("增加了：",set(correct_act)-priority_act)

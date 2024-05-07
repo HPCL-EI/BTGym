@@ -7,8 +7,8 @@ example =
         'Instruction': 'Place the apple on the kitchen counter and make sure the kitchen cabinet is open.',
         'Goals': ['IsOn_apple_kitchencounter', 'IsOpen_kitchencabinet'],
         'Actions': ['Walk_apple', 'RightGrab_apple', 'Walk_kitchencounter', 'RightPut_apple_kitchencounter'],
-        'Key_Predicate': ['Walk', 'RightGrab', 'RightPut'],
-        'Key_Object': ['apple', 'kitchencounter']
+        'Key_Predicates': ['Walk', 'RightGrab', 'RightPut'],
+        'Key_Objects': ['apple', 'kitchencounter']
     }
     ......
 ]
@@ -41,7 +41,7 @@ def read_dataset(filename='./dataset_old_0410.txt'):
             if key == 'Environment':
                 v = int(value)
                 dict[key] = v
-            if key in ('Key_Predicate', 'Key_Objects', 'Actions'):
+            if key in ('Key_Predicates', 'Key_Objects', 'Actions'):
                 parts = [v.strip() for v in value.split(",")]
                 dict[key] = parts
             if key == 'Goals':

@@ -6,74 +6,57 @@ import re
 
 
 
+import re
 
-def act_str_process(act_str,already_split=False):
+def act_str_process(act_str, already_split=False):
+    """
+    Processes action strings in both underscore-separated and parentheses formats.
 
+    Parameters:
+    - act_str (str or list): The string or list of strings to be processed.
+    - already_split (bool): Whether the input is already a list of action strings.
+
+    Returns:
+    - priority_act_ls (list): A list of formatted action strings in "Verb(Object)" format.
+    """
+    # Determine if the input is already a list or needs to be split
     if already_split:
         act_str_ls = act_str
     else:
         act_str_ls = act_str.replace(" ", "").split(",")
 
     priority_act_ls = []
-    # rl_dic = {}
-    # rightHandFull = False
-    # leftHandFull = False
-    #
-    # need_to_again_ls=[]
 
+    # Process each action string
     for literal in act_str_ls:
-        literal = re.sub(r"[ ,()\[\] ]\n\\n", "", literal)
+        # Remove only unwanted characters while keeping parentheses intact
+        literal = re.sub(r"[\[\]\n]", "", literal)
 
-        if '_' in literal:
+        # Check for underscore-separated format (e.g., "Walk_pear")
+        if '_' in literal and '(' not in literal:
             first_part, rest = literal.split('_', 1)
-            literal = first_part + '(' + rest
-            # 添加 ')' 到末尾
-            literal += ')'
-            # 替换剩余的 '_' 为 ','
+            literal = f"{first_part}({rest})"
             literal = literal.replace('_', ',')
+
+        # Add parentheses if not already in that format
+        elif '(' not in literal:
+            literal = literal.replace('_', ',')
+            literal = f"{literal}()"
+
+        # Append processed literal to the list
         priority_act_ls.append(literal)
+
     return priority_act_ls
 
-        # if 'Grab' in literal:
-        #     # 使用正则表达式匹配并提取括号内的内容 "Grab(milk)"
-        #     matched = re.search(r"\((.*?)\)", literal)
-        #     obj = matched.group(1) if matched else None
-        #     if rightHandFull == False:
-        #         rl_dic[obj] = "right"
-        #         rightHandFull=True
-        #         literal = "Right"+literal
-        #     else:
-        #         rl_dic[obj] = "left"
-        #         leftHandFull=True
-        #         literal = "Left" + literal
+# Example usage:
+# action_str = 'Walk_pear, RightGrab_pear, Walk_kitchentable'
+# processed = act_str_process(action_str)
+# print(processed)
+#
+# action_str_parentheses = 'Walk(pear), RightGrab(pear), Walk(kitchentable)'
+# processed_parentheses = act_str_process(action_str_parentheses)
+# print(processed_parentheses)
 
-    #     need_to_again = False
-    #     if "Put" in literal or "PutIn" in literal:
-    #         matched = re.search(r"\((.*?)\)", literal)
-    #         obj = matched.group(1) if matched else None
-    #         if obj not in rl_dic.keys():
-    #             need_to_again=True
-    #             need_to_again_ls.append(literal)
-    #         else:
-    #             if rl_dic[obj]=="right":
-    #                 rightHandFull = False
-    #                 literal = "Right" + literal
-    #             else:
-    #                 leftHandFull = False
-    #                 literal = "Left" + literal
-    #     priority_act_ls.append(literal)
-    #
-    #
-    # for literal in need_to_again_ls:
-    #     matched = re.search(r"\((.*?)\)", literal)
-    #     obj = matched.group(1) if matched else None
-    #     if rl_dic[obj]=="right":
-    #         rightHandFull = False
-    #         literal = "Right" + literal
-    #     else:
-    #         leftHandFull = False
-    #         literal = "Left" + literal
-    #     priority_act_ls.append(literal)
 
 
 

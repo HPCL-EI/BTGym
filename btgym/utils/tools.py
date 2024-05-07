@@ -56,3 +56,27 @@ def refresh_VHT_samll_data():
     with open(ctg_objs_path, 'wb') as file:
         # 使用pickle.dump()函数将数据写入文件
         pickle.dump(categories_objs_dic, file)
+
+
+def save_data_txt(output_path,data1):
+    # Open the file for writing
+    with open(output_path, "w", encoding="utf-8") as f:
+        # Loop through each entry in data1 and write the required information
+        for idx, entry in enumerate(data1, start=1):
+            f.write(f"{idx}\n")
+            f.write(f"Environment:{entry['Environment']}\n")
+            f.write(f"Instruction: {entry['Instruction']}\n")
+            # Use ' & ' to join goals, assuming this is the correct separator
+            f.write(f"Goals: {' & '.join(entry['Goals'])}\n")
+            # Join actions with a comma
+            f.write(f"Actions: {', '.join(entry['Actions'])}\n")
+            # Join key predicates with a comma
+            f.write(f"Key_Predicates: {', '.join(entry['Key_Predicates'])}\n")
+            # Ensure Key_Object is a list and join it with commas
+            key_objects = entry['Key_Objects']
+            if isinstance(key_objects, list):
+                f.write(f"Key_Objects: {', '.join(key_objects)}\n\n")
+            else:
+                f.write(f"Key_Objects: {key_objects}\n\n")
+
+    print(f"Data saved to {output_path}")

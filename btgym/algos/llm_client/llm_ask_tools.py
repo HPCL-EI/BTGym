@@ -23,6 +23,10 @@ def parse_llm_output(answer,goals=True):
     key_predicate = predicate_str.replace(" ", "").split(",")
     key_objects = objects_str.replace(" ", "").split(",")
 
+    priority_act_ls = list(set(priority_act_ls))
+    key_predicate = list(set(key_predicate))
+    key_objects = list(set(key_objects))
+
     if goals:
         return goal_set,priority_act_ls,key_predicate,key_objects
     else:

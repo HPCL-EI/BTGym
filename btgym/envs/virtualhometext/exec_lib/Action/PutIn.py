@@ -22,8 +22,9 @@ class PutIn(VHTAction):
                  + list(itertools.product(VHTAction.GRABBABLE-set_1_food-set_2_cloth,\
                     VHTAction.CONTAINERS-{"fridge","microwave","stove","fryingpan","closet","clothespile","washingmachine","dishwasher","printer","folder"})) \
                 + list(itertools.product(set_2_cloth,VHTAction.CONTAINERS-{"fridge","microwave","stove","fryingpan","dishwasher","printer","folder"})) \
-            + list(itertools.product(VHTAction.GRABBABLE & {"dishbowl"}, {"dishwasher"})) \
-            + list(itertools.product(VHTAction.GRABBABLE & {"paper"}, {"printer","folder"}))
+            + list(itertools.product(VHTAction.GRABBABLE & {"dishbowl","plate"}, {"dishwasher"})) \
+            + list(itertools.product(VHTAction.GRABBABLE & {"paper"}, {"printer","folder"})) \
+            + list(itertools.product(VHTAction.GRABBABLE & {"papertowel"}, {"garbagecan"}))
 
 
     set_1_food_small = VHTAction_small.GRABBABLE & (VHTAction_small.EATABLE|VHTAction_small.DRINKABLE|{"bananas",'chicken','cutlets','breadslice','chips','chocolatesyrup',

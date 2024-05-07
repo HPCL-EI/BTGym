@@ -3,7 +3,7 @@
 import pandas as pd
 
 # Load the results from the previously saved CSV file
-file_name = "gpt4_40_time=20240507 165325.csv"
+file_name = "gpt4_40_time=20240508 003422.csv"
 # file_name = "history/llm_40_just_goal_gpt4.csv"
 results_df = pd.read_csv(file_name)
 results = results_df.to_dict(orient='records')  # Convert DataFrame back to list of dictionaries

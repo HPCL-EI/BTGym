@@ -29,9 +29,9 @@ cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction.CAN_OPEN}
 cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
 cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
 
-
-goal_str = "IsIn_paper_folder & IsOn_folder_bookshelf & IsOn_book_bookshelf & IsOn_magazine_bookshelf & IsSwitchedOn_lightswitch & IsHoldingCleaningTool_rag & IsClean_bookshelf & IsClean_desk"
-act_str= "Walk_paper, RightGrab_paper, Walk_folder, Open_folder, RightPutIn_paper_folder, Close_folder, RightGrab_folder, Walk_bookshelf, RightPut_folder_bookshelf, Walk_book, RightGrab_book, Walk_bookshelf, RightPut_book_bookshelf, Walk_magazine, RightGrab_magazine, Walk_bookshelf, RightPut_magazine_bookshelf, Walk_lightswitch, PlugIn_lightswitch, SwitchOn_lightswitch, Walk_rag, RightGrab_rag, Walk_bookshelf, Wipe_bookshelf, Walk_desk, Wipe_desk"
+# IsClean_rug & IsOn_cellphone_nightstand & IsPlugged_cellphone & IsIn_towel_sink & IsIn_toothbrush_sink
+goal_str = "IsOn_sundae_plate & IsOn_pudding_plate & IsOn_plate_kitchencounter & IsIn_chocolatesyrup_fridge"
+act_str= "Walk_fridge, Open_fridge, Walk_sundae, LeftGrab_sundae, Walk_plate, RightGrab_plate, Walk_kitchencounter, RightPut_plate_kitchencounter, Walk_pudding, RightGrab_pudding, RightPut_pudding_plate, RightGrab_sundae, RightPut_sundae_plate, LeftPut_sundae_kitchencounter, Walk_chocolatesyrup, RightGrab_chocolatesyrup, PlugIn_fridge, RightPutIn_chocolatesyrup_fridge, Walk_creamybuns, RightGrab_creamybuns, RightPutIn_creamybuns_fridge"
 
 goal_set = goal_transfer_str(goal_str)
 print("goal_set:",goal_set)

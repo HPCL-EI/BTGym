@@ -105,8 +105,8 @@ class VHTAction(Action):
 
 
     things_need_duster={
-    "wallpictureframe", "clock", "towelrack", "toy", "cellphone",
-    "notes", "crayons", "magazine", "boardgame", "bookshelf",
+    "wallpictureframe", "clock", "towelrack", "toy", "cellphone","rug",
+    "notes", "crayons", "magazine", "boardgame", "bookshelf","desk",
     "cabinet", "closet", "bench", "bed", "sofa", "bathroomcounter"}
     things_need_brush={
     "hairproduct", "facecream", "dishbowl", "oventray", "barsoap",
@@ -119,7 +119,8 @@ class VHTAction(Action):
     "candle", "pie", "papertowel", "condimentshaker", "lime",
     "apple", "bananas", "waterglass", "condimentbottle",
     "alcohol", "wine", "juice", "sundae", "poundcake", "pudding"}
-    things_need_rag = AllObject-things_need_duster-things_need_brush-things_need_papertowel-WASHABLE
+    # things_need_rag = AllObject-things_need_duster-things_need_brush-things_need_papertowel-WASHABLE | {"desk"}
+    things_need_rag = AllObject
 
 
     @property

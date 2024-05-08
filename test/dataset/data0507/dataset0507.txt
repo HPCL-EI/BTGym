@@ -89,10 +89,10 @@ Key_Object: sundae, kitchentable, candybar, bellpepper
 1-12
 Environment:1
 Instruction: Please put the clothesshirt and the clothespants into the clothespile.
-Goals: IsIn_clothesshirt_clothespile & IsIn_clothespants_clothespile
-Actions: Walk_clothesshirt, RightGrab_clothesshirt, Walk_clothespile, Open_clothespile, RightPut_clothesshirt_clothespile, Walk_clothespants, RightGrab_clothespants, Walk_clothespile, RightPut_clothespants_clothespile, Close_clothespile
-Key_Predicate: Walk, RightGrab, Open, RightPut, Close
-Key_Object: clothesshirt, clothespile, clothespants
+Goals: IsIn_clothesshirt_clothespile & IsIn_clothespants_clothespile & IsClose_clothespile
+Actions: Walk_clothespile, Open_clothespile, Walk_clothespants, LeftGrab_clothespants, Walk_clothesshirt, RightGrab_clothesshirt, LeftPutIn_clothespants_clothespile, RightPutIn_clothesshirt_clothespile, Close_clothespile
+Key_Predicates: Walk, Open, LeftGrab, RightGrab, LeftPutIn, RightPutIn, Close
+Key_Objects: clothespile, clothespants, clothesshirt
 
 1-13
 Environment:1
@@ -249,7 +249,7 @@ Key_Object: papertowel, tvstand, coffeepot, nightstand
 2-1
 Environment:1
 Instruction: Place the chicken and the peach in the fridge, making sure the fridge is turned on.
-Goals: IsIn_chicken_fridge & IsIn_peach_fridge & Isplugged_fridge & IsSwitchedOn_fridge
+Goals: IsIn_chicken_fridge & IsIn_peach_fridge & IsPlugged_fridge & IsSwitchedOn_fridge
 Actions: Walk_chicken, RightGrab_chicken, Walk_fridge, Open_fridge, RightPutIn_chicken_fridge, Close_fridge, Walk_peach, RightGrab_peach, Walk_fridge, Open_fridge, RightPutIn_peach_fridge, Close_fridge, PlugIn_fridge, SwitchOn_fridge
 Key_Predicate: Walk, RightGrab, Open, RightPutIn, Close, PlugIn, SwitchOn
 Key_Object: chicken, fridge, peach
@@ -257,7 +257,7 @@ Key_Object: chicken, fridge, peach
 2-2
 Environment:1
 Instruction: Please place the remotecontrol on the sofa, turn on the TV, and neatly put away the clothespants into the closet.
-Goals: IsOn_remotecontrol_sofa & IsPlugged_tv & IsSwitchedOn_tv & IsIn_clothespants_closet
+Goals: IsOn_remotecontrol_sofa & IsPlugged_tv & IsSwitchedOn_tv & IsIn_clothespants_closet & IsClose_closet
 Actions: Walk_remotecontrol, RightGrab_remotecontrol, Walk_sofa, RightPut_remotecontrol_sofa, Walk_tv, PlugIn_tv, SwitchOn_tv, Walk_clothespants, RightGrab_clothespants, Walk_closet, Open_closet, RightPutIn_clothespants_closet, Close_closet
 Key_Predicate: Walk, RightGrab, RightPut, PlugIn, SwitchOn, Open, RightPutIn, Close
 Key_Object: remotecontrol, sofa, tv, clothespants, closet
@@ -281,7 +281,7 @@ Key_Object: milk, microwave, breadslice, kitchentable
 2-5
 Environment:1
 Instruction: Please organize the paper and put it in the folder. Meanwhile, place the book on the desk and open it.
-Goals: IsIn_paper_folder & IsOn_book_desk & IsOpen_book
+Goals: IsIn_paper_folder & IsOn_book_desk & IsOpen_book & IsClose_folder
 Actions: Walk_paper, RightGrab_paper, Walk_folder, Open_folder, RightPutIn_paper_folder, Close_folder, Walk_book, RightGrab_book, Walk_desk, RightPut_book_desk, Open_book
 Key_Predicate: Walk, RightGrab, Open, RightPutIn, Close, RightPut
 Key_Object: paper, folder, book, desk
@@ -290,16 +290,16 @@ Key_Object: paper, folder, book, desk
 Environment:1
 Instruction: Please place the pancake in the fryingpan and take the fryingpan to the stove to start heating.
 Goals: IsIn_pancake_fryingpan & IsOn_fryingpan_stove & IsSwitchedOn_stove
-Actions: Walk_pancake, RightGrab_pancake, Walk_fryingpan, RightPut_pancake_fryingpan, RightGrab_fryingpan, Walk_stove, RightPut_fryingpan_stove, SwitchOn_stove
-Key_Predicate: Walk, RightGrab, RightPut, SwitchOn
-Key_Object: pancake, fryingpan, stove
+Actions: Walk_pancake, RightGrab_pancake, Walk_fryingpan, RightPutIn_pancake_fryingpan, RightGrab_fryingpan, Walk_stove, RightPut_fryingpan_stove, SwitchOn_stove
+Key_Predicates: Walk, RightGrab, RightPutIn, RightPut, SwitchOn
+Key_Objects: pancake, fryingpan, stove
 
 2-7
 Environment:1
 Instruction: Please organize the hairproduct, the facecream, and the barsoap, and put them in the bathroomcabinet. Then, turn on the radio.
 Goals: IsIn_hairproduct_bathroomcabinet & IsIn_facecream_bathroomcabinet & IsIn_barsoap_bathroomcabinet & IsClose_bathroomcabinet & IsPlugged_radio & IsSwitchedOn_radio
-Actions: Walk_hairproduct, RightGrab_hairproduct, Walk_bathroomcabinet, Open_bathroomcabinet, RightPut_hairproduct_bathroomcabinet, Walk_facecream, RightGrab_facecream, Walk_barsoap, LeftGrab_barsoap, Walk_bathroomcabinet, RightPut_facecream_bathroomcabinet, LeftPut_barsoap_bathroomcabinet, Close_bathroomcabinet, Walk_radio, PlugIn_radio, SwitchOn_radio
-Key_Predicate: Walk, RightGrab, Open, RightPut, LeftGrab, LeftPut, Close, PlugIn, SwitchOn
+Actions: Walk_hairproduct, RightGrab_hairproduct, Walk_bathroomcabinet, Open_bathroomcabinet, RightPutIn_hairproduct_bathroomcabinet, Walk_facecream, RightGrab_facecream, Walk_barsoap, LeftGrab_barsoap, Walk_bathroomcabinet, RightPutIn_facecream_bathroomcabinet, LeftPutIn_barsoap_bathroomcabinet, Close_bathroomcabinet, Walk_radio, PlugIn_radio, SwitchOn_radio
+Key_Predicate: Walk, RightGrab, Open, RightPutIn, LeftGrab, LeftPutIn, Close, PlugIn, SwitchOn
 Key_Object: hairproduct, bathroomcabinet, facecream, barsoap, radio
 
 2-8
@@ -338,9 +338,9 @@ Key_Object: clothesshirt, washingmachine, clothespants
 Environment:1
 Instruction: Please bring the pillow on the sofa first, then turn on the tv, and use the remotecontrol to operate it.
 Goals: IsOn_pillow_sofa & IsPlugged_tv & IsSwitchedOn_tv & IsSwitchedOn_remotecontrol
-Actions: Walk_pillow, RightGrab_pillow, Walk_sofa, RightPut_pillow_sofa, Walk_tv, PlugIn_tv, SwitchOn_tv, Walk_remotecontrol, RightGrab_remotecontrol, SwitchOn_remotecontrol
-Key_Predicate: Walk, RightGrab, RightPut, PlugIn, SwitchOn
-Key_Object: pillow, sofa, tv, remotecontrol
+Actions: Walk_pillow, RightGrab_pillow, Walk_sofa, RightPut_pillow_sofa, Walk_remotecontrol, SwitchOn_remotecontrol, Walk_tv, PlugIn_tv, SwitchOn_tv
+Key_Predicates: Walk, RightGrab, RightPut, SwitchOn, PlugIn
+Key_Objects: pillow, sofa, remotecontrol, tv
 
 2-13
 Environment:1

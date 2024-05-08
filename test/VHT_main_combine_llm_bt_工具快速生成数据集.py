@@ -29,9 +29,9 @@ cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction.CAN_OPEN}
 cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
 cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
 
-# IsClean_rug & IsOn_cellphone_nightstand & IsPlugged_cellphone & IsIn_towel_sink & IsIn_toothbrush_sink
-goal_str = "IsOn_sundae_plate & IsOn_pudding_plate & IsOn_plate_kitchencounter & IsIn_chocolatesyrup_fridge"
-act_str= "Walk_fridge, Open_fridge, Walk_sundae, LeftGrab_sundae, Walk_plate, RightGrab_plate, Walk_kitchencounter, RightPut_plate_kitchencounter, Walk_pudding, RightGrab_pudding, RightPut_pudding_plate, RightGrab_sundae, RightPut_sundae_plate, LeftPut_sundae_kitchencounter, Walk_chocolatesyrup, RightGrab_chocolatesyrup, PlugIn_fridge, RightPutIn_chocolatesyrup_fridge, Walk_creamybuns, RightGrab_creamybuns, RightPutIn_creamybuns_fridge"
+
+goal_str = "IsIn_plate_dishwasher & IsIn_dishbowl_dishwasher & IsPlugged_dishwasher & IsSwitchedOn_dishwasher & IsPlugged_lightswitch & IsSwitchedOn_lightswitch"
+act_str= "Walk_plate, RightGrab_plate, Walk_dishwasher, Open_dishwasher, RightPutIn_plate_dishwasher, Walk_dishbowl, RightGrab_dishbowl, Walk_dishwasher, RightPutIn_dishbowl_dishwasher, Close_dishwasher, PlugIn_dishwasher, SwitchOn_dishwasher, Walk_lightswitch, PlugIn_lightswitch, SwitchOn_lightswitch"
 
 goal_set = goal_transfer_str(goal_str)
 print("goal_set:",goal_set)

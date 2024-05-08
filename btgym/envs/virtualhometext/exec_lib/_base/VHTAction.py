@@ -28,7 +28,7 @@ class VHTAction(Action):
 
     CONTAINERS = {"coffeemaker", "kitchencabinet", "washingmachine", "printer", "toaster", "closet", "box", "microwave", \
                   "dishwasher", "fryingpan", "fridge", "toilet", "garbagecan", "sink", "bookshelf", "nightstand","cabinet", \
-                  "stove", "folder", "clothespile", "bathroomcabinet","oven"}
+                  "stove", "folder", "clothespile", "bathroomcabinet","oven","cookingpot"}
     # 咖啡机, 厨房橱柜, 洗衣机, 打印机, 烤面包机, 衣柜, 盒子, 微波炉, \
     # 洗碗机, 煎锅, 冰箱, 厕所, 垃圾桶, 水槽, 书架, 床头柜, 柜子, 炉灶, 文件夹, 衣物堆, 浴室橱柜
 
@@ -68,7 +68,7 @@ class VHTAction(Action):
     # 电脑, 烤面包机, 微波炉, 洗碗机, 时钟, 收音机, 开关, 冰箱, 台灯, 炉灶, 电视
 
     HAS_PLUG = {"wallphone", "coffeemaker", "lightswitch", "cellphone", "fridge", "toaster", "tablelamp", "microwave", "tv", \
-                "clock", "radio", "washingmachine","mouse", "keyboard", "printer","oven"}
+                "clock", "radio", "washingmachine","mouse", "keyboard", "printer","oven","dishwasher"}
     # 墙电话, 咖啡机, 开关, 手机, 冰箱, 烤面包机, 台灯, 微波炉, 电视, \
     # 鼠标, 时钟, 键盘, 收音机, 洗衣机, 打印机
 

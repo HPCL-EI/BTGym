@@ -45,7 +45,7 @@ cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
 
 
 # # 读入数据集
-# data_path = f"{ROOT_PATH}/../test/dataset/dataset0506/dataset0506_revby_cys.txt"
+# data_path = f"{ROOT_PATH}/../test/dataset/data0506/dataset0506_revby_cys.txt"
 # data_path = f"{ROOT_PATH}/../test/dataset/data0507/dataset0507.txt"
 # data = read_dataset(data_path)
 # len_data = len(data)

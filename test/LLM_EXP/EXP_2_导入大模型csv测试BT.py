@@ -30,11 +30,11 @@ def load_dataset(data_path):
 # data = dataset
 
 # 导入数据集 真实值
-dataset1 = load_dataset(f"{ROOT_PATH}/../test/dataset/data1_env1_40.txt")
+dataset1 = load_dataset(f"{ROOT_PATH}/../test/dataset/data1_env1_40_big_test.txt")
 
 results = []
 start_time = time.time()
-for id, d in enumerate(dataset1):
+for id, d in enumerate(dataset1[:3]): # 5可以
     print("\n== ID:", id, "  ", d['Instruction'])
 
     goal_str = ' & '.join(d["Goals"])
@@ -64,14 +64,16 @@ for id, d in enumerate(dataset1):
     cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
 
     for use_priority_act in [False, True]:
-        mode = 'small-predicate-objs'
+        # mode = 'small-predicate-objs'
+        mode = 'big'
+        # use_priority_act=True
         print('-----------------------------------------------------')
         print(f"mode = {mode}, use_priority_act = {use_priority_act}")
 
         algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set, \
                               priority_act_ls=priority_act_ls, key_predicates=key_pred, key_objects=key_obj, \
                               selected_algorithm="opt", mode=mode, \
-                              llm_reflect=False, use_priority_act=use_priority_act,time_limit=30)
+                              llm_reflect=False, use_priority_act=use_priority_act,time_limit=None)
 
         start_time = time.time()
         algo.process(goal_set)
@@ -105,23 +107,23 @@ for id, d in enumerate(dataset1):
 
     results.append(result_entry)
 
-    if id>=0 and id % 5 ==0:
+    # if id>=0 and id % 5 ==0:
 
-        df = pd.DataFrame(results)
-        # Specify the exact column order
-        columns = [
-            'id', 'Instruction', 'Goals', 'Optimal Actions',
-            'Vital Action Predicates', 'Vital Objects',
-            'NP_err', 'P_err',
-            'NP_exp', 'P_exp',
-            'NP_time', 'P_time',
-            'NP_cost', 'P_cost',
-            'NP_act', 'P_act'
-        ]
-        df = df[columns]  # Reorder according to the specified columns
-        time_str = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()).replace("-", "").replace(":", "")
-        df.to_csv(f"BT_40_time={time_str}.csv", index=False)
-        print(f"Results have been saved to BT_40_time={time_str}.csv")
+    df = pd.DataFrame(results)
+    # Specify the exact column order
+    columns = [
+        'id', 'Instruction', 'Goals', 'Optimal Actions',
+        'Vital Action Predicates', 'Vital Objects',
+        'NP_err', 'P_err',
+        'NP_exp', 'P_exp',
+        'NP_time', 'P_time',
+        'NP_cost', 'P_cost',
+        'NP_act', 'P_act'
+    ]
+    df = df[columns]  # Reorder according to the specified columns
+    time_str = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()).replace("-", "").replace(":", "")
+    df.to_csv(f"BT_40_time={time_str}.csv", index=False)
+    print(f"Results have been saved to BT_40_time={time_str}.csv")
 
 
 end_time = time.time()

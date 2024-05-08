@@ -14,9 +14,9 @@ def parse_llm_output(answer,goals=True):
     else:
         goal_set=set()
 
-    act_str = answer.split("Actions:")[1].split("Key_Predicates:")[0].strip()
-    predicate_str = answer.split("Key_Predicates:")[1].split("Key_Objects:")[0].strip()
-    objects_str = answer.split("Key_Objects:")[1].strip()
+    act_str = answer.split("Actions:")[1].split("Vital Action Predicates:")[0].strip()
+    predicate_str = answer.split("Vital Action Predicates:")[1].split("Vital Objects:")[0].strip()
+    objects_str = answer.split("Vital Objects:")[1].strip()
     priority_act_ls = act_str_process(act_str)
 
     # Remove all spaces, Split by comma to create a list
@@ -40,8 +40,8 @@ def format_example(metadata):
     return (f"Instruction: {example_value['Instruction']}\n"
             f"Goals: {example_value['Goals']}\n"
             f"Actions: {example_value['Actions']}\n"
-            f"Key Predicates: {example_value.get('Key_Predicates', '')}\n"
-            f"Key Objects: {example_value['Key_Objects']}\n")
+            f"Key Predicates: {example_value.get('Vital Action Predicates', '')}\n"
+            f"Key Objects: {example_value['Vital Objects']}\n")
 
 def extract_llm_from_instr_goal(llm,default_prompt_file,instruction,goals,cur_cond_set=None,\
                                 choose_database=False,\
@@ -113,7 +113,7 @@ def extract_llm_from_instr(llm,default_prompt_file,instruction,cur_cond_set,\
     print("goal",goal_set)
     print("act:",priority_act_ls)
     print("key_predicate",key_predicates)
-    print("key_objects:",key_objects)
+    print("Vital Objects:",key_objects)
 
 
     # 提取目标中的所有物体
@@ -144,6 +144,6 @@ def llm_reflect(llm, messages, reflect_prompt):
     print("goal",goal_set)
     print("act:",priority_act_ls)
     print("key_predicate",key_predicates)
-    print("key_objects:",key_objects)
+    print("Vital Objects:",key_objects)
 
     return goal_set, priority_act_ls, key_predicates, key_objects, messages

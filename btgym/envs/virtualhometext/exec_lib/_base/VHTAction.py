@@ -84,7 +84,7 @@ class VHTAction(Action):
                "pear","plum","bellpepper"}
     # 无可切割物品
 
-    WASHABLE={"apple","bananas","carrot","chicken","lime","salmon", "peach","pear","plum","rag","brush"}
+    WASHABLE={"apple","bananas","carrot","chicken","lime","salmon", "peach","pear","plum","rag"}
 
     RECIPIENT = {"dishbowl", "wineglass", "coffeemaker", "cookingpot", "box", "mug", "toothbrush", "coffeepot","fryingpan", \
                  "waterglass", "sink", "plate", "washingmachine"}

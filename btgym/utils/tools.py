@@ -71,13 +71,13 @@ def save_data_txt(output_path,data1):
             # Join actions with a comma
             f.write(f"Actions: {', '.join(entry['Actions'])}\n")
             # Join key predicates with a comma
-            f.write(f"Key_Predicates: {', '.join(entry['Key_Predicates'])}\n")
+            f.write(f"Vital Action Predicates: {', '.join(entry['Vital Action Predicates'])}\n")
             # Ensure Key_Object is a list and join it with commas
-            key_objects = entry['Key_Objects']
+            key_objects = entry['Vital Objects']
             if isinstance(key_objects, list):
-                f.write(f"Key_Objects: {', '.join(key_objects)}\n\n")
+                f.write(f"Vital Objects: {', '.join(key_objects)}\n\n")
             else:
-                f.write(f"Key_Objects: {key_objects}\n\n")
+                f.write(f"Vital Objects: {key_objects}\n\n")
 
     print(f"Data saved to {output_path}")
 

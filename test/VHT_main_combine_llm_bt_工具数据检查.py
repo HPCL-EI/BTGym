@@ -179,8 +179,8 @@ for id,d in enumerate(data1[:]):
 
     print("Goals:",goal_str)
     print("Actions:",formatted_act)
-    print("Key_Predicates:",formatted_predicates)
-    print("Key_Objects:",formatted_objects)
+    print("Vital Action Predicates:",formatted_predicates)
+    print("Vital Objects:",formatted_objects)
 
     priority_act = set(act_str.replace(" ", "").split(","))
     print("增加了：",set(correct_act)-priority_act)

@@ -17,7 +17,7 @@ np.random.seed(seed)
 class BTExpInterface:
     def __init__(self, behavior_lib, cur_cond_set, priority_act_ls=[], key_predicates=[], key_objects=[], selected_algorithm="opt",
                  mode="big",
-                 bt_algo_opt=True, llm_reflect=False, llm=None, messages=None, action_list=None):
+                 bt_algo_opt=True, llm_reflect=False, llm=None, messages=None, action_list=None,use_priority_act=True):
         """
         Initialize the BTOptExpansion with a list of actions.
         :param action_list: A list of actions to be used in the behavior tree.
@@ -54,8 +54,10 @@ class BTExpInterface:
 
         self.priority_act_ls = self.filter_actions(priority_act_ls)
         self.priority_obj_ls = key_objects
-        self.actions = self.adjust_action_priority(self.actions, self.priority_act_ls, self.priority_obj_ls,
-                                                   self.selected_algorithm)
+
+        if use_priority_act:
+            self.actions = self.adjust_action_priority(self.actions, self.priority_act_ls, self.priority_obj_ls,
+                                                       self.selected_algorithm)
 
         self.has_processed = False
         self.llm_reflect = llm_reflect
@@ -295,7 +297,7 @@ def collect_action_nodes(behavior_lib):
 
     for cls in behavior_lib["Action"].values():
         if cls.can_be_expanded:
-            print(f"可扩展动作：{cls.__name__}, 存在{len(cls.valid_args)}个有效论域组合")
+            # print(f"可扩展动作：{cls.__name__}, 存在{len(cls.valid_args)}个有效论域组合")
             if cls.num_args == 0:
                 action_list.append(Action(name=cls.get_ins_name(), **cls.get_info()))
             if cls.num_args == 1:
@@ -305,11 +307,11 @@ def collect_action_nodes(behavior_lib):
                 for args in cls.valid_args:
                     action_list.append(Action(name=cls.get_ins_name(*args), **cls.get_info(*args)))
 
-    print(f"共收集到{len(action_list)}个实例化动作:")
+    print(f"共收集到{len(action_list)}个实例化动作")
     # for a in self.action_list:
     #     if "Turn" in a.name:
     #         print(a.name)
-    print("--------------------\n")
+    # print("--------------------\n")
 
     return action_list
 

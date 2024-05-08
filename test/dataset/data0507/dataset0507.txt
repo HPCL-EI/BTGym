@@ -91,8 +91,8 @@ Environment:1
 Instruction: Please put the clothesshirt and the clothespants into the clothespile.
 Goals: IsIn_clothesshirt_clothespile & IsIn_clothespants_clothespile & IsClose_clothespile
 Actions: Walk_clothespile, Open_clothespile, Walk_clothespants, LeftGrab_clothespants, Walk_clothesshirt, RightGrab_clothesshirt, LeftPutIn_clothespants_clothespile, RightPutIn_clothesshirt_clothespile, Close_clothespile
-Key_Predicates: Walk, Open, LeftGrab, RightGrab, LeftPutIn, RightPutIn, Close
-Key_Objects: clothespile, clothespants, clothesshirt
+Vital Action Predicates: Walk, Open, LeftGrab, RightGrab, LeftPutIn, RightPutIn, Close
+Vital Objects: clothespile, clothespants, clothesshirt
 
 1-13
 Environment:1
@@ -291,8 +291,8 @@ Environment:1
 Instruction: Please place the pancake in the fryingpan and take the fryingpan to the stove to start heating.
 Goals: IsIn_pancake_fryingpan & IsOn_fryingpan_stove & IsSwitchedOn_stove
 Actions: Walk_pancake, RightGrab_pancake, Walk_fryingpan, RightPutIn_pancake_fryingpan, RightGrab_fryingpan, Walk_stove, RightPut_fryingpan_stove, SwitchOn_stove
-Key_Predicates: Walk, RightGrab, RightPutIn, RightPut, SwitchOn
-Key_Objects: pancake, fryingpan, stove
+Vital Action Predicates: Walk, RightGrab, RightPutIn, RightPut, SwitchOn
+Vital Objects: pancake, fryingpan, stove
 
 2-7
 Environment:1
@@ -339,8 +339,8 @@ Environment:1
 Instruction: Please bring the pillow on the sofa first, then turn on the tv, and use the remotecontrol to operate it.
 Goals: IsOn_pillow_sofa & IsPlugged_tv & IsSwitchedOn_tv & IsSwitchedOn_remotecontrol
 Actions: Walk_pillow, RightGrab_pillow, Walk_sofa, RightPut_pillow_sofa, Walk_remotecontrol, SwitchOn_remotecontrol, Walk_tv, PlugIn_tv, SwitchOn_tv
-Key_Predicates: Walk, RightGrab, RightPut, SwitchOn, PlugIn
-Key_Objects: pillow, sofa, remotecontrol, tv
+Vital Action Predicates: Walk, RightGrab, RightPut, SwitchOn, PlugIn
+Vital Objects: pillow, sofa, remotecontrol, tv
 
 2-13
 Environment:1

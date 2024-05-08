@@ -74,7 +74,7 @@ for id, d in enumerate(data1):
     # print("------------------------")
     print("Act:", priority_act_ls)
     print("Key_Predicate", llm_key_pred)
-    print("Key_Objects:", llm_key_obj)
+    print("Vital Objects:", llm_key_obj)
 
     # key_predicates 和 key_objects 要将推荐的 priority_act_ls 补充进来
     _, pred, obj = act_format_records(priority_act_ls)
@@ -86,10 +86,10 @@ for id, d in enumerate(data1):
 
     # 统计关键谓词的准确率和错误率
     predicate_correct, predicate_incorrect, predicate_accuracy, predicate_error_rate = count_accuracy(
-        d['Key_Predicates'], key_predicates)
+        d['Vital Action Predicates'], key_predicates)
 
     # 统计关键对象的准确率和错误率
-    object_correct, object_incorrect, object_accuracy, object_error_rate = count_accuracy(d['Key_Objects'], key_objects)
+    object_correct, object_incorrect, object_accuracy, object_error_rate = count_accuracy(d['Vital Objects'], key_objects)
 
     # 打印统计结果
     print("Actions:")
@@ -103,17 +103,17 @@ for id, d in enumerate(data1):
     missing_act = set(d['Actions']) - set(priority_act_ls)
     incorrect_act = set(priority_act_ls) - set(d['Actions'])
 
-    missing_predicate = set(d['Key_Predicates']) - set(key_predicates)
-    incorrect_predicate = set(key_predicates) - set(d['Key_Predicates'])
+    missing_predicate = set(d['Vital Action Predicates']) - set(key_predicates)
+    incorrect_predicate = set(key_predicates) - set(d['Vital Action Predicates'])
 
-    missing_obj = set(d['Key_Objects']) - set(key_objects)
-    incorrect_obj = set(key_objects) - set(d['Key_Objects'])
+    missing_obj = set(d['Vital Objects']) - set(key_objects)
+    incorrect_obj = set(key_objects) - set(d['Vital Objects'])
 
     # Prepare the results
     results.append({
         'ID': id,  # Add 1 to make it 1-indexed instead of 0-indexed
         'Instruction': instruction, 'Goals': goals, 'Acts (Exp)': d['Actions'],
-        'Preds (Exp)': d['Key_Predicates'], 'Objs (Exp)': d['Key_Objects'],
+        'Preds (Exp)': d['Vital Action Predicates'], 'Objs (Exp)': d['Vital Objects'],
         'Acts (LLM)': priority_act_ls, 'Preds (LLM)': key_predicates, 'Objs (LLM)': key_objects,
         'Preds (Just LLM)': llm_key_pred, 'Objs (Just LLM)': llm_key_obj,
         'Increase_Preds': ', '.join(set(key_predicates) - set(llm_key_pred)),
@@ -122,12 +122,12 @@ for id, d in enumerate(data1):
         'Act_Count (Exp)': len(d['Actions']), 'Act_Count (LLM)': len(priority_act_ls), 'Correct_Act': act_correct,
         'Act_Acc': act_accuracy, 'Missed_Act': ', '.join(missing_act), 'Incorrect_Act': ', '.join(incorrect_act),
 
-        'Pred_Count (Exp)': len(d['Key_Predicates']), 'Pred_Count (LLM)': len(key_predicates),
+        'Pred_Count (Exp)': len(d['Vital Action Predicates']), 'Pred_Count (LLM)': len(key_predicates),
         'Correct_Pred': predicate_correct,
         'Pred_Acc': predicate_accuracy, 'Missed_Pred': ', '.join(missing_predicate),
         'Incorrect_Pred': ', '.join(incorrect_predicate),
 
-        'Obj_Count (Exp)': len(d['Key_Objects']), 'Obj_Count (LLM)': len(key_objects), 'Correct_Obj': object_correct,
+        'Obj_Count (Exp)': len(d['Vital Objects']), 'Obj_Count (LLM)': len(key_objects), 'Correct_Obj': object_correct,
         'Obj_Acc': object_accuracy, 'Missed_Obj': ', '.join(missing_obj), 'Incorrect_Obj': ', '.join(incorrect_obj),
 
     })

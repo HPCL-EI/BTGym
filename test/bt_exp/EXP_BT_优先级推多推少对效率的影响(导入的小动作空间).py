@@ -44,7 +44,7 @@ print(data[0])
 # 数据集中涉及的所有物体集合
 objs = set()
 for d in data:
-    objs |= set(d['Key_Objects'])
+    objs |= set(d['Vital Objects'])
 
 categories = ['SURFACES', 'SITTABLE', 'CAN_OPEN', 'CONTAINERS', 'GRABBABLE', 'cleaning_tools', \
               'cutting_tools', 'HAS_SWITCH', 'HAS_PLUG', 'CUTABLE', 'EATABLE', 'WASHABLE', 'RECIPIENT', \

@@ -52,22 +52,22 @@ Vital Action Predicates: Walk, RightGrab, RightPut
 Vital Objects: chips, desk
 
 Goals: IsSwitchedOn_coffeemaker & IsSwitchedOn_tv
-Actions: Walk_coffeemaker, PlugIn_coffeemaker, SwitchOn_coffeemaker, Walk_tv, PlugIn_tv, SwitchOn_tv
-Key_Predicates: Walk, PlugIn, SwitchOn, Walk, PlugIn, SwitchOn
-Key_Objects: coffeemaker, tv
+Optimal Actions: Walk_coffeemaker, PlugIn_coffeemaker, SwitchOn_coffeemaker, Walk_tv, PlugIn_tv, SwitchOn_tv
+Vital Action Predicates: Walk, PlugIn, SwitchOn, Walk, PlugIn, SwitchOn
+Vital Objects: coffeemaker, tv
 
 Goals: IsOn_breadslice_kitchentable & IsOn_chocolatesyrup_kitchentable
-Actions: Walk_breadslice, RightGrab_breadslice, Walk_chocolatesyrup, LeftGrab_chocolatesyrup, Walk_kitchentable, RightPut_breadslice_kitchentable, LeftPut_chocolatesyrup_kitchentable
-Key_Predicates: Walk, LeftGrab, Walk, RightGrab, Walk, LeftPut, RightPut
-Key_Objects: chocolatesyrup, kitchentable, breadslice
+Optimal Actions: Walk_breadslice, RightGrab_breadslice, Walk_chocolatesyrup, LeftGrab_chocolatesyrup, Walk_kitchentable, RightPut_breadslice_kitchentable, LeftPut_chocolatesyrup_kitchentable
+Vital Action Predicates: Walk, LeftGrab, Walk, RightGrab, Walk, LeftPut, RightPut
+Vital Objects: chocolatesyrup, kitchentable, breadslice
 
 Goals: IsIn_milk_fridge & IsClean_kitchencounter
-Actions: Walk_milk, RightGrab_milk, Walk_fridge, Open_fridge, PlugIn_fridge, RightPut_milk_fridge, Close_fridge, Walk_rag, RightGrab_rag, Walk_kitchencounter, Wipe_kitchencounter
-Key_Predicates: Walk, RightGrab, Walk, Wipe, Walk, RightGrab, Walk, Open, PlugIn, RightPutIn
-Key_Objects: kitchencounter, milk, rag, fridge
+Optimal Actions: Walk_milk, RightGrab_milk, Walk_fridge, Open_fridge, PlugIn_fridge, RightPut_milk_fridge, Close_fridge, Walk_rag, RightGrab_rag, Walk_kitchencounter, Wipe_kitchencounter
+Vital Action Predicates: Walk, RightGrab, Walk, Wipe, Walk, RightGrab, Walk, Open, PlugIn, RightPutIn
+Vital Objects: kitchencounter, milk, rag, fridge
 
 Goals: IsClean_apple & IsCut_apple
-Actions: Walk_apple, RightGrab_apple, Walk_faucet, SwitchOn_faucet, Wash_apple, Walk_cutleryknife, LeftGrab_cutleryknife, Cut_apple
+Optimal Actions: Walk_apple, RightGrab_apple, Walk_faucet, SwitchOn_faucet, Wash_apple, Walk_cutleryknife, LeftGrab_cutleryknife, Cut_apple
 Key Predicates: Walk, SwitchOn, Walk, LeftGrab, Walk, Cut, RightGrab, Walk, Wash
 Key Objects: faucet,  cutleryknife, apple
 
@@ -81,8 +81,8 @@ Key Objects: faucet,  cutleryknife, apple
 1. Analyze the given goal to determine the necessary actions. The goal is presented in first-order logic, consisting of [Condition].
 2. List all actions required to achieve these goals. Begin with 'Actions:' followed by a comma-separated list of actions, with an underscore between the verb and the object.
 3. Identify the key predicates involved in these actions. These should be only the action verbs. Begin with 'Key_Predicate:', followed by a comma-separated list of these verbs.
-4. List all key objects involved in these actions. These should be only the nouns representing items interacted with during the actions. Begin with 'Key_Objects:', followed by a comma-separated list of these nouns.
+4. List all key objects involved in these actions. These should be only the nouns representing items interacted with during the actions. Begin with 'Vital Objects:', followed by a comma-separated list of these nouns.
 5. The actions, predicates and objects can only come from those listed above; if it does not exist, please replace it with the closest one listed above.
-6. Refer directly to the examples in [Example], providing "Actions:", "Key_Predicates:", and "Key_Objects:" in accordance with the given format. Omit any further explanations. Ensure that the answers strictly adhere to the example format, without the inclusion of brackets or additional headings. No line breaks are required.
+6. Refer directly to the examples in [Example], providing "Actions:", "Vital Action Predicates:", and "Vital Objects:" in accordance with the given format. Omit any further explanations. Ensure that the answers strictly adhere to the example format, without the inclusion of brackets or additional headings. No line breaks are required.
 
 Now, the given goals are

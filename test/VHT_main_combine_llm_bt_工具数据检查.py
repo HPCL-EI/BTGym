@@ -46,26 +46,26 @@ cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
 
 # # 读入数据集
 # data_path = f"{ROOT_PATH}/../test/dataset/dataset0506/dataset0506_revby_cys.txt"
-data_path = f"{ROOT_PATH}/../test/dataset/data0507/dataset0507.txt"
-data = read_dataset(data_path)
-len_data = len(data)
-print(f"导入 {len_data} 条数据")
-print(data[0])
-
-# 挑选出 env=1 的数据进行测试，总共 40条
-data1 = [d for d in data if d['Environment'] == 1]
-len_data = len(data1)
-print(f"环境为1的数据总共有 {len_data} 条")
+# data_path = f"{ROOT_PATH}/../test/dataset/data0507/dataset0507.txt"
+# data = read_dataset(data_path)
+# len_data = len(data)
+# print(f"导入 {len_data} 条数据")
+# print(data[0])
+#
+# # 挑选出 env=1 的数据进行测试，总共 40条
+# data1 = [d for d in data if d['Environment'] == 1]
+# len_data = len(data1)
+# print(f"环境为1的数据总共有 {len_data} 条")
 
 
 # 直接读入 env=1 的数据
-# data_path = f"{ROOT_PATH}/../test/dataset/data1_env1_40.txt"
-# data1 = read_dataset(data_path)
-# len_data = len(data1)
-# print(f"导入 {len_data} 条数据")
-# print(data1[0])
+data_path = f"{ROOT_PATH}/../test/dataset/data1_env1_40.txt"
+data1 = read_dataset(data_path)
+len_data = len(data1)
+print(f"导入 {len_data} 条数据")
+print(data1[0])
 
-for id,d in enumerate(data1[82:]):
+for id,d in enumerate(data1[:]):
     print("id:",id,d["Instruction"])
 
     goal_str = ' & '.join(d["Goals"])

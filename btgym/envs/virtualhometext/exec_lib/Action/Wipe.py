@@ -4,8 +4,8 @@ from btgym.envs.virtualhometext.exec_lib._base.VHTAction_small import VHTAction_
 class Wipe(VHTAction):
     can_be_expanded = True
     num_args = 1
-    valid_args = VHTAction.AllObject - VHTAction.EATABLE - VHTAction.DRINKABLE
-    valid_args_small = VHTAction_small.AllObject - VHTAction_small.EATABLE - VHTAction_small.DRINKABLE
+    valid_args = VHTAction.AllObject - VHTAction.EATABLE - VHTAction.DRINKABLE-VHTAction.WASHABLE
+    valid_args_small = VHTAction_small.AllObject - VHTAction_small.EATABLE - VHTAction_small.DRINKABLE-VHTAction.WASHABLE
 
     def __init__(self, *args):
         super().__init__(*args)
@@ -15,14 +15,14 @@ class Wipe(VHTAction):
         info = {}
         info["pre"]={f"IsHoldingCleaningTool(self)",f"IsNear(self,{arg[0]})"} # IsLeftHandEmpty()至少有一只手是空闲的
 
-        if arg[0] in VHTAction.things_need_rag:
-            info["pre"] |= {f"IsRightHolding(self,rag)"}
-        elif arg[0] in VHTAction.things_need_duster:
-            info["pre"] |= {f"IsRightHolding(self,duster)"}
-        elif arg[0] in VHTAction.things_need_brush:
-            info["pre"] |= {f"IsRightHolding(self,brush)"}
-        elif arg[0] in VHTAction.things_need_papertowel:
-            info["pre"] |= {f"IsRightHolding(self,papertowel)"}
+        # if arg[0] in VHTAction.things_need_rag:
+        #     info["pre"] |= {f"IsRightHolding(self,rag)"}
+        # elif arg[0] in VHTAction.things_need_duster:
+        #     info["pre"] |= {f"IsRightHolding(self,duster)"}
+        # elif arg[0] in VHTAction.things_need_brush:
+        #     info["pre"] |= {f"IsRightHolding(self,brush)"}
+        # elif arg[0] in VHTAction.things_need_papertowel:
+        #     info["pre"] |= {f"IsRightHolding(self,papertowel)"}
 
         info["add"]={f"IsClean({arg[0]})"}
         info["del_set"] = set()

@@ -20,15 +20,15 @@ class VHTAction(Action):
     CAN_OPEN = {"coffeemaker", "cookingpot", "toothpaste", "coffeepot", "kitchencabinet", "washingmachine", "window","printer", \
                 "curtains", "closet", "box", "microwave", "hairproduct", "dishwasher", "radio", "fridge", "toilet","book", \
                 "garbagecan", "magazine", "nightstand", "cabinet", "milk", "desk", "stove", "door", "folder",
-                "clothespile", "bathroomcabinet","oven"}
+                "clothespile", "bathroomcabinet", "oven"}
     # 咖啡机, 烹饪锅, 牙膏, 咖啡壶, 厨房橱柜, 洗衣机, 窗户, 打印机, \
     # 窗帘, 衣柜, 盒子, 微波炉, 护发产品, 洗碗机, 收音机, 冰箱, 厕所, 书, \
-    # 垃圾桶, 杂志, 床头柜, 柜子, 牛奶, 书桌, 炉灶, 门, 文件夹, 衣物堆, 浴室橱柜
+    # 垃圾桶, 杂志, 床头柜, 柜子, 牛奶, 书桌, 炉灶, 门, 文件夹, 衣物堆, 浴室橱柜, 烤箱
 
 
-    CONTAINERS = {"coffeemaker", "kitchencabinet", "washingmachine", "printer", "toaster", "closet", "box", "microwave", \
-                  "dishwasher", "fryingpan", "fridge", "toilet", "garbagecan", "sink", "bookshelf", "nightstand","cabinet", \
-                  "stove", "folder", "clothespile", "bathroomcabinet","oven","cookingpot"}
+    CONTAINERS = {"coffeemaker", "kitchencabinet", "washingmachine", "printer", "toaster", "closet", "box", "microwave",\
+                  "dishwasher", "fryingpan", "fridge", "toilet", "garbagecan", "sink", "bookshelf", "nightstand","cabinet",\
+                  "stove", "folder", "clothespile", "bathroomcabinet","oven","cookingpot", "desk"}
     # 咖啡机, 厨房橱柜, 洗衣机, 打印机, 烤面包机, 衣柜, 盒子, 微波炉, \
     # 洗碗机, 煎锅, 冰箱, 厕所, 垃圾桶, 水槽, 书架, 床头柜, 柜子, 炉灶, 文件夹, 衣物堆, 浴室橱柜
 
@@ -54,9 +54,10 @@ class VHTAction(Action):
     # 抹布, 掸子, 纸巾, 刷子
 
 
-    cleaning_tools = {"rag", "duster", "papertowel", "brush"}
+    # cleaning_tools = {"rag", "duster", "papertowel", "brush"}
+    # cutting_tools={"cutleryknife","kitchenknife"}
+    cleaning_tools = {"rag"}
     cutting_tools={"cutleryknife","kitchenknife"}
-
 
 
 
@@ -104,23 +105,23 @@ class VHTAction(Action):
 
 
 
-    things_need_duster={
-    "wallpictureframe", "clock", "towelrack", "toy", "cellphone","rug",
-    "notes", "crayons", "magazine", "boardgame", "bookshelf","desk",
-    "cabinet", "closet", "bench", "bed", "sofa", "bathroomcounter"}
-    things_need_brush={
-    "hairproduct", "facecream", "dishbowl", "oventray", "barsoap",
-    "mincedmeat", "toothbrush", "cutleryfork", "cutleryknife",
-    "kitchenknife", "brush", "salad", "cereal", "slippers",
-    "clothespants", "mouse", "floor", "bathroomcabinet"}
-    things_need_papertowel = {
-    "whippedcream", "wineglass", "milkshake", "chocolatesyrup",
-    "creamybuns", "pear", "bellpepper", "pancake", "breadslice",
-    "candle", "pie", "papertowel", "condimentshaker", "lime",
-    "apple", "bananas", "waterglass", "condimentbottle",
-    "alcohol", "wine", "juice", "sundae", "poundcake", "pudding"}
-    # things_need_rag = AllObject-things_need_duster-things_need_brush-things_need_papertowel-WASHABLE | {"desk"}
-    things_need_rag = AllObject
+    # things_need_duster={
+    # "wallpictureframe", "clock", "towelrack", "toy", "cellphone","rug",
+    # "notes", "crayons", "magazine", "boardgame", "bookshelf","desk",
+    # "cabinet", "closet", "bench", "bed", "sofa", "bathroomcounter"}
+    # things_need_brush={
+    # "hairproduct", "facecream", "dishbowl", "oventray", "barsoap",
+    # "mincedmeat", "toothbrush", "cutleryfork", "cutleryknife",
+    # "kitchenknife", "brush", "salad", "cereal", "slippers",
+    # "clothespants", "mouse", "floor", "bathroomcabinet"}
+    # things_need_papertowel = {
+    # "whippedcream", "wineglass", "milkshake", "chocolatesyrup",
+    # "creamybuns", "pear", "bellpepper", "pancake", "breadslice",
+    # "candle", "pie", "papertowel", "condimentshaker", "lime",
+    # "apple", "bananas", "waterglass", "condimentbottle",
+    # "alcohol", "wine", "juice", "sundae", "poundcake", "pudding"}
+    # things_need_rag = AllObject-things_need_duster-things_need_brush-things_need_papertowel-WASHABLE
+    # things_need_rag = AllObject
 
 
     @property

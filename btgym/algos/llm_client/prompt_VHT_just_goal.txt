@@ -47,9 +47,9 @@ Wipe_<ALL>(cost=9), PlugIn_<HAS_PLUG>(cost=8), PlugOut_<HAS_PLUG>(cost=8), Cut_<
 
 [Examples]
 Goals: IsOn_chips_desk
-Actions: Walk_chips, RightGrab_chips, Walk_desk, RightPut_chips_desk
-Key_Predicates: Walk, RightGrab, Walk, RightPut
-Key_Objects: chips, desk
+Optimal Actions: Walk_chips, RightGrab_chips, Walk_desk, RightPut_chips_desk
+Vital Action Predicates: Walk, RightGrab, RightPut
+Vital Objects: chips, desk
 
 Goals: IsSwitchedOn_coffeemaker & IsSwitchedOn_tv
 Actions: Walk_coffeemaker, PlugIn_coffeemaker, SwitchOn_coffeemaker, Walk_tv, PlugIn_tv, SwitchOn_tv

@@ -29,9 +29,9 @@ cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction.CAN_OPEN}
 cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
 cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
 
-
-goal_str = "IsClean_floor"
-act_str= "Walk_rag"
+#
+goal_str = "IsCut_carrot & IsCut_bellpepper & IsIn_carrot_cookingpot & IsIn_bellpepper_cookingpot  & IsOn_cookingpot_stove & IsIn_mincedmeat_cookingpot & IsClose_cookingpot"
+act_str= "Walk_cookingpot, RightGrab_cookingpot, Walk_stove, RightPut_cookingpot_stove, Open_cookingpot, Walk_kitchenknife, RightGrab_kitchenknife, Walk_carrot, LeftGrab_carrot, Cut_carrot, Walk_cookingpot, LeftPutIn_carrot_cookingpot, Walk_bellpepper, LeftGrab_bellpepper, Cut_bellpepper, Walk_cookingpot, LeftPutIn_bellpepper_cookingpot, Walk_mincedmeat, LeftGrab_mincedmeat, Walk_cookingpot,  LeftPutIn_mincedmeat_cookingpot, Close_cookingpot"
 
 goal_set = goal_transfer_str(goal_str)
 print("goal_set:",goal_set)

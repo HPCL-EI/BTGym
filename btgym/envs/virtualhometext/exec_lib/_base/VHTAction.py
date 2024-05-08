@@ -81,7 +81,7 @@ class VHTAction(Action):
 
     # CUTABLE = set()
     CUTABLE = {"apple","bananas","breadslice", "cutlets","poundcake","pancake","pie","carrot","chicken","lime","salmon", "peach",\
-               "pear","plum"}
+               "pear","plum","bellpepper"}
     # 无可切割物品
 
     WASHABLE={"apple","bananas","carrot","chicken","lime","salmon", "peach","pear","plum","rag","brush"}

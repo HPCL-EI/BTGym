@@ -29,9 +29,10 @@ cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction.CAN_OPEN}
 cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
 cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
 
-#
-goal_str = "IsCut_carrot & IsCut_bellpepper & IsIn_carrot_cookingpot & IsIn_bellpepper_cookingpot  & IsOn_cookingpot_stove & IsIn_mincedmeat_cookingpot & IsClose_cookingpot"
-act_str= "Walk_cookingpot, RightGrab_cookingpot, Walk_stove, RightPut_cookingpot_stove, Open_cookingpot, Walk_kitchenknife, RightGrab_kitchenknife, Walk_carrot, LeftGrab_carrot, Cut_carrot, Walk_cookingpot, LeftPutIn_carrot_cookingpot, Walk_bellpepper, LeftGrab_bellpepper, Cut_bellpepper, Walk_cookingpot, LeftPutIn_bellpepper_cookingpot, Walk_mincedmeat, LeftGrab_mincedmeat, Walk_cookingpot,  LeftPutIn_mincedmeat_cookingpot, Close_cookingpot"
+#  & IsOn_crackers_desk
+goal_str = "IsOpen_curtains & IsClean_desk & IsOn_book_desk & IsOn_juice_desk"
+act_str= "Walk_rag"
+
 
 goal_set = goal_transfer_str(goal_str)
 print("goal_set:",goal_set)
@@ -57,7 +58,7 @@ for expr in chain(goal_set[0], priority_act_ls):
 priority_obj_ls += list(objects)
 
 algo = BTExpInterface(env.behavior_lib, cur_cond_set, priority_act_ls=priority_act_ls, key_objects=priority_obj_ls, \
-                      selected_algorithm="opt",mode="small-objs")
+                      selected_algorithm="opt",mode="small-objs",use_priority_act=False,time_limit=30)
 
 start_time = time.time()
 algo.process(goal_set)
@@ -68,18 +69,11 @@ print("Expanded Conditions: ", expanded_num)
 planning_time_total = (end_time - start_time)
 print("planning_time_total:", planning_time_total)
 print("cost_total:", cost)
-file_name = "grasp_milk"
-file_path = f'./{file_name}.btml'
-with open(file_path, 'w') as file:
-    file.write(ptml_string)
-
-# 读取执行
-bt = BehaviorTree(file_name + ".btml", env.behavior_lib)
-
-env.agents[0].bind_bt(bt)
-env.reset()
-env.print_ticks = True
-
+time_limit_exceeded = algo.algo.time_limit_exceeded
+if time_limit_exceeded:
+    RED = "\033[31m"
+    RESET = "\033[0m"
+    print(f"---{RED}Error: 设定不超过 30 s, 超时停止！{RESET}----")
 # simulation and test
 print("\n================ ")
 from btgym.algos.bt_autogen.tools import state_transition

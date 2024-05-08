@@ -1,4 +1,5 @@
 import copy
+import time
 import random
 import heapq
 import re
@@ -134,7 +135,7 @@ def check_conflict(conds):
 
 
 class OptBTExpAlgorithm:
-    def __init__(self, verbose=False, llm_reflect=False, llm=None, messages=None, priority_act_ls=None):
+    def __init__(self, verbose=False, llm_reflect=False, llm=None, messages=None, priority_act_ls=None,time_limit=None):
         self.bt = None
         self.start = None
         self.goal = None
@@ -165,6 +166,8 @@ class OptBTExpAlgorithm:
         self.priority_act_ls = priority_act_ls
 
         self.act_cost_dic = {}
+        self.time_limit_exceeded = False
+        self.time_limit= time_limit
 
     def clear(self):
         self.bt = None
@@ -359,6 +362,8 @@ class OptBTExpAlgorithm:
         Run the planning algorithm to calculate a behavior tree from the initial state, goal state, and available actions
         '''
 
+        start_time = time.time()
+
         self.start = start
         self.goal = goal
         self.actions = actions
@@ -473,7 +478,16 @@ class OptBTExpAlgorithm:
                 if c <= start:
                     bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
                                               cond_to_condActSeq)
-                    return bt, min_cost
+                    return bt, min_cost, self.time_limit_exceeded
+
+                # 超时处理
+                if self.time_limit!= None and time.time() - start_time > self.time_limit:
+                    self.time_limit_exceeded = False
+                    self.time_limit_exceeded = True
+                    bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
+                                              cond_to_condActSeq)
+                    return bt, min_cost, self.time_limit_exceeded
+
 
                 if self.verbose:
                     print("Expansion complete for action node={}, with new conditions={}, min_cost={}".format(
@@ -653,7 +667,7 @@ class OptBTExpAlgorithm:
             self.bt.add_child([subtree])
             self.min_cost = sorted_trees[0][1]
         else:
-            self.bt, min_cost = self.run_algorithm_selTree(start, goal[0], actions, merge_time=merge_time)
+            self.bt, min_cost, time_limit_exceeded = self.run_algorithm_selTree(start, goal[0], actions, merge_time=merge_time)
             self.min_cost = min_cost
             # print("min_cost:", mincost)
         return True

@@ -233,10 +233,10 @@ Vital Objects: rag, clothespile, sink
 30
 Environment:1
 Instruction: Use the rag to clean the bookshelf, and then put the magazine and book on it.
-Goals: IsClean_bookshelf & IsOn_magazine_bookshelf & IsOn_book_bookshelf
-Optimal Actions: Walk_rag, RightGrab_rag, Walk_book, LeftGrab_book, Walk_bookshelf, LeftPut_book_bookshelf, Wipe_bookshelf, Walk_magazine, LeftGrab_magazine, LeftPut_magazine_bookshelf
-Vital Action Predicates: Walk, RightGrab, LeftGrab, LeftPut, Wipe
-Vital Objects: rag, book, bookshelf, magazine
+Goals: IsOpen_curtains & IsClean_desk & IsOn_book_desk & IsOn_juice_desk
+Actions: Walk_rag, RightGrab_rag, Walk_book, LeftGrab_book, Walk_desk, LeftPut_book_desk, Wipe_desk, Walk_juice, LeftGrab_juice, LeftPut_juice_desk, Walk_curtains, Open_curtains
+Vital Action Predicates: Walk, RightGrab, LeftGrab, LeftPut, Wipe, Open
+Vital Objects: rag, book, desk, juice, curtains
 
 31
 Environment:1

@@ -71,7 +71,7 @@ for id, d in enumerate(dataset1):
         algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set, \
                               priority_act_ls=priority_act_ls, key_predicates=key_pred, key_objects=key_obj, \
                               selected_algorithm="opt", mode=mode, \
-                              llm_reflect=False, use_priority_act=use_priority_act)
+                              llm_reflect=False, use_priority_act=use_priority_act,time_limit=30)
 
         start_time = time.time()
         algo.process(goal_set)
@@ -82,6 +82,8 @@ for id, d in enumerate(dataset1):
         planning_time_total = (end_time - start_time)
         print("planning_time_total:", planning_time_total)
         print("cost_total:", cost)
+
+        time_limit_exceeded = algo.algo.time_limit_exceeded
 
         # Simulation and test
         print("\n================ ")
@@ -94,6 +96,7 @@ for id, d in enumerate(dataset1):
 
         # Add the results to the entry with appropriate prefixes
         prefix = "P_" if use_priority_act else "NP_"
+        result_entry[f'{prefix}Timeout'] = 'Timeout' if time_limit_exceeded == True else ''
         result_entry[f'{prefix}err'] = 'error' if error==True else ''
         result_entry[f'{prefix}exp'] = expanded_num
         result_entry[f'{prefix}time'] = planning_time_total
@@ -102,22 +105,25 @@ for id, d in enumerate(dataset1):
 
     results.append(result_entry)
 
+    if id>=0 and id % 5 ==0:
 
-df = pd.DataFrame(results)
-# Specify the exact column order
-columns = [
-    'id', 'Instruction', 'Goals', 'Optimal Actions',
-    'Vital Action Predicates', 'Vital Objects',
-    'NP_err', 'P_err',
-    'NP_exp', 'P_exp',
-    'NP_time', 'P_time',
-    'NP_cost', 'P_cost',
-    'NP_act', 'P_act'
-]
-df = df[columns]  # Reorder according to the specified columns
-time_str = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()).replace("-", "").replace(":", "")
-df.to_csv(f"BT_40_time={time_str}.csv", index=False)
-print(f"Results have been saved to BT_40_time={time_str}.csv")
+        df = pd.DataFrame(results)
+        # Specify the exact column order
+        columns = [
+            'id', 'Instruction', 'Goals', 'Optimal Actions',
+            'Vital Action Predicates', 'Vital Objects',
+            'NP_err', 'P_err',
+            'NP_exp', 'P_exp',
+            'NP_time', 'P_time',
+            'NP_cost', 'P_cost',
+            'NP_act', 'P_act'
+        ]
+        df = df[columns]  # Reorder according to the specified columns
+        time_str = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()).replace("-", "").replace(":", "")
+        df.to_csv(f"BT_40_time={time_str}.csv", index=False)
+        print(f"Results have been saved to BT_40_time={time_str}.csv")
+
+
 end_time = time.time()
 time_total = (end_time - start_time)
 print("Total time:", time_total)

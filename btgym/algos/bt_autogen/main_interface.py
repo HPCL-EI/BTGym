@@ -17,7 +17,7 @@ np.random.seed(seed)
 class BTExpInterface:
     def __init__(self, behavior_lib, cur_cond_set, priority_act_ls=[], key_predicates=[], key_objects=[], selected_algorithm="opt",
                  mode="big",
-                 bt_algo_opt=True, llm_reflect=False, llm=None, messages=None, action_list=None,use_priority_act=True):
+                 bt_algo_opt=True, llm_reflect=False, llm=None, messages=None, action_list=None,use_priority_act=True,time_limit=None):
         """
         Initialize the BTOptExpansion with a list of actions.
         :param action_list: A list of actions to be used in the behavior tree.
@@ -25,6 +25,7 @@ class BTExpInterface:
         self.cur_cond_set = cur_cond_set
         self.bt_algo_opt = bt_algo_opt
         self.selected_algorithm = selected_algorithm
+        self.time_limit=time_limit
 
 
         # 自定义动作空间
@@ -80,9 +81,10 @@ class BTExpInterface:
         # else:
         #     self.algo = BTalgorithm(verbose=False)
         if self.selected_algorithm == "opt":
+
             self.algo = OptBTExpAlgorithm(verbose=False, \
                                           llm_reflect=self.llm_reflect, llm=self.llm, messages=self.messages, \
-                                          priority_act_ls=self.priority_act_ls)
+                                          priority_act_ls=self.priority_act_ls,time_limit=self.time_limit)
         elif self.selected_algorithm == "baseline":
             self.algo = OptBTExpAlgorithm_BaseLine(verbose=False, \
                                           llm_reflect=self.llm_reflect, llm=self.llm, messages=self.messages, \

@@ -632,7 +632,7 @@ class OptBTExpAlgorithm:
             print("Error: Couldn't find successful bt!")
             print("Algorithm ends!\n")
 
-        return bt, min_cost
+        return bt, min_cost, self.time_limit_exceeded
 
     def run_algorithm(self, start, goal, actions, merge_time=999999):
         """

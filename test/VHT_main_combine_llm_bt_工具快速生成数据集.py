@@ -30,8 +30,8 @@ cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
 cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
 
 #  & IsOn_crackers_desk
-goal_str = "IsOpen_curtains & IsClean_desk & IsOn_book_desk & IsOn_juice_desk"
-act_str= "Walk_rag"
+goal_str = "IsClean_plum & IsClean_peach & IsClean_apple & IsOn_plum_plate & IsOn_peach_plate & IsOn_apple_plate & IsOn_plate_kitchentable"
+act_str= "Walk_plum, RightGrab_plum, Walk_faucet, SwitchOn_faucet, Wash_plum, Walk_plate, RightPut_plum_plate, Walk_peach, RightGrab_peach, Walk_faucet, Wash_peach, Walk_plate, RightPut_peach_plate, Walk_apple, RightGrab_apple, Walk_faucet, Wash_apple, SwitchOff_faucet, Walk_plate, RightPut_apple_plate, RightGrab_plate, Walk_kitchentable, RightPut_plate_kitchentable"
 
 
 goal_set = goal_transfer_str(goal_str)
@@ -58,7 +58,7 @@ for expr in chain(goal_set[0], priority_act_ls):
 priority_obj_ls += list(objects)
 
 algo = BTExpInterface(env.behavior_lib, cur_cond_set, priority_act_ls=priority_act_ls, key_objects=priority_obj_ls, \
-                      selected_algorithm="opt",mode="small-objs",use_priority_act=False,time_limit=30)
+                      selected_algorithm="opt",mode="small-objs",use_priority_act=False,time_limit=180)
 
 start_time = time.time()
 algo.process(goal_set)
@@ -70,12 +70,10 @@ planning_time_total = (end_time - start_time)
 print("planning_time_total:", planning_time_total)
 print("cost_total:", cost)
 time_limit_exceeded = algo.algo.time_limit_exceeded
-if time_limit_exceeded:
-    RED = "\033[31m"
-    RESET = "\033[0m"
-    print(f"---{RED}Error: 设定不超过 30 s, 超时停止！{RESET}----")
+
+
 # simulation and test
-print("\n================ ")
+print("================ ")
 from btgym.algos.bt_autogen.tools import state_transition
 
 goal = goal_set[0]
@@ -111,7 +109,11 @@ if goal <= state:  # 错误解，目标条件不在执行后状态满足
     print("Finished!")
 print(f"一定运行了 {act_num-1} 个动作步")
 print("current_cost:",current_cost)
-print("================ \n")
+print("================")
+if time_limit_exceeded:
+    RED = "\033[31m"
+    RESET = "\033[0m"
+    print(f"{RED}---Error: 设定不超过 30 s, 超时停止！----{RESET}")
 
 # 输出结果：
 record_act = record_act[:-1]
@@ -134,5 +136,8 @@ priority_act = set(act_str.replace(" ", "").split(","))
 print("增加了：",set(correct_act)-priority_act)
 print("减少了：",priority_act-set(correct_act))
 
-
+if time_limit_exceeded:
+    RED = "\033[31m"
+    RESET = "\033[0m"
+    print(f"{RED}---Error: 设定不超过 30 s, 超时停止！----{RESET}")
 

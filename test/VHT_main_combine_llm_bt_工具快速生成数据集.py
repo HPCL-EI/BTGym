@@ -58,7 +58,7 @@ for expr in chain(goal_set[0], priority_act_ls):
 priority_obj_ls += list(objects)
 
 algo = BTExpInterface(env.behavior_lib, cur_cond_set, priority_act_ls=priority_act_ls, key_objects=priority_obj_ls, \
-                      selected_algorithm="opt",mode="small-objs",use_priority_act=False,time_limit=180)
+                      selected_algorithm="opt",mode="small-objs",use_priority_act=True,time_limit=30)
 
 start_time = time.time()
 algo.process(goal_set)

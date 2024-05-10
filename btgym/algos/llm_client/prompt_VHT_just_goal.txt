@@ -67,9 +67,9 @@ Vital Action Predicates: Walk, RightGrab, Walk, Wipe, Walk, RightGrab, Walk, Ope
 Vital Objects: kitchencounter, milk, rag, fridge
 
 Goals: IsClean_apple & IsCut_apple
-Optimal Actions: Walk_apple, RightGrab_apple, Walk_faucet, SwitchOn_faucet, Wash_apple, Walk_cutleryknife, LeftGrab_cutleryknife, Cut_apple
+Optimal Actions: Walk_apple, RightGrab_apple, Walk_faucet, SwitchOn_faucet, Wash_apple, Walk_kitchenknife, LeftGrab_kitchenknife, Cut_apple
 Vital Action Predicates: Walk, SwitchOn, Walk, LeftGrab, Walk, Cut, RightGrab, Walk, Wash
-Vital Objects: faucet,  cutleryknife, apple
+Vital Objects: faucet, kitchenknife, apple
 
 
 [Prompt]

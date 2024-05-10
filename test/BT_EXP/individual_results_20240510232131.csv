@@ -1,0 +1,7 @@
+Sample_ID,Goal,Optimal Actions,Action_Space_Size,Heuristic_Choice,Expanded_Number,Planning_Time_Total,Current_Cost,Error,Time_Limit_Exceeded
+0,IsOn_chips_desk,"['Walk(chips)', 'RightGrab(chips)', 'Walk(desk)', 'RightPut(chips,desk)']",15,0,5,0.0009999275207519531,41,False,False
+0,IsOn_chips_desk,"['Walk(chips)', 'RightGrab(chips)', 'Walk(desk)', 'RightPut(chips,desk)']",15,1,5,0.0,41,False,False
+0,IsOn_chips_desk,"['Walk(chips)', 'RightGrab(chips)', 'Walk(desk)', 'RightPut(chips,desk)']",15,-1,5,0.0,41,False,False
+0,IsOn_chips_desk,"['Walk(chips)', 'RightGrab(chips)', 'Walk(desk)', 'RightPut(chips,desk)']",20,0,5,0.0009999275207519531,41,False,False
+0,IsOn_chips_desk,"['Walk(chips)', 'RightGrab(chips)', 'Walk(desk)', 'RightPut(chips,desk)']",20,1,5,0.0010004043579101562,41,False,False
+0,IsOn_chips_desk,"['Walk(chips)', 'RightGrab(chips)', 'Walk(desk)', 'RightPut(chips,desk)']",20,-1,5,0.0009999275207519531,41,False,False

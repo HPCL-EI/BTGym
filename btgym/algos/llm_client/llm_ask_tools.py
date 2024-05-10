@@ -3,18 +3,18 @@ from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process
 from btgym.utils import ROOT_PATH
 # 导入向量数据库检索的相关函数
 from btgym.algos.llm_client.vector_database import search_nearest_examples
-
+from ordered_set import OrderedSet
 
 
 def parse_llm_output(answer,goals=True):
 
     if goals:
-        goal_str = answer.split("Actions:")[0].replace("Goals:", "").strip()
+        goal_str = answer.split("Optimal Actions:")[0].replace("Goals:", "").strip()
         goal_set = goal_transfer_str(goal_str)
     else:
         goal_set=set()
 
-    act_str = answer.split("Actions:")[1].split("Vital Action Predicates:")[0].strip()
+    act_str = answer.split("Optimal Actions:")[1].split("Vital Action Predicates:")[0].strip()
     predicate_str = answer.split("Vital Action Predicates:")[1].split("Vital Objects:")[0].strip()
     objects_str = answer.split("Vital Objects:")[1].strip()
     priority_act_ls = act_str_process(act_str)
@@ -23,9 +23,10 @@ def parse_llm_output(answer,goals=True):
     key_predicate = predicate_str.replace(" ", "").split(",")
     key_objects = objects_str.replace(" ", "").split(",")
 
-    priority_act_ls = list(set(priority_act_ls))
-    key_predicate = list(set(key_predicate))
-    key_objects = list(set(key_objects))
+
+    priority_act_ls = list(OrderedSet(priority_act_ls))
+    key_predicate = list(OrderedSet(key_predicate))
+    key_objects = list(OrderedSet(key_objects))
 
     if goals:
         return goal_set,priority_act_ls,key_predicate,key_objects
@@ -59,8 +60,8 @@ def extract_llm_from_instr_goal(llm,default_prompt_file,instruction,goals,cur_co
     messages.append({"role": "user", "content": question})
     answer = llm.request(message=messages)
     messages.append({"role": "assistant", "content": answer})
-    if verbose:
-        print("============ Answer ================\n",answer)
+    # if verbose:
+    print("============ Answer ================\n",answer)
     priority_act_ls, key_predicates, key_objects = parse_llm_output(answer,goals=False)
 
     return priority_act_ls, key_predicates, key_objects, messages

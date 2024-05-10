@@ -8,13 +8,13 @@ Vital Objects: apple, bananas, kitchentable
 
 2
 Environment:1
-Instruction: Put the toothpaste, toothbrush, and towel on the bathroomcabinet.
-Goals: IsOn_toothpaste_bathroomcabinet & IsOn_toothbrush_bathroomcabinet & IsOn_towel_bathroomcabinet
-Optimal Actions: Walk_toothbrush, LeftGrab_toothbrush, Walk_toothpaste, RightGrab_toothpaste, Walk_bathroomcabinet, LeftPut_toothbrush_bathroomcabinet, RightPut_toothpaste_bathroomcabinet, Walk_towel, RightGrab_towel, RightPut_towel_bathroomcabinet
-Vital Action Predicates: Walk, LeftGrab, RightGrab, LeftPut, RightPut
-Vital Objects: toothbrush, toothpaste, bathroomcabinet, towel
+Instruction: Take the rag to the sink to clean it, and then use it to wipe the desk and the nightstand.
+Goals: IsClean_rag & IsClean_desk & IsClean_nightstand
+Optimal Actions: Walk_rag, RightGrab_rag, Wipe_rag, Walk_desk, Wipe_desk, Walk_nightstand, Wipe_nightstand
+Vital Action Predicates: Walk, RightGrab, Wipe
+Vital Objects: rag, desk, nightstand
 
-12
+3
 Environment:1
 Instruction: Put the remotecontrol on the sofa, turn on the TV, and put the clothespants in the closet.
 Goals: IsOn_remotecontrol_sofa & IsPlugged_tv & IsSwitchedOn_tv
@@ -22,7 +22,7 @@ Optimal Actions: Walk_remotecontrol, RightGrab_remotecontrol, Walk_sofa, RightPu
 Vital Action Predicates: Walk, RightGrab, RightPut, PlugIn, SwitchOn
 Vital Objects: remotecontrol, sofa, tv
 
-20
+4
 Environment:1
 Instruction: Close the curtains, turn on the tablelamp, and switch on the clock.
 Goals: IsClose_curtains & IsPlugged_tablelamp & IsSwitchedOn_tablelamp & IsSwitchedOn_clock
@@ -30,7 +30,7 @@ Optimal Actions: Walk_tablelamp, PlugIn_tablelamp, SwitchOn_tablelamp, Walk_cloc
 Vital Action Predicates: Walk, PlugIn, SwitchOn
 Vital Objects: tablelamp, clock
 
-21
+5
 Environment:1
 Instruction: Use the papertowel to wipe the kitchencabinet, and then throw the used papertowel into the garbagecan.
 Goals: IsClean_kitchencabinet & IsIn_papertowel_garbagecan & IsClose_garbagecan
@@ -38,37 +38,21 @@ Optimal Actions: Walk_rag, RightGrab_rag, Walk_kitchencabinet, Wipe_kitchencabin
 Vital Action Predicates: Walk, RightGrab, Wipe, RightPut, Open, RightPutIn, Close
 Vital Objects: rag, kitchencabinet, papertowel, garbagecan
 
-22
-Environment:1
-Instruction: Turn on the lightswitch, and then use the rag to clean the wallpictureframe, towelrack, and bookshelf.
-Goals: IsPlugged_lightswitch & IsSwitchedOn_lightswitch & IsClean_wallpictureframe & IsClean_towelrack & IsClean_bookshelf
-Optimal Actions: Walk_lightswitch, PlugIn_lightswitch, SwitchOn_lightswitch, Walk_rag, RightGrab_rag, Walk_wallpictureframe, Wipe_wallpictureframe, Walk_towelrack, Wipe_towelrack, Walk_bookshelf, Wipe_bookshelf
-Vital Action Predicates: Walk, PlugIn, SwitchOn, RightGrab, Wipe
-Vital Objects: lightswitch, rag, wallpictureframe, towelrack, bookshelf
-
-23
-Environment:1
-Instruction: Take the rag to the sink to clean it, and then use it to wipe the desk and the nightstand.
-Goals: IsClean_rag & IsClean_desk & IsClean_nightstand
-Optimal Actions: Walk_rag, RightGrab_rag, Wipe_rag, Walk_desk, Wipe_desk, Walk_nightstand, Wipe_nightstand
-Vital Action Predicates: Walk, RightGrab, Wipe
-Vital Objects: rag, desk, nightstand
-
-24
-Environment:1
-Instruction: Take the apple to the faucet, wash it clean, cut them into slices, put them on the plate, and place the plate on the coffeetable.
-Goals: IsClean_apple & IsCut_apple & IsOn_apple_plate & IsOn_plate_coffeetable
-Optimal Actions: Walk_faucet, SwitchOn_faucet, Walk_apple, RightGrab_apple, LeftGrab_apple, Wash_apple, Walk_plate, RightPut_apple_plate, RightGrab_plate, Walk_coffeetable, RightPut_plate_coffeetable, Walk_kitchenknife, RightGrab_kitchenknife, Cut_apple
-Vital Action Predicates: Walk, SwitchOn, RightGrab, LeftGrab, Wash, RightPut, Cut
-Vital Objects: faucet, apple, plate, coffeetable, kitchenknife
-
-25
+6
 Environment:1
 Instruction: Use the duster to remove dust from the rug, unplug the toaster, and clean it with the rag.
 Goals: IsClean_rug & IsUnplugged_toaster & IsClean_toaster
 Optimal Actions: Walk_rag, RightGrab_rag, Walk_rug, Wipe_rug, Walk_toaster, Wipe_toaster
 Vital Action Predicates: Walk, RightGrab, Wipe
 Vital Objects: rag, rug, toaster
+
+2
+Environment:1
+Instruction: Put the toothpaste, toothbrush, and towel on the bathroomcabinet.
+Goals: IsOn_toothpaste_bathroomcabinet & IsOn_toothbrush_bathroomcabinet & IsOn_towel_bathroomcabinet
+Optimal Actions: Walk_toothbrush, LeftGrab_toothbrush, Walk_toothpaste, RightGrab_toothpaste, Walk_bathroomcabinet, LeftPut_toothbrush_bathroomcabinet, RightPut_toothpaste_bathroomcabinet, Walk_towel, RightGrab_towel, RightPut_towel_bathroomcabinet
+Vital Action Predicates: Walk, LeftGrab, RightGrab, LeftPut, RightPut
+Vital Objects: toothbrush, toothpaste, bathroomcabinet, towel
 
 26
 Environment:1

@@ -59,17 +59,18 @@ cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
 
 
 # 直接读入 env=1 的数据
-data_path = f"{ROOT_PATH}/../test/dataset/data1_env1_40.txt"
+# data_path = f"{ROOT_PATH}/../test/dataset/data1_env1_40.txt"
+data_path = f"{ROOT_PATH}/../test/dataset/data1_env1_40_test_reflect.txt"
 data1 = read_dataset(data_path)
 len_data = len(data1)
 print(f"导入 {len_data} 条数据")
 print(data1[0])
 
-for id,d in enumerate(data1[:]):
+for id,d in enumerate(data1[32:33]):
     print("id:",id,d["Instruction"])
 
     goal_str = ' & '.join(d["Goals"])
-    act_str= ', '.join(d["Actions"])
+    act_str= ', '.join(d["Optimal Actions"])
     # goal_str = "IsOn_pillow_bed & IsOn_coffeepot_coffeetable & IsOn_towel_towelrack"
     # act_str=  "Walk_coffeetable, RightGrab_coffeepot, Walk_bed, RightPut_pillow_bed, RightGrab_pillow, Walk_coffeepot, RightPut_towel_towelrack, Walk_towel, Walk_pillow, Walk_towelrack, RightPut_coffeepot_coffeetable, RightGrab_towel"
 
@@ -98,11 +99,12 @@ for id,d in enumerate(data1[:]):
             objects.update(match.group(1).split(','))
     priority_obj_ls += list(objects)
 
-    # algo = BTExpInterface(env.behavior_lib, cur_cond_set, priority_act_ls=priority_act_ls, key_predicates=key_predicates,key_objects=priority_obj_ls, \
-    #                       selected_algorithm="opt",mode="small-predicate-objs")
+    algo = BTExpInterface(env.behavior_lib, cur_cond_set, priority_act_ls=priority_act_ls, key_predicates=key_predicates,key_objects=priority_obj_ls, \
+                          selected_algorithm="opt",mode="small-predicate-objs",llm_reflect=False,
+                          )
 
-    algo = BTExpInterface(env.behavior_lib, cur_cond_set, priority_act_ls=priority_act_ls, key_objects=priority_obj_ls, \
-                          selected_algorithm="opt", mode="small-objs")
+    # algo = BTExpInterface(env.behavior_lib, cur_cond_set, priority_act_ls=priority_act_ls, key_objects=priority_obj_ls, \
+    #                       selected_algorithm="opt", mode="small-objs")
 
 
     start_time = time.time()
@@ -178,7 +180,7 @@ for id,d in enumerate(data1[:]):
     formatted_objects = extract_and_format(objects)
 
     print("Goals:",goal_str)
-    print("Actions:",formatted_act)
+    print("Optimal Actions:",formatted_act)
     print("Vital Action Predicates:",formatted_predicates)
     print("Vital Objects:",formatted_objects)
 

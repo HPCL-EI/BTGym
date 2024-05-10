@@ -1,0 +1,320 @@
+1
+Environment:1
+Instruction: Put the pear, bananas, and the apple on the kitchentable.
+Goals: IsOn_pear_kitchentable & IsOn_bananas_kitchentable & IsOn_apple_kitchentable
+Optimal Actions: Walk_apple, LeftGrab_apple, Walk_bananas, RightGrab_bananas, Walk_kitchentable, LeftPut_apple_kitchentable, RightPut_bananas_kitchentable, Walk_pear, RightGrab_pear, RightPut_pear_kitchentable
+Vital Action Predicates: Walk, LeftGrab, RightGrab, LeftPut, RightPut
+Vital Objects: apple, bananas, kitchentable, pear
+
+2
+Environment:1
+Instruction: Put the toothpaste, toothbrush, and towel on the bathroomcabinet.
+Goals: IsOn_toothpaste_bathroomcabinet & IsOn_toothbrush_bathroomcabinet & IsOn_towel_bathroomcabinet
+Optimal Actions: Walk_toothbrush, LeftGrab_toothbrush, Walk_toothpaste, RightGrab_toothpaste, Walk_bathroomcabinet, LeftPut_toothbrush_bathroomcabinet, RightPut_toothpaste_bathroomcabinet, Walk_towel, RightGrab_towel, RightPut_towel_bathroomcabinet
+Vital Action Predicates: Walk, LeftGrab, RightGrab, LeftPut, RightPut
+Vital Objects: toothbrush, toothpaste, bathroomcabinet, towel
+
+3
+Environment:1
+Instruction: Put the notes, the magazine, and the book on the desk.
+Goals: IsOn_notes_desk & IsOn_magazine_desk & IsOn_book_desk
+Optimal Actions: Walk_magazine, RightGrab_magazine, Walk_notes, LeftGrab_notes, Walk_desk, LeftPut_notes_desk, RightPut_magazine_desk, Walk_book, RightGrab_book, RightPut_book_desk
+Vital Action Predicates: Walk, RightGrab, LeftGrab, LeftPut, RightPut
+Vital Objects: magazine, notes, desk, book
+
+4
+Environment:1
+Instruction: Put the washingsponge, dishbowl, the plate, and the dishwashingliquid in the sink.
+Goals: IsIn_washingsponge_sink & IsIn_dishbowl_sink & IsIn_plate_sink & IsIn_dishwashingliquid_sink
+Optimal Actions: Walk_plate, LeftGrab_plate, Walk_dishbowl, RightGrab_dishbowl, Walk_sink, LeftPutIn_plate_sink, Walk_dishwashingliquid, LeftGrab_dishwashingliquid, LeftPutIn_dishwashingliquid_sink, RightPutIn_dishbowl_sink, Walk_washingsponge, RightGrab_washingsponge, RightPutIn_washingsponge_sink
+Vital Action Predicates: Walk, LeftGrab, RightGrab, LeftPutIn, RightPutIn
+Vital Objects: plate, dishbowl, sink, dishwashingliquid, washingsponge
+
+5
+Environment:1
+Instruction: Put the crackers, the pudding, the cupcake, and creamybuns on the kitchencounter.
+Goals: IsOn_crackers_kitchencounter & IsOn_pudding_kitchencounter & IsOn_cupcake_kitchencounter & IsOn_creamybuns_kitchencounter
+Optimal Actions: Walk_cupcake, RightGrab_cupcake, Walk_pudding, LeftGrab_pudding, Walk_kitchencounter, LeftPut_pudding_kitchencounter, RightPut_cupcake_kitchencounter, Walk_crackers, LeftGrab_crackers, Walk_creamybuns, RightGrab_creamybuns, RightPut_creamybuns_kitchencounter, RightGrab_crackers, RightPut_crackers_kitchencounter
+Vital Action Predicates: Walk, RightGrab, LeftGrab, LeftPut, RightPut
+Vital Objects: cupcake, pudding, kitchencounter, crackers, creamybuns
+
+6
+Environment:1
+Instruction: Put the mouse on the mousemat, and the toy on the nightstand.
+Goals: IsOn_mouse_mousemat & IsOn_toy_nightstand
+Optimal Actions: Walk_mouse, RightGrab_mouse, Walk_mousemat, RightPut_mouse_mousemat, Walk_toy, RightGrab_toy, Walk_nightstand, RightPut_toy_nightstand
+Vital Action Predicates: Walk, RightGrab, RightPut
+Vital Objects: mouse, mousemat, toy, nightstand
+
+7
+Environment:1
+Instruction: Put the pillow on the bed, the coffeepot on the coffeetable, and the towel on the towelrack.
+Goals: IsOn_pillow_bed & IsOn_coffeepot_coffeetable & IsOn_towel_towelrack
+Optimal Actions: Walk_coffeepot, RightGrab_coffeepot, Walk_coffeetable, RightPut_coffeepot_coffeetable, Walk_pillow, RightGrab_pillow, Walk_bed, RightPut_pillow_bed, Walk_towel, RightGrab_towel, Walk_towelrack, RightPut_towel_towelrack
+Vital Action Predicates: Walk, RightGrab, RightPut
+Vital Objects: coffeepot, coffeetable, pillow, bed, towel, towelrack
+
+8
+Environment:1
+Instruction: Put the carrot on the cuttingboard, the barsoap and the facecream on the bathroomcounter, and the candle on the tvstand.
+Goals: IsOn_carrot_cuttingboard & IsOn_barsoap_bathroomcounter & IsOn_facecream_bathroomcounter & IsOn_candle_tvstand
+Optimal Actions: Walk_carrot, RightGrab_carrot, Walk_cuttingboard, RightPut_carrot_cuttingboard, Walk_barsoap, RightGrab_barsoap, Walk_bathroomcounter, RightPut_barsoap_bathroomcounter, Walk_facecream, RightGrab_facecream, Walk_bathroomcounter, RightPut_facecream_bathroomcounter, Walk_candle, RightGrab_candle, Walk_tvstand, RightPut_candle_tvstand
+Vital Action Predicates: Walk, RightGrab, RightPut
+Vital Objects: carrot, cuttingboard, barsoap, bathroomcounter, facecream, candle, tvstand
+
+9
+Environment:1
+Instruction: Put the remotecontrol on the chair, the fryingpan on the stove, and the clock on the nightstand.
+Goals: IsOn_remotecontrol_chair & IsOn_fryingpan_stove & IsOn_clock_nightstand
+Optimal Actions: Walk_remotecontrol, RightGrab_remotecontrol, Walk_chair, RightPut_remotecontrol_chair, Walk_fryingpan, RightGrab_fryingpan, Walk_stove, RightPut_fryingpan_stove, Walk_clock, RightGrab_clock, Walk_nightstand, RightPut_clock_nightstand
+Vital Action Predicates: Walk, RightGrab, RightPut
+Vital Objects: remotecontrol, chair, fryingpan, stove, clock, nightstand
+
+10
+Environment:1
+Instruction: Put the creamybuns in the plate, and put the plate and milk together on the kitchentable.
+Goals: IsOn_creamybuns_plate & IsOn_plate_kitchentable & IsOn_milk_kitchentable
+Optimal Actions: Walk_creamybuns, RightGrab_creamybuns, Walk_plate, RightPut_creamybuns_plate, RightGrab_plate, Walk_milk, LeftGrab_milk, Walk_kitchentable, RightPut_plate_kitchentable, LeftPut_milk_kitchentable
+Vital Action Predicates: Walk, RightGrab, RightPut, LeftGrab, LeftPut
+Vital Objects: creamybuns, plate, milk, kitchentable
+
+11
+Environment:1
+Instruction: Put the chicken and the peach in the fridge and make sure it's turned on.
+Goals: IsIn_chicken_fridge & IsIn_peach_fridge & IsPlugged_fridge & IsSwitchedOn_fridge & IsClose_fridge
+Optimal Actions: Walk_peach, RightGrab_peach, Walk_fridge, Open_fridge, PlugIn_fridge, RightPutIn_peach_fridge, Walk_chicken, RightGrab_chicken, Walk_fridge, RightPutIn_chicken_fridge, Close_fridge, SwitchOn_fridge
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close, PlugIn, SwitchOn
+Vital Objects: chicken, fridge, peach
+
+12
+Environment:1
+Instruction: Put the remotecontrol on the sofa, turn on the TV, and put the clothespants in the closet.
+Goals: IsOn_remotecontrol_sofa & IsPlugged_tv & IsSwitchedOn_tv & IsIn_clothespants_closet & IsClose_closet
+Optimal Actions: Walk_remotecontrol, RightGrab_remotecontrol, Walk_sofa, RightPut_remotecontrol_sofa, Walk_tv, PlugIn_tv, SwitchOn_tv, Walk_clothespants, RightGrab_clothespants, Walk_closet, Open_closet, RightPutIn_clothespants_closet, Close_closet
+Vital Action Predicates: Walk, RightGrab, RightPut, PlugIn, SwitchOn, Open, RightPutIn, Close
+Vital Objects: remotecontrol, sofa, tv, clothespants, closet
+
+13
+Environment:1
+Instruction: Put the clothespile in the washingmachine, turn it on, then make sure the cellphone is on and charging.
+Goals: IsIn_clothespile_washingmachine & IsPlugged_washingmachine & IsClose_washingmachine & IsSwitchedOn_washingmachine & IsSwitchedOn_cellphone & IsPlugged_cellphone
+Optimal Actions: Walk_clothespile, RightGrab_clothespile, Walk_washingmachine, Open_washingmachine, RightPutIn_clothespile_washingmachine, Close_washingmachine, PlugIn_washingmachine, SwitchOn_washingmachine, Walk_cellphone, SwitchOn_cellphone, PlugIn_cellphone
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close, PlugIn, SwitchOn
+Vital Objects: clothespile, washingmachine, cellphone
+
+14
+Environment:1
+Instruction: Put the milk in the microwave to heat up and put the breadslice on the kitchentable.
+Goals: IsIn_milk_microwave & IsPlugged_microwave & IsClose_microwave & IsSwitchedOn_microwave & IsOn_breadslice_kitchentable
+Optimal Actions: Walk_milk, RightGrab_milk, Walk_microwave, Open_microwave, RightPutIn_milk_microwave, Close_microwave, PlugIn_microwave, SwitchOn_microwave, Walk_breadslice, RightGrab_breadslice, Walk_kitchentable, RightPut_breadslice_kitchentable
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close, PlugIn, SwitchOn, RightPut
+Vital Objects: milk, microwave, breadslice, kitchentable
+
+15
+Environment:1
+Instruction: Organize the paper and put it in the folder, then put the book on the desk and open it.
+Goals: IsIn_paper_folder & IsOn_book_desk & IsOpen_book & IsClose_folder
+Optimal Actions: Walk_paper, RightGrab_paper, Walk_folder, Open_folder, RightPutIn_paper_folder, Close_folder, Walk_book, RightGrab_book, Walk_desk, RightPut_book_desk, Open_book
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close, RightPut
+Vital Objects: paper, folder, book, desk
+
+16
+Environment:1
+Instruction: Put the pancake in the fryingpan and place the fryingpan on the stove to heat up.
+Goals: IsIn_pancake_fryingpan & IsOn_fryingpan_stove & IsSwitchedOn_stove
+Optimal Actions: Walk_pancake, RightGrab_pancake, Walk_fryingpan, RightPutIn_pancake_fryingpan, RightGrab_fryingpan, Walk_stove, RightPut_fryingpan_stove, SwitchOn_stove
+Vital Action Predicates: Walk, RightGrab, RightPutIn, RightPut, SwitchOn
+Vital Objects: pancake, fryingpan, stove
+
+17
+Environment:1
+Instruction: Put the hairproduct, the facecream, and the barsoap in the bathroomcabinet and turn on the radio.
+Goals: IsIn_hairproduct_bathroomcabinet & IsIn_facecream_bathroomcabinet & IsIn_barsoap_bathroomcabinet & IsClose_bathroomcabinet
+Optimal Actions: Walk_facecream, RightGrab_facecream, Walk_bathroomcabinet, Open_bathroomcabinet, RightPutIn_facecream_bathroomcabinet, Walk_hairproduct, RightGrab_hairproduct, Walk_barsoap, LeftGrab_barsoap, Walk_bathroomcabinet, RightPutIn_hairproduct_bathroomcabinet, LeftPutIn_barsoap_bathroomcabinet, Close_bathroomcabinet
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, LeftGrab, LeftPut, Close
+Vital Objects: facecream, bathroomcabinet, barsoap, hairproduct
+
+18
+Environment:1
+Instruction: Put the plate and the dishbowl in the dishwasher to clean and turn on the lightswitch.
+Goals: IsIn_plate_dishwasher & IsIn_dishbowl_dishwasher & IsPlugged_lightswitch & IsSwitchedOn_dishwasher & IsSwitchedOn_lightswitch
+Optimal Actions: Walk_lightswitch, PlugIn_lightswitch, SwitchOn_lightswitch, Walk_plate, RightGrab_plate, Walk_dishwasher, Open_dishwasher, PlugIn_dishwasher, RightPutIn_plate_dishwasher, Walk_dishbowl, RightGrab_dishbowl, Walk_dishwasher, RightPutIn_dishbowl_dishwasher, Close_dishwasher, SwitchOn_dishwasher
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close, SwitchOn, PlugIn
+Vital Objects: plate, dishwasher, dishbowl, lightswitch
+
+19
+Environment:1
+Instruction: Turn off the tv, turn on the computer, open the curtains, and make sure the mouse and keyboard are plugged in.
+Goals: IsSwitchedOff_tv & IsSwitchedOn_computer & IsOpen_curtains & IsPlugged_mouse & IsPlugged_keyboard
+Optimal Actions: Walk_curtains, Open_curtains, Walk_computer, SwitchOn_computer, Walk_keyboard, PlugIn_keyboard, Walk_mouse, PlugIn_mouse
+Vital Action Predicates: Walk, Open, SwitchOn, PlugIn
+Vital Objects: curtains, computer, keyboard, mouse
+
+20
+Environment:1
+Instruction: Close the curtains, turn on the tablelamp, and switch on the clock.
+Goals: IsClose_curtains & IsPlugged_tablelamp & IsSwitchedOn_tablelamp & IsSwitchedOn_clock
+Optimal Actions: Walk_tablelamp, PlugIn_tablelamp, SwitchOn_tablelamp, Walk_clock, PlugIn_clock, SwitchOn_clock
+Vital Action Predicates: Walk, PlugIn, SwitchOn
+Vital Objects: tablelamp, clock
+
+21
+Environment:1
+Instruction: Use the papertowel to wipe the kitchencabinet, and then throw the used papertowel into the garbagecan.
+Goals: IsClean_kitchencabinet & IsIn_papertowel_garbagecan & IsClose_garbagecan
+Optimal Actions: Walk_papertowel, RightGrab_papertowel, Walk_garbagecan, Open_garbagecan, RightPutIn_papertowel_garbagecan, Close_garbagecan, Walk_rag, LeftGrab_rag, Walk_kitchencabinet, Wipe_kitchencabinet
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close, LeftGrab, Wipe
+Vital Objects: papertowel, garbagecan, rag, kitchencabinet
+
+22
+Environment:1
+Instruction: Turn on the lightswitch, and then use the rag to clean the wallpictureframe, towelrack, and bookshelf.
+Goals: IsPlugged_lightswitch & IsSwitchedOn_lightswitch & IsClean_wallpictureframe & IsClean_towelrack & IsClean_bookshelf
+Optimal Actions: Walk_lightswitch, PlugIn_lightswitch, SwitchOn_lightswitch, Walk_rag, RightGrab_rag, Walk_wallpictureframe, Wipe_wallpictureframe, Walk_towelrack, Wipe_towelrack, Walk_bookshelf, Wipe_bookshelf
+Vital Action Predicates: Walk, PlugIn, SwitchOn, RightGrab, Wipe
+Vital Objects: lightswitch, rag, wallpictureframe, towelrack, bookshelf
+
+23
+Environment:1
+Instruction: Take the rag to the sink to clean it, and then use it to wipe the desk and the nightstand.
+Goals: IsClean_rag & IsClean_desk & IsClean_nightstand
+Optimal Actions: Walk_rag, RightGrab_rag, Wipe_rag, Walk_desk, Wipe_desk, Walk_nightstand, Wipe_nightstand
+Vital Action Predicates: Walk, RightGrab, Wipe
+Vital Objects: rag, desk, nightstand
+
+24
+Environment:1
+Instruction: Take the apple to the faucet, wash it clean, cut them into slices, put them on the plate, and place the plate on the coffeetable.
+Goals: IsClean_apple & IsCut_apple & IsOn_apple_plate & IsOn_plate_coffeetable
+Optimal Actions: Walk_faucet, SwitchOn_faucet, Walk_apple, RightGrab_apple, LeftGrab_apple, Wash_apple, Walk_plate, RightPut_apple_plate, RightGrab_plate, Walk_coffeetable, RightPut_plate_coffeetable, Walk_kitchenknife, RightGrab_kitchenknife, Cut_apple
+Vital Action Predicates: Walk, SwitchOn, RightGrab, LeftGrab, Wash, RightPut, Cut
+Vital Objects: faucet, apple, plate, coffeetable, kitchenknife
+
+25
+Environment:1
+Instruction: Use the duster to remove dust from the rug, unplug the toaster, and clean it with the rag.
+Goals: IsClean_rug & IsUnplugged_toaster & IsClean_toaster
+Optimal Actions: Walk_rag, RightGrab_rag, Walk_rug, Wipe_rug, Walk_toaster, Wipe_toaster
+Vital Action Predicates: Walk, RightGrab, Wipe
+Vital Objects: rag, rug, toaster
+
+26
+Environment:1
+Instruction: Use a brush to clean the remote control, picture frame, and clock, then wipe down the TV stand with a cloth
+Goals: IsClean_remotecontrol & IsClean_wallpictureframe & IsClean_clock & IsClean_tvstand
+Optimal Actions: Walk_rag, RightGrab_rag, Walk_clock, Wipe_clock, Walk_remotecontrol, Wipe_remotecontrol, Walk_tvstand, Wipe_tvstand, Walk_wallpictureframe, Wipe_wallpictureframe
+Vital Action Predicates: Walk, RightGrab, Wipe
+Vital Objects: rag, clock, remotecontrol, tvstand, wallpictureframe
+
+27
+Environment:1
+Instruction: Cut the chicken and the carrot into pieces, place them on the oventray, season with the condimentbottle.
+Goals: IsCut_chicken & IsCut_carrot & IsOn_carrot_oventray & IsOn_chicken_oventray
+Optimal Actions: Walk_kitchenknife, RightGrab_kitchenknife, Walk_chicken, LeftGrab_chicken, Cut_chicken, Walk_oventray, LeftPut_chicken_oventray, Walk_carrot, LeftGrab_carrot, Cut_carrot, LeftPut_carrot_oventray
+Vital Action Predicates: Walk, RightGrab, LeftGrab, Cut, LeftPut
+Vital Objects: kitchenknife, chicken, oventray, carrot
+
+28
+Environment:1
+Instruction: Wash the apples and plums, slice the apples with the kitchenknife, and place the apples neatly on the cutting board.
+Goals: IsClean_apple & IsClean_plum & IsClean_plum & IsOn_apple_cuttingboard
+Optimal Actions: Walk_apple, RightGrab_apple, Walk_faucet, SwitchOn_faucet, Wash_apple, Walk_cuttingboard, RightPut_apple_cuttingboard, Walk_plum, RightGrab_plum, Wash_plum
+Vital Action Predicates: Walk, RightGrab, SwitchOn, Wash, RightPut
+Vital Objects: apple, faucet, cuttingboard, plum
+
+29
+Environment:1
+Instruction: Put the clothespile in the sink to wash it, and then use the rag to clean the sink.
+Goals: IsIn_clothespile_sink & IsClean_clothespile & IsClean_sink
+Optimal Actions: Walk_rag, RightGrab_rag, Walk_clothespile, LeftGrab_clothespile, Wipe_clothespile, Walk_sink, Wipe_sink, LeftPutIn_clothespile_sink
+Vital Action Predicates: Walk, RightGrab, LeftGrab, Wipe, LeftPutIn
+Vital Objects: rag, clothespile, sink
+
+30
+Environment:1
+Instruction: Use the rag to clean the bookshelf, and then put the magazine and book on it.
+Goals: IsOpen_curtains & IsClean_desk & IsOn_book_desk & IsOn_juice_desk
+Optimal Actions: Walk_rag, RightGrab_rag, Walk_book, LeftGrab_book, Walk_desk, LeftPut_book_desk, Wipe_desk, Walk_juice, LeftGrab_juice, LeftPut_juice_desk, Walk_curtains, Open_curtains
+Vital Action Predicates: Walk, RightGrab, LeftGrab, LeftPut, Wipe, Open
+Vital Objects: rag, book, desk, juice, curtains
+
+31
+Environment:1
+Instruction: Pull the curtains, turn on the lightswitch, use the rag to clean the surface of the desk, then put the book and the magazine on the desk and open them, bring the juice and crackers to the desk, and turn on the tablelamp.
+Goals: IsOpen_curtains & IsSwitchedOn_lightswitch & IsClean_desk & IsOn_book_desk & IsOpen_book & IsOn_magazine_desk & IsOpen_magazine & IsOn_juice_desk & IsOn_crackers_desk & IsSwitchedOn_tablelamp
+Optimal Actions: Walk_curtains, Open_curtains, Walk_lightswitch, PlugIn_lightswitch, SwitchOn_lightswitch, Walk_rag, RightGrab_rag, Walk_desk, Wipe_desk, Walk_book, RightGrab_book, Walk_desk, RightPut_book_desk, Open_book, Walk_magazine, RightGrab_magazine, Walk_desk, RightPut_magazine_desk, Open_magazine, Walk_juice, RightGrab_juice, Walk_desk, RightPut_juice_desk, Walk_crackers, RightGrab_crackers, Walk_desk, RightPut_crackers_desk, Walk_tablelamp, PlugIn_tablelamp, SwitchOn_tablelamp
+Vital Action Predicates: Walk, Open, RightGrab, RightPut, PlugIn, SwitchOn, Wipe
+Vital Objects: curtains, book, desk, crackers, juice, magazine, rag, lightswitch, tablelamp
+
+32
+Environment:1
+Instruction: Take the plum, the peach, and the apple to the faucet to wash them, then put them in a plate and place the plate on the kitchentable.
+Goals: IsClean_plum & IsClean_peach & IsClean_apple & IsOn_plum_plate & IsOn_peach_plate & IsOn_apple_plate
+Optimal Actions: Walk_apple, RightGrab_apple, Walk_faucet, SwitchOn_faucet, Wash_apple, SwitchOff_faucet, Walk_plate, RightPut_apple_plate, Walk_peach, RightGrab_peach, Wash_peach, RightPut_peach_plate, Walk_plum, RightGrab_plum, Wash_plum, RightPut_plum_plate
+Vital Action Predicates: Walk, RightGrab, SwitchOn, Wash, SwitchOff, RightPut
+Vital Objects: apple, faucet, plate, peach, plum
+
+33
+Environment:1
+Instruction: Arrange the paper inside the folder, and then place the folder, book, and magazine on the bookshelf. Make sure the light switch is on, and use a rag to clean both the bookshelf and the desk.
+Goals: IsIn_paper_folder & IsOn_folder_bookshelf & IsClean_bookshelf & IsClean_desk
+Optimal Actions: Walk_paper, RightGrab_paper, Walk_folder, Open_folder, RightPutIn_paper_folder, RightGrab_folder, Walk_rag, LeftGrab_rag, Walk_bookshelf, Wipe_bookshelf, RightPut_folder_bookshelf, Walk_desk, Wipe_desk
+Vital Action Predicates: Walk, Open, LeftGrab, RightGrab, RightPutIn, Wipe, RightPut
+Vital Objects: folder, paper, rag, desk, bookshelf
+
+34
+Environment:1
+Instruction: Connect the mouse and keyboard to the computer, switch on the printer, store the crayons inside a box, hang the hanger in the closet, and place the water glass on the coffee table.
+Goals: IsPlugged_mouse & IsPlugged_keyboard & IsSwitchedOn_printer & IsIn_crayons_box & IsOn_waterglass_coffeetable
+Optimal Actions: Walk_keyboard, PlugIn_keyboard, Walk_mouse, PlugIn_mouse, Walk_waterglass, RightGrab_waterglass, Walk_coffeetable, RightPut_waterglass_coffeetable, Walk_crayons, RightGrab_crayons, Walk_box, Open_box, RightPutIn_crayons_box, Walk_printer, PlugIn_printer, SwitchOn_printer
+Vital Action Predicates: Walk, PlugIn, RightGrab, RightPut, Open, RightPutIn, SwitchOn
+Vital Objects: keyboard, mouse, waterglass, coffeetable, crayons, box, printer
+
+35
+Environment:1
+Instruction: Put the sundae and pudding in a plate, place the plate on the kitchencounter, and put the chocolatesyrup in the fridge to refrigerate.
+Goals: IsOn_sundae_plate & IsOn_pudding_plate & IsOn_plate_kitchencounter & IsIn_chocolatesyrup_fridge
+Optimal Actions: Walk_sundae, LeftGrab_sundae, RightGrab_sundae, Walk_plate, RightPut_sundae_plate, RightGrab_plate, Walk_kitchencounter, LeftPut_sundae_kitchencounter, RightPut_plate_kitchencounter, Walk_pudding, RightGrab_pudding, RightPut_pudding_plate, Walk_chocolatesyrup, RightGrab_chocolatesyrup, Walk_fridge, Open_fridge, PlugIn_fridge, RightPutIn_chocolatesyrup_fridge
+Vital Action Predicates: Walk, LeftGrab, RightGrab, RightPut, LeftPut, Open, PlugIn, RightPutIn
+Vital Objects: sundae, plate, kitchencounter, pudding, chocolatesyrup, fridge
+
+36
+Environment:1
+Instruction: Use a duster to clean the rug. Place the cellphone on the nightstand for charging. Take the towel, toothbrush, and toothpaste to the sink for washing up.
+Goals: IsClean_rug & IsOn_cellphone_nightstand & IsPlugged_cellphone & IsIn_towel_sink & IsIn_toothbrush_sink
+Optimal Actions: Walk_towel, RightGrab_towel, Walk_cellphone, PlugIn_cellphone, LeftGrab_cellphone, Walk_nightstand, LeftPut_cellphone_nightstand, Walk_toothbrush, LeftGrab_toothbrush, Walk_sink, LeftPutIn_toothbrush_sink, RightPutIn_towel_sink, Walk_rag, RightGrab_rag, Walk_rug, Wipe_rug
+Vital Action Predicates: Walk, RightGrab, PlugIn, LeftGrab, LeftPut, LeftPutIn, RightPutIn, Wipe
+Vital Objects: towel, cellphone, nightstand, toothbrush, sink, rag, rug
+
+37
+Environment:1
+Instruction: Cut the salmon into pieces, put it in a fryingpan, and place the fryingpan on the stove to cook. Put the wine and the wineglass on the kitchentable.
+Goals: IsCut_salmon & IsOn_salmon_fryingpan & IsOn_fryingpan_stove & IsOn_wine_kitchentable & IsOn_wineglass_kitchentable
+Optimal Actions: Walk_salmon, LeftGrab_salmon, Walk_kitchenknife, RightGrab_kitchenknife, Cut_salmon, Walk_cuttingboard, RightPut_kitchenknife_cuttingboard, Walk_wine, RightGrab_wine, Walk_fryingpan, LeftPut_salmon_fryingpan, LeftGrab_fryingpan, Walk_stove, LeftPut_fryingpan_stove, Walk_wineglass, LeftGrab_wineglass, Walk_kitchentable, LeftPut_wineglass_kitchentable, RightPut_wine_kitchentable
+Vital Action Predicates: Walk, LeftGrab, RightGrab, Cut, RightPut, LeftPut
+Vital Objects: salmon, kitchenknife, cuttingboard, wine, fryingpan, stove, wineglass, kitchentable
+
+38
+Environment:1
+Instruction: Turn on the lightswitch, open the curtains, turn off the clock, turn on the radio, and take the peach to the faucet to wash it.
+Goals: IsSwitchedOn_lightswitch & IsOpen_curtains & IsSwitchedOff_clock & IsSwitchedOn_radio & IsClean_peach & IsSwitchedOff_faucet
+Optimal Actions: Walk_lightswitch, PlugIn_lightswitch, SwitchOn_lightswitch, Walk_curtains, Open_curtains, Walk_radio, PlugIn_radio, SwitchOn_radio, Walk_peach, RightGrab_peach, Walk_faucet, SwitchOn_faucet, Wash_peach, SwitchOff_faucet
+Vital Action Predicates: Walk, PlugIn, SwitchOn, Open, RightGrab, Wash, SwitchOff
+Vital Objects: lightswitch, curtains, radio, peach, faucet
+
+39
+Environment:1
+Instruction: Turn off the cellphone and put it on the desk, turn off the tv and the tablelamp, pull the curtains, turn off the lightswitch and close the door, and turn on the clock.
+Goals: IsSwitchedOff_cellphone & IsOn_cellphone_desk & IsSwitchedOff_tv & IsSwitchedOff_tablelamp & IsOpen_curtains & IsSwitchedOff_lightswitch & IsClose_door & IsSwitchedOn_clock
+Optimal Actions: Walk_cellphone, RightGrab_cellphone, Walk_desk, RightPut_cellphone_desk, Walk_curtains, Open_curtains, Walk_clock, PlugIn_clock, SwitchOn_clock
+Vital Action Predicates: Walk, RightGrab, RightPut, Open, PlugIn, SwitchOn
+Vital Objects: cellphone, desk, curtains, clock
+
+40
+Environment:1
+Instruction: Turn on the coffeemaker and toaster. Place the toy on the bed. Put the cutlery knife and cutlery fork on the kitchen table. Bring the wine and wineglass to the kitchen table.
+Goals: IsOn_cutleryknife_kitchentable & IsOn_cutleryfork_kitchentable & IsOn_wine_kitchentable & IsOn_wineglass_kitchentable
+Optimal Actions: Walk_wineglass, LeftGrab_wineglass, Walk_wine, RightGrab_wine, Walk_kitchentable, LeftPut_wineglass_kitchentable, RightPut_wine_kitchentable, Walk_toy, RightGrab_toy, Walk_cutleryfork, LeftGrab_cutleryfork, Walk_bed, RightPut_toy_bed, Walk_cutleryknife, RightGrab_cutleryknife, LeftPut_cutleryfork_kitchentable, RightPut_cutleryknife_kitchentable
+Vital Action Predicates: Walk, LeftGrab, RightGrab, LeftPut, RightPut
+Vital Objects: wineglass, wine, kitchentable, toy, cutleryfork, bed, cutleryknife
+

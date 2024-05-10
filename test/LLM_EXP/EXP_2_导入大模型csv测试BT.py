@@ -34,7 +34,7 @@ dataset1 = load_dataset(f"{ROOT_PATH}/../test/dataset/data1_env1_40_big_test.txt
 
 results = []
 start_time = time.time()
-for id, d in enumerate(dataset1[:3]): # 5可以
+for id, d in enumerate(dataset1[1:6]): # 5可以
     print("\n== ID:", id, "  ", d['Instruction'])
 
     goal_str = ' & '.join(d["Goals"])

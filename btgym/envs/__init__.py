@@ -7,7 +7,7 @@ from btgym.envs.virtualhome.envs.test_env import TestEnv as TestEnv
 
 from btgym.envs.virtualhometext.envs.watch_tv_env import WatchTVEnv as VHTWatchTVEnv
 from btgym.envs.virtualhometext.envs.milk_frige_env import MilkFridgeEnv as VHTMilkFridgeEnv
-from btgym.envs.virtualhometext.envs.small_env import SmallEnv as SmallEnv
+from btgym.envs.virtualhometextsmall.envs.small_env import SmallEnv as SmallEnv
 
 vh_env_map = {
     "VH-WatchTV": VHWatchTVEnv,

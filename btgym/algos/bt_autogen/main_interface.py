@@ -17,7 +17,8 @@ np.random.seed(seed)
 class BTExpInterface:
     def __init__(self, behavior_lib, cur_cond_set, priority_act_ls=[], key_predicates=[], key_objects=[], selected_algorithm="opt",
                  mode="big",
-                 bt_algo_opt=True, llm_reflect=False, llm=None, messages=None, action_list=None,use_priority_act=True,time_limit=None):
+                 bt_algo_opt=True, llm_reflect=False, llm=None, messages=None, action_list=None,use_priority_act=True,time_limit=None,
+                 heuristic_choice=-1):
         """
         Initialize the BTOptExpansion with a list of actions.
         :param action_list: A list of actions to be used in the behavior tree.
@@ -27,6 +28,15 @@ class BTExpInterface:
         self.selected_algorithm = selected_algorithm
         self.time_limit=time_limit
 
+        # 剪枝操作,现在的条件是以前扩展过的条件的超集
+        self.consider_priopity = False
+
+        # 选择全是0的启发式，还是 cost/10000 的启发式，还是都不采用
+        # 定义变量 heuristic_choice：
+        # 0 表示全是 0 的启发式
+        # 1 表示 cost/10000 的启发式
+        # -1 表示不使用启发式
+        self.heuristic_choice = heuristic_choice  # 可以根据需要更改这个值
 
         # 自定义动作空间
         if behavior_lib == None:
@@ -57,7 +67,9 @@ class BTExpInterface:
             self.priority_obj_ls = key_objects
         else:
             self.priority_act_ls=[]
-            self.priority_obj_ls = []
+            self.priority_obj_ls =[]
+        if self.priority_act_ls !=[]:
+            self.consider_priopity=True
 
         self.actions = self.adjust_action_priority(self.actions, self.priority_act_ls, self.priority_obj_ls,
                                                        self.selected_algorithm)
@@ -84,7 +96,10 @@ class BTExpInterface:
 
             self.algo = OptBTExpAlgorithm(verbose=False, \
                                           llm_reflect=self.llm_reflect, llm=self.llm, messages=self.messages, \
-                                          priority_act_ls=self.priority_act_ls,time_limit=self.time_limit)
+                                          priority_act_ls=self.priority_act_ls,time_limit=self.time_limit,
+                                          consider_priopity = self.consider_priopity,
+                                          heuristic_choice = self.heuristic_choice)
+
         elif self.selected_algorithm == "baseline":
             self.algo = OptBTExpAlgorithm_BaseLine(verbose=False, \
                                           llm_reflect=self.llm_reflect, llm=self.llm, messages=self.messages, \
@@ -149,23 +164,30 @@ class BTExpInterface:
         # 根据目标中的物体，调整有这些物体的优先级
         # 正则表达式用于找到括号中的内容
         # print("============ Priority Objs: ==============")
-        pattern = re.compile(r'\((.*?)\)')
-        for act in action_list:
-            match = pattern.search(act.name)
-            if match:
-                # 将括号内的内容按逗号分割
-                action_objects = match.group(1).split(',')
-                # 遍历每个物体名称
-                if all(obj in recommended_objs for obj in action_objects):
-                    # act.priority = 0.000001
-                    # act.priority = 1
-                    act.priority = 1
-                    # print(act)
+        # pattern = re.compile(r'\((.*?)\)')
+        # for act in action_list:
+        #     match = pattern.search(act.name)
+        #     if match:
+        #         # 将括号内的内容按逗号分割
+        #         action_objects = match.group(1).split(',')
+        #         # 遍历每个物体名称
+        #         if all(obj in recommended_objs for obj in action_objects):
+        #             # act.priority = 0.000001
+        #             # act.priority = 1
+        #             act.priority = 1
+        #             # print(act)
         # print("============ Priority Objs: ==============")
 
         for act in action_list:
+            act.priority = act.cost
             if act.name in recommended_acts:
-                act.priority = 0
+                if self.heuristic_choice==0:
+                    act.priority = 0
+                elif self.heuristic_choice==1:
+                    act.priority = act.priority * 1.0 / 10000
+
+                # act.cost= act.cost*1.0/10000
+                # act.cost=0
                 # act.priority = act.cost*1.0/100000
 
         # 对action排序

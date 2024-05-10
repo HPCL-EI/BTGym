@@ -135,7 +135,8 @@ def check_conflict(conds):
 
 
 class OptBTExpAlgorithm:
-    def __init__(self, verbose=False, llm_reflect=False, llm=None, messages=None, priority_act_ls=None,time_limit=None):
+    def __init__(self, verbose=False, llm_reflect=False, llm=None, messages=None, priority_act_ls=None,time_limit=None,\
+                 consider_priopity=False,heuristic_choice=-1):
         self.bt = None
         self.start = None
         self.goal = None
@@ -155,7 +156,7 @@ class OptBTExpAlgorithm:
 
         self.verbose = verbose
         self.bt_merge = False
-        self.output_just_best = False
+        self.output_just_best = True
         self.merge_time = 999999
 
         self.act_bt = None
@@ -168,6 +169,9 @@ class OptBTExpAlgorithm:
         self.act_cost_dic = {}
         self.time_limit_exceeded = False
         self.time_limit= time_limit
+
+        self.consider_priopity = consider_priopity
+        self.heuristic_choice=heuristic_choice
 
     def clear(self):
         self.bt = None
@@ -269,7 +273,7 @@ class OptBTExpAlgorithm:
                     prefix = '    ' * indent  # 根据缩进级别生成前缀空格
                     act_label = f'ACT {act_count}.{current_act}: ' if act_count else f'ACT {current_act}: '
                     # 添加当前行动
-                    node_string += f'{prefix}{act_label}{child.act_leaf.content.name}\n'
+                    node_string += f'{prefix}{act_label}{child.act_leaf.content.name}  f={round(child.act_leaf.min_cost,1)} g={round(child.act_leaf.trust_cost,1)}\n'
                     # 递归添加子行动
                     node_string += build_act_tree(child, indent + 1,
                                                   f'{act_count}.{current_act}' if act_count else str(current_act))
@@ -379,7 +383,7 @@ class OptBTExpAlgorithm:
         self.tree_size = 0
 
         self.expanded = []  # Conditions for storing expanded nodes
-        self.expanded_pair = []  # Conditions for storing expanded nodes
+
         self.traversed = []  # Conditions for storing nodes that have been put into the priority queue
         self.traversed_state_num = 0
 
@@ -430,8 +434,8 @@ class OptBTExpAlgorithm:
 
         # Using priority queues to store extended nodes
         heapq.heappush(self.nodes, goal_cond_act_pair)
-        self.expanded.append(goal)
-        self.expanded_pair.append(goal_cond_act_pair)
+        # self.expanded.append(goal)
+        self.expanded.append(goal_condition_node)
         self.traversed_state_num += 1
         self.traversed = [goal]  # Set of expanded conditions
 
@@ -445,12 +449,12 @@ class OptBTExpAlgorithm:
 
             # 调用大模型
             if self.llm_reflect:
-                if len(self.expanded) % 2000 == 0 and len(self.expanded) >= 100:
-                    print(len(self.expanded))
+                # if len(self.expanded) % 2000 == 0 and len(self.expanded) >= 100:
+                #     print(len(self.expanded))
                 # if len(self.expanded) % 1000 == 0 and len(self.expanded)>=100:
                 #      self.call_large_model(goal_cond_act_pair=goal_cond_act_pair)
-                # if len(self.expanded) >= 1:
-                #     self.call_large_model(goal_cond_act_pair=goal_cond_act_pair)
+                if len(self.expanded) >= 1:
+                    self.call_large_model(goal_cond_act_pair=goal_cond_act_pair)
 
             self.cycles += 1
             #  Find the condition for the shortest cost path
@@ -468,7 +472,8 @@ class OptBTExpAlgorithm:
                 sequence_structure = ControlBT(type='>')
                 sequence_structure.add_child(  # 这里做 ACT TREE 时候，没有copy 被更新了父节点
                     [copy.deepcopy(current_pair.cond_leaf), copy.deepcopy(current_pair.act_leaf)])
-                self.expanded.append(c)
+                # self.expanded.append(c)
+                self.expanded.append(current_pair.cond_leaf)
 
                 if self.output_just_best:
                     cond_to_condActSeq[current_pair] = sequence_structure
@@ -526,26 +531,44 @@ class OptBTExpAlgorithm:
                         # 剪枝操作,现在的条件是以前扩展过的条件的超集
                         valid = True
 
-                        for expanded_condition in self.expanded:
-                            if expanded_condition <= c_attr:
-                                valid = False
-                                break
+                        if self.consider_priopity:
+                            for expanded_condition in self.expanded:
+                                if expanded_condition.content <= c_attr:
+                                    # 考虑动作优先级的时候\启发式,剪枝 还有额外的条件
+                                    # 可以剪枝的时候判断一些路径
+                                    #  cur_g >= g
+                                    # if current_trust + act.cost >= expanded_condition.min_cost:
+                                        valid = False
+                                        break
+                            pass
+                        else:
+                            # 不考虑动作优先级的时候\启发式,直接剪枝
+                            for expanded_condition in self.expanded:
+                                if expanded_condition.content <= c_attr:
+                                    valid = False
+                                    break
 
                         if valid:
 
                             # g=trust_cost
                             # h= h_cost
-                            c_attr_node = Leaf(type='cond', content=c_attr, trust_cost=current_trust + act.cost)
-                            a_attr_node = Leaf(type='act', content=act, trust_cost=current_trust + act.cost)
+                            # c_attr_node = Leaf(type='cond', content=c_attr, trust_cost=current_trust + act.cost)
+                            # a_attr_node = Leaf(type='act', content=act, trust_cost=current_trust + act.cost)
 
                             # c_attr_node = Leaf(type='cond', content=c_attr, parent_cost=current_mincost)
                             # a_attr_node = Leaf(type='act', content=act, parent_cost=current_mincost)
 
-                            # c_attr_node = Leaf(type='cond', content=c_attr, min_cost=current_mincost + act.cost, parent_cost = current_mincost)
-                            # a_attr_node = Leaf(type='act', content=act, min_cost=current_mincost + act.cost, parent_cost = current_mincost)
+                            c_attr_node = Leaf(type='cond', content=c_attr, min_cost=current_mincost + act.cost, parent_cost = current_mincost)
+                            a_attr_node = Leaf(type='act', content=act, min_cost=current_mincost + act.cost, parent_cost = current_mincost)
 
                             new_pair = CondActPair(cond_leaf=c_attr_node, act_leaf=a_attr_node)
                             new_pair.path = current_pair.path + 1
+
+
+
+
+
+
 
                             # I(C,act)
                             # new_cost = current_mincost + act.cost
@@ -556,17 +579,43 @@ class OptBTExpAlgorithm:
                             # c_attr_node.min_cost = new_cost
                             # a_attr_node.min_cost = new_cost
 
-                            # 最迟启发式：h 是到重点的距离，通过计算 new_pair.pact_dic得到
+
                             h = 0
+
+
                             new_pair.pact_dic = copy.deepcopy(current_pair.pact_dic)
                             if act.name in new_pair.pact_dic and new_pair.pact_dic[act.name] > 0:
                                 new_pair.pact_dic[act.name] -= 1
+                                c_attr_node.min_cost = current_mincost + act.priority
+                                a_attr_node.min_cost = current_mincost + act.priority
 
-                            for key, value in new_pair.pact_dic.items():
-                                # print(key, value)
-                                h += self.act_cost_dic[key] * value
-                            c_attr_node.min_cost = c_attr_node.trust_cost + h - epsh
-                            a_attr_node.min_cost = a_attr_node.trust_cost + h - epsh
+
+                            # 最迟启发式：h 是到重点的距离，通过计算 new_pair.pact_dic得到
+                            # h = 0
+                            # new_pair.pact_dic = copy.deepcopy(current_pair.pact_dic)
+                            # if act.name in new_pair.pact_dic and new_pair.pact_dic[act.name] > 0:
+                            #     new_pair.pact_dic[act.name] -= 1
+                            #
+                            # for key, value in new_pair.pact_dic.items():
+                            #     # print(key, value)
+                            #     h += self.act_cost_dic[key] * value
+                            # c_attr_node.min_cost = c_attr_node.trust_cost + h - epsh
+                            # a_attr_node.min_cost = a_attr_node.trust_cost + h - epsh
+
+
+
+                            # h = 0
+                            # new_pair.pact_dic = copy.deepcopy(current_pair.pact_dic)
+                            # if act.name in new_pair.pact_dic and new_pair.pact_dic[act.name] > 0:
+                            #     new_pair.pact_dic[act.name] -= 1
+                            #
+                            # for key, value in new_pair.pact_dic.items():
+                            #     # print(key, value)
+                            #     h += self.act_cost_dic[key] * value
+                            # c_attr_node.min_cost = c_attr_node.trust_cost + h*10000 - epsh
+                            # a_attr_node.min_cost = a_attr_node.trust_cost + h*10000 - epsh
+
+
 
                             # 启发式：乘一下
                             # new_pair.pact_dic = copy.deepcopy(current_pair.pact_dic)
@@ -574,11 +623,13 @@ class OptBTExpAlgorithm:
                             #     new_pair.pact_dic[act.name] -= 1
                             # remaining = 0
                             # remaining_num = 0
+                            # g = current_trust + act.cost
                             # for key, value in new_pair.pact_dic.items():
                             #     # print(key, value)
                             #     remaining += self.act_cost_dic[key] * value
                             #     remaining_num += value
-                            # h = remaining * (remaining_num / D_first_num)
+                            # h =remaining * (remaining_num / D_first_num)
+                            # # h = min(max(0,D_first_cost-g), remaining * (remaining_num / D_first_num))
                             # c_attr_node.min_cost = c_attr_node.trust_cost + h - epsh
                             # a_attr_node.min_cost = a_attr_node.trust_cost + h - epsh
 
@@ -589,9 +640,17 @@ class OptBTExpAlgorithm:
                             # remaining = 0
                             # for key, value in new_pair.pact_dic.items():
                             #     remaining+=self.act_cost_dic[key] * value
-                            # h=max(0,D_first_cost-g)*(remaining/D_first_cost)
+                            # if D_first_cost==0:
+                            #     h=0
+                            # else:
+                            #     h=max(0,D_first_cost-g)*(remaining/D_first_cost)
                             # c_attr_node.min_cost = c_attr_node.trust_cost + h - epsh
                             # a_attr_node.min_cost = a_attr_node.trust_cost + h - epsh
+
+
+
+
+
 
                             heapq.heappush(self.nodes, new_pair)
 

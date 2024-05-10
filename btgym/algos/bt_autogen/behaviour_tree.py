@@ -32,7 +32,7 @@ class Leaf:
         if self.type == 'act':
             ticks += 1
             if self.content.pre <= state:
-                return 'running', self.content, cost + self.content.cost, ticks  # action
+                return 'running', self.content, cost + self.content.real_cost, ticks  # action
             else:
                 return 'failure', self.content, cost, ticks
 

@@ -1,4 +1,0 @@
-Action_Space_Size,Heuristic_Choice,Expanded_Number,Planning_Time_Total,Current_Cost,Error
-15,-1,21.4,0.002800464630126953,45.0,0.0
-15,0,10.2,0.002000713348388672,45.0,0.0
-15,1,12.0,0.002400493621826172,45.0,0.0

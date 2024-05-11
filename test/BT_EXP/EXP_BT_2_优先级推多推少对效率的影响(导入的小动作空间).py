@@ -18,90 +18,35 @@ np.random.seed(seed)
 
 from btgym.utils.tools import collect_action_nodes
 from btgym.utils.read_dataset import read_dataset
-
-# env_path = f"{ROOT_PATH}/../test/dataset/environment.txt"
-# env_dic = read_environment(env_path,style=True)
-
-#########################
-
-
+from tools import count_accuracy, identify_and_print_diffs, analyze_data_tabular,generate_custom_action_list
 import pickle
-
-# def refresh_VHT_samll_data():
-# 读入数据集合
-# data_path = f"{ROOT_PATH}/../test/dataset/data0429.txt"
-# data = read_dataset(data_path)
-# data_path = f"{ROOT_PATH}/../test/dataset/dataset_noenv.txt"
-data_path = f"{ROOT_PATH}/../test/dataset/data_cys.txt"
-data = read_dataset(data_path)
-
-data = data[:10]
-
-data_num = len(data)
-print(f"导入 {data_num} 条数据")
-print(data[0])
-
-# 数据集中涉及的所有物体集合
-objs = set()
-for d in data:
-    objs |= set(d['Vital Objects'])
-
-categories = ['SURFACES', 'SITTABLE', 'CAN_OPEN', 'CONTAINERS', 'GRABBABLE', 'cleaning_tools', \
-              'cutting_tools', 'HAS_SWITCH', 'HAS_PLUG', 'CUTABLE', 'EATABLE', 'WASHABLE', 'RECIPIENT', \
-              'POURABLE', 'DRINKABLE']
-categories_objs_dic = {}
-for ctg in categories:
-    categories_objs_dic[ctg] = getattr(VHTAction, ctg)
-    categories_objs_dic[ctg] &= objs
-
-ctg_objs_path = f"{ROOT_PATH}/../test/BT_EXP/ctg_objs.pickle"
-# 打开一个文件用于写入，注意'b'表示二进制模式
-with open(ctg_objs_path, 'wb') as file:
-    # 使用pickle.dump()函数将数据写入文件
-    pickle.dump(categories_objs_dic, file)
-################
-
-
 all_start_time = time.time()
 
-env = btgym.make("VHT-Small")
-action_list = collect_action_nodes(env.behavior_lib)
-all_actions_set = set(action_list)
-all_actions_str_set = {act.name for act in all_actions_set}
-# Easy
-# goal_set = [{'IsClean(nightstand)'}]
-# true_priority_act_set = {'Walk(rag)','RightGrab(rag)','Walk(nightstand)','Wipe(nightstand)'}
 
-# Medium
-# 正确的动作在数据集外面
-# goal_set = [{'IsClean(nightstand)','IsOn(clock,nightstand)'}]
-# true_priority_act_set = {'Walk(rag)','RightGrab(rag)','Walk(clock)','LeftGrab(clock)',\
-#                          'Walk(nightstand)','Wipe(nightstand)','LeftPut(clock,nightstand)'}
-# goal_set = [{'IsClean(bed)','IsOn(toy,bed)'}]
-# true_priority_act_set = {'Walk(rag)','RightGrab(rag)','Walk(toy)','LeftGrab(toy)',\
-#                          'Walk(bed)','Wipe(bed)','LeftPut(toy,bed)'}
+# env = btgym.make("VHT-Small")
+env = btgym.make("VHT-PutMilkInFridge")
+cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
+cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction.CAN_OPEN}
+cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
+cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
+big_actions = collect_action_nodes(env.behavior_lib)
 
-# Hard
-# goal_set = [{'IsIn(milk,microwave)','IsSwitchedOn(microwave)'}]
-# true_priority_act_set = {"Walk(milk)", "RightGrab(milk)", "Walk(microwave)", "Open(microwave)","PlugIn(microwave)", \
-#                     "RightPutIn(milk,microwave)",'SwitchOn(microwave)'}
-# goal_set = [{'IsIn(milk,microwave)','IsSwitchedOn(microwave)'}]
-# true_priority_act_set = {"Walk(milk)", "RightGrab(milk)", "Walk(microwave)", "Open(microwave)","PlugIn(microwave)", \
-#                     "RightPutIn(milk,microwave)",'SwitchOn(microwave)'}
-
-
+# 导入数据
+data_path = f"{ROOT_PATH}/../test/BT_EXP/data_small.txt"
+data = read_dataset(data_path)
 len_data = len(data)
-# len_data = 3
-# Rate range list
-error_rate_range_ls = [0, 1, 5, 10, 20]
-# correct_rate_range_ls = [0, 0.25, 0.5, 0.75, 1]
-correct_rate_range_ls = [0,0.1,]
-#   0     1          0  6       7   0.0241
-#  0.2  0.8          1  5      813  2.08544
-#  0.5  0.5          3  3     1579  4.50097
-#  0.8  0.2          4  2     1855  5.394
-#  0.9  0.1          5  1     2318  8.324
-#   1    0           6  0     1831  6.0884
+print(f"导入 {len_data} 条数据")
+print(data[0])
+analyze_data_tabular(data,[47,1,1,1])
+
+
+# error_rate_range_ls = [0, 1, 5, 10]
+error_rate_range_ls = [0,  0.5, 1, 5]
+# error_rate_range_ls = [0, 5]
+# correct_rate_range_ls = [0,  1]
+correct_rate_range_ls = [0, 0.25, 0.5, 0.75, 1]
+# correct_rate_range_ls = np.arange(0, 1.1, 0.1)  # 注意：1.1是因为arange不包含终止值
+
 
 # Data storage dictionary
 data_storage_dic = {(e, c): {'error_num': [], 'correct_num': [], \
@@ -109,16 +54,19 @@ data_storage_dic = {(e, c): {'error_num': [], 'correct_num': [], \
                              'current_cost': [], 'act_steps': [], 'bt_status': []}
                     for e in error_rate_range_ls for c in correct_rate_range_ls}
 
-for data_ind in range(len_data):
+for ind,d in enumerate(data[0:5]):
     # for data_ind in range(4,5):
-    combined_string = ' & '.join(data[data_ind]['Goals'])
+    combined_string = ' & '.join(d['Goals'])
     goal_set = goal_transfer_str(combined_string)
-    true_priority_act_set = set(act_str_process(data[data_ind]['Actions'], already_split=True))
-    print("\ndata:", data_ind)
+    true_priority_act_set = set(act_str_process(d['Optimal Actions'], already_split=True))
+    print("\ndata:", ind)
     print("goal:", goal_set)
     print("act:", true_priority_act_set)
 
-    error_priority_act_set = all_actions_str_set - true_priority_act_set
+    custom_action_list = generate_custom_action_list(big_actions, 80, true_priority_act_set)
+    custom_action_name_ls = {act.name for act in custom_action_list}
+
+    error_priority_act_set = custom_action_name_ls - true_priority_act_set
 
     for error_rate in error_rate_range_ls:
         for correct_rate in correct_rate_range_ls:
@@ -130,8 +78,7 @@ for data_ind in range(len_data):
             error_num = int(len(true_priority_act_set) * error_rate)
             correct_num = int(len(true_priority_act_set) * correct_rate)
             # correct_num=len(true_priority_act_set)-error_num
-            print("Error:", error_num)
-            print("Correct:", correct_num)
+            print("Error:", error_num,"Correct:", correct_num)
 
             # 排序是为了取消随机性
             # 推荐优先级
@@ -160,8 +107,11 @@ for data_ind in range(len_data):
             #                       selected_algorithm="baseline",action_list=action_list)
 
             # 这里应该是推荐错了怎么处理
-            algo = BTExpInterface(None, cur_cond_set, priority_act_ls, priority_obj_ls, \
-                                  selected_algorithm="opt", action_list=action_list)
+            algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set, \
+                                  priority_act_ls=priority_act_ls,  \
+                                  selected_algorithm="opt", mode="user-defined", action_list=custom_action_list,\
+                                  llm_reflect=False, time_limit=None,
+                                  heuristic_choice=0)
 
             start_time = time.time()
             algo.process(goal_set)
@@ -286,8 +236,8 @@ df_summary = pd.DataFrame(summary_results, columns=[
 ])
 
 # Save detailed data and summary data to CSV
-csv_file_path_details = 'output_detailed_bt_cys_10_bigerror.csv'
-csv_file_path_summary = 'output_summary_bt_cys_10_bigerror.csv'
+csv_file_path_details = 'output_detailed_bt_data_small_bigerror.csv'
+csv_file_path_summary = 'output_summary_bt_data_small_bigerror.csv'
 df_details.to_csv(csv_file_path_details, index=False)
 df_summary.to_csv(csv_file_path_summary, index=False)
 

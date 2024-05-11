@@ -67,7 +67,20 @@ len_data = len(data1)
 print(f"导入 {len_data} 条数据")
 print(data1[0])
 
-for id,d in enumerate(data1):
+print("-----------------准备写入文件-----------------")
+import os
+def write_to_file(data, file_path):
+    # Ensure the directory exists, create if it doesn't
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+    with open(file_path, 'a') as file:  # Open file in append mode
+        file.write(data + '\n')  # Write data with a newline
+# Set the path for the new file
+output_path = f"{ROOT_PATH}/../test/dataset/processed_data.txt"
+# Reset the file at the beginning of your script to avoid appending to old data in multiple runs
+if os.path.exists(output_path):
+    os.remove(output_path)
+
+for id,d in enumerate(data1[33:]):
     print("id:",id,d["Instruction"])
 
     goal_str = ' & '.join(d["Goals"])
@@ -100,11 +113,17 @@ for id,d in enumerate(data1):
             objects.update(match.group(1).split(','))
     priority_obj_ls += list(objects)
 
+    # algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set, \
+    #                       priority_act_ls=[], key_predicates=[],key_objects=priority_obj_ls,  \
+    #                       selected_algorithm="opt", mode="small-objs", \
+    #                       llm_reflect=False, time_limit=None,
+    #                       heuristic_choice=1)
+
     algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set, \
-                          priority_act_ls=[], key_predicates=[],key_objects=priority_obj_ls,  \
-                          selected_algorithm="opt", mode="small-objs", \
-                          llm_reflect=False, time_limit=5,
-                          heuristic_choice=1)
+                          priority_act_ls=priority_act_ls, key_predicates=key_predicates,key_objects=priority_obj_ls,  \
+                          selected_algorithm="opt", mode="small-predicate-objs", \
+                          llm_reflect=False, time_limit=None,
+                          heuristic_choice=0)
 
     # algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set, \
     #                       priority_act_ls=priority_act_ls, key_predicates=key_predicates,key_objects=priority_obj_ls,  \
@@ -144,43 +163,17 @@ for id,d in enumerate(data1):
     print("\n================ ")
     from btgym.algos.bt_autogen.tools import state_transition
 
+
+    # Simulation and test
+    print("\n================ ")
     goal = goal_set[0]
     state = cur_cond_set
-    steps = 0
-    current_cost = 0
-    current_tick_time = 0
-
-    act_num=1
-    record_act = []
-
-    val, obj, cost, tick_time = algo.algo.bt.cost_tick(state, 0, 0)  # tick行为树，obj为所运行的行动
-    print(f"Action: {act_num}  {obj.__str__().ljust(35)}cost: {cost}")
-    record_act.append(obj.__str__())
-    current_tick_time += tick_time
-    current_cost += cost
-    while val != 'success' and val != 'failure':
-        state = state_transition(state, obj)
-        val, obj, cost, tick_time = algo.algo.bt.cost_tick(state, 0, 0)
-        act_num+=1
-        print(f"Action: {act_num}  {obj.__str__().ljust(35)}cost: {cost}")
-        record_act.append(obj.__str__())
-        current_cost += cost
-        current_tick_time += tick_time
-        if (val == 'failure'):
-            print("bt fails at step", steps)
-            error = True
-            break
-        steps += 1
-        if (steps >= 500):  # 至多运行500步
-            break
-    if goal <= state:  # 错误解，目标条件不在执行后状态满足
-        print("Finished!")
-    print(f"一定运行了 {act_num-1} 个动作步")
-    print("current_cost:",current_cost)
-    print("================ \n")
+    error, state, act_num, current_cost, record_act = algo.execute_bt(goal, state, verbose=False)
+    print(f"Executed {act_num - 1} action steps")
+    print("current_cost:", current_cost)
+    print("================ ")
 
     # 输出结果：
-    record_act = record_act[:-1]
     correct_act,predicate,objects = act_format_records(record_act)
 
     # 函数来提取并格式化输出
@@ -193,14 +186,26 @@ for id,d in enumerate(data1):
 
     print("Goals:",goal_str)
     print("Optimal Actions:",formatted_act)
-    print("Vital Action Predicates:",formatted_predicates)
-    print("Vital Objects:",formatted_objects)
+    # print("Vital Action Predicates:",formatted_predicates)
+    # print("Vital Objects:",formatted_objects)
 
     priority_act = set(act_str.replace(" ", "").split(","))
     print("增加了：",set(correct_act)-priority_act)
     print("减少了：",priority_act-set(correct_act))
 
-    if set(correct_act)-priority_act!=set() or priority_act-set(correct_act)!=set():
-        break
+    # Format the string to write to the file
+    entry_str = f"{id+1}\n"
+    entry_str += f"Environment:1\n"
+    entry_str += f"Instruction: {d['Instruction']}\n"
+    entry_str += f"Goals: {goal_str}\n"
+    entry_str += f"Optimal Actions: {formatted_act}\n"
+    entry_str += f"Vital Action Predicates: {formatted_predicates}\n"
+    entry_str += f"Vital Objects: {formatted_objects}\n"
+
+    # Write to file
+    write_to_file(entry_str, output_path)
+
+    # You might also want to print out the content being written for verification
+    print("Written to file:", entry_str)
 
 

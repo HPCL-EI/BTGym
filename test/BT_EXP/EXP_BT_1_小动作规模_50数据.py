@@ -50,7 +50,7 @@ analyze_data_tabular(data1,[45,1,1,1])
 
 # Initialize lists to store individual results and averages
 data_rows = []
-action_space_sizes = list(range(15,91, 5)) #51
+action_space_sizes = list(range(15, 71, 5)) #51
 heuristic_choices = [0, 1, -1]
 average_rows = []
 
@@ -131,13 +131,18 @@ time_str = time.strftime('%Y%m%d%H%M%S', time.localtime())
 df.to_csv(f'individual_results_{time_str}.csv', index=False)
 average_df.to_csv(f'average_results_{time_str}.csv', index=False)
 
-# Plotting the averages
+from scipy.interpolate import interp1d
 plt.figure(figsize=(10, 6))
 for heuristic_choice in heuristic_choices:
-    # Filter only the data for the current heuristic choice
     subset = average_df[average_df['Heuristic_Choice'] == heuristic_choice]
-    if not subset.empty:  # Ensure the subset has data
-        plt.plot(subset['Action_Space_Size'], subset['Planning_Time_Total'], label=f'Heuristic Choice = {heuristic_choice}')
+    if not subset.empty:
+        # 使用样条插值平滑数据
+        x = subset['Action_Space_Size']
+        y = subset['Planning_Time_Total']
+        spline = interp1d(x, y, kind='cubic')  # 创建一个三次样条插值函数
+        xnew = np.linspace(x.min(), x.max(), 300)  # 生成新的x值，用于绘制平滑曲线
+        ynew = spline(xnew)  # 生成平滑的y值
+        plt.plot(xnew, ynew, label=f'Heuristic Choice = {heuristic_choice}')
 plt.title('Average Planning Time Total vs Action Space Size')
 plt.xlabel('Action Space Size')
 plt.ylabel('Average Planning Time Total')

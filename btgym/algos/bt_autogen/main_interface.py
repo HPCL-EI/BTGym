@@ -193,7 +193,8 @@ class BTExpInterface:
         # 对action排序
         # action_list.sort(key=lambda x: x.priority)
         # action_list.sort(key=lambda x: x.cost)
-        action_list.sort(key=lambda x: (x.priority, x.name))
+        # action_list.sort(key=lambda x: (x.priority, x.name))
+        action_list.sort(key=lambda x: (x.priority, -ord(x.name[0])))
 
         # for act in action_list:
         #     if act.priority <= 1 :

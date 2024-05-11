@@ -106,9 +106,9 @@ No.
 Environment: 1
 Instruction: 
 Goals: IsClean_peach & IsIn_plate_fridge & IsClose_fridge
-Optimal Actions: Walk_peach, RightGrab_peach, Walk_faucet, SwitchOn_faucet, Wash_peach, Walk_plate, RightPut_peach_plate, RightGrab_plate, Walk_fridge, PlugIn_fridge, Open_fridge, RightPutIn_plate_fridge, Close_fridge
-Vital Action Predicates: Walk, RightGrab, SwitchOn, Wash, RightPut, PlugIn, Open, RightPutIn, Close
-Vital Objects: peach, faucet, plate, fridge
+Optimal Actions: Walk_plate, RightGrab_plate, Walk_fridge, Open_fridge, PlugIn_fridge, RightPutIn_plate_fridge, Close_fridge, Walk_peach, RightGrab_peach, Walk_faucet, SwitchOn_faucet, Wash_peach
+Vital Action Predicates: Walk, RightGrab, Open, PlugIn, RightPutIn, Close, SwitchOn, Wash
+Vital Objects: plate, fridge, peach, faucet
 
 No. 
 Environment: 1
@@ -122,8 +122,8 @@ No.
 Environment: 1
 Instruction: 
 Goals: IsOn_waterglass_sofa
-Optimal Actions: Walk_waterglass, LeftGrab_waterglass, Walk_sofa, LeftPut_waterglass_sofa
-Vital Action Predicates: Walk, LeftGrab, LeftPut
+Optimal Actions: Walk_waterglass, RightGrab_waterglass, Walk_sofa, RightPut_waterglass_sofa
+Vital Action Predicates: Walk, RightGrab, RightPut
 Vital Objects: waterglass, sofa
 
 No. 
@@ -354,25 +354,25 @@ No.
 Environment: 1
 Instruction: 
 Goals: IsOn_kitchenknife_bathroomcounter
-Optimal Actions: Walk_kitchenknife, LeftGrab_kitchenknife, Walk_bathroomcounter, LeftPut_kitchenknife_bathroomcounter
-Vital Action Predicates: Walk, LeftGrab, LeftPut
+Optimal Actions: Walk_kitchenknife, RightGrab_kitchenknife, Walk_bathroomcounter, RightPut_kitchenknife_bathroomcounter
+Vital Action Predicates: Walk, RightGrab, RightPut
 Vital Objects: kitchenknife, bathroomcounter
 
 No. 
 Environment: 1
 Instruction: 
 Goals: IsOn_peach_nightstand
-Optimal Actions: Walk_peach, LeftGrab_peach, Walk_nightstand, LeftPut_peach_nightstand
-Vital Action Predicates: Walk, LeftGrab, LeftPut
+Optimal Actions: Walk_peach, RightGrab_peach, Walk_nightstand, RightPut_peach_nightstand
+Vital Action Predicates: Walk, RightGrab, RightPut
 Vital Objects: peach, nightstand
 
 No. 
 Environment: 1
 Instruction: 
 Goals:  IsOn_cutlets_nightstand & IsCut_apple
-Optimal Actions: Walk_kitchenknife, RightGrab_kitchenknife, Walk_cutlets, LeftGrab_cutlets, Walk_nightstand, LeftPut_cutlets_nightstand, Walk_apple, LeftGrab_apple, Cut_apple
-Vital Action Predicates: Walk, RightGrab, LeftGrab, LeftPut, Cut
-Vital Objects: kitchenknife, cutlets, nightstand, apple
+Optimal Actions: Walk_cutlets, RightGrab_cutlets, Walk_apple, LeftGrab_apple, Walk_nightstand, RightPut_cutlets_nightstand, Walk_kitchenknife, RightGrab_kitchenknife, Cut_apple
+Vital Action Predicates: Walk, RightGrab, LeftGrab, RightPut, Cut
+Vital Objects: cutlets, apple, nightstand, kitchenknife
 
 No. 
 Environment: 1
@@ -394,6 +394,6 @@ No.
 Environment: 1
 Instruction: 
 Goals: IsIn_milk_microwave & IsClose_microwave & IsClean_bookshelf
-Optimal Actions: Walk_rag, RightGrab_rag, Walk_bookshelf, Wipe_bookshelf, RightPut_rag_bookshelf, Walk_milk, RightGrab_milk, Walk_microwave, Open_microwave, PlugIn_microwave, RightPutIn_milk_microwave, Close_microwave
-Vital Action Predicates: Walk, RightGrab, Wipe, RightPut, Open, PlugIn, RightPutIn, Close
-Vital Objects: rag, bookshelf, milk, microwave
+Optimal Actions: Walk_milk, RightGrab_milk, Walk_microwave, PlugIn_microwave, Open_microwave, RightPutIn_milk_microwave, Close_microwave, Walk_rag, LeftGrab_rag, Walk_bookshelf, Wipe_bookshelf
+Vital Action Predicates: Walk, RightGrab, PlugIn, Open, RightPutIn, Close, LeftGrab, Wipe
+Vital Objects: milk, microwave, rag, bookshelf

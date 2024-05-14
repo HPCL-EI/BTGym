@@ -6,7 +6,7 @@ class VHTAction_small(Action):
     can_be_expanded = True
     num_args = 1
 
-    SURFACES = {"kitchentable",  "fryingpan","plate", "tvstand", "bathroomcounter", \
+    SURFACES = {"kitchentable",  "fryingpan", "plate", "tvstand", "bathroomcounter", \
                 "kitchencounter", "bookshelf", "cabinet", "desk", "bed", "sofa","nightstand"}
 
     SITTABLE = {"chair", "bench", "bed", "rug", "sofa"}

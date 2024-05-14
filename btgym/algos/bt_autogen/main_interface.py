@@ -52,15 +52,16 @@ class BTExpInterface:
         elif mode=="user-defined":
             self.actions = action_list
             print(f"自定义小动作空间：收集到 {len(self.actions)} 个动作")
-            print("----------------------------------------------")
+            # print("----------------------------------------------")
         elif mode=="small-objs":
             self.actions = self.collect_compact_object_actions(key_objects)
             print(f"选择小动作空间，只考虑物体：收集到 {len(self.actions)} 个动作")
-            print("----------------------------------------------")
+            # print("----------------------------------------------")
         elif mode=="small-predicate-objs":
             self.actions = self.collect_compact_predicate_object_actions(key_predicates,key_objects)
             print(f"选择小动作空间，考虑谓词和物体：收集到 {len(self.actions)} 个动作")
-            print("----------------------------------------------")
+            # print("----------------------------------------------")
+
 
         if use_priority_act:
             self.priority_act_ls = self.filter_actions(priority_act_ls)
@@ -70,6 +71,9 @@ class BTExpInterface:
             self.priority_obj_ls =[]
         if self.priority_act_ls !=[]:
             self.consider_priopity=True
+
+        # if self.heuristic_choice==-1: 在 adjust_action_priority 里面已经写了这个控制
+        #     self.priority_act_ls=[]
 
         self.actions = self.adjust_action_priority(self.actions, self.priority_act_ls, self.priority_obj_ls,
                                                        self.selected_algorithm)
@@ -194,7 +198,8 @@ class BTExpInterface:
         # action_list.sort(key=lambda x: x.priority)
         # action_list.sort(key=lambda x: x.cost)
         # action_list.sort(key=lambda x: (x.priority, x.name))
-        action_list.sort(key=lambda x: (x.priority, -ord(x.name[0])))
+        # action_list.sort(key=lambda x: (x.priority, -ord(x.name[0])))
+        action_list.sort(key=lambda x: (x.priority, x.real_cost, x.name ))
 
         # for act in action_list:
         #     if act.priority <= 1 :
@@ -341,6 +346,21 @@ def collect_action_nodes(behavior_lib):
     # print("--------------------\n")
 
     return action_list
+
+
+def collect_conditions(node):
+    from btgym.algos.bt_autogen.behaviour_tree import Leaf
+    conditions = set()
+    if isinstance(node, Leaf) and node.type == 'cond':
+        # 如果是叶子节点并且类型为'cond'，则将内容添加到集合中
+        conditions.update(node.content)
+    elif hasattr(node, 'children'):
+        # 对于有子节点的控制节点，递归收集所有子节点的条件
+        for child in node.children:
+            conditions.update(collect_conditions(child))
+    return conditions
+
+
 
 
 

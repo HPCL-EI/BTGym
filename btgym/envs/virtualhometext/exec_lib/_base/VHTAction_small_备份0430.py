@@ -56,7 +56,7 @@ class VHTAction_small(Action):
     # 咖啡机, 手机, 蜡烛, 水龙头, 洗衣机, 打印机, 墙电话, 遥控器, \
     # 电脑, 烤面包机, 微波炉, 洗碗机, 时钟, 收音机, 开关, 冰箱, 台灯, 炉灶, 电视
 
-    HAS_PLUG = {"tv","mouse", "dishwasher","coffeemaker","toaster","microwave","fright","washingmachine","clock","keyboard"}
+    HAS_PLUG = {"tv","mouse", "dishwasher","coffeemaker","toaster","microwave","fridge","washingmachine","clock","keyboard"}
     # 墙电话, 咖啡机, 开关, 手机, 冰箱, 烤面包机, 台灯, 微波炉, 电视, \
     # 鼠标, 时钟, 键盘, 收音机, 洗衣机, 打印机
 

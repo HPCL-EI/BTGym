@@ -1,0 +1,7 @@
+mode,heuristic,Expanded Num,Planning Time Total,Current Cost,Error,Time Limit Exceeded
+Large Custom Space,-1 No Heuristic,405.3,4.12628632068634,5.68,0.82,0.82
+Large Custom Space,0 Non-optimal Fast Heuristic,23.87,0.887002911567688,54.09,0.04,0.04
+Large Custom Space,1 Optimal Heuristic,27.71,1.2426164841651917,49.35,0.09,0.09
+Small Space,-1 No Heuristic,34.5,0.006237070560455279,58.64,0.0,0.0
+Small Space,0 Non-optimal Fast Heuristic,18.17,0.00323618412017818,58.94,0.0,0.0
+Small Space,1 Optimal Heuristic,25.43,0.00442703485488887,58.64,0.0,0.0

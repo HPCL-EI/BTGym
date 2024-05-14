@@ -2,7 +2,7 @@ import re
 from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process
 from btgym.utils import ROOT_PATH
 # 导入向量数据库检索的相关函数
-from btgym.algos.llm_client.vector_database import search_nearest_examples
+from btgym.algos.llm_client.vector_database_instruction import search_nearest_examples
 from ordered_set import OrderedSet
 
 
@@ -44,7 +44,7 @@ def format_example(metadata):
             f"Key Predicates: {example_value.get('Vital Action Predicates', '')}\n"
             f"Key Objects: {example_value['Vital Objects']}\n")
 
-def extract_llm_from_instr_goal(llm,default_prompt_file,instruction,goals,cur_cond_set=None,\
+def extract_llm_from_instr_goal(llm,default_prompt_file,goals,instruction=None,cur_cond_set=None,\
                                 choose_database=False,\
                                 index_path=f"{ROOT_PATH}/../test/dataset/env_instruction_vectors.index",verbose=False):
     with open(default_prompt_file, 'r', encoding="utf-8") as f:
@@ -148,3 +148,28 @@ def llm_reflect(llm, messages, reflect_prompt):
     print("Vital Objects:",key_objects)
 
     return goal_set, priority_act_ls, key_predicates, key_objects, messages
+
+
+def convert_conditions(conditions_set):
+    # Initialize an empty list to store the formatted strings
+    formatted_conditions = []
+
+    # Loop over each condition in the set
+    for condition in conditions_set:
+        # Remove the parentheses and split the condition into parts based on the first opening parenthesis
+        base, args = condition.split("(")
+        # Remove the closing parenthesis and replace commas with underscores in the arguments
+        args = args.strip(")").replace(",", "_")
+        # Concatenate the base and the arguments with an underscore and add to the list
+        formatted_conditions.append(f"{base.strip()}_{args}")
+
+    return formatted_conditions
+
+
+def extract_llm_from_reflect(llm,messages):
+
+    answer = llm.request(message=messages)
+    messages.append({"role": "assistant", "content": answer})
+    priority_act_ls, key_predicates, key_objects = parse_llm_output(answer,goals=False)
+
+    return priority_act_ls, key_predicates, key_objects, messages

@@ -1,2 +1,62 @@
 selector
-    cond IsIn(pie,oven)
+    sequence
+        cond IsIn(mincedmeat,kitchencabinet)
+        cond IsClose(kitchencabinet)
+    sequence
+        cond IsLeftHandEmpty(self)
+        cond IsOpen(kitchencabinet)
+        cond IsIn(mincedmeat,kitchencabinet)
+        cond IsNear(self,kitchencabinet)
+        act Close(kitchencabinet)
+    sequence
+        cond IsLeftHandEmpty(self)
+        cond IsRightHolding(self,mincedmeat)
+        cond IsOpen(kitchencabinet)
+        cond IsNear(self,kitchencabinet)
+        act RightPutIn(mincedmeat,kitchencabinet)
+    sequence
+        cond IsLeftHandEmpty(self)
+        cond IsRightHolding(self,mincedmeat)
+        cond IsOpen(kitchencabinet)
+        cond IsStanding(self)
+        act Walk(kitchencabinet)
+    sequence
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        cond IsRightHandEmpty(self)
+        cond IsNear(self,mincedmeat)
+        cond IsOpen(kitchencabinet)
+        act RightGrab(mincedmeat)
+    sequence
+        cond IsLeftHandEmpty(self)
+        cond IsOpen(kitchencabinet)
+        cond IsStanding(self)
+        cond IsRightHandEmpty(self)
+        act Walk(mincedmeat)
+    sequence
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        cond IsClose(kitchencabinet)
+        cond IsRightHandEmpty(self)
+        cond IsNear(self,kitchencabinet)
+        act Open(kitchencabinet)
+    sequence
+        cond IsRightHolding(self,salmon)
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        cond IsClose(kitchencabinet)
+        cond IsNear(self,kitchencabinet)
+        act RightPut(salmon,kitchencabinet)
+    sequence
+        cond IsLeftHandEmpty(self)
+        cond IsStanding(self)
+        cond IsRightHolding(self,salmon)
+        cond IsClose(kitchencabinet)
+        act Walk(kitchencabinet)
+    sequence
+        cond IsLeftHolding(self,carrot)
+        cond IsRightHolding(self,salmon)
+        cond IsStanding(self)
+        cond IsNear(self,fryingpan)
+        cond IsClose(kitchencabinet)
+        act LeftPutIn(carrot,fryingpan)

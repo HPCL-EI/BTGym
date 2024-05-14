@@ -83,6 +83,9 @@ def search_nearest_examples(index_path, llm, instruction, top_n=5):
     return nearest_examples,distances
 
 
+
+
+
 if __name__ == '__main__':
     # 假设 llm 是已经初始化的嵌入模型对象
     llm = LLMGPT3()

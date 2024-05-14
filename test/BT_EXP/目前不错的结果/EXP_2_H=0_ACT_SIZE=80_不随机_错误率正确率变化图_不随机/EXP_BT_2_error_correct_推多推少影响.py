@@ -1,3 +1,4 @@
+import copy
 import time
 
 from btgym import BehaviorTree
@@ -32,7 +33,7 @@ cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
 big_actions = collect_action_nodes(env.behavior_lib)
 
 # 导入数据
-data_path = f"{ROOT_PATH}/../test/BT_EXP/data_small.txt"
+data_path = f"{ROOT_PATH}/../test/BT_EXP/DATA_BT_100_ori_yz_revby_cys.txt" #DATA_BT_100_ori_yz_revby_cys
 data = read_dataset(data_path)
 len_data = len(data)
 print(f"导入 {len_data} 条数据")
@@ -40,21 +41,27 @@ print(data[0])
 analyze_data_tabular(data,[47,1,1,1])
 
 
-# error_rate_range_ls = [0, 1, 5, 10]
-error_rate_range_ls = [0,  0.5, 1, 5]
-# error_rate_range_ls = [0, 5]
+# error_rate_range_ls = [0, 0.5 ,1, 3, 5]
+error_rate_range_ls = [0, 0.5 ,1, 3, 5]
+# error_rate_range_ls = [0,1,5,10]
+# error_rate_range_ls = [15]
+# error_rate_range_ls = [5] #80
 # correct_rate_range_ls = [0,  1]
-correct_rate_range_ls = [0, 0.25, 0.5, 0.75, 1]
-# correct_rate_range_ls = np.arange(0, 1.1, 0.1)  # 注意：1.1是因为arange不包含终止值
-
+# correct_rate_range_ls = [0, 0.25, 0.5, 0.75, 1]
+# correct_rate_range_ls = [1]
+# correct_rate_range_ls = [0,0.5,1]
+correct_rate_range_ls = np.arange(0, 1.1, 0.2)  # 注意：1.1是因为arange不包含终止值
+# correct_rate_range_ls = [0]
 
 # Data storage dictionary
-data_storage_dic = {(e, c): {'error_num': [], 'correct_num': [], \
+data_storage_dic = {(e, c): {'id':[],'error_num': [], 'correct_num': [], \
                              'expanded_num': [], 'planning_time_total': [], \
-                             'current_cost': [], 'act_steps': [], 'bt_status': []}
+                             'current_cost': [], \
+                             'error':[], 'timeout':[],\
+                             'act_steps': [], 'bt_status': []}
                     for e in error_rate_range_ls for c in correct_rate_range_ls}
 
-for ind,d in enumerate(data[0:5]):
+for ind,d in enumerate(data):
     # for data_ind in range(4,5):
     combined_string = ' & '.join(d['Goals'])
     goal_set = goal_transfer_str(combined_string)
@@ -63,40 +70,47 @@ for ind,d in enumerate(data[0:5]):
     print("goal:", goal_set)
     print("act:", true_priority_act_set)
 
+    # 随机选择动作这里存在较大的随机性 ？？？！！！
     custom_action_list = generate_custom_action_list(big_actions, 80, true_priority_act_set)
     custom_action_name_ls = {act.name for act in custom_action_list}
 
     error_priority_act_set = custom_action_name_ls - true_priority_act_set
 
+    cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)",
+                                                  "IsStanding(self)"}
+    cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction.CAN_OPEN}
+    cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
+    cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
+
+    error_act_tmp_set=set()
     for error_rate in error_rate_range_ls:
+        corr_act_tmp_set = set()
         for correct_rate in correct_rate_range_ls:
-    # for error_rate in [0.5]:
-    #     for correct_rate in [0.25]:
-            # error_rate = 0.5
-            # correct_rate = 0.75
 
             error_num = int(len(true_priority_act_set) * error_rate)
             correct_num = int(len(true_priority_act_set) * correct_rate)
             # correct_num=len(true_priority_act_set)-error_num
-            print("Error:", error_num,"Correct:", correct_num)
+            print("------Error:", error_num,"Correct:", correct_num,'---------')
 
+            error_act_tmp_set |= set(random.sample(sorted(list(error_priority_act_set-error_act_tmp_set)), \
+                                                        error_num-len(error_act_tmp_set)))
+            corr_act_tmp_set |= set(random.sample(sorted(list(true_priority_act_set-corr_act_tmp_set)), \
+                                                        correct_num-len(corr_act_tmp_set)))
             # 排序是为了取消随机性
             # 推荐优先级
             priority_act_ls = set()
-            priority_act_ls |= set(random.sample(sorted(list(error_priority_act_set)), error_num))
-            priority_act_ls |= set(random.sample(sorted(list(true_priority_act_set)), correct_num))
+            # priority_act_ls |= set(random.sample(sorted(list(error_priority_act_set)), error_num))
+            # priority_act_ls |= set(random.sample(sorted(list(true_priority_act_set)), correct_num))
+            priority_act_ls |= error_act_tmp_set
+            priority_act_ls |= corr_act_tmp_set
             priority_act_ls = sorted(list(priority_act_ls))
 
-            print("priority_act_ls:", priority_act_ls)
+            # priority_act_ls=error_priority_act_set|true_priority_act_set
+
+            print("data:", ind,"priority_act_ls:", priority_act_ls)
             # {'LeftPut(cupcake,floor)', 'Wipe(juice)', 'PlugIn(toaster)', 'LeftPut(towel,radio)', 'Walk(bathroomcabinet)', 'LeftPut(bellpepper,kitchencounter)'}
             # priority_act_ls = {'RightGrab(pillow)', 'LeftPut(cuttingboard,kitchentable)', 'LeftPut(cuttingboard,sofa)', 'RightPut(boardgame,sofa)', 'LeftPut(cutleryknife,desk)', 'Walk(book)'}
             # priority_act_ls = []
-
-            cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)",
-                                                          "IsStanding(self)"}
-            cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction_small.CAN_OPEN}
-            cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction_small.HAS_SWITCH}
-            cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction_small.HAS_PLUG}
 
             # cur_cond_set = set(env_dic[data[0]['Environment']])
             # print("cur_cond_set:",cur_cond_set)
@@ -107,85 +121,41 @@ for ind,d in enumerate(data[0:5]):
             #                       selected_algorithm="baseline",action_list=action_list)
 
             # 这里应该是推荐错了怎么处理
-            algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set, \
+            algo = BTExpInterface(env.behavior_lib, cur_cond_set=copy.deepcopy(cur_cond_set), \
                                   priority_act_ls=priority_act_ls,  \
                                   selected_algorithm="opt", mode="user-defined", action_list=custom_action_list,\
                                   llm_reflect=False, time_limit=None,
-                                  heuristic_choice=0)
+                                  heuristic_choice=1)
 
             start_time = time.time()
             algo.process(goal_set)
             end_time = time.time()
 
-            ptml_string, cost, expanded_num = algo.post_process()  # 后处理
-            print("Expanded Conditions: ", expanded_num)
+            ptml_string, cost, expanded_num = algo.post_process()
             planning_time_total = (end_time - start_time)
-            print("planning_time_total:", planning_time_total)
-            # print("cost_total:", cost)
-            file_name = "test"
-            file_path = f'./{file_name}.btml'
-            with open(file_path, 'w') as file:
-                file.write(ptml_string)
-
-            # 读取执行
-            bt = BehaviorTree(file_name + ".btml", env.behavior_lib)
-            # bt.print()
-            # bt.draw()
-
-            env.agents[0].bind_bt(bt)
-            env.reset()
-            env.print_ticks = True
-
-            # simulation and test
-            # print("\n================ ")
+            print("cost",cost,"expanded_num:", expanded_num, "planning_time_total", planning_time_total)
 
             goal = goal_set[0]
-            state = cur_cond_set
-            steps = 0
-            current_cost = 0
-            current_tick_time = 0
+            state = copy.deepcopy(cur_cond_set)
+            error, state, act_num, current_cost, record_act_ls = algo.execute_bt(goal, state, verbose=False)
 
-            act_num = 1
-
-            bt_status = True
-            val, obj, cost, tick_time = algo.algo.bt.cost_tick(state, 0, 0)  # tick行为树，obj为所运行的行动
-            # print(f"Action: {act_num}  {obj.__str__().ljust(35)}cost: {cost}")
-            current_tick_time += tick_time
-            current_cost += cost
-            while val != 'success' and val != 'failure':
-                state = state_transition(state, obj)
-                val, obj, cost, tick_time = algo.algo.bt.cost_tick(state, 0, 0)
-                act_num += 1
-                # print(f"Action: {act_num}  {obj.__str__().ljust(35)}cost: {cost}")
-                current_cost += cost
-                current_tick_time += tick_time
-                if (val == 'failure'):
-                    # print("bt fails at step", steps)
-                    bt_status = False
-                    error = True
-                    break
-                steps += 1
-                if (steps >= 500):  # 至多运行500步
-                    break
-            if goal <= state:
-                pass
-                # print("Finished!")
-            else:
-                bt_status = False
-            print("bt_status:", bt_status)
-            # print(f"一定运行了 {act_num - 1} 个动作步")
-            # print("current_cost:", current_cost)
-            # print("================ ")
+            time_limit_exceeded = algo.algo.time_limit_exceeded
+            # algo.algo.clear()
 
             # 数据记录
             # Store the data
+            data_storage_dic[(error_rate, correct_rate)]['id'].append(ind)
+
             data_storage_dic[(error_rate, correct_rate)]['error_num'].append(error_num)
             data_storage_dic[(error_rate, correct_rate)]['correct_num'].append(correct_num)
 
             data_storage_dic[(error_rate, correct_rate)]['expanded_num'].append(expanded_num)
             data_storage_dic[(error_rate, correct_rate)]['planning_time_total'].append(planning_time_total)
-
             data_storage_dic[(error_rate, correct_rate)]['current_cost'].append(current_cost)
+
+            data_storage_dic[(error_rate, correct_rate)]['error'].append(int(error))
+            data_storage_dic[(error_rate, correct_rate)]['timeout'].append(int(time_limit_exceeded))
+
             data_storage_dic[(error_rate, correct_rate)]['act_steps'].append(planning_time_total)
             data_storage_dic[(error_rate, correct_rate)]['bt_status'].append(current_cost)
 
@@ -196,7 +166,7 @@ for key, values in data_storage_dic.items():
     error_rate, correct_rate = key
     for i in range(len(values['expanded_num'])):
         record = {
-            'Data ID': i % (len(error_rate_range_ls) * len(correct_rate_range_ls)),
+            'Data ID': values['id'][i],
             'Error Rate': error_rate,
             'Correct Rate': correct_rate,
             'Error Num': values['error_num'][i],
@@ -204,6 +174,10 @@ for key, values in data_storage_dic.items():
             'Expanded Num': values['expanded_num'][i],
             'Planning Time Total': values['planning_time_total'][i],
             'Current Cost': values['current_cost'][i],
+
+            'Error':values['error'][i],
+            'Timeout':values['timeout'][i],
+
             'Act Steps': values['act_steps'][i],
             'BT Status': values['bt_status'][i]
         }
@@ -227,7 +201,8 @@ for key, values in data_storage_dic.items():
 df_details = pd.DataFrame(all_data_records, columns=[
     'Data ID',
     'Error Rate', 'Correct Rate', 'Error Num', 'Correct Num', 'Expanded Num',
-    'Planning Time Total', 'Current Cost', 'Act Steps', 'BT Status'
+    'Planning Time Total', 'Current Cost','Error','Timeout',
+    'Act Steps', 'BT Status'
 ])
 
 df_summary = pd.DataFrame(summary_results, columns=[
@@ -236,8 +211,12 @@ df_summary = pd.DataFrame(summary_results, columns=[
 ])
 
 # Save detailed data and summary data to CSV
-csv_file_path_details = 'output_detailed_bt_data_small_bigerror.csv'
-csv_file_path_summary = 'output_summary_bt_data_small_bigerror.csv'
+# csv_file_path_details = 'EXP_2_output_detailed_bt_data_small_100_bigerror_0_1_5_10_heuristic_choice=1.csv'
+# csv_file_path_summary = 'EXP_2_output_summary_bt_data_small_100_bigerror_0_1_5_10_heuristic_choice=1.csv'
+csv_file_path_details = 'EXP_2_output_detailed_bt_data_small_100_bigerror_heuristic=1_noRandom.csv'
+csv_file_path_summary = 'EXP_2_output_summary_bt_data_small_100_bigerror_heuristic=1_noRandom.csv'
+
+
 df_details.to_csv(csv_file_path_details, index=False)
 df_summary.to_csv(csv_file_path_summary, index=False)
 

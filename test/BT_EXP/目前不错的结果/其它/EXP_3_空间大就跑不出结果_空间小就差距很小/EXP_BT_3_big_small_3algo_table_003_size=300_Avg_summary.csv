@@ -1,0 +1,7 @@
+mode,heuristic,expanded_num,time,cost,error,timeout
+Large Custom Space,-1 No Heuristic,1176.17,3.878851344585419,54.27,0.0,0.0
+Large Custom Space,0 Non-optimal Fast Heuristic,13.5,0.01951978206634517,54.27,0.0,0.0
+Large Custom Space,1 Optimal Heuristic,18.34,0.02865427494049068,54.27,0.0,0.0
+Small Space,-1 No Heuristic,18.62,0.002880985736846882,54.27,0.0,0.0
+Small Space,0 Non-optimal Fast Heuristic,13.84,0.007267618179321248,54.27,0.0,0.0
+Small Space,1 Optimal Heuristic,18.38,0.0027806591987609456,54.27,0.0,0.0

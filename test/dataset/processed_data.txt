@@ -1,56 +1,40 @@
 1
 Environment:1
-Instruction: 
-Goals: IsClean_keyboard & IsSwitchedOn_candle & IsOn_coffeepot_desk & IsPlugged_microwave & IsPlugged_cellphone & IsOpen_window
-Optimal Actions: Walk_microwave, PlugIn_microwave, Walk_rag, RightGrab_rag, Walk_coffeepot, LeftGrab_coffeepot, Walk_desk, LeftPut_coffeepot_desk, Walk_window, Open_window, Walk_cellphone, PlugIn_cellphone, Walk_candle, SwitchOn_candle, Walk_keyboard, Wipe_keyboard
-Vital Action Predicates: Walk, PlugIn, RightGrab, LeftGrab, LeftPut, Open, SwitchOn, Wipe
-Vital Objects: microwave, rag, coffeepot, desk, window, cellphone, candle, keyboard
+Instruction: Put the pear, bananas, and the apple on the kitchentable.
+Goals: IsOn_pear_kitchentable & IsOn_bananas_kitchentable & IsOn_apple_kitchentable
+Optimal Actions: Walk_bananas, RightGrab_bananas, Walk_kitchentable, RightPut_bananas_kitchentable, Walk_apple, LeftGrab_apple, Walk_pear, RightGrab_pear, LeftPut_apple_kitchentable, RightPut_pear_kitchentable
+Vital Action Predicates: Walk, RightGrab, RightPut, LeftGrab, LeftPut
+Vital Objects: bananas, kitchentable, apple, pear
 
 2
 Environment:1
-Instruction: 
-Goals: IsClean_peach & IsUnplugged_oven & IsCut_bananas & IsOn_cereal_boardgame
-Optimal Actions: Walk_peach, RightGrab_peach, Walk_faucet, SwitchOn_faucet, Wash_peach, Walk_cereal, LeftGrab_cereal, Walk_boardgame, LeftPut_cereal_boardgame, RightPut_peach_boardgame, Walk_bananas, LeftGrab_bananas, Walk_kitchenknife, RightGrab_kitchenknife, Cut_bananas
-Vital Action Predicates: Walk, RightGrab, SwitchOn, Wash, LeftGrab, LeftPut, RightPut, Cut
-Vital Objects: peach, faucet, cereal, boardgame, bananas, kitchenknife
+Instruction: Put the toothpaste, toothbrush, and towel on the bathroomcabinet.
+Goals: IsOn_toothpaste_bathroomcabinet & IsOn_toothbrush_bathroomcabinet & IsOn_towel_bathroomcabinet
+Optimal Actions: Walk_towel, LeftGrab_towel, Walk_bathroomcabinet, LeftPut_towel_bathroomcabinet, Walk_toothpaste, RightGrab_toothpaste, Walk_toothbrush, LeftGrab_toothbrush, RightPut_toothpaste_bathroomcabinet, LeftPut_toothbrush_bathroomcabinet
+Vital Action Predicates: Walk, LeftGrab, LeftPut, RightGrab, RightPut
+Vital Objects: towel, bathroomcabinet, toothpaste, toothbrush
 
 3
 Environment:1
-Instruction: 
-Goals: IsPlugged_printer & IsSwitchedOn_printer & IsOn_cupcake_sofa & IsIn_salad_kitchencabinet & IsClose_kitchencabinet & IsOpen_window
-Optimal Actions: Walk_window, Open_window, Walk_printer, PlugIn_printer, SwitchOn_printer, Walk_cupcake, LeftGrab_cupcake, Walk_salad, RightGrab_salad, Walk_sofa, LeftPut_cupcake_sofa, Walk_kitchencabinet, Open_kitchencabinet, RightPutIn_salad_kitchencabinet, Close_kitchencabinet
-Vital Action Predicates: Walk, Open, PlugIn, SwitchOn, LeftGrab, RightGrab, LeftPut, RightPutIn, Close
-Vital Objects: window, printer, cupcake, salad, sofa, kitchencabinet
+Instruction: Put the notes, the magazine, and the book on the desk.
+Goals: IsOn_notes_desk & IsOn_magazine_desk & IsOn_book_desk
+Optimal Actions: Walk_notes, LeftGrab_notes, Walk_desk, LeftPut_notes_desk, Walk_book, RightGrab_book, Walk_magazine, LeftGrab_magazine, RightPut_book_desk, LeftPut_magazine_desk
+Vital Action Predicates: Walk, LeftGrab, LeftPut, RightGrab, RightPut
+Vital Objects: notes, desk, book, magazine
 
 4
 Environment:1
-Instruction: 
-Goals: IsOpen_magazine & IsClean_oven & IsOn_cutleryfork_desk & IsPlugged_printer & IsOn_hairproduct_cabinet
-Optimal Actions: Walk_printer, PlugIn_printer, Walk_magazine, Open_magazine, Walk_cutleryfork, LeftGrab_cutleryfork, Walk_desk, LeftPut_cutleryfork_desk, Walk_hairproduct, LeftGrab_hairproduct, Walk_rag, RightGrab_rag, Walk_cabinet, LeftPut_hairproduct_cabinet, Walk_oven, Wipe_oven
-Vital Action Predicates: Walk, PlugIn, Open, LeftGrab, LeftPut, RightGrab, Wipe
-Vital Objects: printer, magazine, cutleryfork, desk, hairproduct, rag, cabinet, oven
+Instruction: Put the washingsponge, dishbowl, the plate, and the dishwashingliquid in the sink.
+Goals: IsIn_washingsponge_sink & IsIn_dishbowl_sink & IsIn_plate_sink & IsIn_dishwashingliquid_sink
+Optimal Actions: Walk_washingsponge, LeftGrab_washingsponge, Walk_dishwashingliquid, RightGrab_dishwashingliquid, Walk_sink, LeftPutIn_washingsponge_sink, RightPutIn_dishwashingliquid_sink, Walk_plate, LeftGrab_plate, Walk_dishbowl, RightGrab_dishbowl, LeftPutIn_plate_sink, RightPutIn_dishbowl_sink
+Vital Action Predicates: Walk, LeftGrab, RightGrab, LeftPutIn, RightPutIn
+Vital Objects: washingsponge, dishwashingliquid, sink, plate, dishbowl
 
 5
 Environment:1
-Instruction: 
-Goals: IsClean_keyboard & IsSwitchedOn_candle & IsOn_coffeepot_desk & IsIn_milk_microwave & IsClose_microwave & IsPlugged_microwave & IsSwitchedOn_microwave
-Optimal Actions: Walk_candle, SwitchOn_candle, Walk_milk, RightGrab_milk, Walk_microwave, PlugIn_microwave, Open_microwave, RightPutIn_milk_microwave, Walk_rag, RightGrab_rag, Walk_keyboard, Wipe_keyboard, Close_microwave, SwitchOn_microwave, Walk_coffeepot, LeftGrab_coffeepot, Walk_desk, LeftPut_coffeepot_desk
-Vital Action Predicates: Walk, SwitchOn, RightGrab, PlugIn, Open, RightPutIn, Wipe, Close, LeftGrab, LeftPut
-Vital Objects: candle, milk, microwave, rag, keyboard, coffeepot, desk
-
-6
-Environment:1
-Instruction: 
-Goals: IsOn_pear_bed & IsClean_clothespants & IsCut_pancake & IsCut_poundcake & IsCut_pie
-Optimal Actions: Walk_rag, RightGrab_rag, Walk_clothespants, Wipe_clothespants, Walk_pear, LeftGrab_pear, Walk_bed, RightPut_rag_bed, LeftPut_pear_bed, Walk_pie, LeftGrab_pie, Walk_kitchenknife, RightGrab_kitchenknife, Cut_pie, LeftPut_pie_bed, Walk_poundcake, LeftGrab_poundcake, Cut_poundcake, LeftPut_poundcake_bed, Walk_pancake, LeftGrab_pancake, Cut_pancake
-Vital Action Predicates: Walk, RightGrab, Wipe, LeftGrab, RightPut, LeftPut, Cut
-Vital Objects: rag, clothespants, pear, bed, pie, kitchenknife, poundcake, pancake
-
-7
-Environment:1
-Instruction: 
-Goals: IsCut_bellpepper & IsClean_condimentbottle & IsIn_juice_fridge & IsOn_milk_sofa
-Optimal Actions: Walk_juice, RightGrab_juice, Walk_fridge, Open_fridge, PlugIn_fridge, RightPutIn_juice_fridge, Walk_milk, RightGrab_milk, Walk_rag, LeftGrab_rag, Walk_sofa, RightPut_milk_sofa, Walk_kitchenknife, RightGrab_kitchenknife, Walk_condimentbottle, Wipe_condimentbottle, Walk_sink, LeftPutIn_rag_sink, Walk_bellpepper, LeftGrab_bellpepper, Cut_bellpepper
-Vital Action Predicates: Walk, RightGrab, Open, PlugIn, RightPutIn, LeftGrab, RightPut, Wipe, LeftPutIn, Cut
-Vital Objects: juice, fridge, milk, rag, sofa, kitchenknife, condimentbottle, sink, bellpepper
+Instruction: Put the crackers, the pudding, the cupcake, and creamybuns on the kitchencounter.
+Goals: IsOn_crackers_kitchencounter & IsOn_pudding_kitchencounter & IsOn_cupcake_kitchencounter & IsOn_creamybuns_kitchencounter
+Optimal Actions: Walk_pudding, LeftGrab_pudding, Walk_creamybuns, RightGrab_creamybuns, Walk_kitchencounter, LeftPut_pudding_kitchencounter, RightPut_creamybuns_kitchencounter, Walk_cupcake, RightGrab_cupcake, Walk_crackers, LeftGrab_crackers, LeftPut_crackers_kitchencounter, RightPut_cupcake_kitchencounter
+Vital Action Predicates: Walk, LeftGrab, RightGrab, LeftPut, RightPut
+Vital Objects: pudding, creamybuns, kitchencounter, cupcake, crackers
 

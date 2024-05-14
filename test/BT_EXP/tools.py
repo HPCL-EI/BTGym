@@ -200,10 +200,13 @@ def generate_custom_action_list(big_actions,action_space_size, a):
             raise ValueError(f"Action '{action_name}' is not available in the behavior library.")
         selected_actions.append(name_to_action[action_name])
 
-
+    random.seed(0)  # 可以选择任意数字作为种子
     # Randomly select actions from the big action space excluding those already in `a`
     remaining_actions = [action for action in big_actions if action not in a]
-    random_actions = random.sample(remaining_actions, action_space_size - len(a))
+    sorted_remaining_actions = sorted(remaining_actions, key=lambda x: x.name)
+
+    # 这个地方 不排序就随机
+    random_actions = random.sample(sorted_remaining_actions, action_space_size - len(a))
 
     # Combine selected actions with randomly chosen ones
     final_action_list = selected_actions + random_actions

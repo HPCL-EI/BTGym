@@ -442,7 +442,7 @@ class OptBTExpAlgorithm:
         if goal <= start:
             self.bt_without_merge = bt
             print("goal <= start, no need to generate bt.")
-            return bt, 0
+            return bt, 0, self.time_limit_exceeded
 
         epsh = 0
         while len(self.nodes) != 0:
@@ -487,7 +487,6 @@ class OptBTExpAlgorithm:
 
                 # 超时处理
                 if self.time_limit!= None and time.time() - start_time > self.time_limit:
-                    self.time_limit_exceeded = False
                     self.time_limit_exceeded = True
                     bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
                                               cond_to_condActSeq)
@@ -680,6 +679,9 @@ class OptBTExpAlgorithm:
 
             self.traversed.extend(traversed_current)
             # ====================== End Action Trasvers ============================ #
+
+        bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
+                                  cond_to_condActSeq)
 
         self.tree_size = self.bfs_cal_tree_size_subtree(bt)
         self.bt_without_merge = bt

@@ -1,4 +1,49 @@
 
+from btgym.utils.read_dataset import read_dataset
+import btgym
+import time
+from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
+
+def setup_default_env():
+    env = btgym.make("VHT-PutMilkInFridge")
+    cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
+    cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction.CAN_OPEN}
+    cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
+    cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
+    return env, cur_cond_set
+
+
+
+
+
+def execute_algorithm(algo, goal_set, cur_cond_set):
+    start_time = time.time()
+    algo.process(goal_set)
+    end_time = time.time()
+    planning_time_total = end_time - start_time
+
+    ptml_string, cost, expanded_num = algo.post_process()
+    error, state, act_num, current_cost, record_act_ls = algo.execute_bt(goal_set[0], cur_cond_set, verbose=False)
+
+    return expanded_num, planning_time_total, cost, error, act_num, current_cost, record_act_ls
+
+
+def load_result_csv(file_name):
+    # Load the results from the previously saved CSV file
+    # file_name = "llm_40.csv"
+    results_df = pd.read_csv(file_name)
+    results = results_df.to_dict(orient='records')  # Convert DataFrame back to list of dictionaries
+    # Check that the data is successfully loaded
+    print(f"Loaded {len(results)} results from '{file_name}'")
+
+
+def load_dataset(data_path):
+    data1 = read_dataset(data_path)
+    len_data = len(data1)
+    print(f"导入 {len_data} 条数据")
+    return data1
+
+
 def count_accuracy(expected, actual):
     correct = 0
     incorrect = 0

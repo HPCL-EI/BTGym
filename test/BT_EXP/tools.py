@@ -3,10 +3,6 @@ import numpy as np
 import pandas as pd
 import pickle
 
-seed = 0
-random.seed(seed)
-np.random.seed(seed)
-
 
 def count_accuracy(expected, actual):
     correct = 0
@@ -200,7 +196,6 @@ def generate_custom_action_list(big_actions,action_space_size, a):
             raise ValueError(f"Action '{action_name}' is not available in the behavior library.")
         selected_actions.append(name_to_action[action_name])
 
-    random.seed(0)  # 可以选择任意数字作为种子
     # Randomly select actions from the big action space excluding those already in `a`
     remaining_actions = [action for action in big_actions if action not in a]
     sorted_remaining_actions = sorted(remaining_actions, key=lambda x: x.name)

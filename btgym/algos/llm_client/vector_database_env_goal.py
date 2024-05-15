@@ -132,7 +132,8 @@ if __name__ == '__main__':
     # 示例路径和布尔标志
     # file_path = f"{ROOT_PATH}/../test/dataset/database_cys_5.txt"
     # index_path = f"{ROOT_PATH}/../test/dataset/env_goal_vectors.txt"
-    filename = "Group0"
+    # filename = "Group0"
+    filename = "Group400"
     file_path = f"{ROOT_PATH}/../test/dataset/DATABASE/{filename}.txt"
     index_path = f"{ROOT_PATH}/../test/dataset/DATABASE/{filename}_env_goal_vectors.index"
     should_rebuild_index = True  # 如果为 True，则重建数据库

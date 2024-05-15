@@ -25,4 +25,5 @@ if __name__ == '__main__':
     goals = list_all_goals(index_path)
     for goal in goals:
         print(goal)
+
     print(f"共有 {len(goals)} 数据")

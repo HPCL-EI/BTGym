@@ -1,0 +1,101 @@
+round,id,goals,priority_act_ls,key_predicates,key_objects,act_num,error,time_limit_exceeded,current_cost,expanded_num,planning_time_total,average_distance,database_size
+0,14,IsClean_rug & IsUnplugged_toaster & IsClean_toaster,,,,,None,None,,,,,5
+0,4,IsIn_paper_folder & IsOn_book_desk & IsOpen_book & IsClose_folder,"['Walk(paper)', 'RightGrab(paper)', 'Walk(folder)', 'RightGrab(folder)', 'Walk(book)', 'RightGrab(book)', 'Walk(desk)', 'Open(book)', 'RightPut(book,desk)', 'Close(folder)']","['RightPut', 'Walk', 'Open', 'Close', 'RightGrab']","['desk', 'paper', 'book', 'folder']",12.0,False,False,110.0,210.0,0.049581050872802734,1.3331905603408813,5
+0,19,IsClean_peach & IsIn_plate_fridge & IsClose_fridge,,,,,None,None,,,,,5
+0,12,IsClean_rag & IsClean_desk,,,,,None,None,,,,,5
+0,9,IsClose_curtains & IsPlugged_tablelamp & IsSwitchedOn_tablelamp & IsSwitchedOn_clock,"['Walk(tablelamp)', 'PlugIn(tablelamp)', 'SwitchOn(tablelamp)', 'Walk(clock)', 'PlugIn(clock)', 'SwitchOn(clock)', 'Walk(curtains)', 'Close(curtains)']","['PlugIn', 'Close', 'Walk', 'SwitchOn']","['clock', 'tablelamp', 'curtains']",7.0,False,False,77.0,70.0,0.010002374649047852,1.321691632270813,5
+0,8,IsSwitchedOff_tv & IsSwitchedOn_computer & IsOpen_curtains & IsPlugged_mouse & IsPlugged_keyboard,"['SwitchOff(tv)', 'Walk(computer)', 'SwitchOn(computer)', 'Walk(curtains)', 'Open(curtains)', 'Walk(mouse)', 'PlugIn(mouse)', 'Walk(keyboard)', 'PlugIn(keyboard)']","['Walk', 'Open', 'PlugIn', 'SwitchOn', 'SwitchOff']","['tv', 'mouse', 'computer', 'keyboard', 'curtains']",8.0,False,False,87.0,29.0,0.005001068115234375,1.205457329750061,5
+0,17,IsClean_apple & IsClean_plum & IsClean_plum & IsOn_apple_cuttingboard,,,,,None,None,,,,,5
+0,13,IsClean_apple & IsCut_apple & IsOn_apple_plate & IsOn_plate_coffeetable,,,,,None,None,,,,,5
+0,16,IsCut_chicken & IsCut_carrot & IsOn_carrot_oventray & IsOn_chicken_oventray,,,,,None,None,,,,,5
+0,3,IsIn_milk_microwave & IsPlugged_microwave & IsClose_microwave & IsSwitchedOn_microwave & IsOn_breadslice_kitchentable,,,,,None,None,,,,,5
+0,15,IsClean_remotecontrol & IsClean_wallpictureframe & IsClean_clock & IsClean_tvstand,,,,,None,None,,,,,5
+0,0,IsIn_chicken_fridge & IsIn_peach_fridge & IsPlugged_fridge & IsSwitchedOn_fridge & IsClose_fridge,,,,,None,None,,,,,5
+0,7,IsIn_plate_dishwasher & IsIn_dishbowl_dishwasher & IsPlugged_lightswitch & IsSwitchedOn_dishwasher & IsSwitchedOn_lightswitch,,,,,None,None,,,,,5
+0,10,IsClean_kitchencabinet & IsIn_papertowel_garbagecan & IsClose_garbagecan,,,,,None,None,,,,,5
+0,5,IsIn_pancake_fryingpan & IsOn_fryingpan_stove & IsSwitchedOn_stove,"['Walk(pancake)', 'RightGrab(pancake)', 'Walk(fryingpan)', 'RightGrab(fryingpan)', 'Walk(stove)', 'SwitchOn(stove)', 'RightPutIn(pancake,fryingpan)', 'RightPut(fryingpan,stove)']","['RightPut', 'RightPutIn', 'Walk', 'SwitchOn', 'RightGrab']","['stove\n\n(Note:Ifanactioninvolvesmultipleobjects', 'separatethemwithcommas)', 'fryingpan', 'stove', 'pancake']",8.0,False,False,79.0,23.0,0.004001140594482422,1.3160607814788818,5
+0,2,IsIn_clothespile_washingmachine & IsPlugged_washingmachine & IsClose_washingmachine & IsSwitchedOn_washingmachine & IsSwitchedOn_cellphone & IsPlugged_cellphone,,,,,None,None,,,,,5
+0,18,IsIn_clothespile_sink & IsClean_clothespile & IsClean_sink,"['Walk(clothespile)', 'RightGrab(clothespile)', 'Walk(sink)', 'RightPutIn(clothespile,sink)', 'Walk(rag)', 'RightGrab(rag)', 'Wipe(clothespile)', 'Wipe(sink)']","['RightPutIn', 'Wipe', 'Walk', 'RightGrab']","['sink', 'clothespile', 'rag']",10.0,False,False,113.0,63.0,0.010003328323364258,1.253427267074585,5
+0,1,IsOn_remotecontrol_sofa & IsPlugged_tv & IsSwitchedOn_tv & IsIn_clothespants_closet & IsClose_closet,,,,,None,None,,,,,5
+0,6,IsIn_hairproduct_bathroomcabinet & IsIn_facecream_bathroomcabinet & IsIn_barsoap_bathroomcabinet & IsClose_bathroomcabinet,,,,,None,None,,,,,5
+0,11,IsPlugged_lightswitch & IsSwitchedOn_lightswitch & IsClean_wallpictureframe & IsClean_towelrack & IsClean_bookshelf,,,,,None,None,,,,,5
+1,19,IsClean_peach & IsIn_plate_fridge & IsClose_fridge,,,,,None,None,,,,,12
+1,12,IsClean_rag & IsClean_desk,,,,,None,None,,,,,12
+1,5,IsIn_pancake_fryingpan & IsOn_fryingpan_stove & IsSwitchedOn_stove,,,,,None,None,,,,,12
+1,17,IsClean_apple & IsClean_plum & IsClean_plum & IsOn_apple_cuttingboard,,,,,None,None,,,,,12
+1,8,IsSwitchedOff_tv & IsSwitchedOn_computer & IsOpen_curtains & IsPlugged_mouse & IsPlugged_keyboard,"['Walk(tv)', 'SwitchOff(tv)', 'Walk(computer)', 'SwitchOn(computer)', 'Walk(curtains)', 'Open(curtains)', 'Walk(mouse)', 'PlugIn(mouse)', 'Walk(keyboard)', 'PlugIn(keyboard)']","['Walk', 'Open', 'PlugIn', 'SwitchOn', 'SwitchOff']","['tv', 'mouse', 'computer', 'keyboard', 'curtains']",8.0,False,False,87.0,59.0,0.028006553649902344,1.1318165063858032,12
+1,16,IsCut_chicken & IsCut_carrot & IsOn_carrot_oventray & IsOn_chicken_oventray,,,,,None,None,,,,,12
+1,18,IsIn_clothespile_sink & IsClean_clothespile & IsClean_sink,"['Walk(clothespile)', 'RightGrab(clothespile)', 'Walk(sink)', 'RightPutIn(clothespile,sink)', 'Walk(rag)', 'RightGrab(rag)', 'Wipe(clothespile)', 'Wipe(sink)']","['RightPutIn', 'Wipe', 'Walk', 'RightGrab']","['sink', 'clothespile', 'rag']",10.0,False,False,113.0,63.0,0.009001970291137695,1.2375338077545166,12
+1,13,IsClean_apple & IsCut_apple & IsOn_apple_plate & IsOn_plate_coffeetable,,,,,None,None,,,,,12
+1,9,IsClose_curtains & IsPlugged_tablelamp & IsSwitchedOn_tablelamp & IsSwitchedOn_clock,"['Walk(curtains)', 'Close(curtains)', 'Walk(tablelamp)', 'PlugIn(tablelamp)', 'SwitchOn(tablelamp)', 'Walk(clock)', 'SwitchOn(clock)']","['PlugIn', 'Close', 'Walk', 'SwitchOn']","['clock', 'tablelamp', 'curtains']",6.0,False,False,62.0,74.0,0.011002540588378906,1.0535166263580322,12
+1,2,IsIn_clothespile_washingmachine & IsPlugged_washingmachine & IsClose_washingmachine & IsSwitchedOn_washingmachine & IsSwitchedOn_cellphone & IsPlugged_cellphone,,,,,None,None,,,,,12
+1,3,IsIn_milk_microwave & IsPlugged_microwave & IsClose_microwave & IsSwitchedOn_microwave & IsOn_breadslice_kitchentable,,,,,None,None,,,,,12
+1,4,IsIn_paper_folder & IsOn_book_desk & IsOpen_book & IsClose_folder,,,,,None,None,,,,,12
+1,6,IsIn_hairproduct_bathroomcabinet & IsIn_facecream_bathroomcabinet & IsIn_barsoap_bathroomcabinet & IsClose_bathroomcabinet,,,,,None,None,,,,,12
+1,10,IsClean_kitchencabinet & IsIn_papertowel_garbagecan & IsClose_garbagecan,,,,,None,None,,,,,12
+1,15,IsClean_remotecontrol & IsClean_wallpictureframe & IsClean_clock & IsClean_tvstand,,,,,None,None,,,,,12
+1,7,IsIn_plate_dishwasher & IsIn_dishbowl_dishwasher & IsPlugged_lightswitch & IsSwitchedOn_dishwasher & IsSwitchedOn_lightswitch,,,,,None,None,,,,,12
+1,1,IsOn_remotecontrol_sofa & IsPlugged_tv & IsSwitchedOn_tv & IsIn_clothespants_closet & IsClose_closet,,,,,None,None,,,,,12
+1,0,IsIn_chicken_fridge & IsIn_peach_fridge & IsPlugged_fridge & IsSwitchedOn_fridge & IsClose_fridge,"['Walk(chicken)', 'RightGrab(chicken)', 'Walk(fridge)', 'Open(fridge)', 'RightPutIn(chicken,fridge)', 'Walk(peach)', 'RightGrab(peach)', 'RightPutIn(peach,fridge)', 'PlugIn(fridge)', 'SwitchOn(fridge)', 'Close(fridge)']","['RightPutIn', 'Open', 'Walk', 'PlugIn', 'Close', 'SwitchOn', 'RightGrab']","['chicken', 'peach', 'fridge']",12.0,False,False,112.0,143.0,0.029006481170654297,1.0098438262939453,12
+1,11,IsPlugged_lightswitch & IsSwitchedOn_lightswitch & IsClean_wallpictureframe & IsClean_towelrack & IsClean_bookshelf,,,,,None,None,,,,,12
+1,14,IsClean_rug & IsUnplugged_toaster & IsClean_toaster,,,,,None,None,,,,,12
+2,14,IsClean_rug & IsUnplugged_toaster & IsClean_toaster,,,,,None,None,,,,,14
+2,12,IsClean_rag & IsClean_desk,,,,,None,None,,,,,14
+2,18,IsIn_clothespile_sink & IsClean_clothespile & IsClean_sink,,,,,None,None,,,,,14
+2,9,IsClose_curtains & IsPlugged_tablelamp & IsSwitchedOn_tablelamp & IsSwitchedOn_clock,"['Walk(curtains)', 'Close(curtains)', 'Walk(tablelamp)', 'PlugIn(tablelamp)', 'SwitchOn(tablelamp)', 'Walk(clock)', 'SwitchOn(clock)']","['PlugIn', 'Close', 'Walk', 'SwitchOn']","['clock', 'tablelamp', 'curtains']",6.0,False,False,62.0,74.0,0.011002779006958008,1.0346674919128418,14
+2,19,IsClean_peach & IsIn_plate_fridge & IsClose_fridge,,,,,None,None,,,,,14
+2,16,IsCut_chicken & IsCut_carrot & IsOn_carrot_oventray & IsOn_chicken_oventray,,,,,None,None,,,,,14
+2,4,IsIn_paper_folder & IsOn_book_desk & IsOpen_book & IsClose_folder,,,,,None,None,,,,,14
+2,11,IsPlugged_lightswitch & IsSwitchedOn_lightswitch & IsClean_wallpictureframe & IsClean_towelrack & IsClean_bookshelf,,,,,None,None,,,,,14
+2,13,IsClean_apple & IsCut_apple & IsOn_apple_plate & IsOn_plate_coffeetable,,,,,None,None,,,,,14
+2,8,IsSwitchedOff_tv & IsSwitchedOn_computer & IsOpen_curtains & IsPlugged_mouse & IsPlugged_keyboard,"['Walk(tv)', 'SwitchOff(tv)', 'Walk(computer)', 'SwitchOn(computer)', 'Walk(curtains)', 'Open(curtains)', 'Walk(mouse)', 'PlugIn(mouse)', 'Walk(keyboard)', 'PlugIn(keyboard)']","['Walk', 'Open', 'PlugIn', 'SwitchOn', 'SwitchOff']","['tv', 'mouse', 'computer', 'keyboard', 'curtains']",8.0,False,False,87.0,59.0,0.011002302169799805,1.036695957183838,14
+2,0,IsIn_chicken_fridge & IsIn_peach_fridge & IsPlugged_fridge & IsSwitchedOn_fridge & IsClose_fridge,"['Walk(chicken)', 'RightGrab(chicken)', 'Walk(fridge)', 'Open(fridge)', 'PlugIn(fridge)', 'SwitchOn(fridge)', 'Walk(peach)', 'RightGrab(peach)', 'RightPutIn(peach,fridge)', 'Close(fridge)']","['Walk', 'Open', 'RightPutIn', 'PlugIn', 'Close', 'SwitchOn', 'RightGrab']","['chicken', 'peach', 'fridge']",12.0,False,False,112.0,178.0,0.03100728988647461,1.0025674104690552,14
+2,2,IsIn_clothespile_washingmachine & IsPlugged_washingmachine & IsClose_washingmachine & IsSwitchedOn_washingmachine & IsSwitchedOn_cellphone & IsPlugged_cellphone,,,,,None,None,,,,,14
+2,1,IsOn_remotecontrol_sofa & IsPlugged_tv & IsSwitchedOn_tv & IsIn_clothespants_closet & IsClose_closet,,,,,None,None,,,,,14
+2,5,IsIn_pancake_fryingpan & IsOn_fryingpan_stove & IsSwitchedOn_stove,"['Walk(pancake)', 'RightGrab(pancake)', 'Walk(fryingpan)', 'RightPutIn(pancake,fryingpan)', 'RightPut(fryingpan,stove)', 'SwitchOn(stove)']","['RightPut', 'RightPutIn', 'Walk', 'SwitchOn', 'RightGrab']","['stove', 'pancake', 'fryingpan']",8.0,False,False,79.0,46.0,0.007001638412475586,1.2824996709823608,14
+2,10,IsClean_kitchencabinet & IsIn_papertowel_garbagecan & IsClose_garbagecan,,,,,None,None,,,,,14
+2,15,IsClean_remotecontrol & IsClean_wallpictureframe & IsClean_clock & IsClean_tvstand,,,,,None,None,,,,,14
+2,6,IsIn_hairproduct_bathroomcabinet & IsIn_facecream_bathroomcabinet & IsIn_barsoap_bathroomcabinet & IsClose_bathroomcabinet,,,,,None,None,,,,,14
+2,3,IsIn_milk_microwave & IsPlugged_microwave & IsClose_microwave & IsSwitchedOn_microwave & IsOn_breadslice_kitchentable,,,,,None,None,,,,,14
+2,17,IsClean_apple & IsClean_plum & IsClean_plum & IsOn_apple_cuttingboard,,,,,None,None,,,,,14
+2,7,IsIn_plate_dishwasher & IsIn_dishbowl_dishwasher & IsPlugged_lightswitch & IsSwitchedOn_dishwasher & IsSwitchedOn_lightswitch,,,,,None,None,,,,,14
+3,14,IsClean_rug & IsUnplugged_toaster & IsClean_toaster,,,,,None,None,,,,,18
+3,5,IsIn_pancake_fryingpan & IsOn_fryingpan_stove & IsSwitchedOn_stove,,,,,None,None,,,,,18
+3,18,IsIn_clothespile_sink & IsClean_clothespile & IsClean_sink,,,,,None,None,,,,,18
+3,9,IsClose_curtains & IsPlugged_tablelamp & IsSwitchedOn_tablelamp & IsSwitchedOn_clock,"['Walk(curtains)', 'Close(curtains)', 'Walk(tablelamp)', 'PlugIn(tablelamp)', 'SwitchOn(tablelamp)', 'Walk(clock)', 'SwitchOn(clock)']","['PlugIn', 'Close', 'Walk', 'SwitchOn']","['clock', 'tablelamp', 'curtains']",6.0,False,False,62.0,74.0,0.014003753662109375,1.0346674919128418,18
+3,13,IsClean_apple & IsCut_apple & IsOn_apple_plate & IsOn_plate_coffeetable,,,,,None,None,,,,,18
+3,12,IsClean_rag & IsClean_desk,,,,,None,None,,,,,18
+3,4,IsIn_paper_folder & IsOn_book_desk & IsOpen_book & IsClose_folder,,,,,None,None,,,,,18
+3,11,IsPlugged_lightswitch & IsSwitchedOn_lightswitch & IsClean_wallpictureframe & IsClean_towelrack & IsClean_bookshelf,,,,,None,None,,,,,18
+3,8,IsSwitchedOff_tv & IsSwitchedOn_computer & IsOpen_curtains & IsPlugged_mouse & IsPlugged_keyboard,"['Walk(tv)', 'SwitchOff(tv)', 'Walk(computer)', 'SwitchOn(computer)', 'Walk(curtains)', 'Open(curtains)', 'Walk(mouse)', 'PlugIn(mouse)', 'Walk(keyboard)', 'PlugIn(keyboard)']","['Walk', 'Open', 'PlugIn', 'SwitchOn', 'SwitchOff']","['tv', 'mouse', 'computer', 'keyboard', 'curtains']",8.0,False,False,87.0,59.0,0.012003421783447266,0.9975433349609375,18
+3,16,IsCut_chicken & IsCut_carrot & IsOn_carrot_oventray & IsOn_chicken_oventray,,,,,None,None,,,,,18
+3,2,IsIn_clothespile_washingmachine & IsPlugged_washingmachine & IsClose_washingmachine & IsSwitchedOn_washingmachine & IsSwitchedOn_cellphone & IsPlugged_cellphone,,,,,None,None,,,,,18
+3,19,IsClean_peach & IsIn_plate_fridge & IsClose_fridge,,,,,None,None,,,,,18
+3,10,IsClean_kitchencabinet & IsIn_papertowel_garbagecan & IsClose_garbagecan,,,,,None,None,,,,,18
+3,3,IsIn_milk_microwave & IsPlugged_microwave & IsClose_microwave & IsSwitchedOn_microwave & IsOn_breadslice_kitchentable,,,,,None,None,,,,,18
+3,15,IsClean_remotecontrol & IsClean_wallpictureframe & IsClean_clock & IsClean_tvstand,"['Walk(remotecontrol)', 'RightGrab(remotecontrol)', 'Walk(rag)', 'RightGrab(rag)', 'Wipe(remotecontrol)', 'Walk(wallpictureframe)', 'RightGrab(wallpictureframe)', 'Wipe(wallpictureframe)', 'Walk(clock)', 'RightGrab(clock)', 'Wipe(clock)', 'Walk(tvstand)', 'RightGrab(tvstand)', 'Wipe(tvstand)']","['Wipe', 'Walk', 'RightGrab']","['rag', 'remotecontrol', 'wallpictureframe', 'tvstand', 'clock']",10.0,False,False,116.0,41.0,0.006001710891723633,1.266890287399292,18
+3,0,IsIn_chicken_fridge & IsIn_peach_fridge & IsPlugged_fridge & IsSwitchedOn_fridge & IsClose_fridge,,,,,None,None,,,,,18
+3,1,IsOn_remotecontrol_sofa & IsPlugged_tv & IsSwitchedOn_tv & IsIn_clothespants_closet & IsClose_closet,,,,,None,None,,,,,18
+3,7,IsIn_plate_dishwasher & IsIn_dishbowl_dishwasher & IsPlugged_lightswitch & IsSwitchedOn_dishwasher & IsSwitchedOn_lightswitch,,,,,None,None,,,,,18
+3,6,IsIn_hairproduct_bathroomcabinet & IsIn_facecream_bathroomcabinet & IsIn_barsoap_bathroomcabinet & IsClose_bathroomcabinet,,,,,None,None,,,,,18
+3,17,IsClean_apple & IsClean_plum & IsClean_plum & IsOn_apple_cuttingboard,,,,,None,None,,,,,18
+4,12,IsClean_rag & IsClean_desk,,,,,None,None,,,,,25
+4,19,IsClean_peach & IsIn_plate_fridge & IsClose_fridge,,,,,None,None,,,,,25
+4,14,IsClean_rug & IsUnplugged_toaster & IsClean_toaster,,,,,None,None,,,,,25
+4,18,IsIn_clothespile_sink & IsClean_clothespile & IsClean_sink,,,,,None,None,,,,,25
+4,9,IsClose_curtains & IsPlugged_tablelamp & IsSwitchedOn_tablelamp & IsSwitchedOn_clock,"['Walk(curtains)', 'Close(curtains)', 'Walk(tablelamp)', 'PlugIn(tablelamp)', 'SwitchOn(tablelamp)', 'Walk(clock)', 'SwitchOn(clock)']","['PlugIn', 'Close', 'Walk', 'SwitchOn']","['clock', 'tablelamp', 'curtains']",6.0,False,False,62.0,74.0,0.012553215026855469,1.0065308809280396,25
+4,4,IsIn_paper_folder & IsOn_book_desk & IsOpen_book & IsClose_folder,,,,,None,None,,,,,25
+4,0,IsIn_chicken_fridge & IsIn_peach_fridge & IsPlugged_fridge & IsSwitchedOn_fridge & IsClose_fridge,,,,,None,None,,,,,25
+4,3,IsIn_milk_microwave & IsPlugged_microwave & IsClose_microwave & IsSwitchedOn_microwave & IsOn_breadslice_kitchentable,,,,,None,None,,,,,25
+4,11,IsPlugged_lightswitch & IsSwitchedOn_lightswitch & IsClean_wallpictureframe & IsClean_towelrack & IsClean_bookshelf,,,,,None,None,,,,,25
+4,8,IsSwitchedOff_tv & IsSwitchedOn_computer & IsOpen_curtains & IsPlugged_mouse & IsPlugged_keyboard,"['Walk(tv)', 'SwitchOff(tv)', 'Walk(computer)', 'SwitchOn(computer)', 'Walk(curtains)', 'Open(curtains)', 'Walk(mouse)', 'PlugIn(mouse)', 'Walk(keyboard)', 'PlugIn(keyboard)']","['Walk', 'Open', 'PlugIn', 'SwitchOn', 'SwitchOff']","['tv', 'mouse', 'computer', 'keyboard', 'curtains']",8.0,False,False,87.0,59.0,0.011003255844116211,0.9680326581001282,25
+4,5,IsIn_pancake_fryingpan & IsOn_fryingpan_stove & IsSwitchedOn_stove,,,,,None,None,,,,,25
+4,15,IsClean_remotecontrol & IsClean_wallpictureframe & IsClean_clock & IsClean_tvstand,,,,,None,None,,,,,25
+4,1,IsOn_remotecontrol_sofa & IsPlugged_tv & IsSwitchedOn_tv & IsIn_clothespants_closet & IsClose_closet,,,,,None,None,,,,,25
+4,13,IsClean_apple & IsCut_apple & IsOn_apple_plate & IsOn_plate_coffeetable,,,,,None,None,,,,,25
+4,2,IsIn_clothespile_washingmachine & IsPlugged_washingmachine & IsClose_washingmachine & IsSwitchedOn_washingmachine & IsSwitchedOn_cellphone & IsPlugged_cellphone,,,,,None,None,,,,,25
+4,17,IsClean_apple & IsClean_plum & IsClean_plum & IsOn_apple_cuttingboard,,,,,None,None,,,,,25
+4,6,IsIn_hairproduct_bathroomcabinet & IsIn_facecream_bathroomcabinet & IsIn_barsoap_bathroomcabinet & IsClose_bathroomcabinet,,,,,None,None,,,,,25
+4,7,IsIn_plate_dishwasher & IsIn_dishbowl_dishwasher & IsPlugged_lightswitch & IsSwitchedOn_dishwasher & IsSwitchedOn_lightswitch,,,,,None,None,,,,,25
+4,16,IsCut_chicken & IsCut_carrot & IsOn_carrot_oventray & IsOn_chicken_oventray,,,,,None,None,,,,,25
+4,10,IsClean_kitchencabinet & IsIn_papertowel_garbagecan & IsClose_garbagecan,,,,,None,None,,,,,25

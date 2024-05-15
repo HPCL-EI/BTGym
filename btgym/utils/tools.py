@@ -5,6 +5,30 @@ from btgym.utils import ROOT_PATH
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
 import pickle
 
+
+# 读入环境文件
+def read_env_file(file_path):
+    env_dict = {}
+    current_key = None
+    current_values = []
+
+    with open(file_path, 'r', encoding='utf-8') as file:
+        for line in file:
+            line = line.strip()
+            if line:
+                if '#' in line:
+                    parts = line.split('#', 1)
+                    current_key = parts[0].strip()
+                    current_values = []
+                else:
+                    current_values.extend(line.split(', '))
+                    env_dict[int(current_key)] = set(current_values)
+    return env_dict
+
+
+# 导入不同的环境
+
+
 def collect_action_nodes(behavior_lib):
     action_list = []
 

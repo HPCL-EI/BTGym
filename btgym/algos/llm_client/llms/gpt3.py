@@ -1,3 +1,7 @@
+import os
+os.environ["OPENAI_API_KEY"]="sk-a9qWhPzWuBfWWD9qF41b7a7c3e1e4b369b84B0Cb99B007A7"
+os.environ["OPENAI_BASE_URL"]= "https://gtapi.xiaoerchaoren.com:8932/v1"
+
 from openai import OpenAI
 
 
@@ -5,9 +9,7 @@ from openai import OpenAI
 
 class LLMGPT3():
     def __init__(self):
-        self.client = OpenAI(
-            base_url="https://api.chatgptid.net/v1",            api_key="sk-U3lHYdKBlISo2gssCa715e292bF5463bAb5898638eC3D0Ea"
-        )
+        self.client = OpenAI()
 
     def request(self,message): # question
         completion = self.client.chat.completions.create(
@@ -28,10 +30,26 @@ class LLMGPT3():
         )
 
         return embeddings
+    def list_models(self):
+        response = self.client.models.list()
+        return response.data
+    def list_embedding_models(self):
+        models = self.list_models()
+        embedding_models = [model.id for model in models if "embedding" in model.id]
+        return embedding_models
 
 
 if __name__ == '__main__':
     llm = LLMGPT3()
+    embedding_models = llm.list_embedding_models()
+    print("Available embedding models:")
+    for model in embedding_models:
+        print(model)
+
+    # models = llm.list_models()
+    # for model in models:
+    #     print(model.id)
+
     # answer = llm.request(question="who are you,gpt?")
     answer = llm.embedding(question="who are you,gpt?")
     print(answer)

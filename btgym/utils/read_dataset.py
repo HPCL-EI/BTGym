@@ -34,6 +34,7 @@ def read_dataset(filename='./dataset_old_0410.txt'):
         dict = {}
         parts = item.strip().split('\n')
         for part in parts:
+            # print("part:",part)
             key, value = part.split(':', 1)
             key = key.strip()
             value = value.strip()

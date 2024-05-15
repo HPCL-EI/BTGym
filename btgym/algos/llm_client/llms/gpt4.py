@@ -34,6 +34,9 @@ if __name__ == '__main__':
     # print(answer)
 
     llm = LLMGPT4()
+    answer = llm.embedding(question="who are you,gpt?")
+    print(answer)
+
     messages = [{"role": "system", "content": ""}]
     while True:
         prompt = input("请输入你的问题:")

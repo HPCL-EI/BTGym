@@ -31,8 +31,10 @@ def extract_objects(actions):
     return objects
 
 # 直接读入 env=1 的数据
-file_name = "400data"
-data_path = f"{ROOT_PATH}/../test/dataset/{file_name}.txt"
+file_name = "DATA_BT_100_ori_yz_revby_cys"
+need_cost = True
+data_path = f"{ROOT_PATH}/../test/BT_EXP/{file_name}.txt"
+# data_path = f"{ROOT_PATH}/../test/dataset/{file_name}.txt"
 data1 = read_dataset(data_path)
 len_data = len(data1)
 print(f"导入 {len_data} 条数据")
@@ -107,7 +109,7 @@ for id, d in enumerate(data1):
                           key_objects=priority_obj_ls,
                           selected_algorithm="opt", mode="small-predicate-objs",
                           llm_reflect=False, time_limit=None,
-                          heuristic_choice=0)
+                          heuristic_choice=1)
 
     start_time = time.time()
     algo.process(goal_set)
@@ -146,6 +148,8 @@ for id, d in enumerate(data1):
     entry_str += f"Optimal Actions: {formatted_act}\n"
     entry_str += f"Vital Action Predicates: {formatted_predicates}\n"
     entry_str += f"Vital Objects: {formatted_objects}\n"
+    if need_cost:
+        entry_str += f"cost: {str(current_cost)}\n"
 
     write_to_file(entry_str, output_path)
     print("Written to file:", entry_str)

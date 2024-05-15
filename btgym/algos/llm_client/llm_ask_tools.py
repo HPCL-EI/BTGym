@@ -2,31 +2,34 @@ import re
 from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process
 from btgym.utils import ROOT_PATH
 # 导入向量数据库检索的相关函数
-from btgym.algos.llm_client.vector_database_instruction import search_nearest_examples
+from btgym.algos.llm_client.vector_database_env_goal import search_nearest_examples
 from ordered_set import OrderedSet
 
 
 def parse_llm_output(answer,goals=True):
+    goal_set = set()
+    priority_act_ls, key_predicate, key_objects = [], [], []
 
-    if goals:
-        goal_str = answer.split("Optimal Actions:")[0].replace("Goals:", "").strip()
-        goal_set = goal_transfer_str(goal_str)
-    else:
-        goal_set=set()
+    try:
+        if goals:
+            goal_str = answer.split("Optimal Actions:")[0].replace("Goals:", "").strip()
+            goal_set = goal_transfer_str(goal_str)
 
-    act_str = answer.split("Optimal Actions:")[1].split("Vital Action Predicates:")[0].strip()
-    predicate_str = answer.split("Vital Action Predicates:")[1].split("Vital Objects:")[0].strip()
-    objects_str = answer.split("Vital Objects:")[1].strip()
-    priority_act_ls = act_str_process(act_str)
+        act_str = answer.split("Optimal Actions:")[1].split("Vital Action Predicates:")[0].strip()
+        predicate_str = answer.split("Vital Action Predicates:")[1].split("Vital Objects:")[0].strip()
+        objects_str = answer.split("Vital Objects:")[1].strip()
+        priority_act_ls = act_str_process(act_str)
 
-    # Remove all spaces, Split by comma to create a list
-    key_predicate = predicate_str.replace(" ", "").split(",")
-    key_objects = objects_str.replace(" ", "").split(",")
+        # Remove all spaces, Split by comma to create a list
+        key_predicate = predicate_str.replace(" ", "").split(",")
+        key_objects = objects_str.replace(" ", "").split(",")
 
-
-    priority_act_ls = list(OrderedSet(priority_act_ls))
-    key_predicate = list(OrderedSet(key_predicate))
-    key_objects = list(OrderedSet(key_objects))
+        priority_act_ls = list(OrderedSet(priority_act_ls))
+        key_predicate = list(OrderedSet(key_predicate))
+        key_objects = list(OrderedSet(key_objects))
+    except Exception as e:
+        print(f"Failed to parse LLM output: {e}")
+        return None
 
     if goals:
         return goal_set,priority_act_ls,key_predicate,key_objects
@@ -38,17 +41,42 @@ def parse_llm_output(answer,goals=True):
 def format_example(metadata):
     """格式化向量数据库的示例数据为所需的格式"""
     example_value = metadata['value']
-    return (f"Instruction: {example_value['Instruction']}\n"
+    return (
+        # f"Instruction: {example_value['Instruction']}\n"
             f"Goals: {example_value['Goals']}\n"
-            f"Actions: {example_value['Actions']}\n"
-            f"Key Predicates: {example_value.get('Vital Action Predicates', '')}\n"
-            f"Key Objects: {example_value['Vital Objects']}\n")
+            f"Optimal Actions: {example_value['Optimal Actions']}\n"
+            f"Vital Action Predicates: {example_value.get('Vital Action Predicates', '')}\n"
+            f"Vital Objects: {example_value['Vital Objects']}\n")
 
-def extract_llm_from_instr_goal(llm,default_prompt_file,goals,instruction=None,cur_cond_set=None,\
+def extract_llm_from_instr_goal(llm,default_prompt_file,environment,goals,instruction=None,cur_cond_set=None,\
                                 choose_database=False,\
-                                index_path=f"{ROOT_PATH}/../test/dataset/env_instruction_vectors.index",verbose=False):
+                                database_index_path=f"{ROOT_PATH}/../test/dataset/env_instruction_vectors.index",verbose=False):
     with open(default_prompt_file, 'r', encoding="utf-8") as f:
         prompt = f.read().strip()
+
+    distances=None
+    if choose_database:
+
+        # environment ?
+        nearest_examples,distances = search_nearest_examples(database_index_path, llm, goals, top_n=5)
+        # 使用自定义的格式函数将检索到的示例格式化为目标样式
+        example_texts = '\n'.join([format_example(ex) for ex in nearest_examples])
+        example_texts = "[Examples]\n" + example_texts
+
+        # 输出最近的所有goal
+        nearest_goals = [ex['value']['Goals'] for ex in nearest_examples]
+        print("All Goals from nearest examples:")
+        for g in nearest_goals:
+            print(f"\033[93m{g}\033[0m") # 打印黄色 print(goal)
+
+        # print("distances:",distances)
+        # print("example_texts:\n",example_texts)
+        # 替换 prompt 中的 [Examples] 部分
+        example_marker = "[Examples]"
+        if example_marker in prompt:
+            prompt = prompt.replace(example_marker, example_texts)
+        else:
+            prompt = f"{prompt}\n{example_texts}"
 
     # 构建完整的 prompt，包括检索的 Examples 和当前的指令
     goals_str =' & '.join(goals)
@@ -62,10 +90,12 @@ def extract_llm_from_instr_goal(llm,default_prompt_file,goals,instruction=None,c
     messages.append({"role": "assistant", "content": answer})
     # if verbose:
     print("============ Answer ================\n",answer)
-    priority_act_ls, key_predicates, key_objects = parse_llm_output(answer,goals=False)
-
-    return priority_act_ls, key_predicates, key_objects, messages
-
+    parsed_output = parse_llm_output(answer, goals=False)
+    if parsed_output is None:
+        print(f"\033[91mFailed to parse LLM output for goals: {goals_str}\033[0m")
+        return None, None, None, messages, distances
+    priority_act_ls, key_predicates, key_objects = parsed_output
+    return priority_act_ls, key_predicates, key_objects, messages, distances
 
 def extract_llm_from_instr(llm,default_prompt_file,instruction,cur_cond_set,\
                                 choose_database=False,\

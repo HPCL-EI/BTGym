@@ -1,0 +1,1800 @@
+1
+Environment:1
+Instruction: 
+Goals: IsOn_towel_towelrack
+Optimal Actions: Walk_towel, LeftGrab_towel, Walk_towelrack, LeftPut_towel_towelrack
+Vital Action Predicates: Walk, LeftGrab, LeftPut
+Vital Objects: towel, towelrack
+
+2
+Environment:1
+Instruction: 
+Goals: IsOn_towel_towelrack
+Optimal Actions: Walk_towel, LeftGrab_towel, Walk_towelrack, LeftPut_towel_towelrack
+Vital Action Predicates: Walk, LeftGrab, LeftPut
+Vital Objects: towel, towelrack
+
+3
+Environment:1
+Instruction: 
+Goals: IsSwitchedOff_cellphone
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+4
+Environment:1
+Instruction: 
+Goals: IsClose_folder & IsOn_mincedmeat_nightstand
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+5
+Environment:1
+Instruction: 
+Goals: IsClean_desk & IsOn_chips_fryingpan & IsUnplugged_lightswitch
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+6
+Environment:1
+Instruction: 
+Goals: IsOpen_window & IsUnplugged_clock
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+7
+Environment:1
+Instruction: 
+Goals: IsSwitchedOff_radio & IsSwitchedOff_clock
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+8
+Environment:1
+Instruction: 
+Goals: IsIn_alcohol_garbagecan & IsClose_garbagecan
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+9
+Environment:1
+Instruction: 
+Goals: IsOn_cutleryknife_nightstand
+Optimal Actions: Walk_cutleryknife, LeftGrab_cutleryknife, Walk_nightstand, LeftPut_cutleryknife_nightstand
+Vital Action Predicates: Walk, LeftGrab, LeftPut
+Vital Objects: cutleryknife, nightstand
+
+10
+Environment:1
+Instruction: 
+Goals: IsIn_towel_bathroomcabinet & IsClose_bathroomcabinet & IsClose_washingmachine & IsClean_floor & IsPlugged_tv & IsSwitchedOff_stove & IsPlugged_radio
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+11
+Environment:1
+Instruction: 
+Goals: IsClose_printer
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+12
+Environment:1
+Instruction: 
+Goals: IsUnplugged_coffeemaker
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+13
+Environment:1
+Instruction: 
+Goals: IsIn_salad_bookshelf & IsOpen_magazine & IsSwitchedOff_coffeemaker & IsOn_wine_mousemat & IsPlugged_tv & IsClose_fridge & IsSwitchedOff_cellphone
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+14
+Environment:1
+Instruction: 
+Goals: IsSwitchedOff_lightswitch
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+15
+Environment:1
+Instruction: 
+Goals: IsClose_stove & IsIn_paper_sink & IsOn_keyboard_sofa
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+16
+Environment:1
+Instruction: 
+Goals: IsClose_printer & IsIn_toiletpaper_kitchencabinet & IsClose_kitchencabinet & IsCut_apple
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+17
+Environment:1
+Instruction: 
+Goals: IsSwitchedOff_washingmachine & IsClose_magazine
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+18
+Environment:1
+Instruction: 
+Goals: IsSwitchedOff_washingmachine & IsIn_clothesshirt_box & IsClose_box & IsOpen_book & IsPlugged_washingmachine & IsClose_folder & IsClean_paper & IsPlugged_cellphone
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+19
+Environment:1
+Instruction: 
+Goals: IsOn_pudding_floor
+Optimal Actions: Walk_pudding, LeftGrab_pudding, Walk_floor, LeftPut_pudding_floor
+Vital Action Predicates: Walk, LeftGrab, LeftPut
+Vital Objects: pudding, floor
+
+20
+Environment:1
+Instruction: 
+Goals: IsOpen_window & IsPlugged_tv & IsSwitchedOn_tv
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+21
+Environment:1
+Instruction: 
+Goals: IsOpen_door
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+22
+Environment:1
+Instruction: 
+Goals: IsIn_crackers_desk & IsClose_desk & IsSwitchedOff_microwave & IsIn_radio_box & IsClose_box
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+23
+Environment:1
+Instruction: 
+Goals: IsOn_clothespile_bathroomcounter & IsOpen_curtains & IsOn_cereal_kitchentable
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+24
+Environment:1
+Instruction: 
+Goals: IsOn_box_cuttingboard
+Optimal Actions: Walk_box, LeftGrab_box, Walk_cuttingboard, LeftPut_box_cuttingboard
+Vital Action Predicates: Walk, LeftGrab, LeftPut
+Vital Objects: box, cuttingboard
+
+25
+Environment:1
+Instruction: 
+Goals: IsIn_apple_sink
+Optimal Actions: Walk_apple, LeftGrab_apple, Walk_sink, LeftPutIn_apple_sink
+Vital Action Predicates: Walk, LeftGrab, LeftPutIn
+Vital Objects: apple, sink
+
+26
+Environment:1
+Instruction: 
+Goals: IsUnplugged_tablelamp
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+27
+Environment:1
+Instruction: 
+Goals: IsUnplugged_microwave
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+28
+Environment:1
+Instruction: 
+Goals: IsIn_poundcake_stove & IsClose_stove & IsIn_paper_garbagecan & IsClose_garbagecan
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+29
+Environment:1
+Instruction: 
+Goals: IsClose_book
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+30
+Environment:1
+Instruction: 
+Goals: IsOn_washingsponge_coffeetable & IsCut_pancake & IsPlugged_wallphone
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+31
+Environment:1
+Instruction: 
+Goals: IsClose_folder & IsOpen_door
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+32
+Environment:1
+Instruction: 
+Goals: IsClean_toiletpaper & IsSwitchedOff_coffeemaker & IsUnplugged_lightswitch & IsClean_bathtub
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+33
+Environment:1
+Instruction: 
+Goals: IsOpen_curtains & IsUnplugged_lightswitch & IsSwitchedOff_clock & IsIn_clothespile_washingmachine & IsClose_washingmachine & IsOpen_curtains
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+34
+Environment:1
+Instruction: 
+Goals: IsIn_wineglass_desk & IsClose_desk & IsPlugged_coffeemaker
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+35
+Environment:1
+Instruction: 
+Goals: IsUnplugged_cellphone & IsOn_mug_coffeetable
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+36
+Environment:1
+Instruction: 
+Goals: IsClose_folder & IsIn_salad_bookshelf & IsOpen_magazine
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+37
+Environment:1
+Instruction: 
+Goals: IsPlugged_keyboard & IsOn_oventray_bathroomcabinet & IsOn_remotecontrol_cuttingboard
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+38
+Environment:1
+Instruction: 
+Goals: IsOn_cutleryknife_bathroomcounter & IsSwitchedOff_tablelamp
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+39
+Environment:1
+Instruction: 
+Goals: IsOn_lime_radio
+Optimal Actions: Walk_lime, LeftGrab_lime, Walk_radio, LeftPut_lime_radio
+Vital Action Predicates: Walk, LeftGrab, LeftPut
+Vital Objects: lime, radio
+
+40
+Environment:1
+Instruction: 
+Goals: IsClean_cutlets & IsIn_milk_desk & IsClose_desk
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+41
+Environment:1
+Instruction: 
+Goals: IsClose_cabinet & IsOpen_window & IsOn_keyboard_kitchentable
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+42
+Environment:1
+Instruction: 
+Goals: IsOn_salad_kitchencounter
+Optimal Actions: Walk_salad, LeftGrab_salad, Walk_kitchencounter, LeftPut_salad_kitchencounter
+Vital Action Predicates: Walk, LeftGrab, LeftPut
+Vital Objects: salad, kitchencounter
+
+43
+Environment:1
+Instruction: 
+Goals: IsOn_carrot_bathroomcabinet & IsClose_milk
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+44
+Environment:1
+Instruction: 
+Goals: IsOpen_book & IsOn_folder_rug
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+45
+Environment:1
+Instruction: 
+Goals: IsPlugged_lightswitch & IsClose_cabinet & IsPlugged_washingmachine & IsSwitchedOn_washingmachine & IsPlugged_toaster & IsSwitchedOn_toaster
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+46
+Environment:1
+Instruction: 
+Goals: IsIn_milkshake_sink & IsPlugged_washingmachine
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+47
+Environment:1
+Instruction: 
+Goals: IsOn_chair_desk & IsPlugged_keyboard
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+48
+Environment:1
+Instruction: 
+Goals: IsIn_hairproduct_cookingpot & IsClose_cookingpot
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+49
+Environment:1
+Instruction: 
+Goals: IsIn_kitchenknife_sink & IsSwitchedOff_tablelamp & IsIn_wineglass_toaster
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+50
+Environment:1
+Instruction: 
+Goals: IsPlugged_microwave & IsOpen_window
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+51
+Environment:1
+Instruction: 
+Goals: IsCut_chicken & IsIn_candybar_fridge & IsClose_fridge & IsPlugged_tv & IsSwitchedOn_tv
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+52
+Environment:1
+Instruction: 
+Goals: IsUnplugged_tablelamp & IsUnplugged_washingmachine & IsUnplugged_clock
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+53
+Environment:1
+Instruction: 
+Goals: IsOn_mouse_rug & IsCut_cutlets & IsOpen_magazine
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+54
+Environment:1
+Instruction: 
+Goals: IsUnplugged_fridge & IsClose_box
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+55
+Environment:1
+Instruction: 
+Goals: IsOn_chair_cabinet
+Optimal Actions: Walk_chair, LeftGrab_chair, Walk_cabinet, LeftPut_chair_cabinet
+Vital Action Predicates: Walk, LeftGrab, LeftPut
+Vital Objects: chair, cabinet
+
+56
+Environment:1
+Instruction: 
+Goals: IsOn_pancake_bathroomcabinet & IsUnplugged_microwave
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+57
+Environment:1
+Instruction: 
+Goals: IsClose_garbagecan
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+58
+Environment:1
+Instruction: 
+Goals: IsIn_clothesshirt_washingmachine & IsClose_washingmachine
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+59
+Environment:1
+Instruction: 
+Goals: IsUnplugged_printer
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+60
+Environment:1
+Instruction: 
+Goals: IsIn_plate_kitchencabinet & IsClose_kitchencabinet
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+61
+Environment:1
+Instruction: 
+Goals: IsOpen_window & IsSwitchedOff_fridge & IsIn_plum_garbagecan & IsClose_garbagecan
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+62
+Environment:1
+Instruction: 
+Goals: IsIn_dishbowl_bookshelf & IsClose_washingmachine & IsOpen_magazine
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+63
+Environment:1
+Instruction: 
+Goals: IsOpen_door & IsOpen_door & IsClose_toilet
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+64
+Environment:1
+Instruction: 
+Goals: IsClose_microwave & IsSwitchedOff_tv
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+65
+Environment:1
+Instruction: 
+Goals: IsOn_crayons_floor & IsUnplugged_clock & IsSwitchedOff_computer & IsSwitchedOff_coffeemaker & IsCut_pie & IsClean_toothpaste
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+66
+Environment:1
+Instruction: 
+Goals: IsClose_fridge & IsClose_window & IsOpen_door
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+67
+Environment:1
+Instruction: 
+Goals: IsSwitchedOff_washingmachine & IsClose_toothpaste & IsOn_cuttingboard_bench
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+68
+Environment:1
+Instruction: 
+Goals: IsClose_stove & IsIn_cereal_desk & IsClose_desk
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+69
+Environment:1
+Instruction: 
+Goals: IsIn_cutlets_box & IsClose_box & IsPlugged_cellphone & IsSwitchedOn_cellphone & IsPlugged_cellphone & IsSwitchedOn_cellphone & IsClose_toothpaste & IsOpen_magazine & IsPlugged_toaster & IsSwitchedOn_toaster
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+70
+Environment:1
+Instruction: 
+Goals: IsSwitchedOff_microwave & IsOn_lime_sofa & IsPlugged_tv & IsSwitchedOn_tv
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+71
+Environment:1
+Instruction: 
+Goals: IsClose_cabinet & IsUnplugged_clock & IsClean_bellpepper & IsClose_magazine & IsPlugged_tv & IsSwitchedOn_tv
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+72
+Environment:1
+Instruction: 
+Goals: IsIn_pancake_nightstand & IsClose_nightstand & IsOpen_magazine
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+73
+Environment:1
+Instruction: 
+Goals: IsPlugged_clock & IsSwitchedOn_clock & IsUnplugged_toaster & IsPlugged_fridge & IsSwitchedOn_fridge & IsCut_plum & IsPlugged_keyboard
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+74
+Environment:1
+Instruction: 
+Goals: IsSwitchedOff_cellphone & IsPlugged_mouse & IsCut_chicken & IsPlugged_lightswitch & IsClose_garbagecan & IsCut_cutlets
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+75
+Environment:1
+Instruction: 
+Goals: IsUnplugged_tv & IsCut_peach & IsOn_brush_tvstand
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+76
+Environment:1
+Instruction: 
+Goals: IsSwitchedOn_stove & IsPlugged_coffeemaker & IsSwitchedOn_coffeemaker
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+77
+Environment:1
+Instruction: 
+Goals: IsClose_fridge & IsSwitchedOff_remotecontrol & IsPlugged_lightswitch
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+78
+Environment:1
+Instruction: 
+Goals: IsPlugged_wallphone & IsOn_toy_kitchentable & IsSwitchedOn_candle
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+79
+Environment:1
+Instruction: 
+Goals: IsOn_keyboard_stove & IsPlugged_toaster & IsSwitchedOn_toaster
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+80
+Environment:1
+Instruction: 
+Goals: IsOn_remotecontrol_radio & IsPlugged_cellphone & IsUnplugged_keyboard
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+81
+Environment:1
+Instruction: 
+Goals: IsPlugged_wallphone & IsSwitchedOn_wallphone & IsPlugged_fridge & IsOpen_door
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+82
+Environment:1
+Instruction: 
+Goals: IsPlugged_washingmachine & IsSwitchedOn_washingmachine
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+83
+Environment:1
+Instruction: 
+Goals: IsPlugged_washingmachine & IsSwitchedOn_washingmachine & IsCut_breadslice & IsUnplugged_coffeemaker
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+84
+Environment:1
+Instruction: 
+Goals: IsClose_curtains & IsPlugged_radio
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+85
+Environment:1
+Instruction: 
+Goals: IsClean_chicken
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+86
+Environment:1
+Instruction: 
+Goals: IsOn_crackers_bed & IsPlugged_fridge
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+87
+Environment:1
+Instruction: 
+Goals: IsClose_coffeepot & IsPlugged_keyboard & IsOpen_book
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+88
+Environment:1
+Instruction: 
+Goals: IsUnplugged_washingmachine & IsPlugged_coffeemaker & IsSwitchedOn_faucet
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+89
+Environment:1
+Instruction: 
+Goals: IsPlugged_coffeemaker
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+90
+Environment:1
+Instruction: 
+Goals: IsClose_washingmachine & IsUnplugged_keyboard & IsUnplugged_lightswitch & IsClose_window & IsPlugged_washingmachine & IsCut_plum
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+91
+Environment:1
+Instruction: 
+Goals: IsOn_salmon_tvstand & IsPlugged_coffeemaker & IsSwitchedOn_coffeemaker & IsCut_salmon
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+92
+Environment:1
+Instruction: 
+Goals: IsOn_pudding_mousemat & IsUnplugged_tablelamp & IsPlugged_wallphone
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+93
+Environment:1
+Instruction: 
+Goals: IsSwitchedOn_remotecontrol & IsSwitchedOff_faucet & IsOpen_door
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+94
+Environment:1
+Instruction: 
+Goals: IsPlugged_tablelamp & IsIn_poundcake_bathroomcabinet & IsClose_bathroomcabinet
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+95
+Environment:1
+Instruction: 
+Goals: IsPlugged_cellphone & IsSwitchedOn_cellphone & IsUnplugged_microwave
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+96
+Environment:1
+Instruction: 
+Goals: IsPlugged_coffeemaker & IsSwitchedOn_coffeemaker
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+97
+Environment:1
+Instruction: 
+Goals: IsIn_coffeepot_kitchencabinet & IsClose_kitchencabinet & IsPlugged_toaster & IsSwitchedOn_toaster & IsSwitchedOff_microwave
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+98
+Environment:1
+Instruction: 
+Goals: IsOpen_window & IsOpen_magazine & IsSwitchedOn_remotecontrol
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+99
+Environment:1
+Instruction: 
+Goals: IsOn_towel_towelrack & IsPlugged_tablelamp & IsSwitchedOn_tablelamp
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+100
+Environment:1
+Instruction: 
+Goals: IsClose_window & IsCut_pear & IsPlugged_tv & IsSwitchedOn_tv
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+101
+Environment:1
+Instruction: 
+Goals: IsSwitchedOff_candle & IsPlugged_tablelamp & IsOpen_curtains
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+102
+Environment:1
+Instruction: 
+Goals: IsPlugged_lightswitch & IsSwitchedOn_lightswitch
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+103
+Environment:1
+Instruction: 
+Goals: IsPlugged_radio & IsUnplugged_cellphone & IsOpen_curtains
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+104
+Environment:1
+Instruction: 
+Goals: IsPlugged_tv & IsSwitchedOn_tv
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+105
+Environment:1
+Instruction: 
+Goals: IsUnplugged_washingmachine & IsPlugged_radio
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+106
+Environment:1
+Instruction: 
+Goals: IsCut_carrot & IsPlugged_washingmachine
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+107
+Environment:1
+Instruction: 
+Goals: IsCut_salmon & IsPlugged_lightswitch & IsOn_cutleryknife_mousemat
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+108
+Environment:1
+Instruction: 
+Goals: IsPlugged_wallphone & IsSwitchedOn_wallphone
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+109
+Environment:1
+Instruction: 
+Goals: IsPlugged_lightswitch
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+110
+Environment:1
+Instruction: 
+Goals: IsOpen_window & IsPlugged_radio
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+111
+Environment:1
+Instruction: 
+Goals: IsSwitchedOn_computer
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+112
+Environment:1
+Instruction: 
+Goals: IsPlugged_tv
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+113
+Environment:1
+Instruction: 
+Goals: IsPlugged_radio & IsPlugged_microwave
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+114
+Environment:1
+Instruction: 
+Goals: IsUnplugged_lightswitch & IsPlugged_coffeemaker
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+115
+Environment:1
+Instruction: 
+Goals: IsCut_poundcake & IsPlugged_toaster & IsSwitchedOn_toaster & IsPlugged_washingmachine & IsSwitchedOff_clock
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+116
+Environment:1
+Instruction: 
+Goals: IsIn_milkshake_box & IsClose_box & IsPlugged_clock & IsSwitchedOn_clock
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+117
+Environment:1
+Instruction: 
+Goals: IsPlugged_washingmachine & IsIn_dishwashingliquid_box & IsClose_box
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+118
+Environment:1
+Instruction: 
+Goals: IsPlugged_microwave & IsSwitchedOn_microwave & IsPlugged_wallphone & IsSwitchedOn_wallphone
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+119
+Environment:1
+Instruction: 
+Goals: IsPlugged_radio
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+120
+Environment:1
+Instruction: 
+Goals: IsPlugged_tablelamp & IsCut_pancake
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+121
+Environment:1
+Instruction: 
+Goals: IsPlugged_cellphone & IsCut_bellpepper & IsSwitchedOn_remotecontrol
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+122
+Environment:1
+Instruction: 
+Goals: IsPlugged_washingmachine & IsOn_cutleryknife_mousemat & IsIn_papertowel_bookshelf
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+123
+Environment:1
+Instruction: 
+Goals: IsSwitchedOn_computer
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+124
+Environment:1
+Instruction: 
+Goals: IsOpen_book & IsClean_carrot & IsClose_box
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+125
+Environment:1
+Instruction: 
+Goals: IsPlugged_wallphone & IsSwitchedOn_wallphone
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+126
+Environment:1
+Instruction: 
+Goals: IsOn_bellpepper_stove & IsUnplugged_microwave & IsPlugged_printer
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+127
+Environment:1
+Instruction: 
+Goals: IsPlugged_toaster & IsSwitchedOn_toaster & IsPlugged_tv & IsSwitchedOn_tv & IsOpen_book
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+128
+Environment:1
+Instruction: 
+Goals: IsPlugged_fridge & IsSwitchedOn_fridge & IsIn_milk_kitchencabinet & IsClose_kitchencabinet
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+129
+Environment:1
+Instruction: 
+Goals: IsSwitchedOn_candle & IsCut_plum
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+130
+Environment:1
+Instruction: 
+Goals: IsOpen_curtains & IsPlugged_tablelamp & IsOpen_window
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+131
+Environment:1
+Instruction: 
+Goals: IsPlugged_lightswitch
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+132
+Environment:1
+Instruction: 
+Goals: IsPlugged_toaster & IsSwitchedOn_toaster & IsPlugged_microwave & IsSwitchedOn_microwave & IsIn_boardgame_bookshelf
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+133
+Environment:1
+Instruction: 
+Goals: IsPlugged_microwave
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+134
+Environment:1
+Instruction: 
+Goals: IsClose_printer & IsPlugged_lightswitch & IsSwitchedOn_lightswitch
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+135
+Environment:1
+Instruction: 
+Goals: IsPlugged_cellphone & IsPlugged_microwave & IsSwitchedOn_microwave
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+136
+Environment:1
+Instruction: 
+Goals: IsSwitchedOff_washingmachine & IsPlugged_lightswitch
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+137
+Environment:1
+Instruction: 
+Goals: IsPlugged_keyboard & IsCut_carrot & IsPlugged_toaster & IsSwitchedOn_toaster
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+138
+Environment:1
+Instruction: 
+Goals: IsClean_folder & IsPlugged_clock & IsSwitchedOn_clock & IsOpen_window
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+139
+Environment:1
+Instruction: 
+Goals: IsCut_poundcake & IsClose_curtains & IsPlugged_washingmachine & IsSwitchedOff_washingmachine
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+140
+Environment:1
+Instruction: 
+Goals: IsIn_pear_garbagecan & IsClose_garbagecan & IsPlugged_washingmachine & IsSwitchedOff_fridge & IsPlugged_coffeemaker & IsSwitchedOff_computer
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+141
+Environment:1
+Instruction: 
+Goals: IsSwitchedOn_computer & IsOn_duster_kitchencounter & IsSwitchedOff_faucet & IsSwitchedOn_computer
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+142
+Environment:1
+Instruction: 
+Goals: IsClose_milk & IsClean_bellpepper & IsPlugged_coffeemaker & IsClean_mouse
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+143
+Environment:1
+Instruction: 
+Goals: IsOpen_magazine & IsOpen_door & IsClose_microwave & IsPlugged_cellphone
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+144
+Environment:1
+Instruction: 
+Goals: IsPlugged_keyboard & IsSwitchedOn_computer & IsOn_clothesshirt_kitchencabinet & IsPlugged_lightswitch & IsSwitchedOff_washingmachine
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+145
+Environment:1
+Instruction: 
+Goals: IsPlugged_mouse & IsSwitchedOff_dishwasher & IsSwitchedOff_washingmachine & IsOpen_window & IsPlugged_microwave & IsSwitchedOn_microwave
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+146
+Environment:1
+Instruction: 
+Goals: IsSwitchedOn_computer & IsSwitchedOff_clock & IsUnplugged_tablelamp & IsSwitchedOff_remotecontrol & IsUnplugged_radio
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+147
+Environment:1
+Instruction: 
+Goals: IsClose_folder & IsUnplugged_coffeemaker & IsOn_dishbowl_bookshelf & IsPlugged_printer & IsSwitchedOn_printer
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+148
+Environment:1
+Instruction: 
+Goals: IsOn_hairproduct_stove & IsPlugged_toaster & IsSwitchedOff_stove & IsOpen_curtains & IsPlugged_microwave
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+149
+Environment:1
+Instruction: 
+Goals: IsOn_candle_bathroomcounter & IsOn_keyboard_cuttingboard & IsPlugged_printer & IsOpen_magazine & IsUnplugged_fridge
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+150
+Environment:1
+Instruction: 
+Goals: IsPlugged_coffeemaker & IsOn_mouse_coffeetable & IsOpen_magazine & IsOpen_door & IsSwitchedOff_lightswitch
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+151
+Environment:1
+Instruction: 
+Goals: IsUnplugged_coffeemaker & IsClean_cuttingboard
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+152
+Environment:1
+Instruction: 
+Goals: IsClose_bathroomcabinet & IsCut_cutlets & IsUnplugged_cellphone & IsSwitchedOn_faucet
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+153
+Environment:1
+Instruction: 
+Goals: IsUnplugged_coffeemaker & IsClean_cuttingboard
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+154
+Environment:1
+Instruction: 
+Goals: IsCut_carrot & IsPlugged_printer & IsIn_salmon_microwave & IsClose_microwave
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+155
+Environment:1
+Instruction: 
+Goals: IsOpen_book & IsSwitchedOn_computer & IsClean_coffeepot
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+156
+Environment:1
+Instruction: 
+Goals: IsClean_brush
+Optimal Actions: Walk_rag, RightGrab_rag, Walk_brush, Wipe_brush
+Vital Action Predicates: Walk, RightGrab, Wipe
+Vital Objects: rag, brush
+
+157
+Environment:1
+Instruction: 
+Goals: IsCut_cutlets
+Optimal Actions: Walk_kitchenknife, RightGrab_kitchenknife, Walk_cutlets, LeftGrab_cutlets, Cut_cutlets
+Vital Action Predicates: Walk, RightGrab, LeftGrab, Cut
+Vital Objects: kitchenknife, cutlets
+
+158
+Environment:1
+Instruction: 
+Goals: IsClean_toaster & IsIn_waterglass_sink & IsOpen_magazine
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+159
+Environment:1
+Instruction: 
+Goals: IsPlugged_microwave & IsClean_dishbowl
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+160
+Environment:1
+Instruction: 
+Goals: IsClean_pear
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+161
+Environment:1
+Instruction: 
+Goals: IsClean_microwave & IsClean_clothesshirt
+Optimal Actions: Walk_rag, RightGrab_rag, Walk_microwave, Wipe_microwave, Walk_clothesshirt, Wipe_clothesshirt
+Vital Action Predicates: Walk, RightGrab, Wipe
+Vital Objects: rag, microwave, clothesshirt
+
+162
+Environment:1
+Instruction: 
+Goals: IsOn_towel_towelrack & IsPlugged_clock & IsSwitchedOn_clock & IsClean_plate
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+163
+Environment:1
+Instruction: 
+Goals: IsClean_apple
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+164
+Environment:1
+Instruction: 
+Goals: IsClean_oven
+Optimal Actions: Walk_rag, RightGrab_rag, Walk_oven, Wipe_oven
+Vital Action Predicates: Walk, RightGrab, Wipe
+Vital Objects: rag, oven
+
+165
+Environment:1
+Instruction: 
+Goals: IsIn_toy_nightstand & IsClose_nightstand & IsSwitchedOff_computer & IsCut_plum
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+166
+Environment:1
+Instruction: 
+Goals: IsUnplugged_fridge & IsCut_plum & IsOpen_curtains
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+167
+Environment:1
+Instruction: 
+Goals: IsClean_facecream & IsSwitchedOff_faucet & IsOn_cereal_sofa
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+168
+Environment:1
+Instruction: 
+Goals: IsCut_lime & IsClean_cuttingboard
+Optimal Actions: Walk_rag, RightGrab_rag, Walk_cuttingboard, Wipe_cuttingboard, RightPut_rag_cuttingboard, Walk_lime, LeftGrab_lime, Walk_kitchenknife, RightGrab_kitchenknife, Cut_lime
+Vital Action Predicates: Walk, RightGrab, Wipe, RightPut, LeftGrab, Cut
+Vital Objects: rag, cuttingboard, lime, kitchenknife
+
+169
+Environment:1
+Instruction: 
+Goals: IsUnplugged_coffeemaker & IsClose_cabinet & IsPlugged_keyboard & IsCut_lime
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+170
+Environment:1
+Instruction: 
+Goals: IsCut_plum
+Optimal Actions: Walk_kitchenknife, RightGrab_kitchenknife, Walk_plum, LeftGrab_plum, Cut_plum
+Vital Action Predicates: Walk, RightGrab, LeftGrab, Cut
+Vital Objects: kitchenknife, plum
+
+171
+Environment:1
+Instruction: 
+Goals: IsIn_condimentshaker_desk & IsClose_desk & IsCut_cutlets & IsSwitchedOff_cellphone
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+172
+Environment:1
+Instruction: 
+Goals: IsClean_salmon
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+173
+Environment:1
+Instruction: 
+Goals: IsCut_pancake
+Optimal Actions: Walk_kitchenknife, RightGrab_kitchenknife, Walk_pancake, LeftGrab_pancake, Cut_pancake
+Vital Action Predicates: Walk, RightGrab, LeftGrab, Cut
+Vital Objects: kitchenknife, pancake
+
+174
+Environment:1
+Instruction: 
+Goals: IsCut_chicken & IsIn_poundcake_sink
+Optimal Actions: Walk_poundcake, LeftGrab_poundcake, Walk_sink, LeftPutIn_poundcake_sink, Walk_chicken, LeftGrab_chicken, Walk_kitchenknife, RightGrab_kitchenknife, Cut_chicken
+Vital Action Predicates: Walk, LeftGrab, LeftPutIn, RightGrab, Cut
+Vital Objects: poundcake, sink, chicken, kitchenknife
+
+175
+Environment:1
+Instruction: 
+Goals: IsClose_radio & IsUnplugged_radio & IsCut_poundcake & IsOpen_window
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+176
+Environment:1
+Instruction: 
+Goals: IsCut_breadslice
+Optimal Actions: Walk_kitchenknife, RightGrab_kitchenknife, Walk_breadslice, LeftGrab_breadslice, Cut_breadslice
+Vital Action Predicates: Walk, RightGrab, LeftGrab, Cut
+Vital Objects: kitchenknife, breadslice
+
+177
+Environment:1
+Instruction: 
+Goals: IsClose_hairproduct & IsClean_floor & IsOn_chicken_bookshelf
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+178
+Environment:1
+Instruction: 
+Goals: IsClean_toy
+Optimal Actions: Walk_rag, RightGrab_rag, Walk_toy, Wipe_toy
+Vital Action Predicates: Walk, RightGrab, Wipe
+Vital Objects: rag, toy
+
+179
+Environment:1
+Instruction: 
+Goals: IsCut_salmon
+Optimal Actions: Walk_kitchenknife, RightGrab_kitchenknife, Walk_salmon, LeftGrab_salmon, Cut_salmon
+Vital Action Predicates: Walk, RightGrab, LeftGrab, Cut
+Vital Objects: kitchenknife, salmon
+
+180
+Environment:1
+Instruction: 
+Goals: IsUnplugged_clock & IsSwitchedOff_dishwasher & IsOpen_book & IsCut_salmon & IsPlugged_washingmachine
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+181
+Environment:1
+Instruction: 
+Goals: IsOpen_door & IsPlugged_keyboard & IsClean_cutleryknife
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+182
+Environment:1
+Instruction: 
+Goals: IsClean_curtains
+Optimal Actions: Walk_rag, RightGrab_rag, Walk_curtains, Wipe_curtains
+Vital Action Predicates: Walk, RightGrab, Wipe
+Vital Objects: rag, curtains
+
+183
+Environment:1
+Instruction: 
+Goals: IsPlugged_tv & IsSwitchedOn_tv & IsCut_peach
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+184
+Environment:1
+Instruction: 
+Goals: IsClean_curtains
+Optimal Actions: Walk_rag, RightGrab_rag, Walk_curtains, Wipe_curtains
+Vital Action Predicates: Walk, RightGrab, Wipe
+Vital Objects: rag, curtains
+
+185
+Environment:1
+Instruction: 
+Goals: IsCut_lime
+Optimal Actions: Walk_kitchenknife, RightGrab_kitchenknife, Walk_lime, LeftGrab_lime, Cut_lime
+Vital Action Predicates: Walk, RightGrab, LeftGrab, Cut
+Vital Objects: kitchenknife, lime
+
+186
+Environment:1
+Instruction: 
+Goals: IsPlugged_tv & IsCut_bananas & IsPlugged_wallphone
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+187
+Environment:1
+Instruction: 
+Goals: IsClean_curtains & IsUnplugged_tv
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+188
+Environment:1
+Instruction: 
+Goals: IsClean_hairproduct & IsOpen_book & IsPlugged_lightswitch
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+189
+Environment:1
+Instruction: 
+Goals: IsCut_pancake
+Optimal Actions: Walk_kitchenknife, RightGrab_kitchenknife, Walk_pancake, LeftGrab_pancake, Cut_pancake
+Vital Action Predicates: Walk, RightGrab, LeftGrab, Cut
+Vital Objects: kitchenknife, pancake
+
+190
+Environment:1
+Instruction: 
+Goals: IsClean_dishwasher
+Optimal Actions: Walk_rag, RightGrab_rag, Walk_dishwasher, Wipe_dishwasher
+Vital Action Predicates: Walk, RightGrab, Wipe
+Vital Objects: rag, dishwasher
+
+191
+Environment:1
+Instruction: 
+Goals: IsClean_wineglass & IsPlugged_washingmachine & IsSwitchedOn_washingmachine
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+192
+Environment:1
+Instruction: 
+Goals: IsClose_window & IsClean_fryingpan
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+193
+Environment:1
+Instruction: 
+Goals: IsClean_bellpepper & IsClose_clothespile & IsPlugged_clock & IsSwitchedOn_clock
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+194
+Environment:1
+Instruction: 
+Goals: IsCut_apple & IsPlugged_toaster
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+195
+Environment:1
+Instruction: 
+Goals: IsSwitchedOff_tablelamp & IsCut_cutlets
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+196
+Environment:1
+Instruction: 
+Goals: IsClose_stove & IsCut_bananas & IsOn_cupcake_fryingpan
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+197
+Environment:1
+Instruction: 
+Goals: IsCut_poundcake & IsClose_magazine & IsOn_peach_bathroomcabinet
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+198
+Environment:1
+Instruction: 
+Goals: IsUnplugged_clock & IsCut_poundcake
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+199
+Environment:1
+Instruction: 
+Goals: IsClean_remotecontrol
+Optimal Actions: Walk_rag, RightGrab_rag, Walk_remotecontrol, Wipe_remotecontrol
+Vital Action Predicates: Walk, RightGrab, Wipe
+Vital Objects: rag, remotecontrol
+
+200
+Environment:1
+Instruction: 
+Goals: IsCut_plum
+Optimal Actions: Walk_kitchenknife, RightGrab_kitchenknife, Walk_plum, LeftGrab_plum, Cut_plum
+Vital Action Predicates: Walk, RightGrab, LeftGrab, Cut
+Vital Objects: kitchenknife, plum
+
+201
+Environment:1
+Instruction: 
+Goals: IsCut_bellpepper & IsOn_towel_towelrack
+Optimal Actions: Walk_towel, LeftGrab_towel, Walk_towelrack, LeftPut_towel_towelrack, Walk_bellpepper, LeftGrab_bellpepper, Walk_kitchenknife, RightGrab_kitchenknife, Cut_bellpepper
+Vital Action Predicates: Walk, LeftGrab, LeftPut, RightGrab, Cut
+Vital Objects: towel, towelrack, bellpepper, kitchenknife
+
+202
+Environment:1
+Instruction: 
+Goals: IsCut_peach
+Optimal Actions: Walk_kitchenknife, RightGrab_kitchenknife, Walk_peach, LeftGrab_peach, Cut_peach
+Vital Action Predicates: Walk, RightGrab, LeftGrab, Cut
+Vital Objects: kitchenknife, peach
+
+203
+Environment:1
+Instruction: 
+Goals: IsUnplugged_mouse & IsOn_cutleryfork_floor & IsClean_floor
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+204
+Environment:1
+Instruction: 
+Goals: IsCut_pie & IsOpen_door
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+205
+Environment:1
+Instruction: 
+Goals: IsCut_bellpepper & IsUnplugged_microwave
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+206
+Environment:1
+Instruction: 
+Goals: IsCut_lime & IsSwitchedOff_candle & IsSwitchedOff_printer
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+207
+Environment:1
+Instruction: 
+Goals: IsPlugged_washingmachine & IsClean_crackers
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+208
+Environment:1
+Instruction: 
+Goals: IsOpen_window & IsSwitchedOff_wallphone & IsCut_poundcake
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+209
+Environment:1
+Instruction: 
+Goals: IsClose_curtains & IsClean_paper
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+210
+Environment:1
+Instruction: 
+Goals: IsClean_wineglass
+Optimal Actions: Walk_rag, RightGrab_rag, Walk_wineglass, Wipe_wineglass
+Vital Action Predicates: Walk, RightGrab, Wipe
+Vital Objects: rag, wineglass
+
+211
+Environment:1
+Instruction: 
+Goals: IsClean_mouse
+Optimal Actions: Walk_rag, RightGrab_rag, Walk_mouse, Wipe_mouse
+Vital Action Predicates: Walk, RightGrab, Wipe
+Vital Objects: rag, mouse
+
+212
+Environment:1
+Instruction: 
+Goals: IsCut_chicken & IsPlugged_washingmachine & IsSwitchedOn_computer & IsClose_microwave
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+213
+Environment:1
+Instruction: 
+Goals: IsCut_bananas & IsPlugged_mouse
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+214
+Environment:1
+Instruction: 
+Goals: IsOpen_door & IsCut_peach
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+215
+Environment:1
+Instruction: 
+Goals: IsUnplugged_fridge & IsClean_microwave
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+216
+Environment:1
+Instruction: 
+Goals: IsOpen_magazine & IsOpen_curtains & IsCut_pancake
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+217
+Environment:1
+Instruction: 
+Goals: IsCut_poundcake & IsOpen_book
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+218
+Environment:1
+Instruction: 
+Goals: IsPlugged_microwave & IsSwitchedOn_microwave & IsClean_chair
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+219
+Environment:1
+Instruction: 
+Goals: IsUnplugged_printer & IsCut_chicken
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+220
+Environment:1
+Instruction: 
+Goals: IsSwitchedOff_coffeemaker & IsClean_wallphone
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+221
+Environment:1
+Instruction: 
+Goals: IsOpen_magazine & IsCut_plum
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+222
+Environment:1
+Instruction: 
+Goals: IsOn_radio_floor & IsClean_brush
+Optimal Actions: Walk_rag, LeftGrab_rag, Walk_radio, RightGrab_radio, Walk_floor, RightPut_radio_floor, Walk_brush, Wipe_brush
+Vital Action Predicates: Walk, LeftGrab, RightGrab, RightPut, Wipe
+Vital Objects: rag, radio, floor, brush
+
+223
+Environment:1
+Instruction: 
+Goals: IsOpen_curtains & IsCut_carrot & IsSwitchedOff_radio
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+224
+Environment:1
+Instruction: 
+Goals: IsClean_cabinet & IsSwitchedOff_microwave
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+225
+Environment:1
+Instruction: 
+Goals: IsOpen_door & IsClean_toilet
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+

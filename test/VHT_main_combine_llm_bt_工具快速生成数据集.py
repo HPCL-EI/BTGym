@@ -7,6 +7,7 @@ from btgym.utils import ROOT_PATH
 from btgym.algos.llm_client.llms.gpt3 import LLMGPT3
 from btgym.algos.bt_autogen.main_interface import BTExpInterface
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
+from btgym.envs.virtualhometext.exec_lib._base.VHTAction_small import VHTAction_small
 from itertools import chain
 
 from sympy import symbols, Not, Or, And, to_dnf
@@ -23,15 +24,16 @@ np.random.seed(seed)
 
 
 env = btgym.make("VHT-PutMilkInFridge")
+# env = btgym.make("VHT-Small")
 
 cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
-cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction.CAN_OPEN}
-cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
-cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
+cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction_small.CAN_OPEN}
+cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction_small.HAS_SWITCH}
+cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction_small.HAS_PLUG}
 
-#  & IsOn_crackers_desk
-goal_str = "IsClean_rag & IsClean_desk"
-act_str= "Walk_rag,Walk_faucet"
+#  &  & IsCut_apple
+goal_str = "IsIn_toy_box"
+act_str= "Walk_box, Walk_sofa, Walk_toy"
 
 
 goal_set = goal_transfer_str(goal_str)

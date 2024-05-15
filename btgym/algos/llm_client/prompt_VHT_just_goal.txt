@@ -7,10 +7,10 @@ IsPlugged_<HAS_PLUG>, IsUnplugged_<HAS_PLUG>, IsCut_<CUTABLE>
 
 
 [Action]
-Walk_<ALL>(cost=15), RightGrab_<GRABBABLE>(cost=5), LeftGrab_<GRABBABLE>(cost=5), RightPut_<GRABBABLE>_<SURFACES>(cost=6), LeftPut_<GRABBABLE>_<SURFACES>(cost=6),
-RightPutIn_<GRABBABLE>_<CONTAINERS>(cost=10), LeftPutIn_<GRABBABLE>_<CONTAINERS>(cost=10), RightGrabFrom_<GRABBABLE>_<CONTAINERS>(cost=5), LeftGrabFrom_<GRABBABLE>_<CONTAINERS>(cost=5),
-Open_<CAN_OPEN>(cost=3), Close_<CAN_OPEN>(cost=3), SwitchOn_<HAS_SWITCH>(cost=8), SwitchOff_<HAS_SWITCH>(cost=8),
-Wipe_<ALL>(cost=9), PlugIn_<HAS_PLUG>(cost=8), PlugOut_<HAS_PLUG>(cost=8), Cut_<CUTABLE>(cost=9), Wash_<WASHABLE>(cost=9)
+Walk_<ALL>, RightGrab_<GRABBABLE>, LeftGrab_<GRABBABLE>, RightPut_<GRABBABLE>_<SURFACES>, LeftPut_<GRABBABLE>_<SURFACES>,
+RightPutIn_<GRABBABLE>_<CONTAINERS>, LeftPutIn_<GRABBABLE>_<CONTAINERS>, RightGrabFrom_<GRABBABLE>_<CONTAINERS>, LeftGrabFrom_<GRABBABLE>_<CONTAINERS>,
+Open_<CAN_OPEN>, Close_<CAN_OPEN>, SwitchOn_<HAS_SWITCH>, SwitchOff_<HAS_SWITCH>,
+Wipe_<ALL>, PlugIn_<HAS_PLUG>, PlugOut_<HAS_PLUG>, Cut_<CUTABLE>, Wash_<WASHABLE>
 
 
 [Object]

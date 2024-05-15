@@ -4,6 +4,10 @@ import btgym
 import time
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
 
+# 随机生成一堆goal
+
+
+
 def setup_default_env():
     env = btgym.make("VHT-PutMilkInFridge")
     cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
@@ -12,10 +16,6 @@ def setup_default_env():
     cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
     return env, cur_cond_set
 
-
-
-
-
 def execute_algorithm(algo, goal_set, cur_cond_set):
     start_time = time.time()
     algo.process(goal_set)
@@ -23,7 +23,8 @@ def execute_algorithm(algo, goal_set, cur_cond_set):
     planning_time_total = end_time - start_time
 
     ptml_string, cost, expanded_num = algo.post_process()
-    error, state, act_num, current_cost, record_act_ls = algo.execute_bt(goal_set[0], cur_cond_set, verbose=False)
+    error, state, act_num, current_cost, record_act_ls = algo.execute_bt(\
+        goal_set[0], cur_cond_set, verbose=False)
 
     return expanded_num, planning_time_total, cost, error, act_num, current_cost, record_act_ls
 

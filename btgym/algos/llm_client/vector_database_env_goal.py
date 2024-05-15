@@ -4,24 +4,24 @@ import faiss
 import numpy as np
 from btgym.utils import ROOT_PATH
 from btgym.algos.llm_client.llms.gpt3 import LLMGPT3
-
+from btgym.algos.llm_client.llms.gpt4 import LLMGPT4
 
 def parse_and_prepare_data(file_path):
     """从文本文件中解析数据，并生成键值对"""
     data = {}
     current_id = None
 
-    with open(file_path, 'r') as file:
+    with open(file_path, 'r', encoding='utf-8') as file:
         for line in file:
             line = line.strip()
             if line.isdigit():
                 current_id = line
-                data[current_id] = {"Environment": "", "Goals": "", "Optimal_Actions": "", "Vital_Action_Predicates": "", "Vital_Objects": ""}
+                data[current_id] = {"Environment": "", "Goals": "", "Optimal Actions": "", "Vital Action Predicates": "", "Vital Objects": "","Cost":""}
             else:
-                match = re.match(r"(\w+):\s*(.*)", line)
+                match = re.match(r"(\w+(?: \w+)*):\s*(.*)", line)
                 if match and current_id:
                     key, value = match.groups()
-                    data[current_id][key] = value
+                    data[current_id][key.strip()] = value.strip()
 
     # 将 Environment 和 Goals 组合成键
     keys = [f"{entry['Environment']}: {entry['Goals']}" for entry in data.values()]
@@ -72,6 +72,8 @@ def search_nearest_examples(index_path, llm, goal, top_n=5):
     index = faiss.read_index(index_path)
     metadata = np.load(index_path.replace(".index", "_metadata.npy"), allow_pickle=True)
 
+    # env?
+
     # 获取嵌入向量
     query_embedding = np.array([extract_embedding_vector(llm.embedding(goal))], dtype='float32')
     distances, indices = index.search(query_embedding, top_n)
@@ -80,8 +82,8 @@ def search_nearest_examples(index_path, llm, goal, top_n=5):
     nearest_examples = [metadata[idx] for idx in indices[0]]
     return nearest_examples, distances
 
-def add_data_entry(index_path, llm, environment, goal, optimal_actions, vital_action_predicates, vital_objects):
-    """添加一条新的数据记录并更新索引"""
+def add_data_entry(index_path, llm, environment, goal, optimal_actions, vital_action_predicates, vital_objects, cost):
+    """添加一条新的数据记录并更新索引，如果有重复项则比较 cost 并选择较小者"""
     # 读取现有数据
     index = faiss.read_index(index_path)
     metadata = np.load(index_path.replace(".index", "_metadata.npy"), allow_pickle=True)
@@ -89,17 +91,34 @@ def add_data_entry(index_path, llm, environment, goal, optimal_actions, vital_ac
     # 生成新的键和值
     new_key = f"{environment}: {goal}"
     new_value = {
-        "Optimal_Actions": optimal_actions,
-        "Vital_Action_Predicates": vital_action_predicates,
-        "Vital_Objects": vital_objects
+        "Environment": environment,
+        "Goals": goal,
+        "Optimal Actions": optimal_actions,
+        "Vital Action Predicates": vital_action_predicates,
+        "Vital Objects": vital_objects,
+        "Cost": cost
     }
 
     # 生成新的嵌入向量
     new_embedding = np.array([extract_embedding_vector(llm.embedding(new_key))], dtype='float32')
 
-    # 更新索引和元数据
-    index.add(new_embedding)
-    metadata = np.append(metadata, [{"key": new_key, "value": new_value}])
+    # 检查是否存在重复项
+    duplicate_index = -1
+    for i, item in enumerate(metadata):
+        if item['key'] == new_key:
+            duplicate_index = i
+            break
+
+    if duplicate_index != -1:
+        # 如果存在重复项，比较 cost
+        if metadata[duplicate_index]['value']['Cost'] > cost:
+            # 替换现有数据
+            metadata[duplicate_index]['value'] = new_value
+            index.reconstruct(duplicate_index, new_embedding[0])
+    else:
+        # 如果没有重复项，则添加新数据
+        index.add(new_embedding)
+        metadata = np.append(metadata, [{"key": new_key, "value": new_value}])
 
     # 保存更新后的索引和元数据
     faiss.write_index(index, index_path)
@@ -111,14 +130,31 @@ if __name__ == '__main__':
     llm = LLMGPT3()
 
     # 示例路径和布尔标志
-    file_path = f"{ROOT_PATH}/../test/dataset/database_cys_5.txt"
-    index_path = f"{ROOT_PATH}/../test/dataset/env_goal_vectors.index"
-    should_rebuild_index = False  # 如果为 True，则重建数据库
+    # file_path = f"{ROOT_PATH}/../test/dataset/database_cys_5.txt"
+    # index_path = f"{ROOT_PATH}/../test/dataset/env_goal_vectors.txt"
+    filename = "Group0"
+    file_path = f"{ROOT_PATH}/../test/dataset/DATABASE/{filename}.txt"
+    index_path = f"{ROOT_PATH}/../test/dataset/DATABASE/{filename}_env_goal_vectors.index"
+    should_rebuild_index = True  # 如果为 True，则重建数据库
 
     # 检查文件存在或决定是否重建
     if should_rebuild_index or not check_index_exists(index_path):
         keys, data = parse_and_prepare_data(file_path)
         embed_and_store(llm, keys, data, index_path)
+
+    # 解析数据
+    keys, data = parse_and_prepare_data(file_path)
+
+    # 输出结果示例
+    for key in data:
+        print(f"ID: {key}")
+        print(f"Environment: {data[key]['Environment']}")
+        print(f"Goals: {data[key]['Goals']}")
+        print(f"Optimal Actions: {data[key]['Optimal Actions']}")
+        print(f"Vital Action Predicates: {data[key]['Vital Action Predicates']}")
+        print(f"Vital Objects: {data[key]['Vital Objects']}")
+        print(f"Cost: {data[key]['Vital Objects']}")
+        print("-----------")
 
     # 使用特定环境和目标进行查询
     # environment = "IsUnplugged_wallphone, IsUnplugged_coffeemaker, IsUnplugged_lightswitch"
@@ -144,14 +180,14 @@ if __name__ == '__main__':
     new_vital_action_predicates = "Walk, RightGrab, Wipe, PlugIn, RightPutIn, LeftGrab, Cut"
     new_vital_objects = "rag, magazine, toaster, kitchenknife, apple"
 
-    add_data_entry(index_path, llm, new_environment, new_goal, new_optimal_actions, new_vital_action_predicates, new_vital_objects)
-
-    # 再次查询以验证新数据的添加
-    results = search_similar(index_path, llm, new_environment, new_goal)
-    for result in results:
-        record_id = result['id']
-        distance = result['distance']
-        key = result['key']
-        value = result['value']
-        print(f"Record ID: {record_id}, Distance: {distance}")
-        print(f"Key: {key}, Value: {value}\n")
+    # add_data_entry(index_path, llm, new_environment, new_goal, new_optimal_actions, new_vital_action_predicates, new_vital_objects)
+    #
+    # # 再次查询以验证新数据的添加
+    # results = search_similar(index_path, llm, new_environment, new_goal)
+    # for result in results:
+    #     record_id = result['id']
+    #     distance = result['distance']
+    #     key = result['key']
+    #     value = result['value']
+    #     print(f"Record ID: {record_id}, Distance: {distance}")
+    #     print(f"Key: {key}, Value: {value}\n")

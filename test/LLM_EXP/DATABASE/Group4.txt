@@ -1,0 +1,31 @@
+1
+Environment:1
+Instruction: 
+Goals: IsClose_window & IsOpen_door
+Optimal Actions: Walk_door, Open_door
+Vital Action Predicates: Walk, Open
+Vital Objects: door
+
+2
+Environment:1
+Instruction: 
+Goals: IsOn_barsoap_floor & IsOpen_curtains
+Optimal Actions: Walk_barsoap, RightGrab_barsoap, Walk_curtains, Open_curtains, Walk_floor, RightPut_barsoap_floor
+Vital Action Predicates: Walk, RightGrab, Open, RightPut
+Vital Objects: barsoap, curtains, floor
+
+3
+Environment:1
+Instruction: 
+Goals: IsOn_pie_tvstand
+Optimal Actions: Walk_pie, LeftGrab_pie, Walk_tvstand, LeftPut_pie_tvstand
+Vital Action Predicates: Walk, LeftGrab, LeftPut
+Vital Objects: pie, tvstand
+
+4
+Environment:1
+Instruction: 
+Goals: IsIn_toiletpaper_kitchencabinet & IsClose_kitchencabinet
+Optimal Actions: Walk_toiletpaper, RightGrab_toiletpaper, Walk_kitchencabinet, Open_kitchencabinet, RightPutIn_toiletpaper_kitchencabinet, Close_kitchencabinet
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close
+Vital Objects: toiletpaper, kitchencabinet

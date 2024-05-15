@@ -93,7 +93,7 @@ for round_num in range(max_round):
     env, _ = setup_default_env()
     for n, chosen_goal in enumerate(round_goals):
         print(f"\x1b[32m\n== Round: {round_num} ID: {n} {chosen_goal} \x1b[0m")
-        database_index_path = f"{ROOT_PATH}/../test/dataset/DATABASE/Group_{group_id}_env_goal_vectors.index"
+        database_index_path = f"{ROOT_PATH}/../test/LLM_EXP/DATABASE/Group{group_id}_env_goal_vectors.index"
 
         tarin_result = perform_test(env, chosen_goal, database_index_path)
         if tarin_result is None:

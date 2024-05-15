@@ -47,7 +47,7 @@ similarity_over_rounds = []
 success_rate_over_rounds = []
 max_round=10
 for round_num in range(max_round):
-    round_goals = random.sample(list(all_goals), 10)
+    round_goals = random.sample(list(all_goals), 40)
     for goal in round_goals:
         all_goals.remove(goal)
 

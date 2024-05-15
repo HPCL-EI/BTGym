@@ -6,7 +6,7 @@ from openai import OpenAI
 class LLMGPT3():
     def __init__(self):
         self.client = OpenAI(
-            base_url="https://api.chatgptid.net/v1",            api_key="sk-U3lHYdKBlISo2gssCa715e292bF5463bAb5898638eC3D0Ea"
+            base_url="https://api.chatgptid.net/v1",            api_key="sk-WghHNZ1cSm0nZ3ME79A3B93272F748898409C65aE911Ce19"
         )
 
     def request(self,message): # question
@@ -23,7 +23,8 @@ class LLMGPT3():
 
     def embedding(self,question):
         embeddings = self.client.embeddings.create(
-          model="text-embedding-ada-002",
+          model="text-embedding-3-small",
+          # model="text-embedding-ada-002",
           input=question
         )
 

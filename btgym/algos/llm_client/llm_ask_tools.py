@@ -28,8 +28,9 @@ def parse_llm_output(answer,goals=True):
         key_predicate = list(OrderedSet(key_predicate))
         key_objects = list(OrderedSet(key_objects))
     except Exception as e:
+        goal_set, priority_act_ls, key_predicate, key_objects = None,None,None,None
         print(f"Failed to parse LLM output: {e}")
-        return None
+
 
     if goals:
         return goal_set,priority_act_ls,key_predicate,key_objects
@@ -91,10 +92,12 @@ def extract_llm_from_instr_goal(llm,default_prompt_file,environment,goals,instru
     # if verbose:
     print("============ Answer ================\n",answer)
     parsed_output = parse_llm_output(answer, goals=False)
-    if parsed_output is None:
-        print(f"\033[91mFailed to parse LLM output for goals: {goals_str}\033[0m")
-        return None, None, None, messages, distances
+    # if parsed_output is None:
+    #     print(f"\033[91mFailed to parse LLM output for goals: {goals_str}\033[0m")
+    #     return None, None, None, messages, distances
     priority_act_ls, key_predicates, key_objects = parsed_output
+    if priority_act_ls==None:
+        print(f"\033[91mFailed to parse LLM output for goals: {goals_str}\033[0m")
     return priority_act_ls, key_predicates, key_objects, messages, distances
 
 def extract_llm_from_instr(llm,default_prompt_file,instruction,cur_cond_set,\
@@ -168,7 +171,7 @@ def llm_reflect(llm, messages, reflect_prompt):
     answer = llm.request(message=messages)
     messages.append({"role": "assistant", "content": answer})
 
-    print(answer)
+    print("============ Answer ================\n",answer)
 
     goal_set, priority_act_ls, key_predicates, key_objects = parse_llm_output(answer)
 
@@ -193,7 +196,8 @@ def convert_conditions(conditions_set):
         # Concatenate the base and the arguments with an underscore and add to the list
         formatted_conditions.append(f"{base.strip()}_{args}")
 
-    return formatted_conditions
+    formatted_conditions_str = " & ".join(formatted_conditions)
+    return formatted_conditions_str
 
 
 def extract_llm_from_reflect(llm,messages):

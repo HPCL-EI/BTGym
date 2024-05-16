@@ -24,12 +24,13 @@ np.random.seed(random_seed)
 random.seed(random_seed)
 
 # Initialize the LLM
-llm = LLMGPT3()
+llm = LLMGPT4()
 default_prompt_file = f"{ROOT_PATH}/algos/llm_client/prompt_VHT_just_goal_no_example.txt"
 # dataset = load_dataset(f"{ROOT_PATH}/../test/dataset/400data_processed_data.txt")
 
 
 vaild_dataset = load_dataset(f"test_data_40.txt")
+# vaild_dataset = load_dataset(f"DATA_BT_100_ori_yz_revby_cys.txt")
 
 def add_to_database(env, goals, priority_act_ls, key_predicates, key_objects, database_index_path, cost):
     new_environment = str(env)
@@ -56,6 +57,8 @@ def perform_test(env, chosen_goal, database_index_path,train=False):
     _priority_act_ls, pred, obj = act_format_records(priority_act_ls)
     key_predicates = list(set(llm_key_pred + pred))
     key_objects = list(set(llm_key_obj + obj))
+    # obj 还要加一个目标里面的
+
     algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
                           priority_act_ls=priority_act_ls, key_predicates=key_predicates,
                           key_objects=key_objects,
@@ -65,8 +68,8 @@ def perform_test(env, chosen_goal, database_index_path,train=False):
     if train:
         goal_set = goal_transfer_str(chosen_goal)
     else:
-        # goal_set = goal_transfer_str(' & '.join(chosen_goal))
-        goal_set = goal_transfer_str(chosen_goal) # 错误写法
+        goal_set = goal_transfer_str(' & '.join(chosen_goal))
+        # goal_set = goal_transfer_str(chosen_goal) # 错误写法
     expanded_num, planning_time_total, cost, error, act_num, current_cost, record_act_ls = \
         execute_algorithm(algo, goal_set, cur_cond_set)
     time_limit_exceeded = algo.algo.time_limit_exceeded
@@ -156,10 +159,7 @@ database_num=400
 test_success_count = 0
 total_similarity = 0
 vaild_dataset_test = vaild_dataset[:vaild_num]
-# Perform validation tests
-test_success_count = 0
-total_similarity = 0
-vaild_dataset_test = vaild_dataset[:vaild_num]
+
 for n, d in enumerate(vaild_dataset_test):
     # d['Goals'] [‘’，‘’，‘’]
     chosen_goal=d['Goals']
@@ -167,6 +167,9 @@ for n, d in enumerate(vaild_dataset_test):
     print(f"test:{n}", chosen_goal)
 
     test_result = perform_test(env, chosen_goal, database_index_path)
+
+
+    # 记录数据
     if test_result is None:
         # Save the result with None marker
         test_results.append({

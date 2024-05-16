@@ -34,7 +34,7 @@ all_goals = OrderedSet()
 for d in dataset:
     all_goals.update(d['Goals'])
 
-group_id = 0
+group_id = 1
 database_num = 5
 test_results = []
 test_success_rate_over_rounds = []
@@ -142,7 +142,7 @@ for round_num in range(max_round):
                                 test_result
         if success:
             test_success_count += 1
-            print("success        ")
+            print(f"\033[92mSuccess\033[0m")
         total_similarity += avg_similarity
 
         # Append results for this validation goal

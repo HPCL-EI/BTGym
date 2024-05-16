@@ -29,3 +29,11 @@ Goals: IsIn_toiletpaper_kitchencabinet & IsClose_kitchencabinet
 Optimal Actions: Walk_toiletpaper, RightGrab_toiletpaper, Walk_kitchencabinet, Open_kitchencabinet, RightPutIn_toiletpaper_kitchencabinet, Close_kitchencabinet
 Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close
 Vital Objects: toiletpaper, kitchencabinet
+
+5
+Environment:1
+Instruction: 
+Goals: IsIn_toiletpaper_kitchencabinet & IsClose_kitchencabinet
+Optimal Actions: Walk_toiletpaper, RightGrab_toiletpaper, Walk_kitchencabinet, Open_kitchencabinet, RightPutIn_toiletpaper_kitchencabinet, Close_kitchencabinet
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close
+Vital Objects: toiletpaper, kitchencabinet

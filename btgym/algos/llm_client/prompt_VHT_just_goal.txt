@@ -51,26 +51,25 @@ Optimal Actions: Walk_chips, RightGrab_chips, Walk_desk, RightPut_chips_desk
 Vital Action Predicates: Walk, RightGrab, RightPut
 Vital Objects: chips, desk
 
-Goals: IsSwitchedOn_coffeemaker & IsSwitchedOn_tv
-Optimal Actions: Walk_coffeemaker, PlugIn_coffeemaker, SwitchOn_coffeemaker, Walk_tv, PlugIn_tv, SwitchOn_tv
-Vital Action Predicates: Walk, PlugIn, SwitchOn, Walk, PlugIn, SwitchOn
-Vital Objects: coffeemaker, tv
+Goals: IsClean_peach & IsIn_peach_fridge
+Optimal Actions: Walk_peach, RightGrab_peach, Walk_faucet, SwitchOn_faucet, Wash_peach, Walk_fridge, Open_fridge, PlugIn_fridge, RightPutIn_peach_fridge
+Vital Action Predicates: Walk, RightGrab, SwitchOn, Wash, Open, PlugIn, RightPutIn
+Vital Objects: peach, faucet, fridge
 
-Goals: IsOn_breadslice_kitchentable & IsOn_chocolatesyrup_kitchentable
-Optimal Actions: Walk_breadslice, RightGrab_breadslice, Walk_chocolatesyrup, LeftGrab_chocolatesyrup, Walk_kitchentable, RightPut_breadslice_kitchentable, LeftPut_chocolatesyrup_kitchentable
-Vital Action Predicates: Walk, LeftGrab, Walk, RightGrab, Walk, LeftPut, RightPut
-Vital Objects: chocolatesyrup, kitchentable, breadslice
+Goals: IsSwitchedOn_candle
+Optimal Actions: Walk_candle, SwitchOn_candle
+Vital Action Predicates: Walk, SwitchOn
+Vital Objects: candle
 
-Goals: IsIn_milk_fridge & IsClean_kitchencounter
-Optimal Actions: Walk_milk, RightGrab_milk, Walk_fridge, Open_fridge, PlugIn_fridge, RightPut_milk_fridge, Close_fridge, Walk_rag, RightGrab_rag, Walk_kitchencounter, Wipe_kitchencounter
-Vital Action Predicates: Walk, RightGrab, Walk, Wipe, Walk, RightGrab, Walk, Open, PlugIn, RightPutIn
-Vital Objects: kitchencounter, milk, rag, fridge
+Goals: IsClean_window
+Optimal Actions: Walk_rag, RightGrab_rag, Walk_window, Wipe_window
+Vital Action Predicates: Walk, RightGrab, Wipe
+Vital Objects: rag, window
 
-Goals: IsClean_apple & IsCut_apple
-Optimal Actions: Walk_apple, RightGrab_apple, Walk_faucet, SwitchOn_faucet, Wash_apple, Walk_kitchenknife, LeftGrab_kitchenknife, Cut_apple
-Vital Action Predicates: Walk, SwitchOn, Walk, LeftGrab, Walk, Cut, RightGrab, Walk, Wash
-Vital Objects: faucet, kitchenknife, apple
-
+Goals: IsCut_cutlets
+Optimal Actions: Walk_kitchenknife, RightGrab_kitchenknife, Walk_cutlets, LeftGrab_cutlets, Cut_cutlets
+Vital Action Predicates: Walk, RightGrab, LeftGrab, Cut
+Vital Objects: kitchenknife, cutlets
 
 [Prompt]
 [Condition] Lists all predicates representing conditions and their optional parameter sets.

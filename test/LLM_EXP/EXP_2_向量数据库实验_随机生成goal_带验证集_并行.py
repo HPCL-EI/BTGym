@@ -34,6 +34,7 @@ all_goals = []
 # Assuming dataset is defined
 for id, d in enumerate(dataset):
     all_goals.append(' & '.join(d['Goals']))
+    # all_goals.append(d['Goals'])
 
 
 
@@ -152,29 +153,37 @@ def random_generate_goals(n):
     return all_goals
 
 
-group_id = 0
+group_id = 1
 database_num = 5
 test_results = []
 test_success_rate_over_rounds = []
 average_similarity_over_rounds = []
+# max_round = 5
+# sample_num = 50
+# vaild_num= 40
+
 max_round = 5
-sample_num = 50
+sample_num = 30
 vaild_num= 40
 
 # max_round = 2
 # sample_num = 2
-# vaild_num= 5
+# vaild_num= 2
+
+# max_round = 10
+# sample_num = 20
+# vaild_num= 0
 
 use_random = False
 
 
 env, _ = setup_default_env()
-database_index_path = f"{ROOT_PATH}/../test/dataset/DATABASE/Group{group_id}_env_goal_vectors.index"
+database_index_path = f"{ROOT_PATH}/../test/LLM_EXP/DATABASE/Group{group_id}_env_goal_vectors.index"
 
 # Main Loop
 for round_num in range(max_round):
 
-    if round_num!=0:
+    if round_num==0:
 
         if use_random:
             # 随机生成 20 个goals，放入 all_goals 集合
@@ -209,11 +218,14 @@ for round_num in range(max_round):
     # Perform validation tests in parallel
     test_success_count = 0
     total_similarity = 0
-    # vaild_dataset_test = vaild_dataset[:vaild_num]
-    vaild_dataset_test = vaild_dataset[10:30]
+    vaild_dataset_test = vaild_dataset[:vaild_num]
+    # vaild_dataset_test = vaild_dataset[10:12]
     with concurrent.futures.ThreadPoolExecutor() as executor:
+        # chosen_goal = d['Goals'][0]
         futures = [executor.submit(validate_goal, env, d['Goals'], database_index_path, round_num, n, database_num) \
                    for n, d in enumerate(vaild_dataset_test)]
+        # futures = [executor.submit(validate_goal, env, d['Goals'], database_index_path, round_num, n, database_num) \
+        #            for n, d in enumerate(vaild_dataset_test)]
 
         for future in concurrent.futures.as_completed(futures):
             result, success, avg_similarity = future.result()

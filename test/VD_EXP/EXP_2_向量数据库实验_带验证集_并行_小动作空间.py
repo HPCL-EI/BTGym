@@ -16,6 +16,7 @@ import random
 from ordered_set import OrderedSet
 import concurrent.futures
 from generate_goals import random_generate_goals
+from tools import find_from_small_act
 
 # Set random seed
 random_seed = 0
@@ -119,7 +120,7 @@ def reflect_on_errors(llm, messages, d, env, cur_cond_set, goal_set, priority_ac
     return extract_llm_from_reflect(llm, messages)
 
 
-def perform_test(env, chosen_goal, database_index_path, reflect_time=0):
+def perform_test(env, chosen_goal, database_index_path, reflect_time=0,train=False):
     cur_cond_set = setup_default_env()[1]
     priority_act_ls, llm_key_pred, llm_key_obj, messages, distances = \
         extract_llm_from_instr_goal(llm, default_prompt_file, 1, chosen_goal, verbose=False,
@@ -185,6 +186,14 @@ def perform_test(env, chosen_goal, database_index_path, reflect_time=0):
             print(
                 f"\033[92mReflect: Success After reflect!\033[0m")
 
+
+    if not success and train:
+        # 搜索小动作空间得到一个解
+        success,  _priority_act_ls, key_predicates, key_objects, cost, priority_act_ls, key_predicates, key_objects, \
+            act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total = find_from_small_act(chosen_goal)
+
+
+
     if priority_act_ls is None or llm_key_pred is None or llm_key_obj is None:
         return False, np.mean(
             distances), None, None, None, None, priority_act_ls, None, None, \
@@ -222,13 +231,13 @@ for id, d in enumerate(train_dataset):
     # all_goals.append(' & '.join(d['Goals']))
     all_goals.append(d['Goals'])
 
-use_random = False
+use_random = True
 
-vaild_dataset = load_dataset(f"test_data_40.txt")
-# vaild_dataset = load_dataset(f"{ROOT_PATH}/../test/dataset/DATA_BT_100_ori_yz_revby_cys.txt")
+# vaild_dataset = load_dataset(f"test_data_40.txt")
+vaild_dataset = load_dataset(f"{ROOT_PATH}/../test/dataset/DATA_BT_100_ori_yz_revby_cys.txt")
 # vaild_dataset = load_dataset(f"{ROOT_PATH}/../test/dataset/data1_env1_40_test_reflect.txt")
 
-group_id = 400
+group_id = '01'
 database_num = 5
 env, _ = setup_default_env()
 database_index_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/Group{group_id}_env_goal_vectors.index"
@@ -242,7 +251,7 @@ max_round = 1
 sample_num = 0
 vaild_num = 40
 
-reflect_time = 3
+reflect_time = 0
 
 test_results = []
 metrics_over_rounds = {
@@ -270,7 +279,8 @@ for round_num in range(max_round):
             # chosen_goal=[abs, cde]
             print(f"\x1b[32m\n== Round: {round_num} ID: {n} {chosen_goal} \x1b[0m")
 
-            tarin_result = perform_test(env, chosen_goal, database_index_path, reflect_time=reflect_time)
+            tarin_result = perform_test(env, chosen_goal, database_index_path, reflect_time=reflect_time,\
+                                        train=True)
             if tarin_result is None:
                 print(f"\033[91mSkipping failed test result for goal: {chosen_goal}\033[0m")
                 continue

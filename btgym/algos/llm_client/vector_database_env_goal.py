@@ -226,6 +226,10 @@ def add_to_database(llm,env, goals, priority_act_ls, key_predicates, key_objects
                    new_vital_action_predicates, new_vital_objects, cost)
     print(f"\033[95mAdd the current data to the vector database\033[0m")
 
+def create_empty_index(dimension, index_path):
+    index = faiss.IndexFlatL2(dimension)  # 创建一个空的 L2 距离索引
+    faiss.write_index(index, index_path)  # 保存空索引到文件
+    print(f"Empty index created and saved to {index_path}")
 
 if __name__ == '__main__':
     # 假设 llm 是已经初始化的嵌入模型对象
@@ -235,7 +239,8 @@ if __name__ == '__main__':
     # file_path = f"{ROOT_PATH}/../test/dataset/database_cys_5.txt"
     # index_path = f"{ROOT_PATH}/../test/dataset/env_goal_vectors.txt"
     # filename = "Group0"
-    filename = "Group1"
+    # filename = "Group1"
+    filename = "Group01"
     # file_path = f"{ROOT_PATH}/../test/dataset/DATABASE/{filename}.txt"
     # index_path = f"{ROOT_PATH}/../test/dataset/DATABASE/{filename}_env_goal_vectors.index"
     file_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/{filename}.txt"
@@ -245,6 +250,7 @@ if __name__ == '__main__':
 
     # 检查文件存在或决定是否重建
     if should_rebuild_index or not check_index_exists(index_path):
+        # create_empty_index(dimension, index_path)
         keys, data = parse_and_prepare_data(file_path)
         embed_and_store(llm, keys, data, index_path)
 

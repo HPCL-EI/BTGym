@@ -4,7 +4,7 @@ from scipy.interpolate import interp1d
 import numpy as np
 
 # 文件名和路径
-base_file_name = 'EXP_2_output_summary_bt_data_small_100_bigerror_heuristic=0_seed='
+base_file_name = 'EXP_2_output_summary_bt_data_small_100_bigerror_heuristic=1_seed='
 file_path = "./EXP_2_output/"
 seeds = range(10)
 

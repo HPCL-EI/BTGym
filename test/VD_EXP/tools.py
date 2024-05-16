@@ -6,6 +6,37 @@ from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
 
 # 随机生成一堆goal
 
+def find_from_small_act(goal):
+    from btgym.envs.virtualhometext.exec_lib._base.VHTAction_small import VHTAction_small
+    from btgym.utils.tools import collect_action_nodes
+    from btgym.algos.bt_autogen.main_interface import BTExpInterface
+    from btgym.algos.llm_client.tools import goal_transfer_str, act_format_records
+
+    env = btgym.make("VHT-Small")
+    cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
+    cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction_small.CAN_OPEN}
+    cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction_small.HAS_SWITCH}
+    cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction_small.HAS_PLUG}
+    big_actions = collect_action_nodes(env.behavior_lib)
+
+    algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
+                          priority_act_ls=[], key_predicates=[],
+                          key_objects=[],
+                          selected_algorithm="opt", mode="small-predicate-objs",
+                          llm_reflect=False, time_limit=10,
+                          heuristic_choice=0)
+    goal_set = goal_transfer_str(' & '.join(goal))
+    expanded_num, planning_time_total, cost, error, act_num, current_cost, record_act_ls = \
+        execute_algorithm(algo, goal_set, cur_cond_set)
+    time_limit_exceeded = algo.algo.time_limit_exceeded
+
+    success = not error and not time_limit_exceeded
+
+
+
+    return success, _priority_act_ls, key_predicates, key_objects, cost, priority_act_ls, key_predicates, key_objects, \
+        act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total
+
 
 
 def setup_default_env():

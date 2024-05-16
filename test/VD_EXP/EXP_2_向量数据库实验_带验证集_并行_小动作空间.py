@@ -233,8 +233,8 @@ for id, d in enumerate(train_dataset):
 
 use_random = True
 
-# vaild_dataset = load_dataset(f"test_data_40.txt")
-vaild_dataset = load_dataset(f"{ROOT_PATH}/../test/dataset/DATA_BT_100_ori_yz_revby_cys.txt")
+vaild_dataset = load_dataset(f"test_data_40_0517.txt")
+# vaild_dataset = load_dataset(f"{ROOT_PATH}/../test/dataset/DATA_BT_100_ori_yz_revby_cys.txt")
 # vaild_dataset = load_dataset(f"{ROOT_PATH}/../test/dataset/data1_env1_40_test_reflect.txt")
 
 group_id = '01'
@@ -247,11 +247,11 @@ database_output_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/Group{group_id}_env
 # sample_num = 30
 # vaild_num = 40
 
-max_round = 1
-sample_num = 0
+max_round = 30
+sample_num = 10
 vaild_num = 40
 
-reflect_time = 0
+reflect_time = 3
 
 test_results = []
 metrics_over_rounds = {

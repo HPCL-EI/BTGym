@@ -2,36 +2,42 @@ from btgym.behavior_tree.base_nodes import Action
 from btgym.behavior_tree import Status
 from btgym.behavior_tree.behavior_trees import BehaviorTree
 
-class VHTAction_small(Action):
+class VHTAction(Action):
     can_be_expanded = True
     num_args = 1
 
-    SURFACES = {"kitchentable"}
+    SURFACES = {"kitchentable",  "fryingpan","plate", "tvstand", "bathroomcounter", "coffeetable",\
+                "kitchencounter", "bookshelf", "cabinet", "desk", "bed", "sofa","nightstand"}
 
-    SITTABLE = { "bed"}
+    SITTABLE = {"chair", "bench", "bed", "rug", "sofa"}
 
-    CAN_OPEN = {"fridge","window"}
-    CONTAINERS = {"fridge","garbagecan"}
+    CAN_OPEN = {"fridge","dishwasher","microwave","washingmachine","window"}
+    CONTAINERS = {"fridge","dishwasher","microwave","washingmachine","garbagecan"}
 
 
-    GRABBABLE = {"apple",'breadslice','milk','plate',"rag","kitchenknife"}
+    GRABBABLE = {"apple","bananas","peach",'chicken', 'cutlets','breadslice','chips','chocolatesyrup',
+             'cupcake','milk','wine',"magazine",
+             'clothesshirt','fryingpan','dishbowl','plate',
+             'book',"waterglass","clock","rag",'kitchenknife'
+             }
 
     cleaning_tools = {"rag"}
     cutting_tools = {"kitchenknife"}
 
-    HAS_SWITCH = {"tv","faucet","candle"}
+    HAS_SWITCH = {"tv","faucet","lightswitch","dishwasher","candle",\
+                  "coffeemaker","microwave","tablelamp","computer","washingmachine"}
 
-    HAS_PLUG = {"tv","mouse","fridge"}
+    HAS_PLUG = {"tv","mouse", "dishwasher","coffeemaker","toaster","microwave","fridge","washingmachine","clock","keyboard"}
     # 墙电话, 咖啡机, 开关, 手机, 冰箱, 烤面包机, 台灯, 微波炉, 电视, \
     # 鼠标, 时钟, 键盘, 收音机, 洗衣机, 打印机
 
-    CUTABLE = {"apple",'breadslice'}
+    CUTABLE = {'cutlets', "apple",'bananas', "peach",'breadslice', 'chicken'}
 
-    WASHABLE={"apple"}
+    WASHABLE={"apple","bananas","chicken", "peach"}
 
-    EATABLE = {"apple",'breadslice'}
+    EATABLE = {"apple","bananas","chicken", "peach",'breadslice', 'cupcake', 'chocolatesyrup'}
 
-    DRINKABLE = {'milk'}
+    DRINKABLE = {'milk', 'wine'}
 
 
     AllObject = SURFACES | SITTABLE | CAN_OPEN | CONTAINERS | GRABBABLE |\

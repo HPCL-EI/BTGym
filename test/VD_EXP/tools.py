@@ -3,39 +3,8 @@ from btgym.utils.read_dataset import read_dataset
 import btgym
 import time
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
-
+from tools import *
 # 随机生成一堆goal
-
-def find_from_small_act(goal):
-    from btgym.envs.virtualhometext.exec_lib._base.VHTAction_small import VHTAction_small
-    from btgym.utils.tools import collect_action_nodes
-    from btgym.algos.bt_autogen.main_interface import BTExpInterface
-    from btgym.algos.llm_client.tools import goal_transfer_str, act_format_records
-
-    env = btgym.make("VHT-Small")
-    cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
-    cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction_small.CAN_OPEN}
-    cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction_small.HAS_SWITCH}
-    cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction_small.HAS_PLUG}
-    big_actions = collect_action_nodes(env.behavior_lib)
-
-    algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
-                          priority_act_ls=[], key_predicates=[],
-                          key_objects=[],
-                          selected_algorithm="opt", mode="small-predicate-objs",
-                          llm_reflect=False, time_limit=10,
-                          heuristic_choice=0)
-    goal_set = goal_transfer_str(' & '.join(goal))
-    expanded_num, planning_time_total, cost, error, act_num, current_cost, record_act_ls = \
-        execute_algorithm(algo, goal_set, cur_cond_set)
-    time_limit_exceeded = algo.algo.time_limit_exceeded
-
-    success = not error and not time_limit_exceeded
-
-
-
-    return success, _priority_act_ls, key_predicates, key_objects, cost, priority_act_ls, key_predicates, key_objects, \
-        act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total
 
 
 
@@ -253,4 +222,65 @@ def analyze_data_tabular(data1, counts):
 
 # Example usage
 # analyze_data_tabular(data1, [10, 10, 10, 10])
+
+
+
+def find_from_small_act(goal):
+    from btgym.envs.virtualhometext.exec_lib._base.VHTAction_small import VHTAction_small
+    from btgym.utils.tools import collect_action_nodes
+    from btgym.algos.bt_autogen.main_interface import BTExpInterface
+    from btgym.algos.llm_client.tools import goal_transfer_str, act_format_records
+
+    env = btgym.make("VHT-Small")
+    cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
+    cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction_small.CAN_OPEN}
+    cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction_small.HAS_SWITCH}
+    cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction_small.HAS_PLUG}
+    big_actions = collect_action_nodes(env.behavior_lib)
+
+    algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
+                          priority_act_ls=[], key_predicates=[],
+                          key_objects=[],
+                          selected_algorithm="opt", mode="big",
+                          llm_reflect=False, time_limit=30,
+                          heuristic_choice=0)
+    goal_set = goal_transfer_str(' & '.join(goal))
+    expanded_num, planning_time_total, cost, error, act_num, current_cost, record_act_ls = \
+        execute_algorithm(algo, goal_set, cur_cond_set)
+    time_limit_exceeded = algo.algo.time_limit_exceeded
+
+    success = not error and not time_limit_exceeded
+
+    _priority_act_ls, key_predicates, key_objects = act_format_records(record_act_ls)
+    priority_act_ls = record_act_ls
+    # 打印所有变量
+    # 定义蓝色的ANSI转义序列
+    BLUE = "\033[94m"
+    RESET = "\033[0m"
+
+    print(f"{BLUE}Try to use big space...{RESET}")
+
+    # 打印指定的三个输出，并使用蓝色
+    print(f"{BLUE}success:{RESET}", success)
+    print(f"{BLUE}goal:{RESET}", ' & '.join(goal))
+    print(f"{BLUE}_priority_act_ls:{RESET}", _priority_act_ls)
+    print(f"{BLUE}act_num:{RESET}", act_num)
+    print(f"{BLUE}planning_time_total:{RESET}", planning_time_total)
+    print(f"{BLUE}current_cost:{RESET}", expanded_num)
+    print(f"{BLUE}current_cost:{RESET}", current_cost)
+
+    # print("key_predicates:", key_predicates)
+    # print("key_objects:", key_objects)
+    # print("cost:", cost)
+    # print("priority_act_ls:", priority_act_ls)
+    # print("act_num:", act_num)
+    # print("error:", error)
+    # print("time_limit_exceeded:", time_limit_exceeded)
+    # print("current_cost:", current_cost)
+    # print("expanded_num:", expanded_num)
+    # print("planning_time_total:", planning_time_total)
+    return success, _priority_act_ls, key_predicates, key_objects, cost, priority_act_ls, key_predicates, key_objects, \
+        act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total
+
+find_from_small_act(['IsIn_apple_fridge']) #,'IsCut_breadslice'
 

@@ -56,14 +56,18 @@ def reflect_on_errors(llm, messages, d, env, cur_cond_set, goal_set, priority_ac
     reflect_prompt = (
         "The list of actions, predicates, and objects you provided is insufficient to accomplish the specified goals: {goals}. "
         "Specifically, these only allow for the completion of the {have_finished}, while failing to address the {not_finished}.\n"
+        
         "1. In regards to the {not_finished}, several critical dependencies and tools have been overlooked. "
         "This includes the need to plug in an electrical appliance before using it, and the need to open a container before placing items inside.\n "
         "2. Additionally, for the {not_finished}, it appears that essential tools like 'rag', 'faucet', 'kitchenknife' and steps have also been neglected. "
         "The requirements include using a rag for wiping, going to the faucet and turning it on for washing, wiping and washing to clean an object, and using a kitchen knife for cutting.\n"
         "3. Moreover, for the {not_finished}, some actions require coordination between the hands that was not managed correctly. "
         "For example, handling different objects simultaneously with both hands when necessary.\n"
+        
         "Please re-analyze the specified goal to identify the optimal actions, essential action predicates, and key objects necessary for achieving the goals. "
         "Use the same format as previously used, beginning with 'Optimal Actions:', 'Vital Action Predicates:', and 'Vital Objects:' respectively."
+
+        # 参考例子中 Vital Action Predicates  Vital Objects
     )
 
     not_finished = set()

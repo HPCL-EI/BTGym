@@ -162,8 +162,8 @@ total_similarity = 0
 vaild_dataset_test = vaild_dataset[:vaild_num]
 for n, d in enumerate(vaild_dataset_test):
     # d['Goals'] [‘’，‘’，‘’]
-    # chosen_goal=d['Goals']
-    chosen_goal = random.choice(d['Goals'])
+    chosen_goal=d['Goals']
+    # chosen_goal = random.choice(d['Goals'])
     print(f"test:{n}", chosen_goal)
 
     test_result = perform_test(env, chosen_goal, database_index_path)

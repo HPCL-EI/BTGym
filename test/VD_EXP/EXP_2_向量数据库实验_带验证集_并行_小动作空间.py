@@ -248,7 +248,7 @@ database_output_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/Group{group_id}_env
 # vaild_num = 40
 
 max_round = 30
-sample_num = 10
+sample_num = 20
 vaild_num = 40
 
 reflect_time = 3
@@ -277,6 +277,7 @@ for round_num in range(max_round):
         # 遍历所有的goal进行学习
         for n, chosen_goal in enumerate(round_goals):
             # chosen_goal=[abs, cde]
+            chosen_goal = [s.strip() for s in chosen_goal.split('&')]
             print(f"\x1b[32m\n== Round: {round_num} ID: {n} {chosen_goal} \x1b[0m")
 
             tarin_result = perform_test(env, chosen_goal, database_index_path, reflect_time=reflect_time,\

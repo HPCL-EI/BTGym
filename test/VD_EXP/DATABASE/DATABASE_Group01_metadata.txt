@@ -6,3 +6,19 @@ Optimal Actions:Walk_chips, RightGrab_chips, Walk_desk, RightPut_chips_desk
 Vital Action Predicates:Walk, RightGrab, RightPut
 Vital Objects:chips, desk
 
+2
+Environment:1
+Instruction:
+Goals:IsClose_fridge
+Optimal Actions:Close_fridge
+Vital Action Predicates:Close
+Vital Objects:fridge
+
+3
+Environment:1
+Instruction:
+Goals:IsCut_breadslice
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_breadslice, LeftGrab_breadslice, Cut_breadslice
+Vital Action Predicates:Walk, RightGrab, LeftGrab, Cut
+Vital Objects:kitchenknife, breadslice
+

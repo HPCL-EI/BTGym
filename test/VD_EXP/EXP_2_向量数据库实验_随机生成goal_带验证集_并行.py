@@ -29,13 +29,13 @@ ACT_PREDICATES = {"Walk", "RightGrab", "LeftGrab", "RightPut", "LeftPut", "Right
                   "Open", "Close", "SwitchOn", "SwitchOff", "Wipe", "PlugIn", "PlugOut", "Cut", "Wash"}
 TOOLS = {'kitchenknife', 'faucet', 'rag'}
 
-def plot_results(metric_over_rounds, metric_name, group_id, name, max_round, sample_num):
+def plot_results(metric_over_rounds, metric_name, group_id, name, max_round, sample_num,reflect_num):
     plt.figure()
     plt.plot(range(max_round), metric_over_rounds, marker='o')
     plt.xlabel('Round')
     plt.ylabel(metric_name)
     plt.title(f'{metric_name} Over Rounds')
-    plt.savefig(f'EXP_2_{metric_name.replace(" ", "_").lower()}_Group={group_id}_{name}_round={max_round}_sample={sample_num}_parallel.png')
+    plt.savefig(f'EXP_2_{metric_name.replace(" ", "_").lower()}_ref={reflect_num}_gp={group_id}_{name}_r={max_round}_smpl={sample_num}_parall.png')
 
 
 def convert_set_to_str(string_set):
@@ -89,7 +89,7 @@ def reflect_on_errors(llm, messages, d, env, cur_cond_set, goal_set, priority_ac
     have_finished_str = convert_conditions(have_finished)
     not_finished_str = convert_conditions(not_finished)
 
-    reflect_prompt = reflect_prompt.format(goals=d['Goals'], have_finished=have_finished_str,
+    reflect_prompt = reflect_prompt.format(goals=' & '.join(d['Goals']), have_finished=have_finished_str,
                                            not_finished=not_finished_str,
                                            not_use_pred_str=not_use_pred_str, not_use_obj_str=not_use_obj_str)
     messages.append({"role": "user", "content": reflect_prompt})
@@ -234,15 +234,15 @@ env, _ = setup_default_env()
 database_index_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/Group{group_id}_env_goal_vectors.index"
 database_output_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/Group{group_id}_env_goal_vectors.txt"
 
-max_round = 5
-sample_num = 40
+max_round = 10
+sample_num = 30
 vaild_num = 40
 
 # max_round = 2
 # sample_num = 3
 # vaild_num = 2
 
-reflect_time = 1
+reflect_time = 3
 
 test_results = []
 metrics_over_rounds = {
@@ -337,5 +337,5 @@ df.to_csv(f'EXP_2_DATABSE_Group={group_id}_{name}_round={max_round}_sample={samp
 
 # Plotting results
 for metric_name, metric_values in metrics_over_rounds.items():
-    plot_results(metric_values, metric_name, group_id, name, max_round, sample_num)
+    plot_results(metric_values, metric_name, group_id, name, max_round, sample_num,reflect_time)
 plt.show()

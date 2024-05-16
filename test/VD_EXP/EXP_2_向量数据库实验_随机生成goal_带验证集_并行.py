@@ -159,7 +159,7 @@ def perform_test(env, chosen_goal, database_index_path, reflect_time=0):
             priority_act_ls_new, llm_key_pred_new, llm_key_obj_new, messages, distances = \
                 extract_llm_from_instr_goal(llm, default_prompt_file, 1, chosen_goal, verbose=False,
                                             choose_database=True, database_index_path=database_index_path)
-        if priority_act_ls == None:
+        if priority_act_ls == None or priority_act_ls_new==None:
             continue
 
         priority_act_ls = list(OrderedSet(priority_act_ls + priority_act_ls_new))

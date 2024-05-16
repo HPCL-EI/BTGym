@@ -35,8 +35,8 @@ for y_name in y_names:
         error_rates = df['Error Rate'].unique()
         for err_rate in error_rates:
             subset = df[df['Error Rate'] == err_rate]
-            # if err_rate==1:
-            #     continue
+            if err_rate==0.5:
+                continue
             # 计算平均值
             mean_data = subset.groupby('Correct Rate')[y_name].mean().reset_index()
             ax.plot(mean_data['Correct Rate'], mean_data[y_name], marker='o', label=f'Error Rate = {err_rate*100}%')

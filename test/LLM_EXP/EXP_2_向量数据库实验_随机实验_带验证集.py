@@ -142,6 +142,7 @@ for round_num in range(max_round):
                                 test_result
         if success:
             test_success_count += 1
+            print("success        ")
         total_similarity += avg_similarity
 
         # Append results for this validation goal

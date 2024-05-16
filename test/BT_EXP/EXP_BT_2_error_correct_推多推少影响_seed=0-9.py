@@ -50,7 +50,7 @@ error_rate_range_ls = [0, 0.5 ,1, 3, 5]
 correct_rate_range_ls = np.arange(0, 1.1, 0.2)  # 注意：1.1是因为arange不包含终止值
 # correct_rate_range_ls = [0]
 
-for heuristic_choice in [1,0]:
+for heuristic_choice in [0]:
 
     for seed in range(10):
         # seed = 0
@@ -131,7 +131,7 @@ for heuristic_choice in [1,0]:
                                           priority_act_ls=priority_act_ls,  \
                                           selected_algorithm="opt", mode="user-defined", action_list=custom_action_list,\
                                           llm_reflect=False, time_limit=None,
-                                          heuristic_choice=1)
+                                          heuristic_choice=heuristic_choice)
 
                     start_time = time.time()
                     algo.process(goal_set)

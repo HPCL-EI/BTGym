@@ -83,6 +83,13 @@ Key Objects: faucet,  cutleryknife, apple
 [Object] Lists all parameter sets.
 [Example] Illustrates mappings from instructions and goals to actions, key predicates, and key objects, which are essential for completing the tasks outlined in the instructions.
 
+
+
+
+
+
+
+
 1. Analyze the given instruction and goals to determine the necessary actions.
 2. List all actions required to achieve these goals. Begin with 'Actions:' followed by a comma-separated list of actions, with an underscore between the verb and the object.
 3. Identify the key predicates involved in these actions. These should be only the action verbs. Begin with 'Key_Predicate:', followed by a comma-separated list of these verbs.

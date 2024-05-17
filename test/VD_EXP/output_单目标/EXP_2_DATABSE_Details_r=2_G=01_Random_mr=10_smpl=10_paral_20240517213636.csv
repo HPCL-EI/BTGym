@@ -1,0 +1,61 @@
+round,id,goals,priority_act_ls,key_predicates,key_objects,act_num,error,time_limit_exceeded,current_cost,expanded_num,planning_time_total,average_distance,database_size
+0,18,IsSwitchedOn_candle,"['Walk(candle)', 'SwitchOn(candle)']","['SwitchOn', 'Walk']",['candle'],2.0,False,False,23.0,3.0,0.0,inf,1
+0,13,IsSwitchedOn_tv,,,,,None,None,,,,,1
+0,10,IsCut_salmon,"['Walk(kitchenknife)', 'RightGrab(kitchenknife)', 'Walk(salmon)', 'LeftGrab(salmon)', 'Cut(salmon)']","['LeftGrab', 'Cut', 'Walk', 'RightGrab']","['kitchenknife', 'salmon']",5.0,False,False,49.0,9.0,0.0010001659393310547,inf,1
+0,6,IsSwitchedOn_dishwasher,,,,,None,None,,,,,1
+0,4,IsIn_wineglass_box,,,,,None,None,,,,,1
+0,2,IsOn_pear_kitchentable,"['Walk(pear)', 'RightGrab(pear)', 'Walk(kitchentable)', 'RightPut(pear,kitchentable)']","['RightPut', 'Walk', 'RightGrab']","['kitchentable', 'pear']",4.0,False,False,41.0,5.0,0.0009999275207519531,inf,1
+0,14,IsCut_cutlets,"['Walk(kitchenknife)', 'RightGrab(kitchenknife)', 'Walk(cutlets)', 'LeftGrab(cutlets)', 'Cut(cutlets)']","['LeftGrab', 'Cut', 'Walk', 'RightGrab']","['cutlets', 'kitchenknife']",5.0,False,False,49.0,9.0,0.0009999275207519531,inf,1
+0,19,IsIn_plate_dishwasher,,,,,None,None,,,,,1
+0,15,IsIn_milk_microwave,,,,,None,None,,,,,1
+0,5,IsClean_window,,,,,None,None,,,,,1
+0,12,IsSwitchedOn_dishwasher,,,,,None,None,,,,,1
+0,9,IsClean_plum,"['Walk(plum)', 'RightGrab(plum)', 'Walk(faucet)', 'SwitchOn(faucet)', 'Wash(plum)']","['Wash', 'SwitchOn', 'Walk', 'RightGrab']","['faucet', 'plum']",5.0,False,False,52.0,9.0,0.0020003318786621094,inf,1
+0,17,IsOn_fryingpan_stove,"['Walk(fryingpan)', 'RightGrab(fryingpan)', 'Walk(stove)', 'RightPut(fryingpan,stove)']","['RightPut', 'Walk', 'RightGrab']","['fryingpan', 'stove']",4.0,False,False,41.0,5.0,0.0010004043579101562,inf,1
+0,7,IsIn_milk_kitchencabinet,,,,,None,None,,,,,1
+0,0,IsIn_bellpepper_box,,,,,None,None,,,,,1
+0,3,IsOn_toothpaste_bathroomcabinet,,,,,None,None,,,,,1
+0,16,IsIn_paper_folder,,,,,None,None,,,,,1
+0,8,IsIn_cereal_bookshelf,"['Walk(cereal)', 'RightGrab(cereal)', 'Walk(bookshelf)', 'RightPutIn(cereal,bookshelf)']","['RightPutIn', 'Walk', 'RightGrab']","['bookshelf', 'cereal']",4.0,False,False,45.0,5.0,0.0009999275207519531,inf,1
+0,11,IsOn_wineglass_bookshelf,"['Walk(wineglass)', 'RightGrab(wineglass)', 'Walk(bookshelf)', 'RightPut(wineglass,bookshelf)']","['RightPut', 'Walk', 'RightGrab']","['bookshelf', 'wineglass']",4.0,False,False,41.0,5.0,0.0010004043579101562,inf,1
+0,1,IsCut_pancake,"['Walk(kitchenknife)', 'RightGrab(kitchenknife)', 'Walk(pancake)', 'LeftGrab(pancake)', 'Cut(pancake)']","['LeftGrab', 'Cut', 'Walk', 'RightGrab']","['pancake', 'kitchenknife']",5.0,False,False,49.0,9.0,0.0009999275207519531,inf,1
+1,16,IsIn_paper_folder,,,,,None,None,,,,,8
+1,10,IsCut_salmon,"['Walk(kitchenknife)', 'RightGrab(kitchenknife)', 'Walk(salmon)', 'LeftGrab(salmon)', 'Cut(salmon)']","['LeftGrab', 'Cut', 'Walk', 'RightGrab']","['kitchenknife', 'salmon']",5.0,False,False,49.0,9.0,0.0010001659393310547,1.322983980178833,8
+1,5,IsClean_window,"['Walk(rag)', 'RightGrab(rag)', 'Walk(window)', 'Wipe(window)']","['Wipe', 'Walk', 'RightGrab']","['window', 'rag']",4.0,False,False,44.0,5.0,0.0009996891021728516,1.1498668193817139,8
+1,11,IsOn_wineglass_bookshelf,"['Walk(wineglass)', 'RightGrab(wineglass)', 'Walk(bookshelf)', 'RightPut(wineglass,bookshelf)']","['RightPut', 'Walk', 'RightGrab']","['bookshelf', 'wineglass']",4.0,False,False,41.0,5.0,0.0010006427764892578,1.2576959133148193,8
+1,19,IsIn_plate_dishwasher,,,,,None,None,,,,,8
+1,18,IsSwitchedOn_candle,"['Walk(candle)', 'SwitchOn(candle)']","['SwitchOn', 'Walk']",['candle'],2.0,False,False,23.0,3.0,0.0010006427764892578,0.8711650967597961,8
+1,9,IsClean_plum,"['Walk(plum)', 'RightGrab(plum)', 'Walk(faucet)', 'SwitchOn(faucet)', 'Wash(plum)']","['Wash', 'SwitchOn', 'Walk', 'RightGrab']","['faucet', 'plum']",5.0,False,False,52.0,9.0,0.0020008087158203125,1.3163102865219116,8
+1,15,IsIn_milk_microwave,,,,,None,None,,,,,8
+1,12,IsSwitchedOn_dishwasher,,,,,None,None,,,,,8
+1,6,IsSwitchedOn_dishwasher,,,,,None,None,,,,,8
+1,7,IsIn_milk_kitchencabinet,,,,,None,None,,,,,8
+1,13,IsSwitchedOn_tv,"['Walk(tv)', 'PlugIn(tv)', 'SwitchOn(tv)']","['PlugIn', 'SwitchOn', 'Walk']",['tv'],3.0,False,False,31.0,5.0,0.0,0.9714183807373047,8
+1,17,IsOn_fryingpan_stove,"['Walk(fryingpan)', 'RightGrab(fryingpan)', 'Walk(stove)', 'RightPut(fryingpan,stove)']","['RightPut', 'Walk', 'RightGrab']","['fryingpan', 'stove']",4.0,False,False,41.0,5.0,0.0,1.24895441532135,8
+1,2,IsOn_pear_kitchentable,"['Walk(pear)', 'RightGrab(pear)', 'Walk(kitchentable)', 'RightPut(pear,kitchentable)']","['RightPut', 'Walk', 'RightGrab']","['kitchentable', 'pear']",4.0,False,False,41.0,5.0,0.0010001659393310547,1.1620995998382568,8
+1,3,IsOn_toothpaste_bathroomcabinet,,,,,None,None,,,,,8
+1,0,IsIn_bellpepper_box,,,,,None,None,,,,,8
+1,8,IsIn_cereal_bookshelf,"['Walk(cereal)', 'RightGrab(cereal)', 'Walk(bookshelf)', 'RightPutIn(cereal,bookshelf)']","['RightPutIn', 'Walk', 'RightGrab']","['bookshelf', 'cereal']",4.0,False,False,45.0,5.0,0.0010006427764892578,1.2920523881912231,8
+1,4,IsIn_wineglass_box,,,,,None,None,,,,,8
+1,14,IsCut_cutlets,"['Walk(kitchenknife)', 'RightGrab(kitchenknife)', 'Walk(cutlets)', 'LeftGrab(cutlets)', 'Cut(cutlets)']","['LeftGrab', 'Cut', 'Walk', 'RightGrab']","['cutlets', 'kitchenknife']",5.0,False,False,49.0,9.0,0.0010001659393310547,1.2581545114517212,8
+1,1,IsCut_pancake,"['Walk(kitchenknife)', 'RightGrab(kitchenknife)', 'Walk(pancake)', 'LeftGrab(pancake)', 'Cut(pancake)']","['LeftGrab', 'Cut', 'Walk', 'RightGrab']","['pancake', 'kitchenknife']",5.0,False,False,49.0,9.0,0.0009999275207519531,1.266309380531311,8
+2,3,IsOn_toothpaste_bathroomcabinet,,,,,None,None,,,,,12
+2,17,IsOn_fryingpan_stove,"['Walk(fryingpan)', 'RightGrab(fryingpan)', 'Walk(stove)', 'RightPut(fryingpan,stove)']","['RightPut', 'Walk', 'RightGrab']","['fryingpan', 'stove']",4.0,False,False,41.0,5.0,0.0009999275207519531,1.24895441532135,12
+2,5,IsClean_window,"['Walk(rag)', 'RightGrab(rag)', 'Walk(window)', 'Wipe(window)']","['Wipe', 'Walk', 'RightGrab']","['window', 'rag']",4.0,False,False,44.0,5.0,0.0,1.0117251873016357,12
+2,19,IsIn_plate_dishwasher,,,,,None,None,,,,,12
+2,10,IsCut_salmon,"['Walk(kitchenknife)', 'RightGrab(kitchenknife)', 'Walk(salmon)', 'LeftGrab(salmon)', 'Cut(salmon)']","['LeftGrab', 'Cut', 'Walk', 'RightGrab']","['kitchenknife', 'salmon']",5.0,False,False,49.0,9.0,0.0010008811950683594,1.2902752161026,12
+2,9,IsClean_plum,,,,,None,None,,,,,12
+2,11,IsOn_wineglass_bookshelf,,,,,None,None,,,,,12
+2,16,IsIn_paper_folder,,,,,None,None,,,,,12
+2,4,IsIn_wineglass_box,,,,,None,None,,,,,12
+2,15,IsIn_milk_microwave,,,,,None,None,,,,,12
+2,0,IsIn_bellpepper_box,,,,,None,None,,,,,12
+2,1,IsCut_pancake,"['Walk(kitchenknife)', 'RightGrab(kitchenknife)', 'Walk(pancake)', 'LeftGrab(pancake)', 'Cut(pancake)']","['LeftGrab', 'Cut', 'Walk', 'RightGrab']","['pancake', 'kitchenknife']",5.0,False,False,49.0,9.0,0.0010004043579101562,1.2289199829101562,12
+2,8,IsIn_cereal_bookshelf,"['Walk(cereal)', 'RightGrab(cereal)', 'Walk(bookshelf)', 'RightPutIn(cereal,bookshelf)']","['RightPutIn', 'Walk', 'RightGrab']","['bookshelf', 'cereal']",4.0,False,False,45.0,5.0,0.0010001659393310547,1.238832712173462,12
+2,14,IsCut_cutlets,"['Walk(kitchenknife)', 'RightGrab(kitchenknife)', 'Walk(cutlets)', 'LeftGrab(cutlets)', 'Cut(cutlets)']","['LeftGrab', 'Cut', 'Walk', 'RightGrab']","['cutlets', 'kitchenknife']",5.0,False,False,49.0,9.0,0.0010004043579101562,1.2225143909454346,12
+2,18,IsSwitchedOn_candle,"['Walk(candle)', 'SwitchOn(candle)']","['SwitchOn', 'Walk']",['candle'],2.0,False,False,23.0,3.0,0.0,0.8499034643173218,12
+2,12,IsSwitchedOn_dishwasher,"['Walk(dishwasher)', 'PlugIn(dishwasher)', 'SwitchOn(dishwasher)']","['PlugIn', 'SwitchOn', 'Walk']",['dishwasher'],3.0,False,False,31.0,5.0,0.0,1.0465553998947144,12
+2,2,IsOn_pear_kitchentable,"['Walk(pear)', 'RightGrab(pear)', 'Walk(kitchentable)', 'RightPut(pear,kitchentable)']","['RightPut', 'Walk', 'RightGrab']","['kitchentable', 'pear']",4.0,False,False,41.0,5.0,0.0009999275207519531,1.1620995998382568,12
+2,7,IsIn_milk_kitchencabinet,,,,,None,None,,,,,12
+2,13,IsSwitchedOn_tv,"['Walk(tv)', 'PlugIn(tv)', 'SwitchOn(tv)']","['PlugIn', 'SwitchOn', 'Walk']",['tv'],3.0,False,False,31.0,5.0,0.0010001659393310547,0.8505848050117493,12
+2,6,IsSwitchedOn_dishwasher,"['Walk(dishwasher)', 'PlugIn(dishwasher)', 'SwitchOn(dishwasher)']","['PlugIn', 'SwitchOn', 'Walk']",['dishwasher'],3.0,False,False,31.0,5.0,0.0010001659393310547,1.04646635055542,12

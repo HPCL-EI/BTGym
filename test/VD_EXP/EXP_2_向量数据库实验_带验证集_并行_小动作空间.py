@@ -36,7 +36,7 @@ def plot_results(metric_over_rounds, metric_name, group_id, name, sample_num, re
     plt.xlabel('Round')
     plt.ylabel(metric_name)
     plt.title(f'{metric_name} Over Rounds')
-    plt.savefig(f'output_ref=1/EXP_2_{metric_name.replace(" ", "_").lower()}_ref={reflect_num}_gp={group_id}_{name}_smpl={sample_num}_parall_{time_str}.png')
+    plt.savefig(f'output/EXP_2_{metric_name.replace(" ", "_").lower()}_ref={reflect_num}_gp={group_id}_{name}_smpl={sample_num}_parall_{time_str}.png')
 
 
 def convert_set_to_str(string_set):
@@ -120,11 +120,11 @@ def reflect_on_errors(llm, messages, d, env, cur_cond_set, goal_set, priority_ac
     return extract_llm_from_reflect(llm, messages)
 
 
-def perform_test(env, chosen_goal, database_index_path, reflect_time=0,train=False):
+def perform_test(env, chosen_goal, database_index_path, reflect_time=0,train=False,choose_database=True):
     cur_cond_set = setup_default_env()[1]
     priority_act_ls, llm_key_pred, llm_key_obj, messages, distances = \
         extract_llm_from_instr_goal(llm, default_prompt_file, 1, chosen_goal, verbose=False,
-                                    choose_database=True, database_index_path=database_index_path)
+                                    choose_database=choose_database, database_index_path=database_index_path)
     if priority_act_ls != None:
         _priority_act_ls, pred, obj = act_format_records(priority_act_ls)
         key_predicates = list(set(llm_key_pred + pred))
@@ -159,7 +159,7 @@ def perform_test(env, chosen_goal, database_index_path, reflect_time=0,train=Fal
         else:
             priority_act_ls_new, llm_key_pred_new, llm_key_obj_new, messages, distances = \
                 extract_llm_from_instr_goal(llm, default_prompt_file, 1, chosen_goal, verbose=False,
-                                            choose_database=True, database_index_path=database_index_path)
+                                            choose_database=choose_database, database_index_path=database_index_path)
         if priority_act_ls == None or priority_act_ls_new==None:
             continue
 
@@ -193,22 +193,29 @@ def perform_test(env, chosen_goal, database_index_path, reflect_time=0,train=Fal
             act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total = find_from_small_act(chosen_goal)
 
 
+    if choose_database:
+        if priority_act_ls is None or llm_key_pred is None or llm_key_obj is None:
+            return False, np.mean(
+                distances), None, None, None, None, priority_act_ls, None, None, \
+                None, None, None, None, None, None
 
-    if priority_act_ls is None or llm_key_pred is None or llm_key_obj is None:
-        return False, np.mean(
-            distances), None, None, None, None, priority_act_ls, None, None, \
-            None, None, None, None, None, None
+        return success, np.mean(
+            distances), _priority_act_ls, key_predicates, key_objects, cost, priority_act_ls, key_predicates, key_objects, \
+            act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total
+    else:
+        if priority_act_ls is None or llm_key_pred is None or llm_key_obj is None:
+            return False, 0, None, None, None, None, priority_act_ls, None, None, \
+                None, None, None, None, None, None
 
-    return success, np.mean(
-        distances), _priority_act_ls, key_predicates, key_objects, cost, priority_act_ls, key_predicates, key_objects, \
-        act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total
+        return success, 0, _priority_act_ls, key_predicates, key_objects, cost, priority_act_ls, key_predicates, key_objects, \
+            act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total
 
 
 # Function to validate a single goal
-def validate_goal(env, chosen_goal, database_index_path, round_num, n, database_num, reflect_time=0):
+def validate_goal(env, chosen_goal, database_index_path, round_num, n, database_num, reflect_time=0,choose_database=True):
     print(f"test:{n}", chosen_goal)
 
-    test_result = perform_test(env, chosen_goal, database_index_path, reflect_time=reflect_time)
+    test_result = perform_test(env, chosen_goal, database_index_path, reflect_time=reflect_time,choose_database=choose_database)
     success, avg_similarity, _, key_predicates, key_objects, _, priority_act_ls, key_predicates, key_objects, \
         act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total = test_result
 
@@ -224,7 +231,8 @@ def validate_goal(env, chosen_goal, database_index_path, round_num, n, database_
 
 
 
-default_prompt_file = f"{ROOT_PATH}/algos/llm_client/prompt_VHT_just_goal_no_example.txt"
+# default_prompt_file = f"{ROOT_PATH}/algos/llm_client/prompt_VHT_just_goal_no_example.txt"
+default_prompt_file = f"{ROOT_PATH}/algos/llm_client/prompt_VHT_just_goal.txt"
 train_dataset = load_dataset(f"{ROOT_PATH}/../test/dataset/400data_processed_data.txt")
 all_goals = []
 for id, d in enumerate(train_dataset):
@@ -233,7 +241,8 @@ for id, d in enumerate(train_dataset):
 
 use_random = True
 
-vaild_dataset = load_dataset(f"test_data_40_0518.txt")
+# vaild_dataset = load_dataset(f"test_data_40_0518_2.txt")
+vaild_dataset = load_dataset(f"test_data_40_0517_single.txt")
 # vaild_dataset = load_dataset(f"{ROOT_PATH}/../test/dataset/DATA_BT_100_ori_yz_revby_cys.txt")
 # vaild_dataset = load_dataset(f"{ROOT_PATH}/../test/dataset/data1_env1_40_test_reflect.txt")
 
@@ -243,25 +252,27 @@ env, _ = setup_default_env()
 database_index_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/Group{group_id}_env_goal_vectors.index"
 database_output_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/Group{group_id}_env_goal_vectors.txt"
 
-# max_round = 11
-# sample_num = 2
-# vaild_num = 2
+# max_round = 21
+# sample_num = 20
+# vaild_num = 40
 
-max_round = 21
-sample_num = 20
-vaild_num = 40
+# max_round = 21
+# sample_num = 10
+# vaild_num = 40
 
 
-# max_round = 6
-# sample_num = 1
-# vaild_num = 1
+max_round = 10 +1
+sample_num = 10
+vaild_num = 40 #40
 
-reflect_time = 1
+reflect_time = 0
+
+
 
 test_results = []
 metrics_over_rounds = {
     "Test Success Rate": [],
-    "Average Similarity": [],
+    "Average Distance": [],
     "Average Expanded Num": [],
     "Average Planning Time Total": [],
     "Average Current Cost": []
@@ -313,9 +324,11 @@ for round_num in range(max_round):
     total_current_cost = 0
     vaild_dataset_test = vaild_dataset[:vaild_num]
     # vaild_dataset_test = vaild_dataset[9:9+vaild_num]
+
+    # ========================= 并行 ========================
     with concurrent.futures.ThreadPoolExecutor() as executor:
         futures = [executor.submit(validate_goal, env, d['Goals'], database_index_path, round_num, n, database_num,
-                                   reflect_time=reflect_time) \
+                                   reflect_time=reflect_time,choose_database=True) \
                    for n, d in enumerate(vaild_dataset_test)]
         for future in concurrent.futures.as_completed(futures):
             result, success, avg_similarity = future.result()
@@ -327,9 +340,24 @@ for round_num in range(max_round):
             total_planning_time_total += result['planning_time_total'] if result[
                                                                               'planning_time_total'] is not None else 3
             total_current_cost += result['current_cost'] if result['current_cost'] is not None else 2000
+    # ========================= 并行 ========================
+    # ========================= 串行========================
+    # for n, d in enumerate(vaild_dataset_test):
+    #     result, success, avg_similarity = validate_goal(env, d['Goals'], database_index_path, round_num, n, database_num,
+    #                                reflect_time=reflect_time)
+    #     test_results.append(result)
+    #     if success:
+    #         test_success_count += 1
+    #     total_similarity += avg_similarity
+    #     total_expanded_num += result['expanded_num'] if result['expanded_num'] is not None else 300
+    #     total_planning_time_total += result['planning_time_total'] if result[
+    #                                                                       'planning_time_total'] is not None else 3
+    #     total_current_cost += result['current_cost'] if result['current_cost'] is not None else 2000
+    # ========================= 串行========================
+
 
     metrics_over_rounds["Test Success Rate"] = np.append(metrics_over_rounds["Test Success Rate"], test_success_count / len(vaild_dataset_test))
-    metrics_over_rounds["Average Similarity"] = np.append(metrics_over_rounds["Average Similarity"], total_similarity / len(vaild_dataset_test))
+    metrics_over_rounds["Average Distance"] = np.append(metrics_over_rounds["Average Distance"], total_similarity / len(vaild_dataset_test))
     metrics_over_rounds["Average Expanded Num"] = np.append(metrics_over_rounds["Average Expanded Num"], total_expanded_num / len(vaild_dataset_test))
     metrics_over_rounds["Average Planning Time Total"] = np.append(metrics_over_rounds["Average Planning Time Total"], total_planning_time_total / len(vaild_dataset_test))
     metrics_over_rounds["Average Current Cost"] = np.append(metrics_over_rounds["Average Current Cost"], total_current_cost / len(vaild_dataset_test))
@@ -338,7 +366,7 @@ for round_num in range(max_round):
     round_metrics = pd.DataFrame([{
         "Round": round_num,
         "Test Success Rate": metrics_over_rounds["Test Success Rate"][-1],
-        "Average Similarity": metrics_over_rounds["Average Similarity"][-1],
+        "Average Distance": metrics_over_rounds["Average Distance"][-1],
         "Average Expanded Num": metrics_over_rounds["Average Expanded Num"][-1],
         "Average Planning Time Total": metrics_over_rounds["Average Planning Time Total"][-1],
         "Average Current Cost": metrics_over_rounds["Average Current Cost"][-1]
@@ -346,21 +374,24 @@ for round_num in range(max_round):
     metrics_df = pd.concat([metrics_df, round_metrics], ignore_index=True)
 
     print(f"\033[92mTest Success Rate for Round {round_num}: {metrics_over_rounds['Test Success Rate'][-1]}\033[0m")
-    print(f"\033[92mAverage Similarity for Round {round_num}: {metrics_over_rounds['Average Similarity'][-1]}\033[0m")
+    print(f"\033[92mAverage Similarity for Round {round_num}: {metrics_over_rounds['Average Distance'][-1]}\033[0m")
     print(f"\033[92mAverage Expanded Num for Round {round_num}: {metrics_over_rounds['Average Expanded Num'][-1]}\033[0m")
     print(f"\033[92mAverage Planning Time Total for Round {round_num}: {metrics_over_rounds['Average Planning Time Total'][-1]}\033[0m")
     print(f"\033[92mAverage Current Cost for Round {round_num}: {metrics_over_rounds['Average Current Cost'][-1]}\033[0m")
     print(f"\033[92mDatabase Size for Round {round_num}: {database_num}\033[0m")
 
+    # 结束以后将向量数据库保存为 txt 文件
+    # 将向量数据库里的所有数据写入 txt
+    # Save the current round's database to a file with the round number in the filename
+    write_metadata_to_txt(database_index_path,
+                          f"{ROOT_PATH}/../test/VD_EXP/output/Group{group_id}_env_goal_vectors_round{round_num}.txt")
+    # Save the current round's vector database index file
+    round_index_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/Group{group_id}_env_goal_vectors_round{round_num}.index"
+    with open(database_index_path, 'rb') as f_src:
+        with open(round_index_path, 'wb') as f_dst:
+            f_dst.write(f_src.read())
 
     if round_num%5==0:
-
-        # 结束以后将向量数据库保存为 txt 文件
-        # 将向量数据库里的所有数据写入 txt
-        # Save the current round's database to a file with the round number in the filename
-        write_metadata_to_txt(database_index_path,
-                              f"{ROOT_PATH}/../test/VD_EXP/output_ref=1/Group{group_id}_env_goal_vectors_round{round_num}.txt")
-
         # Save test results to CSV
         df = pd.DataFrame(test_results)
         if use_random:
@@ -368,10 +399,10 @@ for round_num in range(max_round):
         else:
             name = "400data"
         time_str = time.strftime('%Y%m%d%H%M%S', time.localtime())
-        df.to_csv(f'output_ref=1/EXP_2_DATABSE_Details_r={round_num}_G={group_id}_{name}_mr={max_round}_smpl={sample_num}_paral_{time_str}.csv', index=False)
+        df.to_csv(f'output/EXP_2_DATABSE_Details_r={round_num}_G={group_id}_{name}_mr={max_round}_smpl={sample_num}_paral_{time_str}.csv', index=False)
 
         # Save metrics results to CSV
-        metrics_df.to_csv(f'output_ref=1/EXP_2_DATABSE_Summary_r={round_num}_G={group_id}_{name}_mr={max_round}_smpl={sample_num}_paral_{time_str}.csv', index=False)
+        metrics_df.to_csv(f'output/EXP_2_DATABSE_Summary_r={round_num}_G={group_id}_{name}_mr={max_round}_smpl={sample_num}_paral_{time_str}.csv', index=False)
 
         # Plotting results
         for metric_name, metric_values in metrics_over_rounds.items():

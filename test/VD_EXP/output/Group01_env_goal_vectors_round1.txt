@@ -1,0 +1,72 @@
+1
+Environment:1
+Instruction:Put the bag of chips on the corner of my desk.
+Goals:IsOn_chips_desk
+Optimal Actions:Walk_chips, RightGrab_chips, Walk_desk, RightPut_chips_desk
+Vital Action Predicates:Walk, RightGrab, RightPut
+Vital Objects:chips, desk
+
+2
+Environment:1
+Instruction:
+Goals:IsCut_cutlets
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_cutlets, LeftGrab_cutlets, Cut_cutlets
+Vital Action Predicates:RightGrab, LeftGrab, Cut, Walk
+Vital Objects:cutlets, kitchenknife
+
+3
+Environment:1
+Instruction:
+Goals:IsOn_juice_bathroomcabinet
+Optimal Actions:Walk_juice, RightGrab_juice, Walk_bathroomcabinet, RightPut_juice_bathroomcabinet
+Vital Action Predicates:RightGrab, RightPut, Walk
+Vital Objects:bathroomcabinet, juice
+
+4
+Environment:1
+Instruction:
+Goals:IsOn_cookingpot_sofa
+Optimal Actions:Walk_cookingpot, RightGrab_cookingpot, Walk_sofa, RightPut_cookingpot_sofa
+Vital Action Predicates:RightGrab, RightPut, Walk
+Vital Objects:cookingpot, sofa
+
+5
+Environment:1
+Instruction:
+Goals:IsOn_wallphone_radio
+Optimal Actions:Walk_wallphone, RightGrab_wallphone, Walk_radio, RightPut_wallphone_radio
+Vital Action Predicates:RightGrab, RightPut, Walk
+Vital Objects:wallphone, radio
+
+6
+Environment:1
+Instruction:
+Goals:IsOn_clothespants_mousemat
+Optimal Actions:Walk_clothespants, RightGrab_clothespants, Walk_mousemat, RightPut_clothespants_mousemat
+Vital Action Predicates:RightGrab, RightPut, Walk
+Vital Objects:clothespants, mousemat
+
+7
+Environment:1
+Instruction:
+Goals:IsCut_lime
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_lime, LeftGrab_lime, Cut_lime
+Vital Action Predicates:RightGrab, LeftGrab, Cut, Walk
+Vital Objects:lime, kitchenknife
+
+8
+Environment:1
+Instruction:
+Goals:IsNear_self_mousemat
+Optimal Actions:Walk_mousemat
+Vital Action Predicates:Walk
+Vital Objects:mousemat
+
+9
+Environment:1
+Instruction:
+Goals:IsClose_toothpaste
+Optimal Actions:Walk_toothpaste, RightGrab_toothpaste, Close_toothpaste
+Vital Action Predicates:RightGrab, Close, Walk
+Vital Objects:toothpaste
+

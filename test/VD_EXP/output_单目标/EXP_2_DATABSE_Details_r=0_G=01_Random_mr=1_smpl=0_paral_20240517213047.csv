@@ -1,0 +1,6 @@
+round,id,goals,priority_act_ls,key_predicates,key_objects,act_num,error,time_limit_exceeded,current_cost,expanded_num,planning_time_total,average_distance,database_size
+0,2,IsOn_pear_kitchentable,"['Walk(pear)', 'RightGrab(pear)', 'Walk(kitchentable)', 'RightPut(pear,kitchentable)']","['RightGrab', 'RightPut', 'Walk']","['pear', 'kitchentable']",4.0,False,False,41.0,5.0,0.0010001659393310547,inf,1
+0,1,IsCut_pancake,"['Walk(kitchenknife)', 'RightGrab(kitchenknife)', 'Walk(pancake)', 'LeftGrab(pancake)', 'Cut(pancake)']","['RightGrab', 'LeftGrab', 'Cut', 'Walk']","['kitchenknife', 'pancake']",5.0,False,False,49.0,9.0,0.0010004043579101562,inf,1
+0,0,IsIn_bellpepper_box,,,,,None,None,,,,,1
+0,4,IsIn_wineglass_box,,,,,None,None,,,,,1
+0,3,IsOn_toothpaste_bathroomcabinet,,,,,None,None,,,,,1

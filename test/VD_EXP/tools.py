@@ -266,7 +266,7 @@ def find_from_small_act(goal):
     print(f"{BLUE}_priority_act_ls:{RESET}", _priority_act_ls)
     print(f"{BLUE}act_num:{RESET}", act_num)
     print(f"{BLUE}planning_time_total:{RESET}", planning_time_total)
-    print(f"{BLUE}current_cost:{RESET}", expanded_num)
+    print(f"{BLUE}expanded_num:{RESET}", expanded_num)
     print(f"{BLUE}current_cost:{RESET}", current_cost)
 
     # print("key_predicates:", key_predicates)

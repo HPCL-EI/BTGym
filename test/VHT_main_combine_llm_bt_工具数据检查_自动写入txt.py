@@ -31,7 +31,8 @@ def extract_objects(actions):
     return objects
 
 # 直接读入 env=1 的数据
-file_name = "test_data_40_0518_no_processed"
+# file_name = "test_data_40_0518_no_processed"
+file_name = "test_data_40_0518_2_no_processed"
 need_cost = False
 data_path = f"{ROOT_PATH}/../test/VD_EXP/{file_name}.txt"
 # data_path = f"{ROOT_PATH}/../test/dataset/{file_name}.txt"

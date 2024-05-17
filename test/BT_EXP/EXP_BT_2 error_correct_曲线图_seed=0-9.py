@@ -4,9 +4,13 @@ from scipy.interpolate import interp1d
 import numpy as np
 
 # 文件名和路径
-base_file_name = 'EXP_2_output_summary_bt_data_small_100_bigerror_heuristic=1_seed='
-file_path = "./EXP_2_output/"
+base_file_name = 'new_EXP_2_output_summary_bt_data_small_100_bigerror_heuristic=0_seed='
+file_path = "./new_EXP_2_output/"
 seeds = range(10)
+
+# base_file_name = 'EXP_2_output_summary_bt_data_small_100_bigerror_heuristic=0_seed='
+# file_path = "./exp_output_100/"
+# seeds = range(53)
 
 # 初始化空的DataFrame用于合并数据
 df_list = []
@@ -35,8 +39,8 @@ for y_name in y_names:
         error_rates = df['Error Rate'].unique()
         for err_rate in error_rates:
             subset = df[df['Error Rate'] == err_rate]
-            if err_rate==0.5:
-                continue
+            # if err_rate==0.5:
+            #     continue
             # 计算平均值
             mean_data = subset.groupby('Correct Rate')[y_name].mean().reset_index()
             ax.plot(mean_data['Correct Rate'], mean_data[y_name], marker='o', label=f'Error Rate = {err_rate*100}%')

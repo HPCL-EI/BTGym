@@ -287,7 +287,7 @@ if __name__ == '__main__':
     print("=============== 添加新数据后 ================")
     # 测试添加新数据
     # new_environment = "IsUnplugged_tv, IsSwitchedOff_candle, IsClose_window"
-    new_environment = "1"
+    new_environment = "01"
     new_goal = "IsClean_magazine & IsCut_apple & IsPlugged_toaster"
     new_optimal_actions = "Walk_rag, RightGrab_rag, Walk_magazine, Wipe_magazine, Walk_toaster, PlugIn_toaster, RightPutIn_rag_toaster, Walk_kitchenknife, RightGrab_kitchenknife, Walk_apple, LeftGrab_apple, Cut_apple"
     new_vital_action_predicates = "Walk, RightGrab, Wipe, PlugIn, RightPutIn, LeftGrab, Cut"

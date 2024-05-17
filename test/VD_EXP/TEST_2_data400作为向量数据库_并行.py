@@ -134,7 +134,7 @@ def random_generate_goals(n):
     return all_goals
 
 
-group_id = 400 # 400\1
+group_id = 10 # 400\1
 test_results = []
 test_success_rate_over_rounds = []
 average_similarity_over_rounds = []

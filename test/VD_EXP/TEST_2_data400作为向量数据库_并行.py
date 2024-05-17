@@ -146,7 +146,8 @@ relect_time=1
 env, _ = setup_default_env()
 database_index_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/Group{group_id}_env_goal_vectors.index"
 
-vaild_dataset = load_dataset(f"test_data_40.txt")
+# vaild_dataset = load_dataset(f"test_data_40.txt")
+vaild_dataset = load_dataset(f"test_data_40_0517.txt")
 # vaild_dataset = load_dataset(f"DATA_BT_100_ori_yz_revby_cys.txt")
 # vaild_dataset = load_dataset(f"train_data_40.txt")
 
@@ -186,5 +187,5 @@ print(f"\033[92mDatabase Size: {database_num}\033[0m")
 
 # Save test results to CSV
 df = pd.DataFrame(test_results)
-df.to_csv(f'EXP_2_data400_test_result.csv', index=False)
+df.to_csv(f'EXP_2_data400_test_result_0517.csv', index=False)
 

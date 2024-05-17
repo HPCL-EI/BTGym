@@ -273,10 +273,10 @@ Vital Objects: window
 35
 Environment:1
 Instruction: 
-Goals: IsSwitchedOn_dishwasher & IsPlugged_dishwasher & IsCut_chicken
-Optimal Actions: Walk_dishwasher, PlugIn_dishwasher, SwitchOn_dishwasher, Walk_chicken, LeftGrab_chicken, Walk_kitchenknife, RightGrab_kitchenknife, Cut_chicken
-Vital Action Predicates: Walk, PlugIn, SwitchOn, LeftGrab, RightGrab, Cut
-Vital Objects: dishwasher, chicken, kitchenknife
+Goals: IsCut_bananas
+Optimal Actions: Walk_kitchenknife, RightGrab_kitchenknife, Walk_bananas, LeftGrab_bananas, Cut_bananas
+Vital Action Predicates: Walk, RightGrab, LeftGrab, Cut
+Vital Objects: kitchenknife, bananas
 
 36
 Environment:1

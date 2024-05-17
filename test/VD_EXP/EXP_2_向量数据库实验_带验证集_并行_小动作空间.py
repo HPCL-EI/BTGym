@@ -30,13 +30,13 @@ ACT_PREDICATES = {"Walk", "RightGrab", "LeftGrab", "RightPut", "LeftPut", "Right
                   "Open", "Close", "SwitchOn", "SwitchOff", "Wipe", "PlugIn", "PlugOut", "Cut", "Wash"}
 TOOLS = {'kitchenknife', 'faucet', 'rag'}
 
-def plot_results(metric_over_rounds, metric_name, group_id, name, max_round, sample_num,reflect_num):
+def plot_results(metric_over_rounds, metric_name, group_id, name, sample_num, reflect_num):
     plt.figure()
-    plt.plot(range(max_round), metric_over_rounds, marker='o')
+    plt.plot(range(len(metric_over_rounds)), metric_over_rounds, marker='o')
     plt.xlabel('Round')
     plt.ylabel(metric_name)
     plt.title(f'{metric_name} Over Rounds')
-    plt.savefig(f'EXP_2_{metric_name.replace(" ", "_").lower()}_ref={reflect_num}_gp={group_id}_{name}_r={max_round}_smpl={sample_num}_parall_{time_str}.png')
+    plt.savefig(f'EXP_2_{metric_name.replace(" ", "_").lower()}_ref={reflect_num}_gp={group_id}_{name}_smpl={sample_num}_parall_{time_str}.png')
 
 
 def convert_set_to_str(string_set):
@@ -233,7 +233,7 @@ for id, d in enumerate(train_dataset):
 
 use_random = True
 
-vaild_dataset = load_dataset(f"test_data_40_0517.txt")
+vaild_dataset = load_dataset(f"test_data_40_0518.txt")
 # vaild_dataset = load_dataset(f"{ROOT_PATH}/../test/dataset/DATA_BT_100_ori_yz_revby_cys.txt")
 # vaild_dataset = load_dataset(f"{ROOT_PATH}/../test/dataset/data1_env1_40_test_reflect.txt")
 
@@ -243,23 +243,20 @@ env, _ = setup_default_env()
 database_index_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/Group{group_id}_env_goal_vectors.index"
 database_output_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/Group{group_id}_env_goal_vectors.txt"
 
-# max_round = 10
-# sample_num = 30
-# vaild_num = 40
+# max_round = 11
+# sample_num = 2
+# vaild_num = 2
 
-max_round = 30
+max_round = 20
 sample_num = 20
 vaild_num = 40
 
-<<<<<<< Updated upstream
+
 # max_round = 3
 # sample_num = 3
 # vaild_num = 1
 
 reflect_time = 3
-=======
-reflect_time = 1
->>>>>>> Stashed changes
 
 test_results = []
 metrics_over_rounds = {
@@ -269,6 +266,8 @@ metrics_over_rounds = {
     "Average Planning Time Total": [],
     "Average Current Cost": []
 }
+# Initialize an empty DataFrame to store the metrics for each round
+metrics_df = pd.DataFrame(columns=["Round", "Test Success Rate", "Average Distance", "Average Expanded Num", "Average Planning Time Total", "Average Current Cost"])
 
 
 # Main Loop
@@ -329,11 +328,22 @@ for round_num in range(max_round):
                                                                               'planning_time_total'] is not None else 3
             total_current_cost += result['current_cost'] if result['current_cost'] is not None else 2000
 
-    metrics_over_rounds["Test Success Rate"].append(test_success_count / len(vaild_dataset_test))
-    metrics_over_rounds["Average Similarity"].append(total_similarity / len(vaild_dataset_test))
-    metrics_over_rounds["Average Expanded Num"].append(total_expanded_num / len(vaild_dataset_test))
-    metrics_over_rounds["Average Planning Time Total"].append(total_planning_time_total / len(vaild_dataset_test))
-    metrics_over_rounds["Average Current Cost"].append(total_current_cost / len(vaild_dataset_test))
+    metrics_over_rounds["Test Success Rate"] = np.append(metrics_over_rounds["Test Success Rate"], test_success_count / len(vaild_dataset_test))
+    metrics_over_rounds["Average Similarity"] = np.append(metrics_over_rounds["Average Similarity"], total_similarity / len(vaild_dataset_test))
+    metrics_over_rounds["Average Expanded Num"] = np.append(metrics_over_rounds["Average Expanded Num"], total_expanded_num / len(vaild_dataset_test))
+    metrics_over_rounds["Average Planning Time Total"] = np.append(metrics_over_rounds["Average Planning Time Total"], total_planning_time_total / len(vaild_dataset_test))
+    metrics_over_rounds["Average Current Cost"] = np.append(metrics_over_rounds["Average Current Cost"], total_current_cost / len(vaild_dataset_test))
+
+    # Append the metrics of the current round to the DataFrame
+    round_metrics = pd.DataFrame([{
+        "Round": round_num,
+        "Test Success Rate": metrics_over_rounds["Test Success Rate"][-1],
+        "Average Similarity": metrics_over_rounds["Average Similarity"][-1],
+        "Average Expanded Num": metrics_over_rounds["Average Expanded Num"][-1],
+        "Average Planning Time Total": metrics_over_rounds["Average Planning Time Total"][-1],
+        "Average Current Cost": metrics_over_rounds["Average Current Cost"][-1]
+    }])
+    metrics_df = pd.concat([metrics_df, round_metrics], ignore_index=True)
 
     print(f"\033[92mTest Success Rate for Round {round_num}: {metrics_over_rounds['Test Success Rate'][-1]}\033[0m")
     print(f"\033[92mAverage Similarity for Round {round_num}: {metrics_over_rounds['Average Similarity'][-1]}\033[0m")
@@ -343,7 +353,7 @@ for round_num in range(max_round):
     print(f"\033[92mDatabase Size for Round {round_num}: {database_num}\033[0m")
 
 
-    if round_num%5==0:
+    if round_num>0 and round_num%5==0:
 
         # 结束以后将向量数据库保存为 txt 文件
         # 将向量数据库里的所有数据写入 txt
@@ -356,9 +366,12 @@ for round_num in range(max_round):
         else:
             name = "400data"
         time_str = time.strftime('%Y%m%d%H%M%S', time.localtime())
-        df.to_csv(f'EXP_2_DATABSE_Group={group_id}_{name}_round={max_round}_sample={sample_num}_parallel_{time_str}.csv', index=False)
+        df.to_csv(f'EXP_2_DATABSE_Details_r={round_num}_G={group_id}_{name}_mr={max_round}_smpl={sample_num}_paral_{time_str}.csv', index=False)
+
+        # Save metrics results to CSV
+        metrics_df.to_csv(f'EXP_2_DATABSE_Summary_r={round_num}_G={group_id}_{name}_mr={max_round}_smpl={sample_num}_paral_{time_str}.csv', index=False)
 
         # Plotting results
         for metric_name, metric_values in metrics_over_rounds.items():
-            plot_results(metric_values, metric_name, group_id, name, max_round, sample_num,reflect_time)
+            plot_results(metric_values, metric_name, group_id, name, sample_num, reflect_time)
         plt.show()

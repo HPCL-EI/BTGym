@@ -31,7 +31,7 @@ def extract_objects(actions):
     return objects
 
 # 直接读入 env=1 的数据
-file_name = "test_data_40_0517"
+file_name = "test_data_40_0518_no_processed"
 need_cost = False
 data_path = f"{ROOT_PATH}/../test/VD_EXP/{file_name}.txt"
 # data_path = f"{ROOT_PATH}/../test/dataset/{file_name}.txt"
@@ -52,6 +52,7 @@ big_actions = collect_action_nodes(env.behavior_lib)
 def filter_actions(data, big_actions):
     all_action_names = set()
     for d in data:
+        print(d)
         priority_act_ls = act_str_process(d['Optimal Actions'], already_split=True)
         all_action_names.update(priority_act_ls)
     current_big_actions = [action for action in big_actions if action.name in all_action_names]

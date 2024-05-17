@@ -1,0 +1,13 @@
+round,id,goals,priority_act_ls,key_predicates,key_objects,act_num,error,time_limit_exceeded,current_cost,expanded_num,planning_time_total,average_distance,database_size
+0,0,IsOpen_curtains & IsIn_bellpepper_box,,,,,None,None,,,,,7
+0,1,IsCut_pancake & IsOn_pear_bed,,,,,None,None,,,,,7
+1,1,IsCut_pancake & IsOn_pear_bed,"['Walk(kitchenknife)', 'RightGrab(kitchenknife)', 'Walk(pancake)', 'LeftGrab(pancake)', 'Cut(pancake)', 'Walk(bed)', 'RightPut(pear,bed)']","['Walk', 'RightPut', 'Cut', 'LeftGrab', 'RightGrab']","['kitchenknife', 'bed', 'pancake', 'pear']",9.0,False,False,90.0,42.0,0.01196908950805664,1.2564808130264282,9
+1,0,IsOpen_curtains & IsIn_bellpepper_box,"['Walk(curtains)', 'Open(curtains)', 'Walk(bellpepper)', 'RightGrab(bellpepper)', 'Walk(box)', 'RightPutIn(bellpepper,box)']","['RightGrab', 'RightPutIn', 'Walk', 'Open']","['box', 'curtains', 'bellpepper']",7.0,False,False,66.0,27.0,0.00495147705078125,1.1370640993118286,9
+2,0,IsOpen_curtains & IsIn_bellpepper_box,"['Walk(curtains)', 'Open(curtains)', 'Walk(box)', 'RightGrab(bellpepper)', 'RightPutIn(bellpepper,box)']","['RightGrab', 'RightPutIn', 'Walk', 'Open']","['box', 'curtains', 'bellpepper']",7.0,False,False,66.0,27.0,0.0,1.017132043838501,11
+2,1,IsCut_pancake & IsOn_pear_bed,"['Walk(kitchenknife)', 'RightGrab(kitchenknife)', 'Walk(pancake)', 'LeftGrab(pancake)', 'Cut(pancake)', 'Walk(bed)', 'RightPut(pancake,bed)']","['Walk', 'RightPut', 'Cut', 'LeftGrab', 'RightGrab']","['kitchenknife', 'bed', 'pancake', 'pear']",9.0,False,False,90.0,51.0,0.0,1.2565908432006836,11
+3,0,IsOpen_curtains & IsIn_bellpepper_box,,,,,None,None,,,,,12
+3,1,IsCut_pancake & IsOn_pear_bed,,,,,None,None,,,,,12
+4,0,IsOpen_curtains & IsIn_bellpepper_box,"['Walk(bellpepper)', 'RightGrab(bellpepper)', 'Walk(box)', 'RightPutIn(bellpepper,box)', 'Walk(curtains)', 'Open(curtains)']","['RightGrab', 'RightPutIn', 'Walk', 'Open']","['box', 'curtains', 'bellpepper']",7.0,False,False,66.0,27.0,0.008631706237792969,0.9208618402481079,14
+4,1,IsCut_pancake & IsOn_pear_bed,,,,,None,None,,,,,14
+5,1,IsCut_pancake & IsOn_pear_bed,,,,,None,None,,,,,15
+5,0,IsOpen_curtains & IsIn_bellpepper_box,,,,,None,None,,,,,15

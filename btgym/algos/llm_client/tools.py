@@ -134,7 +134,7 @@ def act_format_records(act_record_list):
             objects_ls.append(obj2)
 
     from collections import OrderedDict
-    return list(OrderedDict.fromkeys(formatted_records)),list(OrderedDict.fromkeys(predicate)),list(OrderedDict.fromkeys(objects_ls))
+    return list(formatted_records),list(OrderedDict.fromkeys(predicate)),list(OrderedDict.fromkeys(objects_ls))
 
 
 

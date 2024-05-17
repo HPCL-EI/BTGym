@@ -28,12 +28,14 @@ def load_dataset(data_path):
 
 # 导入大模型的结果
 llm=LLMGPT3()
-default_prompt_file = f"{ROOT_PATH}\\algos\\llm_client\\prompt_VHT_just_goal.txt"
+# default_prompt_file = f"{ROOT_PATH}\\algos\\llm_client\\prompt_VHT_just_goal.txt"
+default_prompt_file = f"{ROOT_PATH}\\algos\\llm_client\\prompt_VHT_just_goal_old_example=0.425.txt"
 
 # 导入数据集 真实值
 dataset1 = load_dataset(f"{ROOT_PATH}/../test/dataset/data1_env1_40_test_reflect.txt")
 
 results = []
+error_count = 0  # Initialize error count
 start_time = time.time()
 for id, d in enumerate(dataset1): # 5可以
     print("\n== ID:", id, "  ", d['Instruction'])
@@ -42,7 +44,7 @@ for id, d in enumerate(dataset1): # 5可以
     goals = d['Goals']
     d['Optimal Actions'] = act_str_process(d['Optimal Actions'], already_split=True)
     # 大模型推荐的结果
-    priority_act_ls, llm_key_pred, llm_key_obj, messages = \
+    priority_act_ls, llm_key_pred, llm_key_obj, messages ,_= \
         extract_llm_from_instr_goal(llm, default_prompt_file, instruction, goals, verbose=False)
     # 增加板块，解析错误，直接重来，3次以上认定为错误
 
@@ -101,7 +103,8 @@ for id, d in enumerate(dataset1): # 5可以
 
     # Add the results to the entry with appropriate prefixes
     result_entry[f'Timeout'] = 1 if time_limit_exceeded == True else 0
-    result_entry[f'err'] = 1 if error==True else 0
+    result_entry[f'err'] = 1 if error == True else 0
+    error_count += result_entry[f'err']
     result_entry[f'exp'] = expanded_num
     result_entry[f'time'] = planning_time_total
     result_entry[f'cost'] = cost
@@ -117,6 +120,11 @@ time_str = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()).replace("-", "")
 df.to_csv(f"LLM_40.csv", index=False)
 print(f"Results have been saved to LLM_40.csv")
 
+
+# Calculate and print success rate
+total_count = len(results)
+success_rate = (total_count - error_count) / total_count
+print(f"\033[92mSuccess Rate: {success_rate * 100:.2f}%\033[0m")
 
 end_time = time.time()
 time_total = (end_time - start_time)

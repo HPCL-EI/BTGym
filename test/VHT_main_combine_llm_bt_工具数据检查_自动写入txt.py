@@ -31,9 +31,9 @@ def extract_objects(actions):
     return objects
 
 # 直接读入 env=1 的数据
-file_name = "DATA_BT_100_ori_yz_revby_cys"
-need_cost = True
-data_path = f"{ROOT_PATH}/../test/BT_EXP/{file_name}.txt"
+file_name = "test_data_40_0517"
+need_cost = False
+data_path = f"{ROOT_PATH}/../test/VD_EXP/{file_name}.txt"
 # data_path = f"{ROOT_PATH}/../test/dataset/{file_name}.txt"
 data1 = read_dataset(data_path)
 len_data = len(data1)
@@ -61,7 +61,7 @@ def filter_actions(data, big_actions):
 current_big_actions, current_big_actions_name = filter_actions(data1, big_actions)
 
 print("-----------------准备写入文件-----------------")
-output_path = f"{ROOT_PATH}/../test/dataset/{file_name}_processed_data.txt"
+output_path = f"{ROOT_PATH}/../test/VD_EXP/{file_name}_processed_data.txt"
 if os.path.exists(output_path):
     os.remove(output_path)
 
@@ -182,7 +182,7 @@ for id, d in enumerate(data1):
             })
 
 df = pd.DataFrame(results)
-output_csv_path = f"{ROOT_PATH}/../test/dataset/{file_name}_processed_h=0.csv"
+output_csv_path = f"{ROOT_PATH}/../test/LLM_EXP/{file_name}_processed_h=0.csv"
 df.to_csv(output_csv_path, index=False)
 print(f"Results have been saved to {output_csv_path}")
 

@@ -6,38 +6,32 @@ class VHTAction(Action):
     can_be_expanded = True
     num_args = 1
 
-    SURFACES = {"kitchentable",  "fryingpan","plate", "tvstand", "bathroomcounter", "coffeetable",\
-                "kitchencounter", "bookshelf", "cabinet", "desk", "bed", "sofa","nightstand"}
+    SURFACES = {"kitchentable"}
 
-    SITTABLE = {"chair", "bench", "bed", "rug", "sofa"}
+    SITTABLE =  set()
 
-    CAN_OPEN = {"fridge","dishwasher","microwave","washingmachine","window"}
-    CONTAINERS = {"fridge","dishwasher","microwave","washingmachine","garbagecan"}
+    CAN_OPEN = {"fridge","window"}
+    CONTAINERS = {"fridge","garbagecan"}
 
 
-    GRABBABLE = {"apple","bananas","peach",'chicken', 'cutlets','breadslice','chips','chocolatesyrup',
-             'cupcake','milk','wine',"magazine",
-             'clothesshirt','fryingpan','dishbowl','plate',
-             'book',"waterglass","clock","rag",'kitchenknife'
-             }
+    GRABBABLE = {"apple",'breadslice','milk','plate',"rag","kitchenknife"}
 
     cleaning_tools = {"rag"}
     cutting_tools = {"kitchenknife"}
 
-    HAS_SWITCH = {"tv","faucet","lightswitch","dishwasher","candle",\
-                  "coffeemaker","microwave","tablelamp","computer","washingmachine"}
+    HAS_SWITCH = {"tv","faucet","candle"}
 
-    HAS_PLUG = {"tv","mouse", "dishwasher","coffeemaker","toaster","microwave","fridge","washingmachine","clock","keyboard"}
+    HAS_PLUG = {"tv","mouse","fridge"}
     # 墙电话, 咖啡机, 开关, 手机, 冰箱, 烤面包机, 台灯, 微波炉, 电视, \
     # 鼠标, 时钟, 键盘, 收音机, 洗衣机, 打印机
 
-    CUTABLE = {'cutlets', "apple",'bananas', "peach",'breadslice', 'chicken'}
+    CUTABLE = {"apple",'breadslice'}
 
-    WASHABLE={"apple","bananas","chicken", "peach"}
+    WASHABLE={"apple"}
 
-    EATABLE = {"apple","bananas","chicken", "peach",'breadslice', 'cupcake', 'chocolatesyrup'}
+    EATABLE = {"apple",'breadslice'}
 
-    DRINKABLE = {'milk', 'wine'}
+    DRINKABLE = {'milk'}
 
 
     AllObject = SURFACES | SITTABLE | CAN_OPEN | CONTAINERS | GRABBABLE |\

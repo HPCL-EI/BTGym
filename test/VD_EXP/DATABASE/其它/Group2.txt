@@ -1,0 +1,42 @@
+1
+Environment:1
+Instruction: Put the bag of chips on the corner of my desk.
+Goals: IsOn_chips_desk
+Optimal Actions: Walk_chips, RightGrab_chips, Walk_desk, RightPut_chips_desk
+Vital Action Predicates: Walk, RightGrab, RightPut
+Vital Objects: chips, desk
+cost: 41
+
+2
+Environment:1
+Instruction: 
+Goals: IsClean_peach & IsIn_peach_fridge
+Optimal Actions: Walk_peach, RightGrab_peach, Walk_faucet, SwitchOn_faucet, Wash_peach, Walk_fridge, Open_fridge, PlugIn_fridge, RightPutIn_peach_fridge
+Vital Action Predicates: Walk, RightGrab, SwitchOn, Wash, Open, PlugIn, RightPutIn
+Vital Objects: peach, faucet, fridge
+cost: 88
+
+3
+Environment:1
+Instruction: 
+Goals: IsOn_clothesshirt_sofa & IsPlugged_toaster & IsUnplugged_dishwasher
+Optimal Actions: Walk_toaster, PlugIn_toaster, Walk_clothesshirt, LeftGrab_clothesshirt, Walk_sofa, LeftPut_clothesshirt_sofa
+Vital Action Predicates: Walk, PlugIn, LeftGrab, LeftPut
+Vital Objects: toaster, clothesshirt, sofa
+
+4
+Environment:1
+Instruction: 
+Goals: IsClean_window
+Optimal Actions: Walk_rag, RightGrab_rag, Walk_window, Wipe_window
+Vital Action Predicates: Walk, RightGrab, Wipe
+Vital Objects: rag, window
+cost: 44
+
+5
+Environment:1
+Instruction: 
+Goals: IsCut_apple & IsIn_plate_dishwasher & IsClose_dishwasher
+Optimal Actions: Walk_plate, RightGrab_plate, Walk_dishwasher, PlugIn_dishwasher, Open_dishwasher, RightPutIn_plate_dishwasher, Close_dishwasher, Walk_apple, LeftGrab_apple, Walk_kitchenknife, RightGrab_kitchenknife, Cut_apple
+Vital Action Predicates: Walk, RightGrab, PlugIn, Open, RightPutIn, Close, LeftGrab, Cut
+Vital Objects: plate, dishwasher, apple, kitchenknife

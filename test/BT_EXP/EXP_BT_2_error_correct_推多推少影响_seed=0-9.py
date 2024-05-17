@@ -38,21 +38,21 @@ print(data[0])
 analyze_data_tabular(data,[47,1,1,1])
 
 
-# error_rate_range_ls = [0, 0.5 ,1, 3, 5]
 error_rate_range_ls = [0, 0.5 ,1, 3, 5]
+# error_rate_range_ls = [0, 0.5 ,1, 3, 5]
 # error_rate_range_ls = [0,1,5,10]
 # error_rate_range_ls = [15]
-# error_rate_range_ls = [5] #80
+# error_rate_range_ls = [1] #5-80
 # correct_rate_range_ls = [0,  1]
 # correct_rate_range_ls = [0, 0.25, 0.5, 0.75, 1]
 # correct_rate_range_ls = [1]
-# correct_rate_range_ls = [0,0.5,1]
+# correct_rate_range_ls = [1]
 correct_rate_range_ls = np.arange(0, 1.1, 0.2)  # 注意：1.1是因为arange不包含终止值
 # correct_rate_range_ls = [0]
 
-for heuristic_choice in [1,0]:
+for heuristic_choice in [0]:
 
-    for seed in range(10):
+    for seed in range(10,100):
         # seed = 0
         random.seed(seed)
         np.random.seed(seed)
@@ -131,7 +131,7 @@ for heuristic_choice in [1,0]:
                                           priority_act_ls=priority_act_ls,  \
                                           selected_algorithm="opt", mode="user-defined", action_list=custom_action_list,\
                                           llm_reflect=False, time_limit=None,
-                                          heuristic_choice=1)
+                                          heuristic_choice=heuristic_choice)
 
                     start_time = time.time()
                     algo.process(goal_set)

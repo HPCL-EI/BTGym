@@ -34,7 +34,7 @@ all_goals = OrderedSet()
 for d in dataset:
     all_goals.update(d['Goals'])
 
-group_id = 0
+group_id = 1
 database_num = 5
 test_results = []
 test_success_rate_over_rounds = []
@@ -93,7 +93,7 @@ for round_num in range(max_round):
     env, _ = setup_default_env()
     for n, chosen_goal in enumerate(round_goals):
         print(f"\x1b[32m\n== Round: {round_num} ID: {n} {chosen_goal} \x1b[0m")
-        database_index_path = f"{ROOT_PATH}/../test/dataset/DATABASE/Group_{group_id}_env_goal_vectors.index"
+        database_index_path = f"{ROOT_PATH}/../test/LLM_EXP/DATABASE/Group{group_id}_env_goal_vectors.index"
 
         tarin_result = perform_test(env, chosen_goal, database_index_path)
         if tarin_result is None:
@@ -142,6 +142,7 @@ for round_num in range(max_round):
                                 test_result
         if success:
             test_success_count += 1
+            print(f"\033[92mSuccess\033[0m")
         total_similarity += avg_similarity
 
         # Append results for this validation goal

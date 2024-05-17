@@ -1,0 +1,40 @@
+1
+Environment:1
+Instruction:Put the bag of chips on the corner of my desk.
+Goals:IsOn_chips_desk
+Optimal Actions:Walk_chips, RightGrab_chips, Walk_desk, RightPut_chips_desk
+Vital Action Predicates:Walk, RightGrab, RightPut
+Vital Objects:chips, desk
+
+2
+Environment:1
+Instruction:
+Goals:IsClean_peach
+Optimal Actions:Walk_peach, RightGrab_peach, Walk_faucet, SwitchOn_faucet, Wash_peach
+Vital Action Predicates:Walk, RightGrab, SwitchOn, Wash
+Vital Objects:peach, faucet
+
+3
+Environment:1
+Instruction:
+Goals:IsSwitchedOn_candle
+Optimal Actions:Walk_candle, SwitchOn_candle
+Vital Action Predicates:Walk, SwitchOn
+Vital Objects:candle
+
+4
+Environment:1
+Instruction:
+Goals:IsClean_window
+Optimal Actions:Walk_rag, RightGrab_rag, Walk_window, Wipe_window
+Vital Action Predicates:Walk, RightGrab, Wipe
+Vital Objects:rag, window
+
+5
+Environment:1
+Instruction:
+Goals:IsCut_cutlets
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_cutlets, LeftGrab_cutlets, Cut_cutlets
+Vital Action Predicates:Walk, RightGrab, LeftGrab, Cut
+Vital Objects:kitchenknife, cutlets
+

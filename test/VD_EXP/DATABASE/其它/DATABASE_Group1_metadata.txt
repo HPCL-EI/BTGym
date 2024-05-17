@@ -1,0 +1,626 @@
+1
+Environment:1
+Instruction:Put the bag of chips on the corner of my desk.
+Goals:IsOn_chips_desk
+Optimal Actions:Walk_chips, RightGrab_chips, Walk_desk, RightPut_chips_desk
+Vital Action Predicates:Walk, RightGrab, RightPut
+Vital Objects:chips, desk
+
+2
+Environment:1
+Instruction:
+Goals:IsClean_peach
+Optimal Actions:Walk_peach, RightGrab_peach, Walk_faucet, SwitchOn_faucet, Wash_peach
+Vital Action Predicates:Walk, RightGrab, SwitchOn, Wash
+Vital Objects:peach, faucet
+
+3
+Environment:1
+Instruction:
+Goals:IsSwitchedOn_candle
+Optimal Actions:Walk_candle, SwitchOn_candle
+Vital Action Predicates:Walk, SwitchOn
+Vital Objects:candle
+
+4
+Environment:1
+Instruction:
+Goals:IsClean_window
+Optimal Actions:Walk_rag, RightGrab_rag, Walk_window, Wipe_window
+Vital Action Predicates:Walk, RightGrab, Wipe
+Vital Objects:rag, window
+
+5
+Environment:1
+Instruction:
+Goals:IsCut_cutlets
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_cutlets, LeftGrab_cutlets, Cut_cutlets
+Vital Action Predicates:Walk, RightGrab, LeftGrab, Cut
+Vital Objects:kitchenknife, cutlets
+
+6
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x000002B50AF9A850>
+Instruction:
+Goals:[['IsPlugged_printer', 'IsSwitchedOn_printer', 'IsClose_coffeepot', 'IsClose_garbagecan']]
+Optimal Actions:Walk_printer, PlugIn_printer, SwitchOn_printer, Walk_coffeepot, Close_coffeepot, Walk_garbagecan, Close_garbagecan
+Vital Action Predicates:Close, PlugIn, SwitchOn, Walk
+Vital Objects:coffeepot, garbagecan, printer
+
+7
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x000001F648055640>
+Instruction:
+Goals:[['IsPlugged_printer', 'IsSwitchedOn_printer', 'IsClose_coffeepot', 'IsClose_garbagecan']]
+Optimal Actions:Walk_printer, PlugIn_printer, SwitchOn_printer, Walk_coffeepot, Close_coffeepot, Walk_garbagecan, Close_garbagecan
+Vital Action Predicates:Close, SwitchOn, PlugIn, Walk
+Vital Objects:garbagecan, coffeepot, printer
+
+8
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsCut_peach']]
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_peach, LeftGrab_peach, Cut_peach
+Vital Action Predicates:LeftGrab, Cut, RightGrab, Walk
+Vital Objects:peach, kitchenknife
+
+9
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsCut_lime', 'IsUnplugged_cellphone']]
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_lime, LeftGrab_lime, Cut_lime, Walk_cellphone, Unplug_cellphone
+Vital Action Predicates:Cut, Unplug, Walk, LeftGrab, RightGrab
+Vital Objects:cellphone, lime, kitchenknife
+
+10
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsOpen_magazine', 'IsOn_clothespants_oventray']]
+Optimal Actions:Walk_magazine, RightGrab_magazine, Open_magazine, Walk_clothespants, RightGrab_clothespants, Walk_oventray, RightPut_clothespants_oventray
+Vital Action Predicates:RightPut, RightGrab, Walk, Open
+Vital Objects:magazine, clothespants, oventray
+
+11
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsUnplugged_mouse', 'IsOpen_window']]
+Optimal Actions:Walk_mouse, RightGrab_mouse, Walk_window, Open_window
+Vital Action Predicates:RightGrab, Walk, Open
+Vital Objects:window, mouse
+
+12
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsClose_toothpaste', 'IsUnplugged_dishwasher', 'IsPlugged_radio', 'IsSwitchedOn_radio']]
+Optimal Actions:Walk_toothpaste, Close_toothpaste, Walk_dishwasher, Unplug_dishwasher, Walk_radio, PlugIn_radio, SwitchOn_radio
+Vital Action Predicates:Unplug, Walk, PlugIn, SwitchOn, Close
+Vital Objects:radio, toothpaste, dishwasher
+
+13
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsSwitchedOff_wallphone', 'IsCut_lime']]
+Optimal Actions:Walk_wallphone, SwitchOff_wallphone, Walk_kitchenknife, RightGrab_kitchenknife, Walk_lime, LeftGrab_lime, Cut_lime
+Vital Action Predicates:Cut, Walk, LeftGrab, RightGrab, SwitchOff
+Vital Objects:lime, wallphone, kitchenknife
+
+14
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsClean_coffeepot']]
+Optimal Actions:Walk_rag, RightGrab_rag, Walk_coffeepot, Wipe_coffeepot
+Vital Action Predicates:Wipe, RightGrab, Walk
+Vital Objects:rag, coffeepot
+
+15
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsClose_milk', 'IsUnplugged_lightswitch', 'IsOpen_magazine']]
+Optimal Actions:Walk_milk, Close_milk, Walk_lightswitch, Unplug_lightswitch, Walk_magazine, Open_magazine
+Vital Action Predicates:Unplug, Open, Walk, Close
+Vital Objects:magazine, lightswitch, milk
+
+16
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsPlugged_dishwasher', 'IsSwitchedOn_dishwasher']]
+Optimal Actions:Walk_dishwasher, PlugIn_dishwasher, SwitchOn_dishwasher
+Vital Action Predicates:SwitchOn, Walk, PlugIn
+Vital Objects:dishwasher
+
+17
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsSwitchedOff_toaster', 'IsOn_cupcake_cabinet']]
+Optimal Actions:Walk_toaster, SwitchOff_toaster, Walk_cupcake, RightGrab_cupcake, LeftPutIn_cupcake_cabinet
+Vital Action Predicates:Cut, Wipe, RightPut, LeftPutIn, Walk, RightGrab, SwitchOff
+Vital Objects:sofa, cupcake, milk, fridge, cabinet, juice, toaster, condimentbottle, bellpepper
+
+18
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsUnplugged_coffeemaker', 'IsPlugged_microwave', 'IsUnplugged_coffeemaker']]
+Optimal Actions:Walk_coffeemaker, PlugOut_coffeemaker, Walk_microwave, PlugIn_microwave
+Vital Action Predicates:PlugOut, Walk, PlugIn
+Vital Objects:coffeemaker, microwave
+
+19
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsCut_poundcake']]
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_poundcake, LeftGrab_poundcake, Cut_poundcake
+Vital Action Predicates:LeftGrab, Cut, RightGrab, Walk
+Vital Objects:poundcake, kitchenknife
+
+20
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsPlugged_fridge', 'IsSwitchedOn_fridge']]
+Optimal Actions:Walk_fridge, PlugIn_fridge, SwitchOn_fridge
+Vital Action Predicates:SwitchOn, Walk, PlugIn
+Vital Objects:fridge
+
+21
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsPlugged_washingmachine', 'IsOn_juice_fryingpan', 'IsOpen_window']]
+Optimal Actions:Walk_washingmachine, PlugIn_washingmachine, Walk_fryingpan, RightGrab_juice, RightPut_juice_fryingpan, Walk_window, Open_window
+Vital Action Predicates:Open, RightPut, Walk, PlugIn, RightGrab
+Vital Objects:fryingpan, window, juice, washingmachine
+
+22
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsPlugged_printer']]
+Optimal Actions:Walk_printer, PlugIn_printer
+Vital Action Predicates:Walk, PlugIn
+Vital Objects:printer
+
+23
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsClean_oventray', 'IsClose_stove']]
+Optimal Actions:Walk_rag, RightGrab_rag, Walk_oventray, Wipe_oventray, Walk_stove, Close_stove
+Vital Action Predicates:Wipe, RightGrab, Walk, Close
+Vital Objects:rag, oventray, stove
+
+24
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsPlugged_oven']]
+Optimal Actions:Walk_oven, PlugIn_oven
+Vital Action Predicates:Walk, PlugIn
+Vital Objects:oven
+
+25
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsOpen_book']]
+Optimal Actions:Walk_book, RightGrab_book, Open_book
+Vital Action Predicates:RightGrab, Walk, Open
+Vital Objects:book
+
+26
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsOpen_window']]
+Optimal Actions:Walk_window, Open_window
+Vital Action Predicates:Walk, Open
+Vital Objects:window
+
+27
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsOpen_window', 'IsPlugged_toaster', 'IsSwitchedOn_toaster', 'IsPlugged_washingmachine', 'IsSwitchedOn_washingmachine']]
+Optimal Actions:Walk_window, Open_window, Walk_toaster, PlugIn_toaster, SwitchOn_toaster, Walk_washingmachine, PlugIn_washingmachine, SwitchOn_washingmachine
+Vital Action Predicates:SwitchOn, PlugIn, Walk, Open
+Vital Objects:toaster, window, washingmachine
+
+28
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsOn_mincedmeat_mousemat', 'IsSwitchedOff_cellphone', 'IsSwitchedOff_printer']]
+Optimal Actions:Walk_mincedmeat, RightGrab_mincedmeat, Walk_mousemat, RightPut_mincedmeat_mousemat, Walk_cellphone, SwitchOff_cellphone, Walk_printer, SwitchOff_printer
+Vital Action Predicates:RightPut, RightGrab, SwitchOff, Walk
+Vital Objects:mincedmeat, cellphone, printer, mousemat
+
+29
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsOpen_magazine']]
+Optimal Actions:Walk_magazine, RightGrab_magazine, Open_magazine
+Vital Action Predicates:RightGrab, Walk, Open
+Vital Objects:magazine
+
+30
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsOpen_curtains']]
+Optimal Actions:Walk_curtains, Open_curtains
+Vital Action Predicates:Walk, Open
+Vital Objects:curtains
+
+31
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsClean_papertowel', 'IsClean_printer', 'IsOpen_curtains', 'IsIn_dishbowl_cabinet', 'IsClose_cabinet']]
+Optimal Actions:Walk_rag, RightGrab_rag, Walk_papertowel, Wipe_papertowel, Walk_printer, Wipe_printer, Walk_curtains, Open_curtains, Walk_dishbowl, RightGrabFrom_dishbowl_cabinet, LeftPutIn_dishbowl_cabinet, Walk_cabinet, Close_cabinet
+Vital Action Predicates:RightGrabFrom, Cut, Open, Wipe, LeftPutIn, Walk, LeftGrab, LeftPutOn, RightGrab, Close
+Vital Objects:sofa, printer, milk, fridge, juice, dishbowl, papertowel, curtains, condimentbottle, rag, cabinet, bellpepper, kitchenknife
+
+32
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsClean_bathtub', 'IsUnplugged_wallphone']]
+Optimal Actions:Walk_rag, RightGrab_rag, Walk_bathtub, Wipe_bathtub, Walk_wallphone, Unplug_wallphone
+Vital Action Predicates:Unplug, Wipe, RightGrab, Walk
+Vital Objects:rag, bathtub, wallphone
+
+33
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsIn_condimentbottle_bookshelf', 'IsOn_plate_bed', 'IsPlugged_clock']]
+Optimal Actions:**Walk_condimentbottle, RightGrab_condimentbottle, Walk_bookshelf, RightPutIn_condimentbottle_bookshelf, Walk_plate, RightPut_plate_bed, Walk_clock, PlugIn_clock**
+Vital Action Predicates:RightPut
+
+**, **Walk, RightGrab, RightPut, RightPutIn, Walk, PlugIn, **RightGrab
+Vital Objects:plate, **condimentbottle, bed, clock**, condimentbottle, bookshelf, clock
+
+34
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsCut_pancake', 'IsUnplugged_wallphone']]
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_pancake, LeftGrab_pancake, Cut_pancake, Walk_wallphone, Unplug_wallphone
+Vital Action Predicates:Cut, Unplug, Walk, LeftGrab, RightGrab
+Vital Objects:wallphone, pancake, kitchenknife
+
+35
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsPlugged_washingmachine', 'IsSwitchedOff_cellphone']]
+Optimal Actions:Walk_washingmachine, PlugIn_washingmachine, Walk_cellphone, SwitchOff_cellphone
+Vital Action Predicates:SwitchOff, Walk, PlugIn
+Vital Objects:cellphone, washingmachine
+
+36
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsCut_apple', 'IsOpen_window', 'IsUnplugged_fridge']]
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_apple, LeftGrab_apple, Cut_apple, Walk_rag, RightGrab_rag, Walk_window, Open_window, Walk_fridge, Unplug_fridge
+Vital Action Predicates:Cut, Open, Unplug, Walk, LeftGrab, RightGrab
+Vital Objects:fridge, window, apple, rag, kitchenknife
+
+37
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsClean_bellpepper', 'IsPlugged_microwave', 'IsSwitchedOn_microwave', 'IsClose_radio']]
+Optimal Actions:Walk_rag, RightGrab_rag, Walk_bellpepper, Wipe_bellpepper, Walk_mouse, RightGrab_mouse, Walk_microwave, PlugIn_microwave, SwitchOn_microwave, Walk_radio, Close_radio
+Vital Action Predicates:Wipe, Walk, PlugIn, SwitchOn, RightGrab, Close
+Vital Objects:radio, mouse, microwave, rag, bellpepper
+
+38
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsCut_cutlets']]
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_cutlets, LeftGrab_cutlets, Cut_cutlets
+Vital Action Predicates:LeftGrab, Cut, RightGrab, Walk
+Vital Objects:cutlets, kitchenknife
+
+39
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsClose_magazine', 'IsUnplugged_clock', 'IsPlugged_tablelamp', 'IsSwitchedOn_tablelamp']]
+Optimal Actions:Walk_magazine, Close_magazine, Walk_clock, Unplug_clock, Walk_tablelamp, PlugIn_tablelamp, SwitchOn_tablelamp
+Vital Action Predicates:Unplug, Walk, PlugIn, SwitchOn, Close
+Vital Objects:magazine, clock, tablelamp
+
+40
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsOn_facecream_desk']]
+Optimal Actions:Walk_facecream, RightGrab_facecream, Walk_desk, RightPut_facecream_desk
+Vital Action Predicates:RightPut, RightGrab, Walk
+Vital Objects:desk, facecream
+
+41
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsCut_breadslice', 'IsOpen_book']]
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_breadslice, LeftGrab_breadslice, Cut_breadslice, Walk_book, Open_book
+Vital Action Predicates:Cut, Open, Walk, LeftGrab, RightGrab
+Vital Objects:breadslice, book, kitchenknife
+
+42
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsOn_clothespile_bathroomcabinet', 'IsOn_wine_boardgame']]
+Optimal Actions:Walk_clothespile, RightGrab_clothespile, Walk_bathroomcabinet, RightPut_clothespile_bathroomcabinet, Walk_wine, RightGrab_wine, Walk_boardgame, RightPut_wine_boardgame
+Vital Action Predicates:RightPut, RightGrab, Walk
+Vital Objects:wine, boardgame, clothespile, bathroomcabinet
+
+43
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsSwitchedOff_dishwasher', 'IsOpen_magazine']]
+Optimal Actions:Walk_dishwasher, SwitchOff_dishwasher, Walk_magazine, Open_magazine
+Vital Action Predicates:SwitchOff, Walk, Open
+Vital Objects:magazine, dishwasher
+
+44
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsClean_slippers']]
+Optimal Actions:Walk_rag, RightGrab_rag, Walk_slippers, Wipe_slippers
+Vital Action Predicates:Wipe, RightGrab, Walk
+Vital Objects:rag, slippers
+
+45
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsCut_lime', 'IsPlugged_wallphone']]
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_lime, LeftGrab_lime, Cut_lime, Walk_wallphone, PlugIn_wallphone
+Vital Action Predicates:Cut, Walk, PlugIn, LeftGrab, RightGrab
+Vital Objects:lime, wallphone, kitchenknife
+
+46
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsCut_cutlets', 'IsOn_washingsponge_coffeetable', 'IsPlugged_fridge', 'IsOn_juice_radio']]
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_cutlets, LeftGrab_cutlets, Cut_cutlets, Walk_washingsponge, RightGrab_washingsponge, Walk_coffeetable, RightPut_washingsponge_coffeetable, Walk_fridge, PlugIn_fridge, Walk_juice, RightGrab_juice, Walk_radio, LeftPutIn_juice_radio
+Vital Action Predicates:Cut, RightPut, LeftPutIn, Walk, PlugIn, LeftGrab, RightGrab
+Vital Objects:radio, cutlets, fridge, coffeetable, juice, washingsponge, kitchenknife
+
+47
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsClose_window', 'IsOpen_door']]
+Optimal Actions:Walk_window, Close_window, Walk_door, Open_door
+Vital Action Predicates:Open, Walk, Close
+Vital Objects:door, window
+
+48
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsOn_wineglass_sofa', 'IsClose_toothpaste']]
+Optimal Actions:Walk_wineglass, RightGrab_wineglass, Walk_sofa, RightPut_wineglass_sofa, Walk_toothpaste, Close_toothpaste
+Vital Action Predicates:RightPut, RightGrab, Walk, Close
+Vital Objects:wineglass, toothpaste, sofa
+
+49
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsPlugged_coffeemaker', 'IsSwitchedOn_coffeemaker', 'IsPlugged_wallphone', 'IsSwitchedOn_wallphone']]
+Optimal Actions:Walk_coffeemaker, PlugIn_coffeemaker, SwitchOn_coffeemaker, Walk_wallphone, PlugIn_wallphone, SwitchOn_wallphone
+Vital Action Predicates:SwitchOn, Walk, PlugIn
+Vital Objects:coffeemaker, wallphone
+
+50
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsOn_duster_chair']]
+Optimal Actions:Walk_duster, RightGrab_duster, Walk_chair, RightPut_duster_chair
+Vital Action Predicates:RightPut, RightGrab, Walk
+Vital Objects:duster, chair
+
+51
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsOpen_curtains', 'IsClose_radio']]
+Optimal Actions:Walk_curtains, Open_curtains, Walk_radio, Close_radio
+Vital Action Predicates:Close, Walk, Open
+Vital Objects:curtains, radio
+
+52
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsPlugged_radio', 'IsSwitchedOn_radio', 'IsPlugged_mouse']]
+Optimal Actions:Walk_radio, PlugIn_radio, SwitchOn_radio, Walk_mouse
+Vital Action Predicates:SwitchOn, Walk, PlugIn
+Vital Objects:radio, mouse
+
+53
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsOn_barsoap_floor', 'IsOpen_curtains']]
+Optimal Actions:Walk_barsoap, RightGrab_barsoap, Walk_floor, RightPut_barsoap_floor, Walk_curtains, Open_curtains
+Vital Action Predicates:RightPut, RightGrab, Walk, Open
+Vital Objects:curtains, barsoap, floor
+
+54
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsUnplugged_dishwasher', 'IsOn_whippedcream_coffeetable']]
+Optimal Actions:Walk_dishwasher, Unplug_dishwasher, Walk_whippedcream, Put_whippedcream_coffeetable
+Vital Action Predicates:Cut, Open, Unplug, Wipe, RightPut, Put, Walk, RightPutIn, RightGrab
+Vital Objects:sofa, milk, dishwasher, fridge, coffeetable, juice, whippedcream, condimentbottle, bellpepper
+
+55
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsPlugged_printer', 'IsSwitchedOn_printer', 'IsClose_coffeepot', 'IsClose_garbagecan']]
+Optimal Actions:Walk_printer, PlugIn_printer, SwitchOn_printer, Walk_coffeepot, Close_coffeepot, Walk_garbagecan, Close_garbagecan
+Vital Action Predicates:SwitchOn, Close, Walk, PlugIn
+Vital Objects:coffeepot, printer, garbagecan
+
+56
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsOn_whippedcream_cabinet', 'IsOpen_window']]
+Optimal Actions:Walk_whippedcream, RightGrab_whippedcream, Walk_cabinet, RightPut_whippedcream_cabinet, Walk_window, Open_window
+Vital Action Predicates:RightPut, RightGrab, Walk, Open
+Vital Objects:window, cabinet, whippedcream
+
+57
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsClean_kitchenknife']]
+Optimal Actions:Walk_rag, RightGrab_rag, Walk_kitchenknife, Wipe_kitchenknife
+Vital Action Predicates:Wipe, RightGrab, Walk
+Vital Objects:rag, kitchenknife
+
+58
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsCut_pancake']]
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_pancake, LeftGrab_pancake, Cut_pancake, _
+Vital Action Predicates:, Cut, Walk, LeftGrab, RightGrab
+Vital Objects:, pancake, kitchenknife
+
+59
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsPlugged_tv', 'IsSwitchedOff_printer', 'IsOpen_curtains']]
+Optimal Actions:Walk_tv, PlugIn_tv, Walk_printer, SwitchOff_printer, Walk_curtains, Open_curtains
+Vital Action Predicates:Open, SwitchOff, Walk, PlugIn
+Vital Objects:tv, printer, curtains
+
+60
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsUnplugged_lightswitch', 'IsIn_papertowel_garbagecan', 'IsClose_garbagecan']]
+Optimal Actions:Walk_lightswitch, Unplug_lightswitch, Walk_papertowel, RightGrab_papertowel, Walk_garbagecan, PutIn_papertowel_garbagecan, Close_garbagecan
+Vital Action Predicates:Cut, Open, Unplug, Wipe, PutIn, RightPut, Walk, RightGrab, Close
+Vital Objects:sofa, milk, fridge, juice, papertowel, lightswitch, condimentbottle, bellpepper, garbagecan
+
+61
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsUnplugged_tablelamp', 'IsPlugged_toaster', 'IsSwitchedOn_toaster']]
+Optimal Actions:Walk_tablelamp, Unplug_tablelamp, Walk_toaster, PlugIn_toaster, SwitchOn_toaster
+Vital Action Predicates:Unplug, SwitchOn, Walk, PlugIn
+Vital Objects:toaster, tablelamp
+
+62
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsCut_cutlets', 'IsOpen_curtains', 'IsUnplugged_keyboard']]
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_cutlets, LeftGrab_cutlets, Cut_cutlets, Walk_curtains, Open_curtains, Walk_keyboard, Unplug_keyboard
+Vital Action Predicates:Cut, Open, Unplug, Walk, LeftGrab, RightGrab
+Vital Objects:curtains, keyboard, kitchenknife, cutlets
+
+63
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsCut_lime', 'IsPlugged_fridge', 'IsPlugged_wallphone']]
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_lime, LeftGrab_lime, Cut_lime, Walk_fridge, PlugIn_fridge, Walk_wallphone, PlugIn_wallphone
+Vital Action Predicates:Cut, Walk, PlugIn, LeftGrab, RightGrab
+Vital Objects:fridge, lime, wallphone, kitchenknife
+
+64
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsCut_bellpepper', 'IsPlugged_coffeemaker']]
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_bellpepper, LeftGrab_bellpepper, Cut_bellpepper, Walk_coffeemaker, PlugIn_coffeemaker
+Vital Action Predicates:Cut, Walk, PlugIn, LeftGrab, RightGrab
+Vital Objects:coffeemaker, bellpepper, kitchenknife
+
+65
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsOpen_curtains', 'IsPlugged_microwave', 'IsSwitchedOn_microwave']]
+Optimal Actions:Walk_curtains, Open_curtains, Walk_microwave, PlugIn_microwave, SwitchOn_microwave
+Vital Action Predicates:SwitchOn, PlugIn, Walk, Open
+Vital Objects:curtains, microwave
+
+66
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsCut_apple']]
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_apple, LeftGrab_apple, Cut_apple
+Vital Action Predicates:LeftGrab, Walk, RightGrab, Cut
+Vital Objects:apple, kitchenknife
+
+67
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsPlugged_dishwasher', 'IsSwitchedOn_dishwasher', 'IsClose_door']]
+Optimal Actions:Walk_dishwasher, PlugIn_dishwasher, SwitchOn_dishwasher, Walk_door, Close_door
+Vital Action Predicates:SwitchOn, Close, Walk, PlugIn
+Vital Objects:door, dishwasher
+
+68
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsCut_pie', 'IsPlugged_tv', 'IsOn_pillow_kitchentable', 'IsPlugged_lightswitch', 'IsPlugged_coffeemaker']]
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_pie, LeftGrab_pie, Cut_pie, Walk_tv, RightGrab_tv, PlugIn_tv, Walk_pillow, RightGrab_pillow, Walk_kitchentable, LeftPut_pillow_kitchentable, Walk_lightswitch, PlugIn_lightswitch, Walk_coffeemaker, PlugIn_coffeemaker
+Vital Action Predicates:Cut, RightPut, Walk, PlugIn, LeftGrab, RightGrab, LeftPut
+Vital Objects:pillow, coffeemaker, kitchentable, tv, pie, lightswitch, kitchenknife
+
+69
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsPlugged_oven', 'IsClose_folder']]
+Optimal Actions:Walk_oven, PlugIn_oven, Walk_folder, Close_folder
+Vital Action Predicates:Close, Walk, PlugIn
+Vital Objects:oven, folder
+
+70
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsCut_peach', 'IsOn_towel_chair']]
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_peach, LeftGrab_peach, Cut_peach, Walk_towel, RightGrab_towel, Walk_chair, LeftPut_towel_chair
+Vital Action Predicates:Cut, RightPut, Walk, LeftGrab, RightGrab, LeftPut
+Vital Objects:peach, towel, chair, kitchenknife
+
+71
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsPlugged_toaster']]
+Optimal Actions:Walk_toaster, PlugIn_toaster
+Vital Action Predicates:Walk, PlugIn
+Vital Objects:toaster
+
+72
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsPlugged_oven', 'IsSwitchedOn_oven']]
+Optimal Actions:Walk_oven, PlugIn_oven, SwitchOn_oven
+Vital Action Predicates:SwitchOn, Walk, PlugIn
+Vital Objects:oven
+
+73
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsSwitchedOff_tv', 'IsClose_coffeemaker', 'IsOpen_window']]
+Optimal Actions:Walk_tv, SwitchOff_tv, Walk_coffeemaker, Close_coffeemaker, Walk_window, Open_window
+Vital Action Predicates:Open, SwitchOff, Walk, Close
+Vital Objects:tv, coffeemaker, window
+
+74
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsCut_plum']]
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_plum, LeftGrab_plum, Cut_plum
+Vital Action Predicates:LeftGrab, Cut, RightGrab, Walk
+Vital Objects:plum, kitchenknife
+
+75
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsOn_clock_bathroomcounter', 'IsClose_garbagecan']]
+Optimal Actions:Walk_clock, RightGrab_clock, Walk_bathroomcounter, RightPut_clock_bathroomcounter, Walk_garbagecan, Close_garbagecan
+Vital Action Predicates:RightPut, RightGrab, Walk, Close
+Vital Objects:clock, garbagecan, bathroomcounter
+
+76
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsCut_pie', 'IsUnplugged_lightswitch']]
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_pie, LeftGrab_pie, Cut_pie, Walk_lightswitch, RightGrab_lightswitch, PlugOut_lightswitch
+Vital Action Predicates:Cut, Walk, LeftGrab, PlugOut, RightGrab
+Vital Objects:lightswitch, pie, kitchenknife
+
+77
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsSwitchedOff_oven', 'IsOpen_book']]
+Optimal Actions:Walk_oven, SwitchOff_oven, Walk_book, Open_book
+Vital Action Predicates:SwitchOff, Walk, Open
+Vital Objects:oven, book
+
+78
+Environment:<btgym.envs.virtualhometext.envs.milk_frige_env.MilkFridgeEnv object at 0x0000027575C64670>
+Instruction:
+Goals:[['IsOpen_magazine', 'IsUnplugged_washingmachine', 'IsSwitchedOff_dishwasher']]
+Optimal Actions:Walk_magazine, Open_magazine, Walk_washingmachine, Unplug_washingmachine, Walk_dishwasher, SwitchOff_dishwasher
+Vital Action Predicates:Unplug, SwitchOff, Walk, Open
+Vital Objects:magazine, washingmachine, dishwasher
+

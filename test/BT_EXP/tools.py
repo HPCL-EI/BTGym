@@ -3,10 +3,6 @@ import numpy as np
 import pandas as pd
 import pickle
 
-seed = 0
-random.seed(seed)
-np.random.seed(seed)
-
 
 def count_accuracy(expected, actual):
     correct = 0
@@ -200,7 +196,6 @@ def generate_custom_action_list(big_actions,action_space_size, a):
             raise ValueError(f"Action '{action_name}' is not available in the behavior library.")
         selected_actions.append(name_to_action[action_name])
 
-    random.seed(0)  # 可以选择任意数字作为种子
     # Randomly select actions from the big action space excluding those already in `a`
     remaining_actions = [action for action in big_actions if action not in a]
     sorted_remaining_actions = sorted(remaining_actions, key=lambda x: x.name)
@@ -213,3 +208,38 @@ def generate_custom_action_list(big_actions,action_space_size, a):
 
     return final_action_list
 
+
+def generate_custom_action_list_from_obj(big_actions,action_space_size, a,obj_ls):
+    # Get all available actions from a larger behavior library
+    # big_actions = collect_action_nodes(behavior_lib)
+
+    # Map action names to action objects for faster lookup
+    name_to_action = {action.name: action for action in big_actions}
+
+    # Find the action objects in `big_actions` that correspond to names in `a`
+    selected_actions = []
+    for action_name in a:
+        if action_name not in name_to_action:
+            raise ValueError(f"Action '{action_name}' is not available in the behavior library.")
+        selected_actions.append(name_to_action[action_name])
+
+    # Randomly select actions from the big action space excluding those already in `a`
+    remaining_actions = [action for action in big_actions if action not in a]
+
+
+    obj_filtered_actions = []
+    # 遍历 big_actions 并检查 name 是否包含 obj_ls 中的任意一个物体
+    for action in big_actions:
+        if all(obj in action.name for obj in obj_ls) and (action.name not in a):
+            obj_filtered_actions.append(action)
+    sorted_remaining_actions = sorted(remaining_actions, key=lambda x: x.name)
+
+    # 这个地方 不排序就随机
+    if action_space_size - len(a)-len(obj_filtered_actions)>0:
+        random_actions = random.sample(sorted_remaining_actions, action_space_size - len(a)-len(obj_filtered_actions))
+    else:
+        random_actions = random.sample(obj_filtered_actions, action_space_size- len(a) )
+    # Combine selected actions with randomly chosen ones
+    final_action_list = selected_actions + random_actions +obj_filtered_actions
+
+    return final_action_list

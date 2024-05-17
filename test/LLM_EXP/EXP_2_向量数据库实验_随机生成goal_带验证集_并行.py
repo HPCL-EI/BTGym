@@ -24,7 +24,7 @@ np.random.seed(random_seed)
 random.seed(random_seed)
 
 # Initialize the LLM
-llm = LLMGPT4()
+llm = LLMGPT3()
 default_prompt_file = f"{ROOT_PATH}/algos/llm_client/prompt_VHT_just_goal_no_example.txt"
 dataset = load_dataset(f"{ROOT_PATH}/../test/dataset/400data_processed_data.txt")
 # Initialize variables
@@ -34,6 +34,7 @@ all_goals = []
 # Assuming dataset is defined
 for id, d in enumerate(dataset):
     all_goals.append(' & '.join(d['Goals']))
+    # all_goals.append(d['Goals'])
 
 
 
@@ -46,19 +47,6 @@ from ordered_set import OrderedSet
 # all_goals = OrderedSet()
 # for d in dataset:
 #     all_goals.update(d['Goals'])
-
-group_id = 0
-database_num = 5
-test_results = []
-test_success_rate_over_rounds = []
-average_similarity_over_rounds = []
-max_round = 40
-sample_num = 10
-vaild_num= 40
-
-# max_round = 2
-# sample_num = 2
-# vaild_num= 40
 
 
 def add_to_database(env, goals, priority_act_ls, key_predicates, key_objects, database_index_path, cost):
@@ -164,21 +152,47 @@ def random_generate_goals(n):
         all_goals.append(get_goals_string())
     return all_goals
 
+
+group_id = 1
+database_num = 5
+test_results = []
+test_success_rate_over_rounds = []
+average_similarity_over_rounds = []
+# max_round = 5
+# sample_num = 50
+# vaild_num= 40
+
+max_round = 5
+sample_num = 30
+vaild_num= 40
+
+# max_round = 2
+# sample_num = 2
+# vaild_num= 2
+
+# max_round = 10
+# sample_num = 20
+# vaild_num= 0
+
+use_random = False
+
+
 env, _ = setup_default_env()
-database_index_path = f"{ROOT_PATH}/../test/dataset/DATABASE/Group{group_id}_env_goal_vectors.index"
+database_index_path = f"{ROOT_PATH}/../test/LLM_EXP/DATABASE/Group{group_id}_env_goal_vectors.index"
 
 # Main Loop
 for round_num in range(max_round):
 
-    if round_num!=0:
+    if round_num==0:
 
-        # 随机生成 20 个goals，放入 all_goals 集合
-        round_goals = random_generate_goals(n=sample_num)
-
-        # 每次读取数据里的data
-        # round_goals = random.sample(all_goals, 10)
-        # for goal in round_goals:
-        #     all_goals.remove(goal)
+        if use_random:
+            # 随机生成 20 个goals，放入 all_goals 集合
+            round_goals = random_generate_goals(n=sample_num)
+        else:
+            # 每次读取数据里的data
+            round_goals = random.sample(all_goals, sample_num)
+            for goal in round_goals:
+                all_goals.remove(goal)
 
 
         for n, chosen_goal in enumerate(round_goals):
@@ -205,9 +219,13 @@ for round_num in range(max_round):
     test_success_count = 0
     total_similarity = 0
     vaild_dataset_test = vaild_dataset[:vaild_num]
+    # vaild_dataset_test = vaild_dataset[10:12]
     with concurrent.futures.ThreadPoolExecutor() as executor:
+        # chosen_goal = d['Goals'][0]
         futures = [executor.submit(validate_goal, env, d['Goals'], database_index_path, round_num, n, database_num) \
                    for n, d in enumerate(vaild_dataset_test)]
+        # futures = [executor.submit(validate_goal, env, d['Goals'], database_index_path, round_num, n, database_num) \
+        #            for n, d in enumerate(vaild_dataset_test)]
 
         for future in concurrent.futures.as_completed(futures):
             result, success, avg_similarity = future.result()
@@ -226,10 +244,17 @@ for round_num in range(max_round):
     print(f"\033[92mAverage Similarity for Round {round_num}: {average_similarity}\033[0m")
     print(f"\033[92mDatabase Size for Round {round_num}: {database_num}\033[0m")
 
+# 结束以后将向量数据库保存为 txt 文件
+
+
 
 # Save test results to CSV
 df = pd.DataFrame(test_results)
-df.to_csv(f'EXP_2_DATABSE_400data_round={max_round}_sample={sample_num}_parallel.csv', index=False)
+if use_random:
+    name = "Random"
+else:
+    name ="400data"
+df.to_csv(f'EXP_2_DATABSE_{name}_round={max_round}_sample={sample_num}_parallel.csv', index=False)
 
 # Plot the test success rate over rounds
 plt.figure()
@@ -237,7 +262,7 @@ plt.plot(range(max_round), test_success_rate_over_rounds, marker='o')
 plt.xlabel('Round')
 plt.ylabel('Test Success Rate')
 plt.title('Test Success Rate Over Rounds')
-plt.savefig(f'EXP_2_DATABSE_success_rate_400data_round={max_round}_sample={sample_num}_parallel.png')
+plt.savefig(f'EXP_2_DATABSE_success_rate_{name}_round={max_round}_sample={sample_num}_parallel.png')
 
 # Plot the average similarity over rounds
 plt.figure()
@@ -245,6 +270,6 @@ plt.plot(range(max_round), average_similarity_over_rounds, marker='o')
 plt.xlabel('Round')
 plt.ylabel('Average Similarity')
 plt.title('Average Similarity Over Rounds')
-plt.savefig(f'EXP_2_DATABSE_similarity_400data_round={max_round}_sample={sample_num}_parallel.png')
+plt.savefig(f'EXP_2_DATABSE_similarity_{name}_round={max_round}_sample={sample_num}_parallel.png')
 
 plt.show()

@@ -1,6 +1,0 @@
-,Success Rate,Timeout Rate,Time (Total),Time (Success),Expanded Num (Total),Expanded Num (Success),Cost (Success)
-Group1,0.9,0.0,0.0266,0.0294,113.6,126.1111,135.0
-Group2,0.4,0.0,0.0213,0.0139,106.0,69.5,100.0
-Group3,0.3,0.0,0.0175,0.0463,60.5,129.3333,114.0
-Group4,0.1,0.0,0.1055,0.2486,297.1,753.0,141.0
-Overall,0.425,0.0,0.0427,0.0416,144.3,150.2353,123.4118

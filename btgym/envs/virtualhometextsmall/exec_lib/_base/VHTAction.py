@@ -6,33 +6,47 @@ class VHTAction(Action):
     can_be_expanded = True
     num_args = 1
 
-    SURFACES = {"kitchentable"}
-
-    SITTABLE =  set()
-
-    CAN_OPEN = {"fridge","window"}
-    CONTAINERS = {"fridge","garbagecan"}
-
-
-    GRABBABLE = {"apple",'breadslice','milk','plate',"rag","kitchenknife"}
-
+    # SURFACES = {"kitchentable"}
+    #
+    # SITTABLE =  set()
+    #
+    # CAN_OPEN = {"fridge","window"}
+    # CONTAINERS = {"fridge","garbagecan"}
+    #
+    #
+    # GRABBABLE = {"apple",'breadslice','milk','plate',"rag","kitchenknife"}
+    #
+    # cleaning_tools = {"rag"}
+    # cutting_tools = {"kitchenknife"}
+    #
+    # HAS_SWITCH = {"tv","faucet","candle"}
+    #
+    # HAS_PLUG = {"tv","mouse","fridge"}
+    # # 墙电话, 咖啡机, 开关, 手机, 冰箱, 烤面包机, 台灯, 微波炉, 电视, \
+    # # 鼠标, 时钟, 键盘, 收音机, 洗衣机, 打印机
+    #
+    # CUTABLE = {"apple",'breadslice'}
+    #
+    # WASHABLE={"apple"}
+    #
+    # EATABLE = {"apple",'breadslice'}
+    #
+    # DRINKABLE = {'milk'}
+    SURFACES = {"kitchentable", "desk", "coffeetable", "bed"}
+    SITTABLE = {"bed"}
+    CAN_OPEN = {"fridge", "window","washingmachine"}
+    CONTAINERS = {"fridge", "garbagecan","washingmachine"}
+    GRABBABLE = {"apple", 'breadslice', 'wine', 'plate', "rag", "kitchenknife", "pear", "cutlets"}
     cleaning_tools = {"rag"}
     cutting_tools = {"kitchenknife"}
-
-    HAS_SWITCH = {"tv","faucet","candle"}
-
-    HAS_PLUG = {"tv","mouse","fridge"}
+    HAS_SWITCH = {"tv", "faucet", "candle","washingmachine"}
+    HAS_PLUG = {"tv", "mouse", "fridge","washingmachine"}
     # 墙电话, 咖啡机, 开关, 手机, 冰箱, 烤面包机, 台灯, 微波炉, 电视, \
     # 鼠标, 时钟, 键盘, 收音机, 洗衣机, 打印机
-
-    CUTABLE = {"apple",'breadslice'}
-
-    WASHABLE={"apple"}
-
-    EATABLE = {"apple",'breadslice'}
-
-    DRINKABLE = {'milk'}
-
+    CUTABLE = {"apple", 'breadslice', "pear", "cutlets"}
+    WASHABLE = {"apple", "rag", "kitchenknife", "pear", "cutlets"}
+    EATABLE = {"apple", 'breadslice'}
+    DRINKABLE = {'wine'}
 
     AllObject = SURFACES | SITTABLE | CAN_OPEN | CONTAINERS | GRABBABLE |\
                  HAS_SWITCH | CUTABLE

@@ -1,0 +1,72 @@
+1
+Environment:
+Instruction:
+Goals:
+Optimal Actions:
+Vital Action Predicates:
+Vital Objects:
+
+2
+Environment:1
+Instruction:
+Goals:IsIn_bananas_fridge
+Optimal Actions:Walk_bananas, RightGrab_bananas, Walk_fridge, Open_fridge, PlugIn_fridge, RightPutIn_bananas_fridge
+Vital Action Predicates:Walk, RightGrab, Open, PlugIn, RightPutIn
+Vital Objects:bananas, fridge
+
+3
+Environment:1
+Instruction:
+Goals:IsCut_apple
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_apple, LeftGrab_apple, Cut_apple
+Vital Action Predicates:Walk, RightGrab, LeftGrab, Cut
+Vital Objects:kitchenknife, apple
+
+4
+Environment:1
+Instruction:
+Goals:IsClean_stove
+Optimal Actions:Walk_rag, LeftGrab_rag, Walk_stove, Wipe_stove
+Vital Action Predicates:Walk, LeftGrab, Wipe
+Vital Objects:rag, stove
+
+5
+Environment:1
+Instruction:
+Goals:IsClean_bananas
+Optimal Actions:Walk_bananas, RightGrab_bananas, Walk_faucet, SwitchOn_faucet, Wash_bananas
+Vital Action Predicates:Walk, RightGrab, SwitchOn, Wash
+Vital Objects:bananas, faucet
+
+6
+Environment:1
+Instruction:
+Goals:IsClean_faucet
+Optimal Actions:Walk_rag, LeftGrab_rag, Walk_faucet, Wipe_faucet
+Vital Action Predicates:Walk, LeftGrab, Wipe
+Vital Objects:rag, faucet
+
+7
+Environment:1
+Instruction:
+Goals:IsCut_breadslice
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_breadslice, LeftGrab_breadslice, Cut_breadslice
+Vital Action Predicates:Walk, RightGrab, LeftGrab, Cut
+Vital Objects:kitchenknife, breadslice
+
+8
+Environment:1
+Instruction:
+Goals:IsOn_breadslice_bookshelf
+Optimal Actions:Walk_breadslice, LeftGrab_breadslice, Walk_bookshelf, LeftPut_breadslice_bookshelf
+Vital Action Predicates:Walk, LeftGrab, LeftPut
+Vital Objects:breadslice, bookshelf
+
+9
+Environment:1
+Instruction:
+Goals:IsOpen_fridge
+Optimal Actions:Walk_fridge, Open_fridge
+Vital Action Predicates:Walk, Open
+Vital Objects:fridge
+

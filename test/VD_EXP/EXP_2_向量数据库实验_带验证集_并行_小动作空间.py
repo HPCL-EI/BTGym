@@ -36,7 +36,7 @@ def plot_results(metric_over_rounds, metric_name, group_id, name, sample_num, re
     plt.xlabel('Round')
     plt.ylabel(metric_name)
     plt.title(f'{metric_name} Over Rounds')
-    plt.savefig(f'EXP_2_{metric_name.replace(" ", "_").lower()}_ref={reflect_num}_gp={group_id}_{name}_smpl={sample_num}_parall_{time_str}.png')
+    plt.savefig(f'output/EXP_2_{metric_name.replace(" ", "_").lower()}_ref={reflect_num}_gp={group_id}_{name}_smpl={sample_num}_parall_{time_str}.png')
 
 
 def convert_set_to_str(string_set):
@@ -247,13 +247,13 @@ database_output_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/Group{group_id}_env
 # sample_num = 2
 # vaild_num = 2
 
-max_round = 20
+max_round = 21
 sample_num = 20
 vaild_num = 40
 
 
-# max_round = 3
-# sample_num = 3
+# max_round = 6
+# sample_num = 1
 # vaild_num = 1
 
 reflect_time = 3
@@ -357,7 +357,9 @@ for round_num in range(max_round):
 
         # 结束以后将向量数据库保存为 txt 文件
         # 将向量数据库里的所有数据写入 txt
-        write_metadata_to_txt(database_index_path, database_output_path)
+        # Save the current round's database to a file with the round number in the filename
+        write_metadata_to_txt(database_index_path,
+                              f"{ROOT_PATH}/../test/VD_EXP/output/Group{group_id}_env_goal_vectors_round{round_num}.txt")
 
         # Save test results to CSV
         df = pd.DataFrame(test_results)
@@ -366,10 +368,10 @@ for round_num in range(max_round):
         else:
             name = "400data"
         time_str = time.strftime('%Y%m%d%H%M%S', time.localtime())
-        df.to_csv(f'EXP_2_DATABSE_Details_r={round_num}_G={group_id}_{name}_mr={max_round}_smpl={sample_num}_paral_{time_str}.csv', index=False)
+        df.to_csv(f'output/EXP_2_DATABSE_Details_r={round_num}_G={group_id}_{name}_mr={max_round}_smpl={sample_num}_paral_{time_str}.csv', index=False)
 
         # Save metrics results to CSV
-        metrics_df.to_csv(f'EXP_2_DATABSE_Summary_r={round_num}_G={group_id}_{name}_mr={max_round}_smpl={sample_num}_paral_{time_str}.csv', index=False)
+        metrics_df.to_csv(f'output/EXP_2_DATABSE_Summary_r={round_num}_G={group_id}_{name}_mr={max_round}_smpl={sample_num}_paral_{time_str}.csv', index=False)
 
         # Plotting results
         for metric_name, metric_values in metrics_over_rounds.items():

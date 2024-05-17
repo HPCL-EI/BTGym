@@ -96,11 +96,11 @@ Vital Objects: wineglass, bookshelf, magazine
 
 13
 Environment:1
-Instruction: Put the chicken and the peach in the fridge and make sure it's turned on.
-Goals: IsIn_chicken_fridge & IsIn_peach_fridge & IsSwitchedOn_fridge & IsClose_fridge
-Optimal Actions: Walk_fridge, PlugIn_fridge, Open_fridge, Walk_peach, RightGrab_peach, Walk_chicken, LeftGrab_chicken, Walk_fridge, LeftPutIn_chicken_fridge, RightPutIn_peach_fridge, Close_fridge, SwitchOn_fridge
-Vital Action Predicates: Walk, PlugIn, Open, RightGrab, LeftGrab, LeftPutIn, RightPutIn, Close, SwitchOn
-Vital Objects: fridge, peach, chicken
+Instruction: 
+Goals: IsSwitchedOn_dishwasher
+Optimal Actions: Walk_dishwasher, PlugIn_dishwasher, SwitchOn_dishwasher
+Vital Action Predicates: Walk, PlugIn, SwitchOn
+Vital Objects: dishwasher
 
 14
 Environment:1
@@ -112,11 +112,11 @@ Vital Objects: tv, clothespants, closet
 
 15
 Environment:1
-Instruction: Put the clothespile in the washingmachine, turn it on, then make sure the cellphone is on and charging.
-Goals: IsIn_clothespile_washingmachine & IsSwitchedOn_washingmachine & IsSwitchedOn_cellphone
-Optimal Actions: Walk_clothespile, RightGrab_clothespile, Walk_washingmachine, Open_washingmachine, PlugIn_washingmachine, RightPutIn_clothespile_washingmachine, Close_washingmachine, SwitchOn_washingmachine, Walk_cellphone, PlugIn_cellphone, SwitchOn_cellphone
-Vital Action Predicates: Walk, RightGrab, Open, PlugIn, RightPutIn, Close, SwitchOn
-Vital Objects: clothespile, washingmachine, cellphone
+Instruction: 
+Goals: IsCut_cutlets
+Optimal Actions: Walk_kitchenknife, RightGrab_kitchenknife, Walk_cutlets, LeftGrab_cutlets, Cut_cutlets
+Vital Action Predicates: Walk, RightGrab, LeftGrab, Cut
+Vital Objects: kitchenknife, cutlets
 
 16
 Environment:1

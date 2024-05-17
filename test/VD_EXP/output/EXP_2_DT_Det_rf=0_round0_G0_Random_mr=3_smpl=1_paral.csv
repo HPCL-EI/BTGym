@@ -1,3 +1,0 @@
-round,id,goals,priority_act_ls,key_predicates,key_objects,act_num,error,time_limit_exceeded,current_cost,expanded_num,planning_time_total,average_distance,database_size
-0,0,IsOpen_book,,,,,None,None,,,,,1
-0,1,IsCut_pancake,,,,,None,None,,,,,1

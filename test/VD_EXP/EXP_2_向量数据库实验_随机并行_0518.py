@@ -249,15 +249,15 @@ env, _ = setup_default_env()
 database_index_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/Group{group_id}_env_goal_vectors.index"
 database_output_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/Group{group_id}_env_goal_vectors.txt"
 
-# max_round = 10 +1
-# sample_num = 10
-# vaild_num = 20 #40
+max_round = 30 +1
+sample_num = 10
+vaild_num = 20 #40
 
-max_round = 2 +1
-sample_num = 1
-vaild_num = 2 #40
+# max_round = 2 +1
+# sample_num = 1
+# vaild_num = 2 #40
 
-for reflect_time in [0,1]:
+for reflect_time in [0,1,3]:
 
 
 

@@ -36,7 +36,7 @@ def plot_results(metric_over_rounds, metric_name, group_id, name, max_round, sam
     plt.xlabel('Round')
     plt.ylabel(metric_name)
     plt.title(f'{metric_name} Over Rounds')
-    plt.savefig(f'EXP_2_{metric_name.replace(" ", "_").lower()}_ref={reflect_num}_gp={group_id}_{name}_r={max_round}_smpl={sample_num}_parall.png')
+    plt.savefig(f'EXP_2_{metric_name.replace(" ", "_").lower()}_ref={reflect_num}_gp={group_id}_{name}_r={max_round}_smpl={sample_num}_parall_{time_str}.png')
 
 
 def convert_set_to_str(string_set):
@@ -251,6 +251,10 @@ max_round = 30
 sample_num = 20
 vaild_num = 40
 
+# max_round = 3
+# sample_num = 3
+# vaild_num = 1
+
 reflect_time = 3
 
 test_results = []
@@ -334,19 +338,23 @@ for round_num in range(max_round):
     print(f"\033[92mAverage Current Cost for Round {round_num}: {metrics_over_rounds['Average Current Cost'][-1]}\033[0m")
     print(f"\033[92mDatabase Size for Round {round_num}: {database_num}\033[0m")
 
-# 结束以后将向量数据库保存为 txt 文件
-# 将向量数据库里的所有数据写入 txt
-write_metadata_to_txt(database_index_path, database_output_path)
 
-# Save test results to CSV
-df = pd.DataFrame(test_results)
-if use_random:
-    name = "Random"
-else:
-    name = "400data"
-df.to_csv(f'EXP_2_DATABSE_Group={group_id}_{name}_round={max_round}_sample={sample_num}_parallel.csv', index=False)
+    if round_num%5==0:
 
-# Plotting results
-for metric_name, metric_values in metrics_over_rounds.items():
-    plot_results(metric_values, metric_name, group_id, name, max_round, sample_num,reflect_time)
-plt.show()
+        # 结束以后将向量数据库保存为 txt 文件
+        # 将向量数据库里的所有数据写入 txt
+        write_metadata_to_txt(database_index_path, database_output_path)
+
+        # Save test results to CSV
+        df = pd.DataFrame(test_results)
+        if use_random:
+            name = "Random"
+        else:
+            name = "400data"
+        time_str = time.strftime('%Y%m%d%H%M%S', time.localtime())
+        df.to_csv(f'EXP_2_DATABSE_Group={group_id}_{name}_round={max_round}_sample={sample_num}_parallel_{time_str}.csv', index=False)
+
+        # Plotting results
+        for metric_name, metric_values in metrics_over_rounds.items():
+            plot_results(metric_values, metric_name, group_id, name, max_round, sample_num,reflect_time)
+        plt.show()

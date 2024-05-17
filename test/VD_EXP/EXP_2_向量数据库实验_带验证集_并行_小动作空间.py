@@ -251,11 +251,15 @@ max_round = 30
 sample_num = 20
 vaild_num = 40
 
+<<<<<<< Updated upstream
 # max_round = 3
 # sample_num = 3
 # vaild_num = 1
 
 reflect_time = 3
+=======
+reflect_time = 1
+>>>>>>> Stashed changes
 
 test_results = []
 metrics_over_rounds = {

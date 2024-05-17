@@ -131,7 +131,7 @@ AllObject = SURFACES | SITTABLE | CAN_OPEN | CONTAINERS | GRABBABLE | \
 # Condition = {'IsNear_self_', 'IsOn_', 'IsIn_', 'IsOpen_', 'IsClose_', 'IsSwitchedOn_', 'IsSwitchedOff_', 'IsClean_',
 #              'IsPlugged_', 'IsUnplugged_', 'IsCut_'}
 
-Condition = { 'IsOn_', 'IsIn_', 'IsOpen_', 'IsClose_', 'IsSwitchedOn_', 'IsClean_',
+Condition = { 'IsOn_', 'IsIn_', 'IsOpen_', 'IsSwitchedOn_', 'IsClean_',
              'IsPlugged_', 'IsCut_','IsNear_self_'}
 
 

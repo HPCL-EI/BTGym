@@ -353,7 +353,7 @@ for round_num in range(max_round):
     print(f"\033[92mDatabase Size for Round {round_num}: {database_num}\033[0m")
 
 
-    if round_num>0 and round_num%5==0:
+    if round_num%5==0:
 
         # 结束以后将向量数据库保存为 txt 文件
         # 将向量数据库里的所有数据写入 txt

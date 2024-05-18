@@ -14,7 +14,7 @@ class Clean(VHTAction):
     def get_info(cls,*arg):
         info = {}
         info["pre"]= {f'Holding(Nothing)'}
-        info["add"] = {f'IsClean({arg})'}
+        info["add"] = {f'IsClean({arg[0]})'}
         info["del_set"] = set()
         return info
 

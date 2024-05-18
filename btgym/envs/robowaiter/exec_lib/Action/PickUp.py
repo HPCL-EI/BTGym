@@ -10,11 +10,11 @@ class PickUp(VHTAction):
     @classmethod
     def get_info(cls,*arg):
         info = {}
-        info["pre"] = {f'RobotNear({arg})','Holding(Nothing)'}
-        info["add"] = {f'Holding({arg})'}
-        info["del_set"] = {f'Holding(Nothing)',f'Exists({arg})'}
+        info["pre"] = {f'RobotNear({arg[0]})','Holding(Nothing)'}
+        info["add"] = {f'Holding({arg[0]})'}
+        info["del_set"] = {f'Holding(Nothing)',f'Exists({arg[0]})'}
         for place in cls.all_place:
-            info["del_set"] |= {f'On({arg},{place})'}
+            info["del_set"] |= {f'On({arg[0]},{place})'}
         info['cost'] = 2
         return info
 

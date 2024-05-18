@@ -6,15 +6,38 @@ from btgym.algos.bt_autogen.main_interface import BTExpInterface
 from btgym.algos.llm_client.tools import goal_transfer_str, act_format_records
 from tools import *
 
-env = btgym.make("VH-PutMilkInFridge")
+
+# VirtualHome
+# env = btgym.make("VH-PutMilkInFridge")
+# cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
+# cur_cond_set |= {f'IsClose({arg})' for arg in VHAction.CanOpenPlaces}
+# cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHAction.HasSwitchObjects}
+# print(f"共收集到 {len(VHAction.AllObject)} 个物体")
+
+
+# RobotHowSmall
+# from btgym.envs.virtualhometextsmall.exec_lib._base.VHTAction import VHTAction as RHS
+# env = btgym.make("VHT-Small")
+# cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
+# cur_cond_set |= {f'IsClose({arg})' for arg in RHS.CAN_OPEN}
+# cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in RHS.HAS_SWITCH}
+# cur_cond_set |= {f'IsUnplugged({arg})' for arg in RHS.HAS_PLUG}
+# print(f"共收集到 {len(RHS.AllObject)} 个物体")
+
+
+# RobotHowBig
+from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction as RHB
+env = btgym.make("VHT-PutMilkInFridge")
 cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
-cur_cond_set |= {f'IsClose({arg})' for arg in VHAction.CanOpenPlaces}
-cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHAction.HasSwitchObjects}
-print(f"共收集到 {len(VHAction.AllObject)} 个物体")
+cur_cond_set |= {f'IsClose({arg})' for arg in RHB.CAN_OPEN}
+cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in RHB.HAS_SWITCH}
+cur_cond_set |= {f'IsUnplugged({arg})' for arg in RHB.HAS_PLUG}
+print(f"共收集到 {len(RHB.AllObject)} 个物体")
 
 
-
-goal=['IsIn_milk_fridge']
+# goal=['IsOn_apple_desk']
+goal=['IsIn_apple_fridge']
+# priority_act_ls=["Walk_milk"]
 goal_set = goal_transfer_str(' & '.join(goal))
 
 algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,

@@ -16,11 +16,11 @@ class Make(VHTAction):
         info["pre"]= {f'Holding(Nothing)'}
         info['del_set'] = set()
         info['add'] = {f'Exists({arg[0]})'}
-        if arg == cls.valid_args[0]:
+        if arg[0] == "Coffee":
             info["add"] |= {f'On({arg[0]},CoffeeStation)'}
-        elif arg == cls.valid_args[1]:
+        elif arg[0] == "Water":
             info["add"] |= {f'On({arg[0]},WaterStation)'}
-        elif arg == cls.valid_args[2]:
+        elif arg[0] == "Dessert":
             info["add"] |= {f'On({arg[0]},Bar)'}
         info['cost'] = 2
         return info

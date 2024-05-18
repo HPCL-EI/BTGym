@@ -32,22 +32,39 @@ def extract_objects(actions):
 
 # 直接读入 env=1 的数据
 # file_name = "test_data_40_0518_no_processed"
-file_name = "test_data_40_0518_2_no_processed"
-need_cost = False
-data_path = f"{ROOT_PATH}/../test/VD_EXP/{file_name}.txt"
+# file_name = "test_data_40_0518_2_no_processed"
+
+# data_path = f"{ROOT_PATH}/../test/VD_EXP/{file_name}.txt"
 # data_path = f"{ROOT_PATH}/../test/dataset/{file_name}.txt"
+# output_path = f"{ROOT_PATH}/../test/VD_EXP/{file_name}_processed_data.txt"
+# output_csv_path = f"{ROOT_PATH}/../test/LLM_EXP/{file_name}_processed_h=0.csv"
+
+file_name="VS"
+data_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}.txt"
+output_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}_processed_data.txt"
+output_csv_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}_processed_h=1.csv"
+need_cost = True
 data1 = read_dataset(data_path)
 len_data = len(data1)
 print(f"导入 {len_data} 条数据")
 print(data1[0])
 
 # 初始化环境
-env = btgym.make("VHT-PutMilkInFridge")
+# env = btgym.make("VHT-PutMilkInFridge")
+# cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
+# cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction.CAN_OPEN}
+# cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
+# cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
+# big_actions = collect_action_nodes(env.behavior_lib)
+
+
+from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
+env = btgym.make("VH-PutMilkInFridge")
 cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
-cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction.CAN_OPEN}
-cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
-cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
+cur_cond_set |= {f'IsClose({arg})' for arg in VHAction.CanOpenPlaces}
+cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHAction.HasSwitchObjects}
 big_actions = collect_action_nodes(env.behavior_lib)
+
 
 # 过滤动作
 def filter_actions(data, big_actions):
@@ -63,7 +80,6 @@ def filter_actions(data, big_actions):
 current_big_actions, current_big_actions_name = filter_actions(data1, big_actions)
 
 print("-----------------准备写入文件-----------------")
-output_path = f"{ROOT_PATH}/../test/VD_EXP/{file_name}_processed_data.txt"
 if os.path.exists(output_path):
     os.remove(output_path)
 
@@ -184,7 +200,6 @@ for id, d in enumerate(data1):
             })
 
 df = pd.DataFrame(results)
-output_csv_path = f"{ROOT_PATH}/../test/LLM_EXP/{file_name}_processed_h=0.csv"
 df.to_csv(output_csv_path, index=False)
 print(f"Results have been saved to {output_csv_path}")
 

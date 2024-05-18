@@ -1,0 +1,16 @@
+id,Environment,Instruction,Goals,Optimal Actions,Vital Action Predicates,Vital Objects,expanded_num,planning_time_total,current_cost,error,act_num
+1,1,Put the breadslice in the fridge.,IsIn_breadslice_fridge,"Walk_breadslice, RightGrab_breadslice, Walk_fridge, Open_fridge, RightPutIn_breadslice_fridge","Walk, RightGrab, Open, RightPutIn","breadslice, fridge",9,0.0010004043579101562,48,False,5
+2,1,Place the cupcake on the kitchen table.,IsOn_cupcake_kitchentable,"Walk_cupcake, RightGrab_cupcake, Walk_kitchentable, RightPut_cupcake_kitchentable","Walk, RightGrab, RightPut","cupcake, kitchentable",5,0.0,41,False,4
+3,1,Switch on the table lamp.,IsSwitchedOn_tablelamp,"Walk_tablelamp, SwitchOn_tablelamp","Walk, SwitchOn",tablelamp,3,0.0,23,False,2
+4,1,Put the chicken in the microwave.,IsIn_chicken_microwave,"Walk_chicken, RightGrab_chicken, Walk_microwave, Open_microwave, RightPutIn_chicken_microwave","Walk, RightGrab, Open, RightPutIn","chicken, microwave",9,0.0009996891021728516,48,False,5
+5,1,Place the cutleryknife on the nightstand.,IsOn_cutleryknife_nightstand,"Walk_cutleryknife, RightGrab_cutleryknife, Walk_nightstand, RightPut_cutleryknife_nightstand","Walk, RightGrab, RightPut","cutleryknife, nightstand",5,0.0010004043579101562,41,False,4
+6,1,Put the milk on the bathroom counter.,IsOn_milk_bathroomcounter,"Walk_milk, RightGrab_milk, Walk_bathroomcounter, RightPut_milk_bathroomcounter","Walk, RightGrab, RightPut","milk, bathroomcounter",5,0.0010001659393310547,41,False,4
+7,1,Switch off the toaster.,IsSwitchedOff_toaster,,,,1,0.0,0,False,0
+8,1,Place the dishbowl in the dishwasher.,IsIn_dishbowl_dishwasher,"Walk_dishbowl, RightGrab_dishbowl, Walk_dishwasher, Open_dishwasher, RightPutIn_dishbowl_dishwasher","Walk, RightGrab, Open, RightPutIn","dishbowl, dishwasher",9,0.0010004043579101562,48,False,5
+9,1,Put the cutlets on the cabinet.,IsOn_cutlets_cabinet,"Walk_cutlets, RightGrab_cutlets, Walk_cabinet, RightPut_cutlets_cabinet","Walk, RightGrab, RightPut","cutlets, cabinet",5,0.0,41,False,4
+10,1,Put the book on the desk.,IsOn_book_desk,"Walk_book, RightGrab_book, Walk_desk, RightPut_book_desk","Walk, RightGrab, RightPut","book, desk",5,0.0,41,False,4
+11,1,Place the water glass on the nightstand.,IsOn_waterglass_nightstand,"Walk_waterglass, RightGrab_waterglass, Walk_nightstand, RightPut_waterglass_nightstand","Walk, RightGrab, RightPut","waterglass, nightstand",5,0.0,41,False,4
+12,1,Put the chocolatesyrup in the fridge.,IsIn_chocolatesyrup_fridge,"Walk_chocolatesyrup, RightGrab_chocolatesyrup, Walk_fridge, Open_fridge, RightPutIn_chocolatesyrup_fridge","Walk, RightGrab, Open, RightPutIn","chocolatesyrup, fridge",9,0.0010006427764892578,48,False,5
+13,1,Switch on the coffee maker.,IsSwitchedOn_coffeemaker,"Walk_coffeemaker, SwitchOn_coffeemaker","Walk, SwitchOn",coffeemaker,3,0.0,23,False,2
+14,1,Place the frying pan on the stove.,IsOn_fryingpan_stove,"Walk_fryingpan, RightGrab_fryingpan, Walk_stove, RightPut_fryingpan_stove","Walk, RightGrab, RightPut","fryingpan, stove",5,0.0,41,False,4
+15,1,Put the plate on the cabinet.,IsOn_plate_cabinet,"Walk_plate, RightGrab_plate, Walk_cabinet, RightPut_plate_cabinet","Walk, RightGrab, RightPut","plate, cabinet",5,0.0,41,False,4

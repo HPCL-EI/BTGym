@@ -5,7 +5,7 @@ from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
 from btgym.behavior_tree import Status
 
 class Sit(VHAction):
-    can_be_expanded = True
+    can_be_expanded = False
     num_args = 1
     valid_args=VHAction.SittablePlaces
 

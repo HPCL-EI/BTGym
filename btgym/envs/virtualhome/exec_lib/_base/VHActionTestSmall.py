@@ -6,7 +6,7 @@ class VHAction(Action):
     num_args = 1
 
 
-    SurfacePlaces = {"kitchentable","plate","nightstand","desk","cabinet","bathroomcounter","stove"} # put
+    SurfacePlaces = {"kitchentable","plate","nightstand","desk","cabinet","bathroomcounter"} # put
     SittablePlaces =  {"bed","sofa","chair","Bench"}  # sit
     CanOpenPlaces= {"fridge","dishwasher","microwave","stove"}  # open
     CanPutInPlaces={"fridge","dishwasher","microwave","stove"}  # put in
@@ -15,12 +15,10 @@ class VHAction(Action):
              'cutleryknife','fryingpan','dishbowl','plate',
              'book',"waterglass"
              }  # grab
-    HasSwitchObjects = {"tv","faucet","lightswitch","dishwasher","coffeemaker","toaster","microwave",
-                        "tablelamp","computer"}  # switch on #candle  cellphone wallphone washingmachine不行# faucet 浴室龙头
+    # HasSwitchObjects = {"tv","faucet","lightswitch","dishwasher","coffeemaker","toaster","microwave",
+    #                     "tablelamp","computer"}  # switch on #candle  cellphone wallphone washingmachine不行# faucet 浴室龙头
+    HasSwitchObjects = {"washingmachine"}
 
-
-    AllObject = SurfacePlaces | SittablePlaces | CanOpenPlaces | CanPutInPlaces | Objects |\
-                 HasSwitchObjects
 
     # SurfacePlaces = set()  # put
     # SittablePlaces = set()  # sit

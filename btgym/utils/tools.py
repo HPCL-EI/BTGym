@@ -27,8 +27,15 @@ def read_env_file(file_path):
 
 
 # 导入不同的环境
-
-
+import re
+def extract_objects(actions):
+    pattern = re.compile(r'\w+\(([^)]+)\)')
+    objects = []
+    for action in actions:
+        match = pattern.search(action)
+        if match:
+            objects.append(match.group(1))
+    return objects
 def collect_action_nodes(behavior_lib):
     action_list = []
 

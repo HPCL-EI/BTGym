@@ -1,0 +1,208 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import btgym
+import time
+from btgym import BehaviorTree
+from btgym.algos.bt_autogen.main_interface import BTExpInterface
+from btgym.utils import ROOT_PATH
+from btgym.utils.read_dataset import read_dataset
+from btgym.algos.llm_client.tools import goal_transfer_str, act_format_records
+from btgym.algos.llm_client.llms.gpt3 import LLMGPT3
+from btgym.algos.llm_client.llm_ask_tools import extract_llm_from_instr_goal, extract_llm_from_reflect, \
+    convert_conditions, format_example
+from tools import execute_algorithm, load_dataset, setup_default_env
+from btgym.algos.llm_client.vector_database_env_goal import add_data_entry, write_metadata_to_txt, \
+    search_nearest_examples, add_to_database
+import numpy as np
+import random
+from ordered_set import OrderedSet
+import concurrent.futures
+from btgym.utils.tools import collect_action_nodes
+from tools import find_from_small_act
+
+# Set random seed
+random_seed = 0
+np.random.seed(random_seed)
+random.seed(random_seed)
+
+# Initialize the LLM
+llm = LLMGPT3()
+
+
+def convert_set_to_str(string_set):
+    return ", ".join(f'\"{s}\"' for s in string_set)
+
+
+def perform_test(env, chosen_goal, database_index_path, reflect_time=0, train=False, choose_database=True):
+    cur_cond_set = setup_default_env()[1]
+    priority_act_ls, llm_key_pred, llm_key_obj, messages, distances = \
+        extract_llm_from_instr_goal(llm, default_prompt_file, 1, chosen_goal, verbose=False,
+                                    choose_database=choose_database, database_index_path=database_index_path)
+    if priority_act_ls != None:
+        _priority_act_ls, pred, obj = act_format_records(priority_act_ls)
+        key_predicates = list(set(llm_key_pred + pred))
+        key_objects = list(set(llm_key_obj + obj))
+        # goal里的目标也要加进去
+        algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
+                              priority_act_ls=priority_act_ls, key_predicates=key_predicates,
+                              key_objects=key_objects,
+                              selected_algorithm="opt", mode="small-predicate-objs",
+                              llm_reflect=False, time_limit=10,
+                              heuristic_choice=0)
+        goal_set = goal_transfer_str(' & '.join(chosen_goal))
+        expanded_num, planning_time_total, cost, error, act_num, current_cost, record_act_ls = \
+            execute_algorithm(algo, goal_set, cur_cond_set)
+        time_limit_exceeded = algo.algo.time_limit_exceeded
+        success = not error and not time_limit_exceeded
+    else:
+        success = False
+        goal_set, key_predicates, key_objects = None, None, None
+
+    if not success and train:
+        # 搜索小动作空间得到一个解
+        success, _priority_act_ls, key_predicates, key_objects, cost, priority_act_ls, key_predicates, key_objects, \
+            act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total = find_from_small_act(
+            chosen_goal)
+
+    if choose_database:
+        if priority_act_ls is None or llm_key_pred is None or llm_key_obj is None:
+            return False, np.mean(
+                distances), None, None, None, None, priority_act_ls, None, None, \
+                None, None, None, None, None, None
+
+        return success, np.mean(
+            distances), _priority_act_ls, key_predicates, key_objects, cost, priority_act_ls, key_predicates, key_objects, \
+            act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total
+    else:
+        if priority_act_ls is None or llm_key_pred is None or llm_key_obj is None:
+            return False, 0, None, None, None, None, priority_act_ls, None, None, \
+                None, None, None, None, None, None
+
+        return success, 0, _priority_act_ls, key_predicates, key_objects, cost, priority_act_ls, key_predicates, key_objects, \
+            act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total
+
+
+# Function to validate a single goal
+def validate_goal(env, chosen_goal, n, database_index_path=None, round_num=None,database_num=None, reflect_time=0,
+                  choose_database=True):
+    print(f"test:{n}", chosen_goal)
+
+    test_result = perform_test(env, chosen_goal, database_index_path, reflect_time=reflect_time,
+                               choose_database=choose_database)
+    success, avg_similarity, _, key_predicates, key_objects, _, priority_act_ls, key_predicates, key_objects, \
+        act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total = test_result
+
+    if not success:
+        return {
+            'round': round_num, 'id': n, 'goals': ' & '.join(chosen_goal), 'priority_act_ls': None,
+            'key_predicates': None, 'key_objects': None, 'act_num': None, 'error': 'None',
+            'time_limit_exceeded': 'None', 'current_cost': None, 'expanded_num': None, 'planning_time_total': None,
+            'average_distance': None, 'database_size': database_num
+        }, False, avg_similarity
+
+    print(f"\033[92mtest:{n} {chosen_goal} {act_num}\033[0m")
+    return {
+        'round': round_num, 'id': n, 'goals': ' & '.join(chosen_goal), 'priority_act_ls': priority_act_ls,
+        'key_predicates': key_predicates, 'key_objects': key_objects, 'act_num': act_num, 'error': error,
+        'time_limit_exceeded': time_limit_exceeded, 'current_cost': current_cost, 'expanded_num': expanded_num,
+        'planning_time_total': planning_time_total, 'average_distance': avg_similarity, 'database_size': database_num
+    }, success, avg_similarity
+
+
+
+
+name = "VH"
+
+default_prompt_file = f"{ROOT_PATH}/algos/llm_client/prompt_VHT_just_goal_no_example.txt"
+vaild_dataset = load_dataset(f"VS_processed_data.txt")
+
+
+# env, _ = setup_default_env()
+from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
+env = btgym.make("VH-PutMilkInFridge")
+cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
+cur_cond_set |= {f'IsClose({arg})' for arg in VHAction.CanOpenPlaces}
+cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHAction.HasSwitchObjects}
+big_actions = collect_action_nodes(env.behavior_lib)
+
+max_round = 0 + 1
+sample_num = 1
+vaild_num = 1
+
+
+# Initialize accumulators and counters
+test_results = []
+test_success_count = 0
+total_similarity = 0
+total_expanded_num = 0
+total_planning_time_total = 0
+total_current_cost = 0
+
+# Dataframe to store metrics for each round
+metrics_df = pd.DataFrame(columns=[
+    "Test Success Rate", "Average Distance", "Average Expanded Num", "Average Planning Time Total", "Average Current Cost"
+])
+
+for n, d in enumerate(vaild_dataset):
+    result, success, avg_similarity = validate_goal(env, d['Goals'], n, choose_database=False)
+
+    # ========================= 并行 ========================
+    # with concurrent.futures.ThreadPoolExecutor() as executor:
+    #     futures = [executor.submit(validate_goal, env, d['Goals'], database_index_path, round_num, n, database_num,
+    #                                reflect_time=reflect_time,choose_database=True) \
+    #                for n, d in enumerate(vaild_dataset_test)]
+    #     for future in concurrent.futures.as_completed(futures):
+    #         result, success, avg_similarity = future.result()
+    #         test_results.append(result)
+    #         if success:
+    #             test_success_count += 1
+    #         total_similarity += avg_similarity
+    #         total_expanded_num += result['expanded_num'] if result['expanded_num'] is not None else 300
+    #         total_planning_time_total += result['planning_time_total'] if result[
+    #                                                                           'planning_time_total'] is not None else 3
+    #         total_current_cost += result['current_cost'] if result['current_cost'] is not None else 2000
+    # ========================= 并行 ========================
+    # ========================= 串行========================
+
+    test_results.append(result)
+    if success:
+        test_success_count += 1
+    total_similarity += avg_similarity
+    total_expanded_num += result.get('expanded_num', 300)
+    total_planning_time_total += result.get('planning_time_total', 3)
+    total_current_cost += result.get('current_cost', 2000)
+
+# Calculate metrics
+num_entries = len(vaild_dataset)
+success_rate = test_success_count / num_entries
+average_similarity = total_similarity / num_entries
+average_expanded_num = total_expanded_num / num_entries
+average_planning_time_total = total_planning_time_total / num_entries
+average_current_cost = total_current_cost / num_entries
+
+# Append metrics to dataframe
+round_metrics = pd.DataFrame([{
+    "Test Success Rate": success_rate,
+    "Average Distance": average_similarity,
+    "Average Expanded Num": average_expanded_num,
+    "Average Planning Time Total": average_planning_time_total,
+    "Average Current Cost": average_current_cost
+}])
+metrics_df = pd.concat([metrics_df, round_metrics], ignore_index=True)
+
+# Output metrics
+print(f"Test Success Rate: {success_rate}")
+print(f"Average Distance: {average_similarity}")
+print(f"Average Expanded Num: {average_expanded_num}")
+print(f"Average Planning Time Total: {average_planning_time_total}")
+print(f"Average Current Cost: {average_current_cost}")
+
+# Save daily detailed results and metrics to CSV
+time_str = time.strftime('%Y%m%d', time.localtime())
+details_filename = f'output_ref={reflect_time}/EXP_2_DT_Det_rf={reflect_time}_G{group_id}_{name}_{time_str}_details.csv'
+metrics_filename = f'output_ref={reflect_time}/EXP_2_DT_Sum_rf={reflect_time}_G{group_id}_{name}_{time_str}_metrics.csv'
+
+details_df = pd.DataFrame(test_results)
+details_df.to_csv(details_filename, index=False)
+metrics_df.to_csv(metrics_filename, index=False)
+

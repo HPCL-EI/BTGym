@@ -1,0 +1,96 @@
+1
+Environment:1
+Instruction: Put the breadslice in the fridge.
+Goals: IsIn_breadslice_fridge
+Optimal Actions: Walk_breadslice, RightGrab_breadslice, Walk_fridge, Open_fridge, RightPutIn_breadslice_fridge
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn
+Vital Objects: breadslice, fridge
+
+2
+Environment:1
+Instruction: Place the cupcake on the kitchen table.
+Goals: IsOn_cupcake_kitchentable
+Optimal Actions: Walk_cupcake, RightGrab_cupcake, Walk_kitchentable, RightPut_cupcake_kitchentable
+Vital Action Predicates: Walk, RightGrab, RightPut
+Vital Objects: cupcake, kitchentable
+
+3
+Environment:1
+Instruction: Switch on the table lamp.
+Goals: IsSwitchedOn_tablelamp
+Optimal Actions: Walk_tablelamp, SwitchOn_tablelamp
+Vital Action Predicates: Walk, SwitchOn
+Vital Objects: tablelamp
+
+4
+Environment:1
+Instruction: Put the chicken in the microwave.
+Goals: IsIn_chicken_microwave
+Optimal Actions: Walk_chicken, RightGrab_chicken, Walk_microwave, Open_microwave, RightPutIn_chicken_microwave
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn
+Vital Objects: chicken, microwave
+
+5
+Environment:1
+Instruction: Place the cutleryknife on the nightstand.
+Goals: IsOn_cutleryknife_nightstand
+Optimal Actions: Walk_cutleryknife, RightGrab_cutleryknife, Walk_nightstand, RightPut_cutleryknife_nightstand
+Vital Action Predicates: Walk, RightGrab, RightPut
+Vital Objects: cutleryknife, nightstand
+
+6
+Environment:1
+Instruction: Put the milk on the bathroom counter.
+Goals: IsOn_milk_bathroomcounter
+Optimal Actions: Walk_milk, RightGrab_milk, Walk_bathroomcounter, RightPut_milk_bathroomcounter
+Vital Action Predicates: Walk, RightGrab, RightPut
+Vital Objects: milk, bathroomcounter
+
+7
+Environment:1
+Instruction: Switch off the toaster.
+Goals: IsSwitchedOff_toaster
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
+
+9
+Environment:1
+Instruction: Put the cutlets on the cabinet.
+Goals: IsOn_cutlets_cabinet
+Optimal Actions: Walk_cutlets, RightGrab_cutlets, Walk_cabinet, RightPut_cutlets_cabinet
+Vital Action Predicates: Walk, RightGrab, RightPut
+Vital Objects: cutlets, cabinet
+
+10
+Environment:1
+Instruction: Put the book on the desk.
+Goals: IsOn_book_desk
+Optimal Actions: Walk_book, RightGrab_book, Walk_desk, RightPut_book_desk
+Vital Action Predicates: Walk, RightGrab, RightPut
+Vital Objects: book, desk
+
+11
+Environment:1
+Instruction: Place the water glass on the nightstand.
+Goals: IsOn_waterglass_nightstand
+Optimal Actions: Walk_waterglass, RightGrab_waterglass, Walk_nightstand, RightPut_waterglass_nightstand
+Vital Action Predicates: Walk, RightGrab, RightPut
+Vital Objects: waterglass, nightstand
+
+12
+Environment:1
+Instruction: Put the chocolatesyrup in the fridge.
+Goals: IsIn_chocolatesyrup_fridge
+Optimal Actions: Walk_chocolatesyrup, RightGrab_chocolatesyrup, Walk_fridge, Open_fridge, RightPutIn_chocolatesyrup_fridge
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn
+Vital Objects: chocolatesyrup, fridge
+
+15
+Environment:1
+Instruction: Put the plate on the cabinet.
+Goals: IsOn_plate_cabinet
+Optimal Actions: Walk_plate, RightGrab_plate, Walk_cabinet, RightPut_plate_cabinet
+Vital Action Predicates: Walk, RightGrab, RightPut
+Vital Objects: plate, cabinet
+

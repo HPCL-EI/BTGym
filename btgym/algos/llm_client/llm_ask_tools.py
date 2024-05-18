@@ -96,6 +96,9 @@ def extract_llm_from_instr_goal(llm,default_prompt_file,environment,goals,instru
     #     print(f"\033[91mFailed to parse LLM output for goals: {goals_str}\033[0m")
     #     return None, None, None, messages, distances
     priority_act_ls, key_predicates, key_objects = parsed_output
+
+
+
     if priority_act_ls==None:
         print(f"\033[91mFailed to parse LLM output for goals: {goals_str}\033[0m")
     return priority_act_ls, key_predicates, key_objects, messages, distances

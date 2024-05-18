@@ -1,0 +1,120 @@
+1
+Environment:1
+Instruction: Put the breadslice and the milk in the fridge.
+Goals: IsIn_breadslice_fridge & IsIn_milk_fridge
+Optimal Actions: Walk_fridge, Open_fridge, Walk_milk, LeftGrab_milk, Walk_breadslice, RightGrab_breadslice, Walk_fridge, RightPutIn_breadslice_fridge, LeftPutIn_milk_fridge
+Vital Action Predicates: Walk, Open, LeftGrab, RightGrab, RightPutIn, LeftPutIn
+Vital Objects: fridge, milk, breadslice
+
+2
+Environment:1
+Instruction: Place the chicken and the cupcake on the kitchen table.
+Goals: IsOn_chicken_kitchentable & IsOn_cupcake_kitchentable
+Optimal Actions: Walk_chicken, RightGrab_chicken, Walk_cupcake, LeftGrab_cupcake, Walk_kitchentable, RightPut_chicken_kitchentable, LeftPut_cupcake_kitchentable
+Vital Action Predicates: Walk, RightGrab, LeftGrab, RightPut, LeftPut
+Vital Objects: chicken, cupcake, kitchentable
+
+3
+Environment:1
+Instruction: Put the cutlets in the microwave and switch it on.
+Goals: IsIn_cutlets_microwave & IsSwitchedOn_microwave
+Optimal Actions: Walk_cutlets, RightGrab_cutlets, Walk_microwave, SwitchOn_microwave, Open_microwave, RightPutIn_cutlets_microwave
+Vital Action Predicates: Walk, RightGrab, SwitchOn, Open, RightPutIn
+Vital Objects: cutlets, microwave
+
+4
+Environment:1
+Instruction: Place the cutleryknife and the book on the nightstand.
+Goals: IsOn_cutleryknife_nightstand & IsOn_book_nightstand
+Optimal Actions: Walk_cutleryknife, RightGrab_cutleryknife, Walk_book, LeftGrab_book, Walk_nightstand, RightPut_cutleryknife_nightstand, LeftPut_book_nightstand
+Vital Action Predicates: Walk, RightGrab, LeftGrab, RightPut, LeftPut
+Vital Objects: cutleryknife, book, nightstand
+
+5
+Environment:1
+Instruction: Put the chocolatesyrup and the juice in the fridge.
+Goals: IsIn_chocolatesyrup_fridge & IsIn_juice_fridge
+Optimal Actions: Walk_fridge, Open_fridge, Walk_juice, LeftGrab_juice, Walk_chocolatesyrup, RightGrab_chocolatesyrup, Walk_fridge, RightPutIn_chocolatesyrup_fridge, LeftPutIn_juice_fridge
+Vital Action Predicates: Walk, Open, LeftGrab, RightGrab, RightPutIn, LeftPutIn
+Vital Objects: fridge, juice, chocolatesyrup
+
+6
+Environment:1
+Instruction: Switch on the coffee maker and put the plate on the kitchen table.
+Goals: IsSwitchedOn_coffeemaker & IsOn_plate_kitchentable
+Optimal Actions: Walk_coffeemaker, SwitchOn_coffeemaker, Walk_plate, RightGrab_plate, Walk_kitchentable, RightPut_plate_kitchentable
+Vital Action Predicates: Walk, SwitchOn, RightGrab, RightPut
+Vital Objects: coffeemaker, plate, kitchentable
+
+7
+Environment:1
+Instruction: Place the frying pan on the stove and switch on the lightswitch.
+Goals: IsOn_fryingpan_stove & IsSwitchedOn_lightswitch
+Optimal Actions: Walk_lightswitch, SwitchOn_lightswitch, Walk_fryingpan, RightGrab_fryingpan, Walk_stove, RightPut_fryingpan_stove
+Vital Action Predicates: Walk, SwitchOn, RightGrab, RightPut
+Vital Objects: lightswitch, fryingpan, stove
+
+8
+Environment:1
+Instruction: Put the breadslice and the cupcake on the desk.
+Goals: IsOn_breadslice_desk & IsOn_cupcake_desk
+Optimal Actions: Walk_breadslice, RightGrab_breadslice, Walk_cupcake, LeftGrab_cupcake, Walk_desk, RightPut_breadslice_desk, LeftPut_cupcake_desk
+Vital Action Predicates: Walk, RightGrab, LeftGrab, RightPut, LeftPut
+Vital Objects: breadslice, cupcake, desk
+
+9
+Environment:1
+Instruction: Place the waterglass on the nightstand and put the milk in the fridge.
+Goals: IsOn_waterglass_nightstand & IsIn_milk_fridge
+Optimal Actions: Walk_milk, RightGrab_milk, Walk_fridge, Open_fridge, RightPutIn_milk_fridge, Walk_waterglass, RightGrab_waterglass, Walk_nightstand, RightPut_waterglass_nightstand
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, RightPut
+Vital Objects: milk, fridge, waterglass, nightstand
+
+10
+Environment:1
+Instruction: Put the chicken in the fridge and place the dishbowl on the kitchen table.
+Goals: IsIn_chicken_fridge & IsOn_dishbowl_kitchentable
+Optimal Actions: Walk_chicken, RightGrab_chicken, Walk_fridge, Open_fridge, RightPutIn_chicken_fridge, Walk_dishbowl, RightGrab_dishbowl, Walk_kitchentable, RightPut_dishbowl_kitchentable
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, RightPut
+Vital Objects: chicken, fridge, dishbowl, kitchentable
+
+11
+Environment:1
+Instruction: Switch off the tv and put the breadslice on the cabinet.
+Goals: IsSwitchedOff_tv & IsOn_breadslice_cabinet
+Optimal Actions: Walk_breadslice, RightGrab_breadslice, Walk_cabinet, RightPut_breadslice_cabinet
+Vital Action Predicates: Walk, RightGrab, RightPut
+Vital Objects: breadslice, cabinet
+
+12
+Environment:1
+Instruction: Place the cutlets and the cutleryknife on the kitchen table.
+Goals: IsOn_cutlets_kitchentable & IsOn_cutleryknife_kitchentable
+Optimal Actions: Walk_cutlets, RightGrab_cutlets, Walk_cutleryknife, LeftGrab_cutleryknife, Walk_kitchentable, RightPut_cutlets_kitchentable, LeftPut_cutleryknife_kitchentable
+Vital Action Predicates: Walk, RightGrab, LeftGrab, RightPut, LeftPut
+Vital Objects: cutlets, cutleryknife, kitchentable
+
+13
+Environment:1
+Instruction: Put the chicken and the milk in the microwave.
+Goals: IsIn_chicken_microwave & IsIn_milk_microwave
+Optimal Actions: Walk_microwave, Open_microwave, Walk_milk, LeftGrab_milk, Walk_chicken, RightGrab_chicken, Walk_microwave, RightPutIn_chicken_microwave, LeftPutIn_milk_microwave
+Vital Action Predicates: Walk, Open, LeftGrab, RightGrab, RightPutIn, LeftPutIn
+Vital Objects: microwave, milk, chicken
+
+14
+Environment:1
+Instruction: Place the book and the cupcake on the nightstand.
+Goals: IsOn_book_nightstand & IsOn_cupcake_nightstand
+Optimal Actions: Walk_book, RightGrab_book, Walk_cupcake, LeftGrab_cupcake, Walk_nightstand, RightPut_book_nightstand, LeftPut_cupcake_nightstand
+Vital Action Predicates: Walk, RightGrab, LeftGrab, RightPut, LeftPut
+Vital Objects: book, cupcake, nightstand
+
+15
+Environment:1
+Instruction: Put the chocolatesyrup in the fridge and switch on the dishwasher.
+Goals: IsIn_chocolatesyrup_fridge & IsSwitchedOn_dishwasher
+Optimal Actions: Walk_chocolatesyrup, RightGrab_chocolatesyrup, Walk_fridge, Open_fridge, RightPutIn_chocolatesyrup_fridge, Walk_dishwasher, SwitchOn_dishwasher
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, SwitchOn
+Vital Objects: chocolatesyrup, fridge, dishwasher
+

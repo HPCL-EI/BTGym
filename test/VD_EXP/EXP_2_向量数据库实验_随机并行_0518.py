@@ -239,7 +239,8 @@ use_random = True
 
 # vaild_dataset = load_dataset(f"test_data_40_0518_2.txt")
 # vaild_dataset = load_dataset(f"test_data_40_0517_single.txt")
-vaild_dataset = load_dataset(f"test_data_20_0518_3.txt")
+# vaild_dataset = load_dataset(f"test_data_20_0518_3.txt")
+vaild_dataset = load_dataset(f"test_data_20_0518_6_two.txt")
 # vaild_dataset = load_dataset(f"{ROOT_PATH}/../test/dataset/DATA_BT_100_ori_yz_revby_cys.txt")
 # vaild_dataset = load_dataset(f"{ROOT_PATH}/../test/dataset/data1_env1_40_test_reflect.txt")
 
@@ -249,15 +250,20 @@ env, _ = setup_default_env()
 database_index_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/Group{group_id}_env_goal_vectors.index"
 database_output_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/Group{group_id}_env_goal_vectors.txt"
 
-max_round = 30 +1
+# max_round = 30 +1
+# sample_num = 10
+# vaild_num = 20 #40
+
+max_round = 10 +1
 sample_num = 10
 vaild_num = 20 #40
+
 
 # max_round = 2 +1
 # sample_num = 1
 # vaild_num = 2 #40
 
-for reflect_time in [0,1,3]:
+for reflect_time in [3]:
 
 
 

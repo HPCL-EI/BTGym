@@ -233,16 +233,16 @@ def find_from_small_act(goal):
 
     env = btgym.make("VHT-Small")
     cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
-    cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction_small.CAN_OPEN}
-    cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction_small.HAS_SWITCH}
-    cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction_small.HAS_PLUG}
+    cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction.CAN_OPEN}
+    cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
+    cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
     big_actions = collect_action_nodes(env.behavior_lib)
 
     algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
                           priority_act_ls=[], key_predicates=[],
                           key_objects=[],
                           selected_algorithm="opt", mode="big",
-                          llm_reflect=False, time_limit=30,
+                          llm_reflect=False, time_limit=10,
                           heuristic_choice=0)
     goal_set = goal_transfer_str(' & '.join(goal))
     expanded_num, planning_time_total, cost, error, act_num, current_cost, record_act_ls = \
@@ -282,5 +282,5 @@ def find_from_small_act(goal):
     return success, _priority_act_ls, key_predicates, key_objects, cost, priority_act_ls, key_predicates, key_objects, \
         act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total
 
-find_from_small_act(['IsIn_apple_fridge']) #,'IsCut_breadslice'
-
+# find_from_small_act(['IsIn_apple_microwave & IsClose_microwave & IsSwitchedOn_microwave']) #,'IsCut_breadslice'
+# find_from_small_act(['IsIn_apple_microwave & IsIn_cutlets_microwave']) #,'IsCut_breadslice'

@@ -1,0 +1,21 @@
+round,id,goals,priority_act_ls,key_predicates,key_objects,act_num,error,time_limit_exceeded,current_cost,expanded_num,planning_time_total,average_distance,database_size
+0,2,IsOn_pear_kitchentable & IsOn_juice_kitchentable,"['Walk(kitchentable)', 'RightGrab(pear)', 'LeftGrab(juice)', 'RightGrab(kitchenknife)', 'Cut(bellpepper)', 'Walk(fridge)', 'Open(fridge)', 'RightGrab(juice)', 'LeftPutIn(juice,fridge)', 'Walk(sofa)', 'RightPut(condimentbottle)', 'Wipe(condimentbottle)']","['Open', 'RightPut', 'Walk', 'LeftPutIn', 'LeftGrab', 'RightGrab', 'Cut', 'Wipe']","['fridge', 'sofa', 'bellpepper', 'condimentbottle', 'juice', 'kitchentable', 'pear', 'kitchenknife']",8.0,False,False,82.0,65.0,0.17180109024047852,inf,1
+0,5,IsClean_window & IsClean_apple,,,,,None,None,,,,,1
+0,1,IsCut_pancake,,,,,None,None,,,,,1
+0,0,IsOpen_book,,,,,None,None,,,,,1
+0,14,IsCut_cutlets,,,,,None,None,,,,,1
+0,7,IsClean_plum & IsClean_bananas,,,,,None,None,,,,,1
+0,4,IsClean_tablelamp & IsClean_bench,,,,,None,None,,,,,1
+0,10,IsCut_salmon,,,,,None,None,,,,,1
+0,12,IsCut_bananas,,,,,None,None,,,,,1
+0,6,IsSwitchedOn_dishwasher & IsIn_dishbowl_dishwasher,,,,,None,None,,,,,1
+0,9,IsClean_rag & IsOn_rag_chair,,,,,None,None,,,,,1
+0,8,IsIn_cereal_bookshelf & IsIn_paper_bookshelf,,,,,None,None,,,,,1
+0,13,IsSwitchedOn_tv,,,,,None,None,,,,,1
+0,11,IsOn_wineglass_bookshelf,,,,,None,None,,,,,1
+0,3,IsOn_toothpaste_bathroomcabinet & IsIn_mug_bathroomcabinet,,,,,None,None,,,,,1
+0,15,IsIn_milk_microwave,,,,,None,None,,,,,1
+0,18,IsSwitchedOn_candle,,,,,None,None,,,,,1
+0,19,IsIn_plate_dishwasher,,,,,None,None,,,,,1
+0,16,IsIn_paper_folder,,,,,None,None,,,,,1
+0,17,IsOn_fryingpan_stove,,,,,None,None,,,,,1

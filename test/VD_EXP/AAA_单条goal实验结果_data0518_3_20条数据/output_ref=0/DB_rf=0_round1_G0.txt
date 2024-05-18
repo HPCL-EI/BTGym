@@ -1,0 +1,72 @@
+1
+Environment:
+Instruction:
+Goals:
+Optimal Actions:
+Vital Action Predicates:
+Vital Objects:
+
+2
+Environment:1
+Instruction:
+Goals:IsClean_faucet
+Optimal Actions:Walk_rag, LeftGrab_rag, Walk_faucet, Wipe_faucet
+Vital Action Predicates:Walk, LeftGrab, Wipe
+Vital Objects:rag, faucet
+
+3
+Environment:1
+Instruction:
+Goals:IsSwitchedOn_faucet
+Optimal Actions:Walk_faucet, SwitchOn_faucet
+Vital Action Predicates:Walk, SwitchOn
+Vital Objects:faucet
+
+4
+Environment:1
+Instruction:
+Goals:IsCut_pear
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_pear, LeftGrab_pear, Cut_pear
+Vital Action Predicates:Walk, RightGrab, LeftGrab, Cut
+Vital Objects:kitchenknife, pear
+
+5
+Environment:1
+Instruction:
+Goals:IsOpen_fridge
+Optimal Actions:Walk_fridge, Open_fridge
+Vital Action Predicates:Walk, Open
+Vital Objects:fridge
+
+6
+Environment:1
+Instruction:
+Goals:IsOn_wine_kitchentable
+Optimal Actions:Walk_wine, LeftGrab_wine, Walk_kitchentable, LeftPut_wine_kitchentable
+Vital Action Predicates:Walk, LeftGrab, LeftPut
+Vital Objects:wine, kitchentable
+
+7
+Environment:1
+Instruction:
+Goals:IsClean_rag
+Optimal Actions:Walk_rag, RightGrab_rag, Walk_faucet, SwitchOn_faucet, Wash_rag
+Vital Action Predicates:Walk, RightGrab, SwitchOn, Wash
+Vital Objects:rag, faucet
+
+8
+Environment:1
+Instruction:
+Goals:IsSwitchedOn_tv
+Optimal Actions:Walk_tv, PlugIn_tv, SwitchOn_tv
+Vital Action Predicates:Walk, PlugIn, SwitchOn
+Vital Objects:tv
+
+9
+Environment:1
+Instruction:
+Goals:IsIn_plate_garbagecan
+Optimal Actions:Walk_plate, LeftGrab_plate, Walk_garbagecan, LeftPutIn_plate_garbagecan
+Vital Action Predicates:Walk, LeftGrab, LeftPutIn
+Vital Objects:plate, garbagecan
+

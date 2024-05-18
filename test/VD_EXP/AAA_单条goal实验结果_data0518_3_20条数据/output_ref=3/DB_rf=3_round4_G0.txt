@@ -1,0 +1,248 @@
+1
+Environment:
+Instruction:
+Goals:
+Optimal Actions:
+Vital Action Predicates:
+Vital Objects:
+
+2
+Environment:1
+Instruction:
+Goals:IsClean_faucet
+Optimal Actions:Walk_rag, LeftGrab_rag, Walk_faucet, Wipe_faucet
+Vital Action Predicates:Walk, LeftGrab, Wipe
+Vital Objects:rag, faucet
+
+3
+Environment:1
+Instruction:
+Goals:IsOpen_fridge
+Optimal Actions:Open_fridge
+Vital Action Predicates:Cut, Walk, RightGrab, Wash, Open, LeftPutIn
+Vital Objects:condimentbottle, bellpepper, rag, fridge, juice, kitchenknife, milk, sofa
+
+4
+Environment:1
+Instruction:
+Goals:IsOn_wine_desk
+Optimal Actions:Walk_wine, LeftGrab_wine, Walk_desk, LeftPut_wine_desk
+Vital Action Predicates:Walk, LeftGrab, LeftPut
+Vital Objects:wine, desk
+
+5
+Environment:1
+Instruction:
+Goals:IsNear_self_window
+Optimal Actions:Walk_<ALL>
+Vital Action Predicates:Walk
+Vital Objects:<ALL>, window
+
+6
+Environment:1
+Instruction:
+Goals:IsOn_rag_bed
+Optimal Actions:LeftGrab_rag, RightPut_rag_bed
+Vital Action Predicates:RightPut, Cut, Walk, Wipe, RightGrab, LeftGrab, LeftPutIn
+Vital Objects:condimentbottle, bellpepper, knife, juice, fridge, bed, rag, kitchenknife, milk, sofa
+
+7
+Environment:1
+Instruction:
+Goals:IsNear_self_kitchentable
+Optimal Actions:Walk_kitchentable
+Vital Action Predicates:Walk
+Vital Objects:kitchentable
+
+8
+Environment:1
+Instruction:
+Goals:IsOpen_washingmachine
+Optimal Actions:Open_washingmachine
+Vital Action Predicates:RightPut, Cut, Walk, Wipe, RightPutIn, Open
+Vital Objects:condimentbottle, bellpepper, washingmachine, fridge, juice, kitchenknife, milk, sofa
+
+9
+Environment:1
+Instruction:
+Goals:IsNear_self_coffeetable
+Optimal Actions:Walk_coffeetable
+Vital Action Predicates:Walk
+Vital Objects:coffeetable
+
+10
+Environment:1
+Instruction:
+Goals:IsOn_cutlets_coffeetable
+Optimal Actions:RightGrabFrom_cutlets_coffeetable
+Vital Action Predicates:RightPut, RightGrabFrom, Cut, Walk, Close, Wipe, RightGrab, RightPutIn
+Vital Objects:condimentbottle, bellpepper, toaster, coffeetable, kitchencounter, cutlets, juice, fridge, kitchenknife, kitchencabinet, milk, sofa
+
+11
+Environment:1
+Instruction:
+Goals:IsNear_self_kitchenknife
+Optimal Actions:Walk_kitchenknife
+Vital Action Predicates:Walk
+Vital Objects:kitchenknife
+
+12
+Environment:1
+Instruction:
+Goals:IsOpen_window
+Optimal Actions:Walk_window, RightGrab_window, Open_window
+Vital Action Predicates:Open, RightGrab, Walk
+Vital Objects:window
+
+13
+Environment:1
+Instruction:
+Goals:IsNear_self_candle
+Optimal Actions:Walk_candle
+Vital Action Predicates:Walk
+Vital Objects:candle
+
+14
+Environment:1
+Instruction:
+Goals:IsSwitchedOn_tv
+Optimal Actions:Walk_tv, PlugIn_tv, SwitchOn_tv
+Vital Action Predicates:Walk, PlugIn, SwitchOn
+Vital Objects:tv
+
+15
+Environment:1
+Instruction:
+Goals:IsIn_cutlets_garbagecan
+Optimal Actions:Walk_cutlets, LeftGrab_cutlets, Walk_garbagecan, LeftPutIn_cutlets_garbagecan
+Vital Action Predicates:Walk, LeftGrab, LeftPutIn
+Vital Objects:cutlets, garbagecan
+
+16
+Environment:1
+Instruction:
+Goals:IsCut_breadslice
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_breadslice, LeftGrab_breadslice, Cut_breadslice
+Vital Action Predicates:Walk, RightGrab, LeftGrab, Cut
+Vital Objects:kitchenknife, breadslice
+
+17
+Environment:1
+Instruction:
+Goals:IsClean_window
+Optimal Actions:Walk_window, RightGrab_window, Wipe_window
+Vital Action Predicates:LeftPutOn, Cut, Walk, Wipe, RightGrab, RightPutIn, LeftGrab
+Vital Objects:condimentbottle, bellpepper, rag, fridge, juice, window, faucet, kitchenknife, milk, sofa
+
+18
+Environment:1
+Instruction:
+Goals:IsNear_self_pear
+Optimal Actions:Walk_pear
+Vital Action Predicates:Walk
+Vital Objects:pear
+
+19
+Environment:1
+Instruction:
+Goals:IsPlugged_washingmachine
+Optimal Actions:PlugIn_washingmachine
+Vital Action Predicates:RightPut, Cut, Walk, Wipe, RightGrab, PlugIn, LeftPutIn
+Vital Objects:condimentbottle, bellpepper, washingmachine, rag, fridge, juice, faucet, kitchenknife, kitchencabinet, milk, sofa
+
+20
+Environment:1
+Instruction:
+Goals:IsOn_rag_coffeetable
+Optimal Actions:RightGrab_rag_coffeetable
+Vital Action Predicates:RightPut, Cut, Walk, Wipe, RightGrab, LeftPut, LeftGrab
+Vital Objects:condimentbottle, bellpepper, clean, coffeetable, juice, fridge, rag, kitchenknife, milk
+
+21
+Environment:1
+Instruction:
+Goals:IsCut_apple
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_apple, LeftGrab_apple, Cut_apple
+Vital Action Predicates:LeftGrab, RightGrab, Walk, Cut
+Vital Objects:kitchenknife, apple
+
+22
+Environment:1
+Instruction:
+Goals:IsClean_cutlets
+Optimal Actions:Walk_rag, LeftGrab_rag, Walk_cutlets, Wipe_cutlets
+Vital Action Predicates:LeftGrab, Walk, Wipe
+Vital Objects:rag, cutlets
+
+23
+Environment:1
+Instruction:
+Goals:IsPlugged_mouse
+Optimal Actions:PlugIn_mouse
+Vital Action Predicates:RightPut, Cut, Walk, RightPutIn, RightGrab, Wipe, LeftPut, LeftGrab, PlugIn
+Vital Objects:condimentbottle, juice, fridge, bellpepper, milk, mouse, sofa
+
+24
+Environment:1
+Instruction:
+Goals:IsNear_self_rag
+Optimal Actions:Walk_rag
+Vital Action Predicates:Walk
+Vital Objects:rag
+
+25
+Environment:1
+Instruction:
+Goals:IsNear_self_plate
+Optimal Actions:Walk_plate
+Vital Action Predicates:Walk
+Vital Objects:plate
+
+26
+Environment:1
+Instruction:
+Goals:IsClean_tv
+Optimal Actions:Walk_tv, RightGrab_rag, Wipe_tv
+Vital Action Predicates:Wipe, RightGrab, Walk
+Vital Objects:rag, tv
+
+27
+Environment:1
+Instruction:
+Goals:IsPlugged_tv
+Optimal Actions:Walk_tv, RightGrab_tv, PlugIn_tv
+Vital Action Predicates:PlugIn, RightGrab, Walk
+Vital Objects:tv
+
+28
+Environment:1
+Instruction:
+Goals:IsSwitchedOn_candle
+Optimal Actions:Walk_candle, SwitchOn_candle
+Vital Action Predicates:Walk, SwitchOn
+Vital Objects:candle
+
+29
+Environment:1
+Instruction:
+Goals:IsClean_bed
+Optimal Actions:Walk_bed, RightGrab_bed, Wipe_bed
+Vital Action Predicates:Wipe, RightGrab, Walk
+Vital Objects:rag, bed
+
+30
+Environment:1
+Instruction:
+Goals:IsOn_kitchenknife_kitchentable
+Optimal Actions:Walk_kitchenknife, RightPutIn_kitchenknife_kitchentable
+Vital Action Predicates:RightPut, Cut, Walk, RightPutIn, RightGrab, Wipe, LeftPut, LeftPutIn
+Vital Objects:condimentbottle, bellpepper, kitchentable, fridge, juice, kitchenknife, milk, sofa
+
+31
+Environment:1
+Instruction:
+Goals:IsCut_cutlets
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_cutlets, LeftGrab_cutlets, Cut_cutlets
+Vital Action Predicates:LeftGrab, RightGrab, Walk, Cut
+Vital Objects:kitchenknife, cutlets
+

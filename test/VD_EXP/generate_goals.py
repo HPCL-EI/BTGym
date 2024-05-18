@@ -104,22 +104,37 @@ import datetime
 # 牛奶, 瓶装水, 酒, 酒精, 果汁
 
 
-SURFACES = {"kitchentable", "desk", "coffeetable", "bed"}
+# SURFACES = {"kitchentable", "desk", "coffeetable", "bed"}
+# SITTABLE = {"bed"}
+# CAN_OPEN = {"fridge", "window", "washingmachine"}
+# CONTAINERS = {"fridge", "garbagecan", "washingmachine"}
+# GRABBABLE = {"apple", 'breadslice', 'wine', 'plate', "rag", "kitchenknife", "pear", "cutlets"}
+# cleaning_tools = {"rag"}
+# cutting_tools = {"kitchenknife"}
+# HAS_SWITCH = {"tv", "faucet", "candle", "washingmachine"}
+# HAS_PLUG = {"tv", "mouse", "fridge", "washingmachine"}
+# # 墙电话, 咖啡机, 开关, 手机, 冰箱, 烤面包机, 台灯, 微波炉, 电视, \
+# # 鼠标, 时钟, 键盘, 收音机, 洗衣机, 打印机
+# CUTABLE = {"apple", 'breadslice', "pear", "cutlets"}
+# WASHABLE = {"apple", "rag", "kitchenknife", "pear", "cutlets"}
+# EATABLE = {"apple", 'breadslice'}
+# DRINKABLE = {'wine'}
+
+SURFACES = {"kitchencabinet", "bed"}
 SITTABLE = {"bed"}
-CAN_OPEN = {"fridge", "window", "washingmachine"}
-CONTAINERS = {"fridge", "garbagecan", "washingmachine"}
-GRABBABLE = {"apple", 'breadslice', 'wine', 'plate', "rag", "kitchenknife", "pear", "cutlets"}
+CAN_OPEN = {"fridge", "window", "microwave", "kitchencabinet"}
+CONTAINERS = {"fridge", "garbagecan", "microwave", "kitchencabinet"}
+GRABBABLE = {"apple", 'wine', 'plate', "rag", "kitchenknife", "cutlets"}
 cleaning_tools = {"rag"}
 cutting_tools = {"kitchenknife"}
-HAS_SWITCH = {"tv", "faucet", "candle", "washingmachine"}
-HAS_PLUG = {"tv", "mouse", "fridge", "washingmachine"}
+HAS_SWITCH = {"tv", "faucet", "candle", "microwave"}
+HAS_PLUG = {"tv", "mouse", "fridge", "microwave"}
 # 墙电话, 咖啡机, 开关, 手机, 冰箱, 烤面包机, 台灯, 微波炉, 电视, \
 # 鼠标, 时钟, 键盘, 收音机, 洗衣机, 打印机
-CUTABLE = {"apple", 'breadslice', "pear", "cutlets"}
-WASHABLE = {"apple", "rag", "kitchenknife", "pear", "cutlets"}
-EATABLE = {"apple", 'breadslice'}
+CUTABLE = {"apple", "cutlets"}
+WASHABLE = {"apple", "rag", "kitchenknife", "cutlets"}
+EATABLE = {"apple", 'cutlets'}
 DRINKABLE = {'wine'}
-
 # switch on #candle  cellphone wallphone washingmachine不行# faucet 浴室龙头
 AllObject = SURFACES | SITTABLE | CAN_OPEN | CONTAINERS | GRABBABLE | \
             HAS_SWITCH | CUTABLE | EATABLE | DRINKABLE
@@ -151,8 +166,8 @@ def condition2goal(condition):
         A = A.split('-')[0]
         B = B.split('-')[0]
         goal += 'IsIn_' + A + '_' + B
-        # if B in CAN_OPEN:
-        #     goal += ' & IsClose_' + B
+        if B in CAN_OPEN:
+            goal += ' & IsClose_' + B
     elif condition == 'IsOpen_':
         goal = 'IsOpen_' + random.choice(list(CAN_OPEN))
     elif condition == 'IsClose_':
@@ -184,7 +199,7 @@ def get_goals_string():
     # else:
     #     goal_mount = random.randint(3, 4)
 
-    goal_mount = random.randint(1, 1)
+    goal_mount = random.randint(1, 2)
     # goal_mount = random.randint(1, 3)
 
     conditions = []

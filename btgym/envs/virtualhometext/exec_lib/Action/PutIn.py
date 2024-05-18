@@ -5,7 +5,7 @@ import itertools
 class PutIn(VHTAction):
     can_be_expanded = False
     num_args = 2
-    # valid_args = list(itertools.product(VHTAction.GRABBABLE, VHTAction.CONTAINERS))
+    valid_args = list(itertools.product(VHTAction.GRABBABLE, VHTAction.CONTAINERS))
 
     set_1_food = VHTAction.GRABBABLE & (VHTAction.EATABLE|VHTAction.DRINKABLE|{"apple","bananas",'chicken','cutlets','breadslice','chips','chocolatesyrup',
                  'milk','wine',"cereal","plate","lime","salmon", "peach","pear","plum"})

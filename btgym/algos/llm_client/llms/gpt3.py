@@ -1,6 +1,6 @@
 import os
-os.environ["OPENAI_API_KEY"]="sk-a9qWhPzWuBfWWD9qF41b7a7c3e1e4b369b84B0Cb99B007A7"
-os.environ["OPENAI_BASE_URL"]= "https://gtapi.xiaoerchaoren.com:8932/v1"
+# os.environ["OPENAI_API_KEY"]="sk-4vD6bVtv67XcfoVS8802AdF75888473296D604D707FbC9Bf"
+# os.environ["OPENAI_BASE_URL"]= "https://gtapi.xiaoerchaoren.com:8932"
 
 from openai import OpenAI
 
@@ -11,6 +11,7 @@ class LLMGPT3():
     def __init__(self):
         self.client = OpenAI(
             base_url="https://api.chatgptid.net/v1",            api_key="sk-mNgid9RRRvQqsfl5A865705dC3Dc4538Ad4c2cAcAb052e83"
+            # base_url="https://gtapi.xiaoerchaoren.com:8932 ", api_key="sk-4vD6bVtv67XcfoVS8802AdF75888473296D604D707FbC9Bf"
         )
 
     def request(self,message): # question
@@ -44,10 +45,10 @@ class LLMGPT3():
 
 if __name__ == '__main__':
     llm = LLMGPT3()
-    embedding_models = llm.list_embedding_models()
-    print("Available embedding models:")
-    for model in embedding_models:
-        print(model)
+    # embedding_models = llm.list_embedding_models()
+    # print("Available embedding models:")
+    # for model in embedding_models:
+    #     print(model)
 
     # models = llm.list_models()
     # for model in models:

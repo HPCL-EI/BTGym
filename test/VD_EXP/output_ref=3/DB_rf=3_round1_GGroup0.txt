@@ -1,0 +1,48 @@
+1
+Environment:
+Instruction:
+Goals:
+Optimal Actions:
+Vital Action Predicates:
+Vital Objects:
+
+2
+Environment:1
+Instruction:
+Goals:IsIn_apple_microwave & IsClose_microwave
+Optimal Actions:RightGrab_apple, Open_microwave, RightPutIn_apple_microwave, Close_microwave
+Vital Action Predicates:, Open, Close, RightGrab, RightPutIn
+Vital Objects:, microwave, apple
+
+3
+Environment:1
+Instruction:
+Goals:IsPlugged_tv
+Optimal Actions:SwitchOn_tv
+Vital Action Predicates:SwitchOn, , PlugIn
+Vital Objects:, tv
+
+4
+Environment:1
+Instruction:
+Goals:IsSwitchedOn_candle & IsSwitchedOn_faucet
+Optimal Actions:SwitchOn_HAS_SWITCH, SwitchOn_HAS_SWITCH
+Vital Action Predicates:SwitchOn, 
+Vital Objects:, SWITCH, candle, faucet, HAS
+
+5
+Environment:1
+Instruction:
+Goals:IsPlugged_mouse
+Optimal Actions:_
+Vital Action Predicates:, SwitchOn, PlugIn, RightGrab
+Vital Objects:, lightswitch, mouse
+
+6
+Environment:1
+Instruction:
+Goals:IsIn_cutlets_kitchencabinet & IsClose_kitchencabinet
+Optimal Actions:RightGrabFrom_cutlets_kitchencabinet, Close_kitchencabinet
+Vital Action Predicates:, Close, RightGrab, RightPutIn, RightGrabFrom
+Vital Objects:, kitchencabinet, cutlets
+

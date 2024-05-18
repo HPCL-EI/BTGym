@@ -244,7 +244,8 @@ vaild_dataset = load_dataset(f"test_data_20_0518_6_two.txt")
 # vaild_dataset = load_dataset(f"{ROOT_PATH}/../test/dataset/DATA_BT_100_ori_yz_revby_cys.txt")
 # vaild_dataset = load_dataset(f"{ROOT_PATH}/../test/dataset/data1_env1_40_test_reflect.txt")
 
-group_id = 'DB_rf=3_round30_G0'
+# group_id = 'DB_rf=3_round30_G0'
+group_id = 'Group0'
 database_num = 5
 env, _ = setup_default_env()
 database_index_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/{group_id}_env_goal_vectors.index"
@@ -254,16 +255,16 @@ database_output_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/{group_id}_env_goal
 # sample_num = 10
 # vaild_num = 20 #40
 
+# max_round = 10 +1
+# sample_num = 5
+# vaild_num = 20
+
+
 max_round = 0 +1
-sample_num = 0
-vaild_num = 20
+sample_num = 1
+vaild_num = 4
 
-
-# max_round = 2 +1
-# sample_num = 1
-# vaild_num = 2 #40
-
-for reflect_time in [3]:
+for reflect_time in [1]:
 
 
 
@@ -334,7 +335,7 @@ for reflect_time in [3]:
         total_planning_time_total = 0
         total_current_cost = 0
         # vaild_dataset_test = vaild_dataset[:vaild_num]
-        vaild_dataset_test = vaild_dataset[2:5]
+        vaild_dataset_test = vaild_dataset[5:7]
         # vaild_dataset_test = vaild_dataset[9:9+vaild_num]
 
         # ========================= 并行 ========================

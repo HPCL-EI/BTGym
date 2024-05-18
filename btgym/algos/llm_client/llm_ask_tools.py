@@ -206,8 +206,23 @@ def extract_llm_from_reflect(llm,messages,nearest_examples=None):
     messages.append({"role": "assistant", "content": answer})
     priority_act_ls, key_predicates, key_objects = parse_llm_output(answer,goals=False) # 返回的都是list
 
+    cyan = "\033[36m"
+    reset = "\033[0m"
+    print(f"{cyan}--- Reflect Just LLM ---{reset}")
+    print(f"{cyan}priority_act_ls: {', '.join(priority_act_ls)}{reset}")
+    print(f"{cyan}key_predicates: {', '.join(key_predicates)}{reset}")
+    print(f"{cyan}key_objects: {', '.join(key_objects)}{reset}")
+
     # 如果这里面把例子中的pred和obj也加进去
     if nearest_examples!=None:
+        ex_preds=set()
+        ex_objs=set()
+        for ex in nearest_examples:
+            ex_preds |= set(ex['value']['Vital Action Predicates'].replace(" ", "").split(","))
+            ex_objs |= set(ex['value']['Vital Objects'].replace(" ", "").split(","))
+        key_predicates = list(set(key_predicates) | ex_preds)
+        key_objects = list(set(key_objects) | ex_objs)
+
         pass
 
     cyan = "\033[36m"
@@ -216,6 +231,5 @@ def extract_llm_from_reflect(llm,messages,nearest_examples=None):
     print(f"{cyan}priority_act_ls: {', '.join(priority_act_ls)}{reset}")
     print(f"{cyan}key_predicates: {', '.join(key_predicates)}{reset}")
     print(f"{cyan}key_objects: {', '.join(key_objects)}{reset}")
-
 
     return priority_act_ls, key_predicates, key_objects, messages

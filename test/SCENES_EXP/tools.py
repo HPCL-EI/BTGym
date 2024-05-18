@@ -47,6 +47,44 @@ def load_dataset(data_path):
     return data1
 
 
+def load_dataset_and_cost(file_path):
+    dataset = []
+
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+
+    current_entry = {}
+    for line in lines:
+        line = line.strip()
+        if line.isdigit():
+            if current_entry:
+                dataset.append(current_entry)
+                current_entry = {}
+            current_entry["id"] = int(line)
+        elif line.startswith("Environment:"):
+            current_entry["Environment"] = int(line.split(":")[1])
+        elif line.startswith("Instruction:"):
+            current_entry["Instruction"] = line.split(": ", 1)[1]
+        elif line.startswith("Goals:"):
+            goals = line.split(": ", 1)[1]
+            current_entry["Goals"] = [goal.strip() for goal in goals.split("&")]
+        elif line.startswith("Optimal Actions:"):
+            actions = line.split(": ", 1)[1]
+            current_entry["Optimal Actions"] = [action.strip() for action in actions.split(",")]
+        elif line.startswith("Vital Action Predicates:"):
+            predicates = line.split(": ", 1)[1]
+            current_entry["Vital Action Predicates"] = [predicate.strip() for predicate in predicates.split(",")]
+        elif line.startswith("Vital Objects:"):
+            objects = line.split(": ", 1)[1]
+            current_entry["Vital Objects"] = [obj.strip() for obj in objects.split(",")]
+        elif line.startswith("cost:"):
+            current_entry["cost"] = int(line.split(": ")[1])
+
+    if current_entry:
+        dataset.append(current_entry)
+
+    return dataset
+
 def count_accuracy(expected, actual):
     correct = 0
     incorrect = 0

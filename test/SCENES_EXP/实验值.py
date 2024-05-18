@@ -1,24 +1,18 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-import btgym
-import time
-from btgym import BehaviorTree
-from btgym.algos.bt_autogen.main_interface import BTExpInterface
-from btgym.utils import ROOT_PATH
-from btgym.utils.read_dataset import read_dataset
-from btgym.algos.llm_client.tools import goal_transfer_str, act_format_records
-from btgym.algos.llm_client.llms.gpt3 import LLMGPT3
 from btgym.algos.llm_client.llm_ask_tools import extract_llm_from_instr_goal, extract_llm_from_reflect, \
     convert_conditions, format_example
 from tools import execute_algorithm, load_dataset, setup_default_env
-from btgym.algos.llm_client.vector_database_env_goal import add_data_entry, write_metadata_to_txt, \
-    search_nearest_examples, add_to_database
-import numpy as np
+from tools import find_from_small_act,load_dataset_and_cost
+import time
 import random
-from ordered_set import OrderedSet
-import concurrent.futures
-from btgym.utils.tools import collect_action_nodes
-from tools import find_from_small_act
+import numpy as np
+import pandas as pd
+import btgym
+from btgym.utils import ROOT_PATH
+from btgym.algos.llm_client.llms.gpt3 import LLMGPT3
+from btgym.algos.bt_autogen.main_interface import BTExpInterface
+from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process, act_format_records
+from btgym.utils.tools import collect_action_nodes,extract_objects
+
 
 # Set random seed
 random_seed = 0
@@ -111,10 +105,10 @@ def validate_goal(env, chosen_goal, n, database_index_path=None, round_num=None,
 
 
 
-name = "VH"
+name = "vh"
 
 default_prompt_file = f"{ROOT_PATH}/algos/llm_client/prompt_VHT_just_goal_no_example.txt"
-vaild_dataset = load_dataset(f"VS_processed_data.txt")
+vaild_dataset = load_dataset_and_cost(f"vh_processed_data.txt")
 
 
 # env, _ = setup_default_env()
@@ -140,34 +134,24 @@ total_current_cost = 0
 
 # Dataframe to store metrics for each round
 metrics_df = pd.DataFrame(columns=[
-    "Test Success Rate", "Average Distance", "Average Expanded Num", "Average Planning Time Total", "Average Current Cost"
+    "Test Success Rate",  "Average Expanded Num", "Average Planning Time Total", "Average Current Cost"
 ])
 
+# ========================= 并行 ========================
+# with concurrent.futures.ThreadPoolExecutor() as executor:
+#     futures = [executor.submit(validate_goal, env, d['Goals'], database_index_path, round_num, n, database_num,
+#                                reflect_time=reflect_time,choose_database=True) \
+#                for n, d in enumerate(vaild_dataset_test)]
+#     for future in concurrent.futures.as_completed(futures):
+#         result, success, _ = future.result()
+# ========================= 并行 ========================
+
+# ========================= 串行========================
 for n, d in enumerate(vaild_dataset):
-    result, success, avg_similarity = validate_goal(env, d['Goals'], n, choose_database=False)
-
-    # ========================= 并行 ========================
-    # with concurrent.futures.ThreadPoolExecutor() as executor:
-    #     futures = [executor.submit(validate_goal, env, d['Goals'], database_index_path, round_num, n, database_num,
-    #                                reflect_time=reflect_time,choose_database=True) \
-    #                for n, d in enumerate(vaild_dataset_test)]
-    #     for future in concurrent.futures.as_completed(futures):
-    #         result, success, avg_similarity = future.result()
-    #         test_results.append(result)
-    #         if success:
-    #             test_success_count += 1
-    #         total_similarity += avg_similarity
-    #         total_expanded_num += result['expanded_num'] if result['expanded_num'] is not None else 300
-    #         total_planning_time_total += result['planning_time_total'] if result[
-    #                                                                           'planning_time_total'] is not None else 3
-    #         total_current_cost += result['current_cost'] if result['current_cost'] is not None else 2000
-    # ========================= 并行 ========================
-    # ========================= 串行========================
-
+    result, success, _ = validate_goal(env, d['Goals'], n, choose_database=False)
     test_results.append(result)
     if success:
         test_success_count += 1
-    total_similarity += avg_similarity
     total_expanded_num += result.get('expanded_num', 300)
     total_planning_time_total += result.get('planning_time_total', 3)
     total_current_cost += result.get('current_cost', 2000)
@@ -183,12 +167,15 @@ average_current_cost = total_current_cost / num_entries
 # Append metrics to dataframe
 round_metrics = pd.DataFrame([{
     "Test Success Rate": success_rate,
-    "Average Distance": average_similarity,
     "Average Expanded Num": average_expanded_num,
     "Average Planning Time Total": average_planning_time_total,
     "Average Current Cost": average_current_cost
 }])
 metrics_df = pd.concat([metrics_df, round_metrics], ignore_index=True)
+
+time_str = time.strftime('%Y%m%d', time.localtime())
+metrics_filename = f'output_Det_{time_str}_metrics.csv'
+metrics_df.to_csv(metrics_filename, index=False)
 
 # Output metrics
 print(f"Test Success Rate: {success_rate}")
@@ -198,11 +185,9 @@ print(f"Average Planning Time Total: {average_planning_time_total}")
 print(f"Average Current Cost: {average_current_cost}")
 
 # Save daily detailed results and metrics to CSV
-time_str = time.strftime('%Y%m%d', time.localtime())
-details_filename = f'output_ref={reflect_time}/EXP_2_DT_Det_rf={reflect_time}_G{group_id}_{name}_{time_str}_details.csv'
-metrics_filename = f'output_ref={reflect_time}/EXP_2_DT_Sum_rf={reflect_time}_G{group_id}_{name}_{time_str}_metrics.csv'
-
+details_filename = f'output_{name}_Det_{time_str}_details.csv'
 details_df = pd.DataFrame(test_results)
 details_df.to_csv(details_filename, index=False)
-metrics_df.to_csv(metrics_filename, index=False)
+
+
 

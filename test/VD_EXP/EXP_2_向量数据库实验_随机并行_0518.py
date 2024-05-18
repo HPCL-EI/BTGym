@@ -281,7 +281,7 @@ for reflect_time in [1]:
 
 
     # Main Loop
-    for round_num in range(max_round):
+    for round_num in range(11,10+max_round):
         successful_goals = []
         # 训练过程
         if round_num != 0:

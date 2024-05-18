@@ -12,13 +12,13 @@ class MoveTo(VHTAction):
     def get_info(cls,*arg):
         info = {}
         info['pre'] = set()
-        if arg in VHTAction.all_object:
+        if arg[0] in VHTAction.all_object:
             info['pre'] |= {f'Exists({arg[0]})'}
 
         info["add"] = {f'RobotNear({arg[0]})'}
         info["del_set"] = {f'RobotNear({place})' for place in cls.valid_args if place != arg[0]}
 
-        info['cost'] = 10
+        info['cost'] = 15
         return info
 
     def change_condition_set(self):

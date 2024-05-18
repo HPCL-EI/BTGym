@@ -1,4 +1,4 @@
-from btgym.envs.virtualhometextsmall.base.vht_env import VHTEnv
+from btgym.envs.robowaiter.base.vht_env import VHTEnv
 
 class RWEnv(VHTEnv):
     agent_num = 1

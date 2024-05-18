@@ -483,22 +483,6 @@ class OptBTExpAlgorithm:
                     bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
                                               cond_to_condActSeq)
                     return bt, min_cost, self.time_limit_exceeded
-            # =============额外家的
-            elif c == set() and c <= start:
-                sequence_structure = ControlBT(type='>')
-                sequence_structure.add_child(  # 这里做 ACT TREE 时候，没有copy 被更新了父节点
-                    [copy.deepcopy(current_pair.cond_leaf), copy.deepcopy(current_pair.act_leaf)])
-                # self.expanded.append(c)
-                self.expanded.append(current_pair.cond_leaf)
-
-                if self.output_just_best:
-                    cond_to_condActSeq[current_pair] = sequence_structure
-                else:
-                    subtree.add_child([copy.deepcopy(sequence_structure)])
-                bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
-                                          cond_to_condActSeq)
-                return bt, min_cost, self.time_limit_exceeded
-            # =============额外家的
             # 超时处理
             if self.time_limit != None and time.time() - start_time > self.time_limit:
                 self.time_limit_exceeded = True

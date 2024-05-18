@@ -16,6 +16,7 @@ class Clean(VHTAction):
         info["pre"]= {f'Holding(Nothing)'}
         info["add"] = {f'IsClean({arg[0]})'}
         info["del_set"] = set()
+        info['cost'] = 10
         return info
 
 

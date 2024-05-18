@@ -22,7 +22,7 @@ class Make(VHTAction):
             info["add"] |= {f'On({arg[0]},WaterStation)'}
         elif arg[0] == "Dessert":
             info["add"] |= {f'On({arg[0]},Bar)'}
-        info['cost'] = 2
+        info['cost'] = 5
         return info
 
 

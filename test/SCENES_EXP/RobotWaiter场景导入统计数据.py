@@ -9,12 +9,14 @@ from btgym.envs.robowaiter.exec_lib._base.VHTAction import VHTAction
 env = btgym.make("RWEnv")
 cur_cond_set = env.agents[0].condition_set = {'RobotNear(Bar)','Holding(Nothing)' }
 cur_cond_set |= {f'Exists({arg})' for arg in VHTAction.all_object-{'Coffee', 'Water', 'Dessert'}}
+cur_cond_set |= {f'Exists({arg})' for arg in VHTAction.all_object-{'Coffee', 'Water', 'Dessert'}}
 
 print(f"共收集到 {len(VHTAction.all_object)} 个物体")
 
 
 
-goal=['On_Coffee_Table1']
+goal=['On_Water_Table1']
+# goal = ['Low_ACTemperature']
 goal_set = goal_transfer_str(' & '.join(goal))
 
 algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,

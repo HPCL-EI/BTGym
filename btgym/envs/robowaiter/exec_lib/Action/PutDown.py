@@ -16,13 +16,13 @@ class PutDown(VHTAction):
             info["pre"] = {f'Holding({arg[0]})',f'RobotNear({arg[1]})'}
             info["add"] = {f'On({arg[0]},{arg[1]})'}
             info["del_set"] = {f'Holding({arg[0]})'}
-            info['cost'] = 100 #1000
+            info['cost'] = 20 #1000
         else:
             info = {}
             info["pre"] = set()
             info['add'] = {f'Holding(Nothing)'}
             info['del_set'] = {f'Holding({obj})' for obj in cls.all_object}
-            info['cost'] = 0
+            info['cost'] = 8
 
         return info
 

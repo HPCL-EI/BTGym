@@ -64,7 +64,10 @@ def load_dataset_and_cost(file_path):
         elif line.startswith("Environment:"):
             current_entry["Environment"] = int(line.split(":")[1])
         elif line.startswith("Instruction:"):
-            current_entry["Instruction"] = line.split(": ", 1)[1]
+            try:
+                current_entry["Instruction"] = line.split(": ", 1)[1]
+            except:
+                current_entry["Instruction"] = ""
         elif line.startswith("Goals:"):
             goals = line.split(": ", 1)[1]
             current_entry["Goals"] = [goal.strip() for goal in goals.split("&")]

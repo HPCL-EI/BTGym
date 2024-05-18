@@ -85,7 +85,7 @@ class VHTEnv(object):
 
 
     def create_behavior_lib(self):
-        behavior_lib_path = f"{ROOT_PATH}/envs/virtualhometextsmall/exec_lib"
+        behavior_lib_path = f"{ROOT_PATH}/envs/robowaiter/exec_lib"
 
         self.behavior_lib = ExecBehaviorLibrary(behavior_lib_path)
 

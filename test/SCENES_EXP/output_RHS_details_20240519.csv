@@ -1,0 +1,12 @@
+round,id,goals,priority_act_ls,key_predicates,key_objects,act_num,error,time_limit_exceeded,current_cost,expanded_num,planning_time_total,average_distance,database_size
+,0,IsCut_pear,,,,,None,None,,,,,
+,1,IsPlugged_fridge,,,,,None,None,,,,,
+,2,IsIn_cutlets_garbagecan,"['Walk(cutlets)', 'RightGrab(cutlets)', 'Walk(garbagecan)', 'RightPutIn(cutlets,garbagecan)']","['RightGrab', 'Walk', 'RightPutIn']","['cutlets', 'garbagecan']",4.0,False,False,45.0,5.0,0.0009918212890625,0.0,
+,3,IsClean_tv,,,,,None,None,,,,,
+,4,IsCut_apple,,,,,None,None,,,,,
+,5,IsOn_wine_bed,,,,,None,None,,,,,
+,6,IsPlugged_mouse,,,,,None,None,,,,,
+,7,IsOpen_fridge,"['Walk(fridge)', 'Open(fridge)']","['Open', 'Walk']",['fridge'],2.0,False,False,18.0,3.0,0.0,0.0,
+,8,IsOn_cutlets_kitchentable,"['Walk(cutlets)', 'RightGrab(cutlets)', 'Walk(kitchentable)', 'RightPut(cutlets,kitchentable)']","['RightGrab', 'RightPut', 'Walk']","['cutlets', 'kitchentable']",4.0,False,False,41.0,5.0,0.0,0.0,
+,9,IsClean_bed,,,,,None,None,,,,,
+,10,IsClean_candle,,,,,None,None,,,,,

@@ -38,6 +38,7 @@ class Turn(VHTAction):
                 info["del_set"] = {f'Closed({arg[0]})'}
             elif arg[1]=="Off":
                 info["add"] = {f'Closed({arg[0]})'}
+        info['cost'] = 3
         return info
 
 

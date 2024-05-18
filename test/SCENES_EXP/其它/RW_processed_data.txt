@@ -1,0 +1,99 @@
+1
+Environment:1
+Instruction: "Please prepare some coffee."
+Goals: Exists_Coffee
+Optimal Actions: Make_Coffee
+Vital Action Predicates: Make
+Vital Objects: Coffee
+cost: 5
+
+2
+Environment:1
+Instruction: "Can I have some water served at the first table, please?"
+Goals: On_Water_Table1
+Optimal Actions: MoveTo_Water, PickUp_Water, MoveTo_Table1, PutDown_Water_Table1
+Vital Action Predicates: MoveTo, PickUp, PutDown
+Vital Objects: Water, Table1
+cost: 52
+
+3
+Environment:1
+Instruction: "I'd like a dessert at the bar, please."
+Goals: On_Dessert_Bar
+Optimal Actions: MoveTo_Dessert, PickUp_Dessert, MoveTo_Bar, PutDown_Dessert_Bar
+Vital Action Predicates: MoveTo, PickUp, PutDown
+Vital Objects: Dessert, Bar
+cost: 52
+
+4
+Environment:1
+Instruction: "I'd like a glass of water at Bar 2."
+Goals: On_Water_Bar2
+Optimal Actions: MoveTo_Water, PickUp_Water, MoveTo_Bar2, PutDown_Water_Bar2
+Vital Action Predicates: MoveTo, PickUp, PutDown
+Vital Objects: Water, Bar2
+cost: 52
+
+5
+Environment:1
+Instruction: "Could you please turn on the air conditioning?"
+Goals: Active_AC
+Optimal Actions: Turn_AC_On
+Vital Action Predicates: Turn
+Vital Objects: AC, On
+cost: 3
+
+6
+Environment:1
+Instruction: "Could you please check if the hall light is on?"
+Goals: Active_HallLight
+Optimal Actions: Turn_HallLight_On
+Vital Action Predicates: Turn
+Vital Objects: HallLight, On
+cost: 3
+
+7
+Environment:1
+Instruction: "Could you bring juice to Table 2?"
+Goals: On_NFCJuice_Table2
+Optimal Actions: MoveTo_NFCJuice, PickUp_NFCJuice, MoveTo_Table2, PutDown_NFCJuice_Table2
+Vital Action Predicates: MoveTo, PickUp, PutDown
+Vital Objects: NFCJuice, Table2
+cost: 52
+
+8
+Environment:1
+Instruction: "Please make sure the floor is clean."
+Goals: IsClean_Floor
+Optimal Actions: Clean_Floor
+Vital Action Predicates: Clean
+Vital Objects: Floor
+cost: 10
+
+9
+Environment:1
+Instruction: "Can you bring milk to the bar?"
+Goals: On_Milk_Bar
+Optimal Actions: MoveTo_Milk, PickUp_Milk, MoveTo_Bar, PutDown_Milk_Bar
+Vital Action Predicates: MoveTo, PickUp, PutDown
+Vital Objects: Milk, Bar
+cost: 52
+
+10
+Environment:1
+Instruction: "Please serve a soft drink at Table 3."
+Goals: On_Softdrink_Table3
+Optimal Actions: MoveTo_Softdrink, PickUp_Softdrink, MoveTo_Table3, PutDown_Softdrink_Table3
+Vital Action Predicates: MoveTo, PickUp, PutDown
+Vital Objects: Softdrink, Table3
+cost: 52
+
+11
+Environment:1
+Instruction: "Could you convey some coffee to the table six?"
+Goals: On_Coffee_Table3
+Optimal Actions: MoveTo_Coffee, PickUp_Coffee, MoveTo_Table3, PutDown_Coffee_Table3
+Vital Action Predicates: MoveTo, PickUp, PutDown
+Vital Objects: Coffee, Table3
+cost: 52
+

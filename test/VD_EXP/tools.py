@@ -284,3 +284,4 @@ def find_from_small_act(goal):
 
 # find_from_small_act(['IsIn_apple_microwave & IsClose_microwave & IsSwitchedOn_microwave']) #,'IsCut_breadslice'
 # find_from_small_act(['IsIn_apple_microwave & IsIn_cutlets_microwave']) #,'IsCut_breadslice'
+find_from_small_act(['IsOn_kitchenknife_kitchentable'])

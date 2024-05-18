@@ -41,7 +41,7 @@ def plot_results(metric_over_rounds, metric_name, group_id, name, sample_num, re
 def convert_set_to_str(string_set):
     return ", ".join(f'\"{s}\"' for s in string_set)
 
-def reflect_on_errors(llm, messages, d, env, cur_cond_set, goal_set, priority_act_ls, key_predicates, key_objects):
+def reflect_on_errors(llm, messages, env, cur_cond_set, goal_set, priority_act_ls, key_predicates, key_objects):
     # 查询还有哪些动作谓词没有用到
     not_use_pred = ACT_PREDICATES - set(key_predicates)
     not_use_pred_str = convert_set_to_str(not_use_pred)
@@ -56,7 +56,7 @@ def reflect_on_errors(llm, messages, d, env, cur_cond_set, goal_set, priority_ac
         "Specifically, these only allow for the completion of the \"{have_finished}\", while failing to address the \"{not_finished}\".\n"
 
         "Note that you have not used the following Action Predicates: {not_use_pred_str}{not_use_obj_str}."
-        "In regards to the unfinished goals {not_finished}, check if these unused action predicates and objects are important and helpful for completing the goals. Please try to include any vital missing action predicates and objects.\n"
+        "In regards to the unfinished goals \"{not_finished}\", check if these unused action predicates and objects are important and helpful for completing the goals. Please try to include any vital missing action predicates and objects.\n"
 
         "For the unfinished goals \"{not_finished}\", you can refer to the example below.\n"
 
@@ -65,9 +65,9 @@ def reflect_on_errors(llm, messages, d, env, cur_cond_set, goal_set, priority_ac
         
         "[Example]"
     )
-
+    goal_ls = list(goal_set[0])
     not_finished = set()
-    for _g in d["Goals"]:
+    for _g in goal_ls:
         #  _g = 'IsCut_pear'
         algo_tmp = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
                                   priority_act_ls=priority_act_ls, key_predicates=key_predicates,
@@ -88,7 +88,7 @@ def reflect_on_errors(llm, messages, d, env, cur_cond_set, goal_set, priority_ac
     have_finished_str = convert_conditions(have_finished)
     not_finished_str = convert_conditions(not_finished)
 
-    reflect_prompt = reflect_prompt.format(goals=' & '.join(d['Goals']), have_finished=have_finished_str,
+    reflect_prompt = reflect_prompt.format(goals=' & '.join(goal_ls), have_finished=have_finished_str,
                                            not_finished=not_finished_str,
                                            not_use_pred_str=not_use_pred_str, not_use_obj_str=not_use_obj_str)
     messages.append({"role": "user", "content": reflect_prompt})
@@ -115,7 +115,7 @@ def reflect_on_errors(llm, messages, d, env, cur_cond_set, goal_set, priority_ac
 
     print("reflect_prompt:", reflect_prompt)
 
-    return extract_llm_from_reflect(llm, messages)
+    return extract_llm_from_reflect(llm, messages,nearest_examples=nearest_examples)
 
 def perform_test(env, chosen_goal, database_index_path, reflect_time=0,train=False,choose_database=True):
     cur_cond_set = setup_default_env()[1]
@@ -148,7 +148,7 @@ def perform_test(env, chosen_goal, database_index_path, reflect_time=0,train=Fal
         fail_time += 1
         print(f"大模型重推荐......fail_time={fail_time}")
         if priority_act_ls != None:
-            priority_act_ls_new, llm_key_pred_new, llm_key_obj_new, messages = reflect_on_errors(llm, messages, d, env,
+            priority_act_ls_new, llm_key_pred_new, llm_key_obj_new, messages = reflect_on_errors(llm, messages, env,
                                                                                                  cur_cond_set, goal_set,
                                                                                                  priority_act_ls,
                                                                                                  key_predicates,
@@ -244,19 +244,19 @@ vaild_dataset = load_dataset(f"test_data_20_0518_6_two.txt")
 # vaild_dataset = load_dataset(f"{ROOT_PATH}/../test/dataset/DATA_BT_100_ori_yz_revby_cys.txt")
 # vaild_dataset = load_dataset(f"{ROOT_PATH}/../test/dataset/data1_env1_40_test_reflect.txt")
 
-group_id = '0'
+group_id = 'DB_rf=3_round30_G0'
 database_num = 5
 env, _ = setup_default_env()
-database_index_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/Group{group_id}_env_goal_vectors.index"
-database_output_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/Group{group_id}_env_goal_vectors.txt"
+database_index_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/{group_id}_env_goal_vectors.index"
+database_output_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/{group_id}_env_goal_vectors.txt"
 
 # max_round = 30 +1
 # sample_num = 10
 # vaild_num = 20 #40
 
-max_round = 10 +1
-sample_num = 10
-vaild_num = 20 #40
+max_round = 0 +1
+sample_num = 0
+vaild_num = 20
 
 
 # max_round = 2 +1
@@ -333,37 +333,38 @@ for reflect_time in [3]:
         total_expanded_num = 0
         total_planning_time_total = 0
         total_current_cost = 0
-        vaild_dataset_test = vaild_dataset[:vaild_num]
+        # vaild_dataset_test = vaild_dataset[:vaild_num]
+        vaild_dataset_test = vaild_dataset[2:5]
         # vaild_dataset_test = vaild_dataset[9:9+vaild_num]
 
         # ========================= 并行 ========================
-        with concurrent.futures.ThreadPoolExecutor() as executor:
-            futures = [executor.submit(validate_goal, env, d['Goals'], database_index_path, round_num, n, database_num,
-                                       reflect_time=reflect_time,choose_database=True) \
-                       for n, d in enumerate(vaild_dataset_test)]
-            for future in concurrent.futures.as_completed(futures):
-                result, success, avg_similarity = future.result()
-                test_results.append(result)
-                if success:
-                    test_success_count += 1
-                total_similarity += avg_similarity
-                total_expanded_num += result['expanded_num'] if result['expanded_num'] is not None else 300
-                total_planning_time_total += result['planning_time_total'] if result[
-                                                                                  'planning_time_total'] is not None else 3
-                total_current_cost += result['current_cost'] if result['current_cost'] is not None else 2000
+        # with concurrent.futures.ThreadPoolExecutor() as executor:
+        #     futures = [executor.submit(validate_goal, env, d['Goals'], database_index_path, round_num, n, database_num,
+        #                                reflect_time=reflect_time,choose_database=True) \
+        #                for n, d in enumerate(vaild_dataset_test)]
+        #     for future in concurrent.futures.as_completed(futures):
+        #         result, success, avg_similarity = future.result()
+        #         test_results.append(result)
+        #         if success:
+        #             test_success_count += 1
+        #         total_similarity += avg_similarity
+        #         total_expanded_num += result['expanded_num'] if result['expanded_num'] is not None else 300
+        #         total_planning_time_total += result['planning_time_total'] if result[
+        #                                                                           'planning_time_total'] is not None else 3
+        #         total_current_cost += result['current_cost'] if result['current_cost'] is not None else 2000
         # ========================= 并行 ========================
         # ========================= 串行========================
-        # for n, d in enumerate(vaild_dataset_test):
-        #     result, success, avg_similarity = validate_goal(env, d['Goals'], database_index_path, round_num, n, database_num,
-        #                                reflect_time=reflect_time)
-        #     test_results.append(result)
-        #     if success:
-        #         test_success_count += 1
-        #     total_similarity += avg_similarity
-        #     total_expanded_num += result['expanded_num'] if result['expanded_num'] is not None else 300
-        #     total_planning_time_total += result['planning_time_total'] if result[
-        #                                                                       'planning_time_total'] is not None else 3
-        #     total_current_cost += result['current_cost'] if result['current_cost'] is not None else 2000
+        for n, d in enumerate(vaild_dataset_test):
+            result, success, avg_similarity = validate_goal(env, d['Goals'], database_index_path, round_num, n, database_num,
+                                       reflect_time=reflect_time)
+            test_results.append(result)
+            if success:
+                test_success_count += 1
+            total_similarity += avg_similarity
+            total_expanded_num += result['expanded_num'] if result['expanded_num'] is not None else 300
+            total_planning_time_total += result['planning_time_total'] if result[
+                                                                              'planning_time_total'] is not None else 3
+            total_current_cost += result['current_cost'] if result['current_cost'] is not None else 2000
         # ========================= 串行========================
 
 

@@ -200,10 +200,22 @@ def convert_conditions(conditions_set):
     return formatted_conditions_str
 
 
-def extract_llm_from_reflect(llm,messages):
+def extract_llm_from_reflect(llm,messages,nearest_examples=None):
 
     answer = llm.request(message=messages)
     messages.append({"role": "assistant", "content": answer})
-    priority_act_ls, key_predicates, key_objects = parse_llm_output(answer,goals=False)
+    priority_act_ls, key_predicates, key_objects = parse_llm_output(answer,goals=False) # 返回的都是list
+
+    # 如果这里面把例子中的pred和obj也加进去
+    if nearest_examples!=None:
+        pass
+
+    cyan = "\033[36m"
+    reset = "\033[0m"
+    print(f"{cyan}--- Reflect Answers ---{reset}")
+    print(f"{cyan}priority_act_ls: {', '.join(priority_act_ls)}{reset}")
+    print(f"{cyan}key_predicates: {', '.join(key_predicates)}{reset}")
+    print(f"{cyan}key_objects: {', '.join(key_objects)}{reset}")
+
 
     return priority_act_ls, key_predicates, key_objects, messages

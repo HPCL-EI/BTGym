@@ -50,7 +50,7 @@ class VHTAction(Action):
     # EATABLE = {"apple", 'breadslice'}
     # DRINKABLE = {'wine'}
 
-    SURFACES = {"kitchencabinet", "bed"}
+    SURFACES = {"kitchencabinet", "bed","kitchentable"}
     SITTABLE = {"bed"}
     CAN_OPEN = {"fridge", "window", "microwave", "kitchencabinet"}
     CONTAINERS = {"fridge", "garbagecan", "microwave", "kitchencabinet"}

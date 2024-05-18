@@ -52,7 +52,7 @@ correct_rate_range_ls = np.arange(0, 1.1, 0.2)  # 注意：1.1是因为arange不
 
 for heuristic_choice in [0]:
 
-    for seed in range(53,100):
+    for seed in range(62,100):
         # seed = 0
         random.seed(seed)
         np.random.seed(seed)

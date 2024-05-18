@@ -1,0 +1,41 @@
+round,id,goals,priority_act_ls,key_predicates,key_objects,act_num,error,time_limit_exceeded,current_cost,expanded_num,planning_time_total,average_distance,database_size
+0,2,IsOn_pear_kitchentable,"['Walk(kitchentable)', 'RightGrab(pear)', 'Walk(fridge)', 'RightPutIn(juice,fridge)', 'Walk(sofa)', 'RightGrab(milk)', 'Walk(counter)', 'RightGrab(kitchenknife)', 'RightGrab(bellpepper)', 'RightGrab(knife)', 'Cut(bellpepper)', 'RightGrab(condimentbottle)', 'RightPut(condimentbottle)']","['Cut', 'Walk', 'RightGrab', 'RightPut', 'RightPutIn']","['condimentbottle', 'sofa', 'kitchenknife', 'knife', 'fridge', 'juice', 'counter', 'kitchentable', 'pear', 'milk', 'bellpepper']",4.0,False,False,41.0,5.0,0.0010001659393310547,inf,1
+0,20,IsOpen_curtains,"['Open(curtains)', 'SwitchOff(lightswitch)', 'RightGrab(kitchenknife)', 'Cut(bellpepper)', 'RightGrab(rag)', 'Wash(rag)', 'RightPut(rag,sink)', 'Wipe(condimentbottle)', 'RightPut(condimentbottle,sink)', 'RightPutIn(juice,fridge)', 'SwitchOn(fridge)', 'RightGrab(faucet)', 'PlugIn(faucet)', 'Walk(milk,sofa)']","['Open', 'Cut', 'Walk', 'SwitchOff', 'RightGrab', 'SwitchOn', 'RightPut', 'RightPutIn', 'Wipe', 'Wash', 'PlugIn']","['condimentbottle', 'sink', 'sofa', 'kitchenknife', 'lightswitch', 'fridge', 'juice', 'rag', 'faucet', 'curtains', 'milk', 'bellpepper']",2.0,False,False,18.0,3.0,0.0,inf,1
+0,15,IsIn_milk_microwave,,,,,None,None,,,,,1
+0,12,IsCut_bananas,,,,,None,None,,,,,1
+0,8,IsIn_cereal_bookshelf,,,,,None,None,,,,,1
+0,26,IsClean_rug,,,,,None,None,,,,,1
+0,0,IsOpen_book,,,,,None,None,,,,,1
+0,16,IsIn_paper_folder,,,,,None,None,,,,,1
+0,24,IsPlugged__keyboard,,,,,None,None,,,,,1
+0,3,IsOn_toothpaste_bathroomcabinet,"['RightGrab(toothpaste)', 'LeftPutIn(bathroomcabinet)', 'RightGrab(cutleryknife)', 'RightGrab(bellpepper)', 'Cut(bellpepper)', 'RightPutIn(fridge,juice)', 'RightGrab(milk)', 'LeftPut(sofa,milk)', 'RightGrab(rag)', 'Wash(condimentbottle)', 'RightPut(sofa,milk)', 'RightGrab(kitchenknife)', 'Walk(fridge)', 'RightPutIn(juice,fridge)', 'Walk(sofa)', 'RightPutOn(milk,sofa)', 'Open(condimentbottle)']","['Open', 'Cut', 'LeftPut', 'Walk', 'LeftPutIn', 'RightGrab', 'RightPutOn', 'RightPut', 'RightPutIn', 'Wash']","['condimentbottle', 'sofa', 'kitchenknife', 'toothpaste', 'fridge', 'bathroomcabinet', 'juice', 'rag', 'cutleryknife', 'milk', 'bellpepper']",4.0,False,False,41.0,7.0,0.0020003318786621094,inf,1
+0,19,IsIn_plate_dishwasher,,,,,None,None,,,,,1
+0,1,IsCut_pancake,,,,,None,None,,,,,1
+0,25,IsCut_pie,,,,,None,None,,,,,1
+0,21,IsSwitchedOn_tablelamp,,,,,None,None,,,,,1
+0,22,IsClean_kitchencabinet,,,,,None,None,,,,,1
+0,10,IsCut_salmon,,,,,None,None,,,,,1
+0,23,IsOn_creamybuns_plate,,,,,None,None,,,,,1
+0,17,IsOn_fryingpan_stove,,,,,None,None,,,,,1
+0,11,IsOn_wineglass_bookshelf,,,,,None,None,,,,,1
+0,18,IsSwitchedOn_candle,"['SwitchOn(HAS,SWITCH)', 'RightGrab(bellpepper)', 'Cut(bellpepper)', 'Open(CAN,OPEN,fridge)', 'RightPutIn(juice,fridge)', 'RightGrab(condimentbottle)', 'Wash(rag)', 'Wipe(rag,condimentbottle)', 'Close(CAN,OPEN,fridge)', 'RightGrab(milk)', 'RightPutOn(sofa)', 'Walk()', 'LeftPutIn(faucet)', 'PlugOut(WALLPHONE)', 'SwitchOff(CELLPHONE)', 'LeftPut(kitchenknife)']","['Open', 'Cut', 'LeftPut', 'Walk', 'SwitchOff', 'LeftPutIn', 'SwitchOn', 'RightGrab', 'RightPutOn', 'RightPutIn', 'Wipe', 'Wash', 'Close', 'PlugOut']","['SWITCH', 'condimentbottle', '', 'candle', 'sofa', 'kitchenknife', 'fridge', 'juice', 'rag', 'HAS', 'WALLPHONE', 'CELLPHONE', 'faucet', 'OPEN', 'milk', 'bellpepper', 'CAN']",2.0,False,False,23.0,3.0,0.017003774642944336,inf,1
+0,27,IsClean_tvstand,,,,,None,None,,,,,1
+0,5,IsClean_window,,,,,None,None,,,,,1
+0,13,IsSwitchedOn_tv,"['SwitchOn(HAS,SWITCH,tv)', 'RightGrab(cutleryknife)', 'Cut(CUTABLE,bellpepper)', 'RightGrab(condimentbottle)', 'Wash(WASHABLE,condimentbottle)', 'Open(CAN,OPEN,fridge)', 'RightPutIn(juice,fridge)', 'RightGrab(mug)', 'RightPut(milk,sofa)', 'RightGrab(kitchenknife)', 'RightGrab(rag)', 'RightGrab(milk)', 'Walk()', 'PlugIn(HAS,PLUG,fridge)', 'LeftPutIn(juice,fridge)']","['Open', 'Cut', 'Walk', 'LeftPutIn', 'SwitchOn', 'RightGrab', 'RightPut', 'RightPutIn', 'Wash', 'PlugIn']","['', 'condimentbottle', 'tv', 'sofa', 'kitchenknife', 'HAS', 'OPEN', 'WASHABLE', 'fridge', 'cutleryknife', 'milk', 'bellpepper', 'CAN', 'SWITCH', 'juice', 'rag', 'CUTABLE', 'mug', 'PLUG']",3.0,False,False,31.0,6.0,0.0010001659393310547,inf,1
+0,4,IsClean_tablelamp,,,,,None,None,,,,,1
+0,7,IsClean_plum,,,,,None,None,,,,,1
+0,6,IsSwitchedOn_dishwasher,,,,,None,None,,,,,1
+0,28,IsOn_clock_desk,"['Walk(desk)', 'RightGrab(clock)', 'Walk(fridge)', 'RightPutIn(juice,fridge)', 'Walk(kitchen)', 'RightGrab(bellpepper)', 'Cut(bellpepper)', 'Walk(sofa)', 'RightPut(milk,sofa)', 'Walk(condimentbottle)', 'Wipe(condimentbottle)']","['Cut', 'Walk', 'RightGrab', 'RightPut', 'RightPutIn', 'Wipe']","['condimentbottle', 'clock', 'sofa', 'desk', 'fridge', 'juice', 'kitchen', 'milk', 'bellpepper']",4.0,False,False,41.0,5.0,0.0010001659393310547,inf,1
+0,9,IsClean_rag,"['Wash(rag)', 'RightGrabFrom(juice,fridge)', 'Cut(bellpepper)', 'RightPutIn(cuttingboard)', 'SwitchOff(fridge)', 'RightGrab(condimentbottle)', 'Wash(condimentbottle)', 'PlugIn(fridge)', 'SwitchOn(fridge)', 'RightGrab(milk)', 'LeftPut(sofa)', 'PlugOut(fridge)', 'Open(fridge)', 'RightPutIn(fridge)', 'Walk(kitchen)', 'RightGrab(kitchenknife)', 'Cut(condimentbottle)', 'Walk(faucet)', 'LeftPutIn(fridge)']","['Open', 'Cut', 'LeftPut', 'Walk', 'SwitchOff', 'LeftPutIn', 'RightGrab', 'SwitchOn', 'RightPutIn', 'Wash', 'PlugIn', 'RightGrabFrom', 'PlugOut']","['condimentbottle', 'sofa', 'kitchenknife', 'bellpepper', 'fridge', 'juice', 'juice_fridge', 'rag', 'kitchen', 'faucet', 'milk', 'cuttingboard']",5.0,False,False,52.0,27.0,0.005000591278076172,inf,1
+0,14,IsCut_cutlets,,,,,None,None,,,,,1
+0,33,IsOn_notes_desk,"['Walk(desk)', 'RightGrab(notes)', 'RightGrab(bellpepper)', 'Cut(bellpepper)', 'RightPutIn(juice,fridge)', 'Walk(sofa)', 'RightGrab(milk)', 'RightPut(sofa)', 'RightGrab(condimentbottle)', 'Clean(condimentbottle)']","['Cut', 'Walk', 'RightGrab', 'RightPut', 'RightPutIn', 'Clean']","['condimentbottle', 'sofa', 'desk', 'fridge', 'juice', 'juice_fridge', 'notes', 'milk', 'bellpepper']",4.0,False,False,41.0,5.0,0.0009996891021728516,inf,1
+0,31,IsOn_waterglass_tvstand,"['Walk(waterglass,tvstand)', 'SwitchOff(condimentbottle)', 'RightGrab(bellpepper)', 'Cut(bellpepper)', 'Wash(bellpepper)', 'Open(fridge)', 'RightPutIn(bellpepper,fridge)', 'RightGrab(juice)', 'RightPutIn(juice,fridge)', 'RightGrab(milk)', 'RightPut(milk,sofa)', 'RightGrab(condimentbottle)', 'Close(fridge)']","['Open', 'Cut', 'Walk', 'SwitchOff', 'RightGrab', 'RightPut', 'RightPutIn', 'Wash', 'Close']","['condimentbottle', 'sofa', 'fridge', 'juice', 'tvstand', 'waterglass', 'milk', 'bellpepper']",4.0,False,False,41.0,5.0,0.0010001659393310547,inf,1
+0,29,IsClean_lime,,,,,None,None,,,,,1
+0,38,IsOpen_book,,,,,None,None,,,,,1
+0,36,IsIn_milk_microwave,,,,,None,None,,,,,1
+0,32,IsCut_apple,,,,,None,None,,,,,1
+0,34,IsIn_paper_folder,,,,,None,None,,,,,1
+0,35,IsOn_fryingpan_kitchencabinet,"['Walk(kitchencabinet)', 'RightGrab(fryingpan)', 'Walk(fridge)', 'RightPutIn(bellpepper,fridge)', 'RightGrab(milk)', 'LeftPutIn(condimentbottle,fridge)', 'RightPutIn(juice,fridge)', 'RightGrab(bellpepper)', 'Cut(bellpepper)', 'Wipe(condimentbottle)', 'LeftPutIn(milk,sofa)', 'RightPut(milk,sofa)']","['Cut', 'Walk', 'LeftPutIn', 'RightGrab', 'RightPut', 'RightPutIn', 'Wipe']","['condimentbottle', 'sofa', 'fridge', 'juice', 'fryingpan', 'kitchencabinet', 'milk', 'bellpepper']",4.0,False,False,41.0,9.0,0.0010001659393310547,inf,1
+0,39,IsPlugged_washingmachine,,,,,None,None,,,,,1
+0,37,IsClean_carrot,,,,,None,None,,,,,1
+0,30,IsIn_wallpictureframe_toaster,,,,,None,None,,,,,1

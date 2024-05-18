@@ -1,0 +1,32 @@
+1
+Environment:
+Instruction:
+Goals:
+Optimal Actions:
+Vital Action Predicates:
+Vital Objects:
+
+2
+Environment:1
+Instruction:
+Goals:IsCut_pear
+Optimal Actions:Walk_kitchenknife, RightGrab_kitchenknife, Walk_pear, LeftGrab_pear, Cut_pear
+Vital Action Predicates:Walk, RightGrab, LeftGrab, Cut
+Vital Objects:kitchenknife, pear
+
+3
+Environment:1
+Instruction:
+Goals:IsPlugged_fridge
+Optimal Actions:Walk_fridge, PlugIn_fridge
+Vital Action Predicates:Walk, PlugIn
+Vital Objects:fridge
+
+4
+Environment:1
+Instruction:
+Goals:IsIn_cutlets_garbagecan
+Optimal Actions:RightGrab_cutlets, LeftPutIn_cutlets_garbagecan
+Vital Action Predicates:Open, Cut, LeftPut, Walk, SwitchOff, LeftPutIn, RightGrab, SwitchOn, RightPut, LeftGrab, RightPutIn, Wipe, Wash, Close, PlugIn, PlugOut
+Vital Objects:condimentbottle, sofa, toaster, kitchenknife, lightswitch, fridge, juice, rag, microwave, garbagecan, faucet, milk, bellpepper, cutlets
+

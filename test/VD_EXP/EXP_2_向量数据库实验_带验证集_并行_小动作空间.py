@@ -262,7 +262,7 @@ database_output_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/Group{group_id}_env
 
 
 max_round = 10 +1
-sample_num = 10
+sample_num = 5
 vaild_num = 40 #40
 
 reflect_time = 0

@@ -1,0 +1,24 @@
+1
+Environment:
+Instruction:
+Goals:
+Optimal Actions:
+Vital Action Predicates:
+Vital Objects:
+
+2
+Environment:1
+Instruction:
+Goals:IsSwitchedOn_faucet
+Optimal Actions:Walk_faucet, SwitchOn_faucet
+Vital Action Predicates:Walk, SwitchOn
+Vital Objects:faucet
+
+3
+Environment:1
+Instruction:
+Goals:IsOpen_window
+Optimal Actions:Walk_window, Open_window
+Vital Action Predicates:Walk, Open
+Vital Objects:window
+

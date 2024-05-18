@@ -9,9 +9,9 @@ from btgym.utils import ROOT_PATH
 from btgym.agent import Agent
 
 # from btgym.envs.virtualhometext.dataset_utils import add_preconds
-import btgym.envs.virtualhometext.simulation.evolving_graph.check_programs as check_programs
+import btgym.envs.virtualhometextsmall.simulation.evolving_graph.check_programs as check_programs
 
-from btgym.envs.virtualhometext.simulation.evolving_graph.scripts import read_script, read_script_from_string, read_script_from_list_string, ScriptParseException
+from btgym.envs.virtualhometextsmall.simulation.evolving_graph.scripts import read_script, read_script_from_string, read_script_from_list_string, ScriptParseException
 
 import json
 
@@ -85,7 +85,7 @@ class VHTEnv(object):
 
 
     def create_behavior_lib(self):
-        behavior_lib_path = f"{ROOT_PATH}/envs/robowaiter/exec_lib"
+        behavior_lib_path = f"{ROOT_PATH}/envs/virtualhometextsmall/exec_lib"
 
         self.behavior_lib = ExecBehaviorLibrary(behavior_lib_path)
 

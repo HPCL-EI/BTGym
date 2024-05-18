@@ -26,6 +26,9 @@ llm = LLMGPT3()
 def convert_set_to_str(string_set):
     return ", ".join(f'\"{s}\"' for s in string_set)
 
+def get_or_default(value, default):
+    return value if value is not None else default
+
 
 def perform_test(env, chosen_goal, database_index_path, reflect_time=0, train=False, choose_database=True):
     cur_cond_set = setup_default_env()[1]
@@ -107,8 +110,8 @@ def validate_goal(env, chosen_goal, n, database_index_path=None, round_num=None,
 
 name = "vh"
 
-default_prompt_file = f"{ROOT_PATH}/algos/llm_client/prompt_VHT_just_goal_no_example.txt"
-vaild_dataset = load_dataset_and_cost(f"vh_processed_data.txt")
+default_prompt_file = f"prompt_VH.txt"
+dataset = load_dataset_and_cost(f"vh_processed_data.txt")
 
 
 # env, _ = setup_default_env()
@@ -119,10 +122,7 @@ cur_cond_set |= {f'IsClose({arg})' for arg in VHAction.CanOpenPlaces}
 cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHAction.HasSwitchObjects}
 big_actions = collect_action_nodes(env.behavior_lib)
 
-max_round = 0 + 1
-sample_num = 1
-vaild_num = 1
-
+vaild_num = 2
 
 # Initialize accumulators and counters
 test_results = []
@@ -131,6 +131,7 @@ total_similarity = 0
 total_expanded_num = 0
 total_planning_time_total = 0
 total_current_cost = 0
+total_cost_ratio = 0
 
 # Dataframe to store metrics for each round
 metrics_df = pd.DataFrame(columns=[
@@ -147,47 +148,59 @@ metrics_df = pd.DataFrame(columns=[
 # ========================= 并行 ========================
 
 # ========================= 串行========================
+vaild_dataset = dataset[:vaild_num]
 for n, d in enumerate(vaild_dataset):
     result, success, _ = validate_goal(env, d['Goals'], n, choose_database=False)
     test_results.append(result)
     if success:
         test_success_count += 1
-    total_expanded_num += result.get('expanded_num', 300)
-    total_planning_time_total += result.get('planning_time_total', 3)
-    total_current_cost += result.get('current_cost', 2000)
+    total_expanded_num += get_or_default(result.get('expanded_num'), 300)
+    total_planning_time_total += get_or_default(result.get('planning_time_total'), 3)
+    total_cost_ratio += result.get('current_cost') / d['cost']
+    current_cost = get_or_default(result.get('current_cost'), 2000)
+    total_current_cost += current_cost
+
 
 # Calculate metrics
 num_entries = len(vaild_dataset)
 success_rate = test_success_count / num_entries
-average_similarity = total_similarity / num_entries
-average_expanded_num = total_expanded_num / num_entries
-average_planning_time_total = total_planning_time_total / num_entries
-average_current_cost = total_current_cost / num_entries
+average_similarity = total_similarity / num_entries if num_entries else 0
+average_expanded_num = total_expanded_num / num_entries if num_entries else 0
+average_planning_time_total = total_planning_time_total / num_entries if num_entries else 0
+average_cost_ratio = total_cost_ratio / num_entries if num_entries else 0
+average_current_cost = total_current_cost / num_entries if num_entries else 0
 
 # Append metrics to dataframe
 round_metrics = pd.DataFrame([{
     "Test Success Rate": success_rate,
     "Average Expanded Num": average_expanded_num,
     "Average Planning Time Total": average_planning_time_total,
+    "Average Cost Ratio": average_cost_ratio,
     "Average Current Cost": average_current_cost
 }])
-metrics_df = pd.concat([metrics_df, round_metrics], ignore_index=True)
 
-time_str = time.strftime('%Y%m%d', time.localtime())
-metrics_filename = f'output_Det_{time_str}_metrics.csv'
-metrics_df.to_csv(metrics_filename, index=False)
+# Assuming metrics_df is initialized elsewhere in the complete code
+metrics_df = pd.DataFrame()
+metrics_df = pd.concat([metrics_df, round_metrics], ignore_index=True)
 
 # Output metrics
 print(f"Test Success Rate: {success_rate}")
 print(f"Average Distance: {average_similarity}")
 print(f"Average Expanded Num: {average_expanded_num}")
 print(f"Average Planning Time Total: {average_planning_time_total}")
+print(f"Average Cost Ratio: {average_cost_ratio}")
 print(f"Average Current Cost: {average_current_cost}")
 
 # Save daily detailed results and metrics to CSV
-details_filename = f'output_{name}_Det_{time_str}_details.csv'
+time_str = time.strftime('%Y%m%d', time.localtime())
+details_filename = f'output_{name}_details_{time_str}.csv'
 details_df = pd.DataFrame(test_results)
 details_df.to_csv(details_filename, index=False)
+
+metrics_filename = f'output_{name}_metrics_{time_str}.csv'
+metrics_df.to_csv(metrics_filename, index=False)
+
+
 
 
 

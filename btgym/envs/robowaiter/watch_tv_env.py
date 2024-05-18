@@ -1,4 +1,3 @@
-import os.path
 import time
 
 from btgym.envs.virtualhome.simulation.unity_simulator import UnityCommunication
@@ -13,19 +12,18 @@ import btgym.envs.virtualhometext.simulation.evolving_graph.check_programs as ch
 
 from btgym.envs.virtualhometext.simulation.evolving_graph.scripts import read_script, read_script_from_string, read_script_from_list_string, ScriptParseException
 
-import json
+import pickle
 
-graph_folder = f'{ROOT_PATH}/envs/virtualhometext/graphs'
+graph_path = f'{ROOT_PATH}/envs/virtualhometext/simulation/graph.pkl'
 
-class VHTEnv(object):
+class WatchTVEnv(object):
     agent_num = 1
 
     def __init__(self):
         # 打开文件以加载之前保存的数据
-        graph_path = os.path.join(graph_folder,f"{self.__class__.__name__}.json")
-        with open(graph_path, 'r') as f:
+        with open(graph_path, 'rb') as f:
             # 使用 load() 加载数据
-            graph_input = json.load(f)
+            graph_input = pickle.load(f)
 
         self.graph_input = check_programs.translate_graph_dict_nofile(graph_input)
 
@@ -33,11 +31,12 @@ class VHTEnv(object):
         self.state, self.executor,self.helper = check_programs.prepare_env(
             [], [], graph_path=None, inp_graph_dict=graph_input)
 
+
         self.create_agents()
         self.create_behavior_lib()
 
 
-    def run_script(self,script,verbose=False,camera_mode="PERSON_FROM_BACK"):
+    def run_script(self,script):
         script_list = []
         for s in script:
             x = s.split()[1:]
@@ -50,13 +49,7 @@ class VHTEnv(object):
             s = script.from_index(i)
             self.state = self.executor.step(self.state, s)
 
-        # Check whether the command was executed successfully
-        # if verbose:
-        #     if success:
-        #         print(f"'Successfully.")
-        #     else:
-        #         print(f"'Failed,{message}'.")
-
+        # self.state = self.executor.step(self.state, script_list)
 
 
     def assign_node_id(self,script):
@@ -75,7 +68,10 @@ class VHTEnv(object):
         pass
 
     def is_finished(self):
-        raise NotImplementedError
+        if "IsWatching(self,tv)" in self.agents[0].condition_set:
+            return True
+        else:
+            return False
 
     def create_agents(self):
 
@@ -85,14 +81,6 @@ class VHTEnv(object):
 
 
     def create_behavior_lib(self):
-        behavior_lib_path = f"{ROOT_PATH}/envs/robowaiter/exec_lib"
+        behavior_lib_path = f"{ROOT_PATH}/envs/virtualhome/exec_lib"
 
         self.behavior_lib = ExecBehaviorLibrary(behavior_lib_path)
-
-    # def reload_behavior_lib(self,behavior_lib_path):
-    #     # behavior_lib_path = f"{ROOT_PATH}/envs/virtualhometext/exec_lib.pickle"
-    #     import pickle
-    #     # 打开之前写入的文件，注意使用二进制模式读取
-    #     with open(behavior_lib_path, 'rb') as file:
-    #         # 使用pickle.load()函数从文件加载数据
-    #         self.behavior_lib = pickle.load(file)

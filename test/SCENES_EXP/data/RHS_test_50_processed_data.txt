@@ -405,3 +405,4 @@ Goals: IsNear_self_kitchenknife
 Optimal Actions: Walk_kitchenknife
 Vital Action Predicates: Walk
 Vital Objects: kitchenknife
+

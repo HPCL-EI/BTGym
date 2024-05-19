@@ -1,0 +1,52 @@
+id,Environment,Instruction,Goals,Optimal Actions,Vital Action Predicates,Vital Objects,expanded_num,planning_time_total,current_cost,error,act_num
+1,1,,IsIn_cutlets_fridge & IsClose_fridge,"Walk_cutlets, RightGrab_cutlets, Walk_fridge, Open_fridge, PlugIn_fridge, RightPutIn_cutlets_fridge, Close_fridge","Walk, RightGrab, Open, PlugIn, RightPutIn, Close","cutlets, fridge",24,0.005017995834350586,59,False,7
+2,1,,IsOpen_microwave,"Walk_microwave, Open_microwave","Walk, Open",microwave,3,0.0009992122650146484,18,False,2
+3,1,,IsOn_plate_bed & IsOn_wine_kitchencabinet,"Walk_plate, RightGrab_plate, Walk_bed, RightPut_plate_bed, Walk_wine, RightGrab_wine, Walk_kitchencabinet, RightPut_wine_kitchencabinet","Walk, RightGrab, RightPut","plate, bed, wine, kitchencabinet",93,0.01795506477355957,82,False,8
+4,1,,IsSwitchedOn_tv,"Walk_tv, PlugIn_tv, SwitchOn_tv","Walk, PlugIn, SwitchOn",tv,5,0.0009946823120117188,31,False,3
+5,1,,IsOpen_kitchencabinet,"Walk_kitchencabinet, Open_kitchencabinet","Walk, Open",kitchencabinet,3,0.000997304916381836,18,False,2
+6,1,,IsOn_plate_bed & IsSwitchedOn_microwave,"Walk_microwave, PlugIn_microwave, SwitchOn_microwave, Walk_plate, RightGrab_plate, Walk_bed, RightPut_plate_bed","Walk, PlugIn, SwitchOn, RightGrab, RightPut","microwave, plate, bed",27,0.0069811344146728516,72,False,7
+7,1,,IsNear_self_bed,Walk_bed,Walk,bed,2,0.0,15,False,1
+8,1,,IsPlugged_fridge & IsIn_kitchenknife_fridge & IsClose_fridge,"Walk_kitchenknife, RightGrab_kitchenknife, Walk_fridge, PlugIn_fridge, Open_fridge, RightPutIn_kitchenknife_fridge, Close_fridge","Walk, RightGrab, PlugIn, Open, RightPutIn, Close","kitchenknife, fridge",30,0.006949186325073242,59,False,7
+9,1,,IsPlugged_tv & IsClean_faucet,"Walk_tv, PlugIn_tv, Walk_rag, RightGrab_rag, Walk_faucet, Wipe_faucet","Walk, PlugIn, RightGrab, Wipe","tv, rag, faucet",15,0.0029914379119873047,67,False,6
+10,1,,IsOn_rag_kitchencabinet & IsPlugged_mouse,"Walk_mouse, PlugIn_mouse, Walk_rag, RightGrab_rag, Walk_kitchencabinet, RightPut_rag_kitchencabinet","Walk, PlugIn, RightGrab, RightPut","mouse, rag, kitchencabinet",15,0.00498652458190918,64,False,6
+11,1,,IsOn_plate_kitchencabinet,"Walk_plate, RightGrab_plate, Walk_kitchencabinet, RightPut_plate_kitchencabinet","Walk, RightGrab, RightPut","plate, kitchencabinet",8,0.0009951591491699219,41,False,4
+12,1,,IsClean_fridge,"Walk_rag, RightGrab_rag, Walk_fridge, Wipe_fridge","Walk, RightGrab, Wipe","rag, fridge",5,0.0009639263153076172,44,False,4
+13,1,,IsOpen_fridge,"Walk_fridge, Open_fridge","Walk, Open",fridge,3,0.0,18,False,2
+14,1,,IsOn_kitchenknife_bed,"Walk_kitchenknife, LeftGrab_kitchenknife, Walk_bed, LeftPut_kitchenknife_bed","Walk, LeftGrab, LeftPut","kitchenknife, bed",5,0.0009982585906982422,41,False,4
+15,1,,IsNear_self_fridge,Walk_fridge,Walk,fridge,2,0.0,15,False,1
+16,1,,IsPlugged_tv,"Walk_tv, PlugIn_tv","Walk, PlugIn",tv,3,0.0009996891021728516,23,False,2
+17,1,,IsPlugged_microwave,"Walk_microwave, PlugIn_microwave","Walk, PlugIn",microwave,3,0.0009951591491699219,23,False,2
+18,1,,IsNear_self_cutlets,Walk_cutlets,Walk,cutlets,2,0.0,15,False,1
+19,1,,IsPlugged_fridge & IsOn_wine_bed,"Walk_fridge, PlugIn_fridge, Walk_wine, RightGrab_wine, Walk_bed, RightPut_wine_bed","Walk, PlugIn, RightGrab, RightPut","fridge, wine, bed",15,0.0029959678649902344,64,False,6
+20,1,,IsClean_tv & IsClean_cutlets,"Walk_cutlets, RightGrab_cutlets, Walk_faucet, SwitchOn_faucet, Wash_cutlets, Walk_rag, LeftGrab_rag, Walk_tv, Wipe_tv","Walk, RightGrab, SwitchOn, Wash, LeftGrab, Wipe","cutlets, faucet, rag, tv",52,0.010970830917358398,96,False,9
+21,1,,IsOn_cutlets_kitchencabinet & IsCut_cutlets,"Walk_kitchenknife, RightGrab_kitchenknife, Walk_cutlets, LeftGrab_cutlets, Walk_kitchencabinet, Cut_cutlets, LeftPut_cutlets_kitchencabinet","Walk, RightGrab, LeftGrab, Cut, LeftPut","kitchenknife, cutlets, kitchencabinet",24,0.004987239837646484,70,False,7
+22,1,,IsOn_cutlets_bed,"Walk_cutlets, RightGrab_cutlets, Walk_bed, RightPut_cutlets_bed","Walk, RightGrab, RightPut","cutlets, bed",5,0.0,41,False,4
+23,1,,IsOpen_microwave & IsOn_rag_kitchencabinet,"Walk_rag, LeftGrab_rag, Walk_kitchencabinet, LeftPut_rag_kitchencabinet, Walk_microwave, Open_microwave","Walk, LeftGrab, LeftPut, Open","rag, kitchencabinet, microwave",12,0.0029578208923339844,59,False,6
+24,1,,IsOn_plate_kitchencabinet & IsSwitchedOn_candle,"Walk_candle, SwitchOn_candle, Walk_plate, RightGrab_plate, Walk_kitchencabinet, RightPut_plate_kitchencabinet","Walk, SwitchOn, RightGrab, RightPut","candle, plate, kitchencabinet",15,0.003022909164428711,64,False,6
+25,1,,IsNear_self_window & IsOn_rag_bed,"Walk_rag, LeftGrab_rag, Walk_bed, LeftPut_rag_bed, Walk_window","Walk, LeftGrab, LeftPut","rag, bed, window",6,0.0009951591491699219,56,False,5
+26,1,,IsIn_wine_garbagecan & IsIn_apple_garbagecan,"Walk_wine, LeftGrab_wine, Walk_apple, RightGrab_apple, Walk_garbagecan, RightPutIn_apple_garbagecan, LeftPutIn_wine_garbagecan","Walk, LeftGrab, RightGrab, RightPutIn, LeftPutIn","wine, apple, garbagecan",62,0.012930631637573242,75,False,7
+27,1,,IsNear_self_window,Walk_window,Walk,window,2,0.0,15,False,1
+28,1,,IsNear_self_apple,Walk_apple,Walk,apple,2,0.0,15,False,1
+29,1,,IsCut_apple & IsNear_self_microwave,"Walk_apple, LeftGrab_apple, Walk_kitchenknife, RightGrab_kitchenknife, Walk_microwave, Cut_apple","Walk, LeftGrab, RightGrab, Cut","apple, kitchenknife, microwave",18,0.003989458084106445,64,False,6
+30,1,,IsOn_apple_kitchencabinet,"Walk_apple, RightGrab_apple, Walk_kitchencabinet, RightPut_apple_kitchencabinet","Walk, RightGrab, RightPut","apple, kitchencabinet",8,0.002026796340942383,41,False,4
+31,1,,IsNear_self_fridge & IsClean_fridge,"Walk_rag, LeftGrab_rag, Walk_fridge, Wipe_fridge","Walk, LeftGrab, Wipe","rag, fridge",8,0.0010287761688232422,44,False,4
+32,1,,IsNear_self_kitchencabinet & IsSwitchedOn_candle,"Walk_candle, SwitchOn_candle, Walk_kitchencabinet","Walk, SwitchOn","candle, kitchencabinet",4,0.0,38,False,3
+33,1,,IsCut_apple,"Walk_kitchenknife, RightGrab_kitchenknife, Walk_apple, LeftGrab_apple, Cut_apple","Walk, RightGrab, LeftGrab, Cut","kitchenknife, apple",9,0.0009965896606445312,49,False,5
+34,1,,IsCut_cutlets & IsPlugged_fridge,"Walk_fridge, PlugIn_fridge, Walk_kitchenknife, RightGrab_kitchenknife, Walk_cutlets, LeftGrab_cutlets, Cut_cutlets","Walk, PlugIn, RightGrab, LeftGrab, Cut","fridge, kitchenknife, cutlets",18,0.007978677749633789,72,False,7
+35,1,,IsClean_kitchencabinet & IsOpen_window,"Walk_rag, RightGrab_rag, Walk_kitchencabinet, Wipe_kitchencabinet, Walk_window, Open_window","Walk, RightGrab, Wipe, Open","rag, kitchencabinet, window",15,0.0030198097229003906,62,False,6
+36,1,,IsOpen_fridge & IsSwitchedOn_candle,"Walk_candle, SwitchOn_candle, Walk_fridge, Open_fridge","Walk, SwitchOn, Open","candle, fridge",8,0.0009996891021728516,41,False,4
+37,1,,IsNear_self_fridge & IsOpen_kitchencabinet,"Walk_kitchencabinet, Open_kitchencabinet, Walk_fridge","Walk, Open","kitchencabinet, fridge",4,0.0,33,False,3
+38,1,,IsPlugged_fridge,"Walk_fridge, PlugIn_fridge","Walk, PlugIn",fridge,3,0.000997304916381836,23,False,2
+39,1,,IsPlugged_tv & IsCut_cutlets,"Walk_tv, PlugIn_tv, Walk_kitchenknife, RightGrab_kitchenknife, Walk_cutlets, LeftGrab_cutlets, Cut_cutlets","Walk, PlugIn, RightGrab, LeftGrab, Cut","tv, kitchenknife, cutlets",18,0.003991365432739258,72,False,7
+40,1,,IsCut_cutlets,"Walk_kitchenknife, RightGrab_kitchenknife, Walk_cutlets, LeftGrab_cutlets, Cut_cutlets","Walk, RightGrab, LeftGrab, Cut","kitchenknife, cutlets",9,0.0019600391387939453,49,False,5
+41,1,,IsIn_rag_microwave & IsClose_microwave,"Walk_rag, RightGrab_rag, Walk_microwave, Open_microwave, PlugIn_microwave, RightPutIn_rag_microwave, Close_microwave","Walk, RightGrab, Open, PlugIn, RightPutIn, Close","rag, microwave",24,0.005980253219604492,59,False,7
+42,1,,IsPlugged_microwave & IsOn_kitchenknife_bed,"Walk_kitchenknife, LeftGrab_kitchenknife, Walk_bed, LeftPut_kitchenknife_bed, Walk_microwave, PlugIn_microwave","Walk, LeftGrab, LeftPut, PlugIn","kitchenknife, bed, microwave",12,0.0029904842376708984,64,False,6
+43,1,,IsNear_self_candle,Walk_candle,Walk,candle,2,0.0,15,False,1
+44,1,,IsClean_candle,"Walk_rag, RightGrab_rag, Walk_candle, Wipe_candle","Walk, RightGrab, Wipe","rag, candle",5,0.000990152359008789,44,False,4
+45,1,,IsOn_apple_bed & IsOpen_kitchencabinet,"Walk_apple, RightGrab_apple, Walk_bed, RightPut_apple_bed, Walk_kitchencabinet, Open_kitchencabinet","Walk, RightGrab, RightPut, Open","apple, bed, kitchencabinet",15,0.0029926300048828125,59,False,6
+46,1,,IsPlugged_tv & IsPlugged_mouse,"Walk_tv, PlugIn_tv, Walk_mouse, PlugIn_mouse","Walk, PlugIn","tv, mouse",8,0.0009963512420654297,46,False,4
+47,1,,IsSwitchedOn_candle,"Walk_candle, SwitchOn_candle","Walk, SwitchOn",candle,3,0.0010001659393310547,23,False,2
+48,1,,IsIn_rag_garbagecan & IsNear_self_plate,"Walk_rag, LeftGrab_rag, Walk_garbagecan, LeftPutIn_rag_garbagecan, Walk_plate","Walk, LeftGrab, LeftPutIn","rag, garbagecan, plate",6,0.0009634494781494141,60,False,5
+49,1,,IsClean_cutlets & IsOn_wine_bed,"Walk_cutlets, RightGrab_cutlets, Walk_faucet, SwitchOn_faucet, Wash_cutlets, Walk_wine, LeftGrab_wine, Walk_bed, LeftPut_wine_bed","Walk, RightGrab, SwitchOn, Wash, LeftGrab, LeftPut","cutlets, faucet, wine, bed",63,0.015956878662109375,93,False,9
+50,1,,IsSwitchedOn_faucet & IsIn_cutlets_garbagecan,"Walk_faucet, SwitchOn_faucet, Walk_cutlets, RightGrab_cutlets, Walk_garbagecan, RightPutIn_cutlets_garbagecan","Walk, SwitchOn, RightGrab, RightPutIn","faucet, cutlets, garbagecan",18,0.0029959678649902344,68,False,6
+51,1,,IsNear_self_kitchenknife,Walk_kitchenknife,Walk,kitchenknife,2,0.0,15,False,1

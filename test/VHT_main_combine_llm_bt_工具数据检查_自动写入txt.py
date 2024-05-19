@@ -44,7 +44,7 @@ file_name="RHS_test_50"
 data_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}.txt"
 output_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}_processed_data.txt"
 output_csv_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}_processed_h=1.csv"
-need_cost = True
+need_cost = False
 data1 = read_dataset(data_path)
 len_data = len(data1)
 print(f"导入 {len_data} 条数据")
@@ -105,17 +105,17 @@ def write_to_file(data, file_path):
 
 for id, d in enumerate(data1):
     print("\x1b[32m\ndata:", id, "\x1b[0m", d["Instruction"])
-
+    goal_str = ' & '.join(d["Goals"])
+    act_str = ', '.join(d["Optimal Actions"])
     goal_set = goal_transfer_str(goal_str)
     print("goal_set:", goal_set)
     priority_act_ls = act_str_process(act_str)
     print("priority_act_ls:", priority_act_ls)
 
-    key_predicates = extract_objects(priority_act_ls)
+    key_predicates = list(set(extract_objects(priority_act_ls)) | set(d["Vital Action Predicates"]) )
 
     priority_obj_ls = []
-    goal_str = ' & '.join(d["Goals"])
-    act_str = ', '.join(d["Optimal Actions"])
+
 
     objects = set()
     pattern = re.compile(r'\((.*?)\)')

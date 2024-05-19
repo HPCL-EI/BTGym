@@ -26,7 +26,7 @@ cur_cond_set |= {f'Exists({arg})' for arg in VHTAction.all_object-{'Coffee', 'Wa
 
 big_actions = collect_action_nodes(env.behavior_lib)
 
-file_name="RW"
+file_name="RW_test_50"
 data_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}.txt"
 data1 = read_dataset(data_path)
 len_data = len(data1)

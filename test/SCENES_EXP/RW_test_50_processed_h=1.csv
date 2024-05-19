@@ -1,0 +1,51 @@
+id,Environment,Instruction,Goals,Optimal Actions,Vital Action Predicates,Vital Objects,expanded_num,planning_time_total,current_cost,error,act_num
+1,1,,Exists_Coffee,Make_Coffee,Make,Coffee,2,0.0010001659393310547,5,False,1
+2,1,,On_Water_Table1,"Make_Water, MoveTo_Water, PickUp_Water, MoveTo_Table1, PutDown_Water_Table1","Make, MoveTo, PickUp, PutDown","Water, Table1",7,0.0010004043579101562,57,False,5
+3,1,,On_Dessert_Bar,Make_Dessert,Make,Dessert,2,0.0,5,False,1
+4,1,,On_Water_Bar2,"Make_Water, MoveTo_Water, PickUp_Water, MoveTo_Bar2, PutDown_Water_Bar2","Make, MoveTo, PickUp, PutDown","Water, Bar2",7,0.0010001659393310547,57,False,5
+5,1,,Active_AC,Turn_AC_On,Turn,"AC, On",2,0.0,3,False,1
+6,1,,Active_HallLight,Turn_HallLight_On,Turn,"HallLight, On",2,0.0,3,False,1
+7,1,,On_NFCJuice_Table2,"MoveTo_NFCJuice, PickUp_NFCJuice, MoveTo_Table2, PutDown_NFCJuice_Table2","MoveTo, PickUp, PutDown","NFCJuice, Table2",6,0.0009999275207519531,52,False,4
+8,1,,IsClean_Floor,Clean_Floor,Clean,Floor,2,0.0,10,False,1
+9,1,,On_Milk_Bar,"MoveTo_Milk, PickUp_Milk, MoveTo_Bar, PutDown_Milk_Bar","MoveTo, PickUp, PutDown","Milk, Bar",6,0.0,52,False,4
+10,1,,On_Softdrink_Table3,"MoveTo_Softdrink, PickUp_Softdrink, MoveTo_Table3, PutDown_Softdrink_Table3","MoveTo, PickUp, PutDown","Softdrink, Table3",6,0.0,52,False,4
+11,1,,On_Coffee_Table3,"Make_Coffee, MoveTo_Coffee, PickUp_Coffee, MoveTo_Table3, PutDown_Coffee_Table3","Make, MoveTo, PickUp, PutDown","Coffee, Table3",7,0.0010004043579101562,57,False,5
+12,1,,Active_HallLight,Turn_HallLight_On,Turn,"HallLight, On",2,0.0,3,False,1
+13,1,,IsClean_Floor,Clean_Floor,Clean,Floor,2,0.0,10,False,1
+14,1,,Active_TubeLight,Turn_TubeLight_On,Turn,"TubeLight, On",2,0.0,3,False,1
+15,1,,Active_HallLight,Turn_HallLight_On,Turn,"HallLight, On",2,0.0,3,False,1
+16,1,,On_Yogurt_Table2,"MoveTo_Yogurt, PickUp_Yogurt, MoveTo_Table2, PutDown_Yogurt_Table2","MoveTo, PickUp, PutDown","Yogurt, Table2",6,0.0010006427764892578,52,False,4
+17,1,,IsClean_Table1,Clean_Table1,Clean,Table1,2,0.0,10,False,1
+18,1,,Active_TubeLight,Turn_TubeLight_On,Turn,"TubeLight, On",2,0.0,3,False,1
+19,1,,On_MilkDrink_BrightTable6,"MoveTo_MilkDrink, PickUp_MilkDrink, MoveTo_BrightTable6, PutDown_MilkDrink_BrightTable6","MoveTo, PickUp, PutDown","MilkDrink, BrightTable6",6,0.0,52,False,4
+20,1,,Active_AC,Turn_AC_On,Turn,"AC, On",2,0.0,3,False,1
+21,1,,On_Softdrink_Bar2,"MoveTo_Softdrink, PickUp_Softdrink, MoveTo_Bar2, PutDown_Softdrink_Bar2","MoveTo, PickUp, PutDown","Softdrink, Bar2",6,0.0009999275207519531,52,False,4
+22,1,,Active_AC,Turn_AC_On,Turn,"AC, On",2,0.0,3,False,1
+23,1,,Active_AC,Turn_AC_On,Turn,"AC, On",2,0.0,3,False,1
+24,1,,IsClean_Floor,Clean_Floor,Clean,Floor,2,0.0,10,False,1
+25,1,,Active_TubeLight,Turn_TubeLight_On,Turn,"TubeLight, On",2,0.0,3,False,1
+26,1,,Active_HallLight,Turn_HallLight_On,Turn,"HallLight, On",2,0.0,3,False,1
+27,1,,On_Yogurt_Table2,"MoveTo_Yogurt, PickUp_Yogurt, MoveTo_Table2, PutDown_Yogurt_Table2","MoveTo, PickUp, PutDown","Yogurt, Table2",6,0.0009999275207519531,52,False,4
+28,1,,IsClean_Table1,Clean_Table1,Clean,Table1,2,0.0,10,False,1
+29,1,,Active_TubeLight,Turn_TubeLight_On,Turn,"TubeLight, On",2,0.0,3,False,1
+30,1,,On_MilkDrink_BrightTable6,"MoveTo_MilkDrink, PickUp_MilkDrink, MoveTo_BrightTable6, PutDown_MilkDrink_BrightTable6","MoveTo, PickUp, PutDown","MilkDrink, BrightTable6",6,0.0010101795196533203,52,False,4
+31,1,,Active_AC,Turn_AC_On,Turn,"AC, On",2,0.0,3,False,1
+32,1,,On_Softdrink_Bar2,"MoveTo_Softdrink, PickUp_Softdrink, MoveTo_Bar2, PutDown_Softdrink_Bar2","MoveTo, PickUp, PutDown","Softdrink, Bar2",6,0.0,52,False,4
+33,1,,Active_TubeLight,Turn_TubeLight_On,Turn,"TubeLight, On",2,0.0,3,False,1
+34,1,,On_Yogurt_Table3,"MoveTo_Yogurt, PickUp_Yogurt, MoveTo_Table3, PutDown_Yogurt_Table3","MoveTo, PickUp, PutDown","Yogurt, Table3",6,0.0,52,False,4
+35,1,,Active_HallLight,Turn_HallLight_On,Turn,"HallLight, On",2,0.0,3,False,1
+36,1,,Active_TubeLight,Turn_TubeLight_On,Turn,"TubeLight, On",2,0.0,3,False,1
+37,1,,On_Yogurt_Table3,"MoveTo_Yogurt, PickUp_Yogurt, MoveTo_Table3, PutDown_Yogurt_Table3","MoveTo, PickUp, PutDown","Yogurt, Table3",6,0.0,52,False,4
+38,1,,Active_HallLight,Turn_HallLight_On,Turn,"HallLight, On",2,0.0,3,False,1
+39,1,,On_Softdrink_Bar,"MoveTo_Softdrink, PickUp_Softdrink, MoveTo_Bar, PutDown_Softdrink_Bar","MoveTo, PickUp, PutDown","Softdrink, Bar",6,0.0010006427764892578,52,False,4
+40,1,,On_Softdrink_Bar,"MoveTo_Softdrink, PickUp_Softdrink, MoveTo_Bar, PutDown_Softdrink_Bar","MoveTo, PickUp, PutDown","Softdrink, Bar",6,0.0010001659393310547,52,False,4
+41,1,,Active_AC,Turn_AC_On,Turn,"AC, On",2,0.0010006427764892578,3,False,1
+42,1,,On_MilkDrink_BrightTable6,"MoveTo_MilkDrink, PickUp_MilkDrink, MoveTo_BrightTable6, PutDown_MilkDrink_BrightTable6","MoveTo, PickUp, PutDown","MilkDrink, BrightTable6",6,0.0009999275207519531,52,False,4
+43,1,,Active_HallLight,Turn_HallLight_On,Turn,"HallLight, On",2,0.0,3,False,1
+44,1,,On_Softdrink_Bar2,"MoveTo_Softdrink, PickUp_Softdrink, MoveTo_Bar2, PutDown_Softdrink_Bar2","MoveTo, PickUp, PutDown","Softdrink, Bar2",6,0.0,52,False,4
+45,1,,On_VacuumCup_WaterStation,"MoveTo_VacuumCup, PickUp_VacuumCup, MoveTo_WaterStation, PutDown_VacuumCup_WaterStation","MoveTo, PickUp, PutDown","VacuumCup, WaterStation",6,0.0,52,False,4
+46,1,,On_Water_Table1,"Make_Water, MoveTo_Water, PickUp_Water, MoveTo_Table1, PutDown_Water_Table1","Make, MoveTo, PickUp, PutDown","Water, Table1",7,0.0010001659393310547,57,False,5
+47,1,,On_Yogurt_Table2,"MoveTo_Yogurt, PickUp_Yogurt, MoveTo_Table2, PutDown_Yogurt_Table2","MoveTo, PickUp, PutDown","Yogurt, Table2",6,0.0010004043579101562,52,False,4
+48,1,,Active_AC,Turn_AC_On,Turn,"AC, On",2,0.0,3,False,1
+49,1,,On_VacuumCup_Table1,"MoveTo_VacuumCup, PickUp_VacuumCup, MoveTo_Table1, PutDown_VacuumCup_Table1","MoveTo, PickUp, PutDown","VacuumCup, Table1",6,0.0,52,False,4
+50,1,,On_VacuumCup_Table2,"MoveTo_VacuumCup, PickUp_VacuumCup, MoveTo_Table2, PutDown_VacuumCup_Table2","MoveTo, PickUp, PutDown","VacuumCup, Table2",6,0.0010006427764892578,52,False,4

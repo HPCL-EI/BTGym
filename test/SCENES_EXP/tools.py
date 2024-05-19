@@ -320,8 +320,8 @@ def find_from_small_act(goal):
     # print("current_cost:", current_cost)
     # print("expanded_num:", expanded_num)
     # print("planning_time_total:", planning_time_total)
-    return success, _priority_act_ls, key_predicates, key_objects, cost, priority_act_ls, key_predicates, key_objects, \
-        act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total
+    return success, priority_act_ls, key_predicates, key_objects, \
+        act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total,len(algo.actions)
 
 # find_from_small_act(['IsIn_apple_microwave & IsClose_microwave & IsSwitchedOn_microwave']) #,'IsCut_breadslice'
 # find_from_small_act(['IsIn_apple_microwave & IsIn_cutlets_microwave']) #,'IsCut_breadslice'

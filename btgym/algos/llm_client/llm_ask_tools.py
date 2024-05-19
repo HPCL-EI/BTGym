@@ -56,52 +56,66 @@ def extract_llm_from_instr_goal(llm,default_prompt_file,environment,goals,instru
         prompt = f.read().strip()
 
     distances=None
-    if choose_database:
+    parsed_output =None
+    parsed_fail=-1
+    RED = "\033[31m"
+    RESET = "\033[0m"
 
-        # environment ?
-        nearest_examples,distances = search_nearest_examples(database_index_path, llm, goals, top_n=5)
-        # 使用自定义的格式函数将检索到的示例格式化为目标样式
-        example_texts = '\n'.join([format_example(ex) for ex in nearest_examples])
-        example_texts = "[Examples]\n" + example_texts
+    while parsed_output==None:
 
-        # 输出最近的所有goal
-        nearest_goals = [ex['value']['Goals'] for ex in nearest_examples]
-        print("All Goals from nearest examples:")
-        for g in nearest_goals:
-            print(f"\033[93m{g}\033[0m") # 打印黄色 print(goal)
+        parsed_fail += 1 # 第一次是第0次。 0-1-2-3
+        print(f"--- LLM: Goal={goals}  Parsed Fail={parsed_fail} --- ")
+        if parsed_fail > 3:
+            print(f"{RED}----LLM: Goal={goals}  Parsed Fail={parsed_fail} >3 break -----{RESET}")
+            break
 
-        # print("distances:",distances)
-        # print("example_texts:\n",example_texts)
-        # 替换 prompt 中的 [Examples] 部分
-        example_marker = "[Examples]"
-        if example_marker in prompt:
-            prompt = prompt.replace(example_marker, example_texts)
-        else:
-            prompt = f"{prompt}\n{example_texts}"
+        if choose_database:
 
-    # 构建完整的 prompt，包括检索的 Examples 和当前的指令
-    goals_str =' & '.join(goals)
-    # question = f"{prompt}\nInstruction: {instruction}\nGoals: {goals_str}"
-    question = f"{prompt}\nGoals: {goals_str}"
-    if verbose:
-        print("============ Question ================\n",question)
-    messages = []
-    messages.append({"role": "user", "content": question})
-    answer = llm.request(message=messages)
-    messages.append({"role": "assistant", "content": answer})
-    # if verbose:
-    print("============ Answer ================\n",answer)
-    parsed_output = parse_llm_output(answer, goals=False)
-    # if parsed_output is None:
-    #     print(f"\033[91mFailed to parse LLM output for goals: {goals_str}\033[0m")
-    #     return None, None, None, messages, distances
+            # environment ?
+            nearest_examples,distances = search_nearest_examples(database_index_path, llm, goals, top_n=5)
+            # 使用自定义的格式函数将检索到的示例格式化为目标样式
+            example_texts = '\n'.join([format_example(ex) for ex in nearest_examples])
+            example_texts = "[Examples]\n" + example_texts
+
+            # 输出最近的所有goal
+            nearest_goals = [ex['value']['Goals'] for ex in nearest_examples]
+            print("All Goals from nearest examples:")
+            for g in nearest_goals:
+                print(f"\033[93m{g}\033[0m") # 打印黄色 print(goal)
+
+            # print("distances:",distances)
+            # print("example_texts:\n",example_texts)
+            # 替换 prompt 中的 [Examples] 部分
+            example_marker = "[Examples]"
+            if example_marker in prompt:
+                prompt = prompt.replace(example_marker, example_texts)
+            else:
+                prompt = f"{prompt}\n{example_texts}"
+
+        # 构建完整的 prompt，包括检索的 Examples 和当前的指令
+        goals_str =' & '.join(goals)
+        # question = f"{prompt}\nInstruction: {instruction}\nGoals: {goals_str}"
+        question = f"{prompt}\nGoals: {goals_str}"
+        if verbose:
+            print("============ Question ================\n",question)
+        messages = []
+        messages.append({"role": "user", "content": question})
+        answer = llm.request(message=messages)
+        messages.append({"role": "assistant", "content": answer})
+        # if verbose:
+        print("============ Answer ================\n",answer)
+        parsed_output = parse_llm_output(answer, goals=False)
+        # if parsed_output is None:
+        #     print(f"\033[91mFailed to parse LLM output for goals: {goals_str}\033[0m")
+        #     return None, None, None, messages, distances
+
     priority_act_ls, key_predicates, key_objects = parsed_output
 
 
 
     if priority_act_ls==None:
         print(f"\033[91mFailed to parse LLM output for goals: {goals_str}\033[0m")
-    return priority_act_ls, key_predicates, key_objects, messages, distances
+    return priority_act_ls, key_predicates, key_objects, messages, distances,parsed_fail
 
 def extract_llm_from_instr(llm,default_prompt_file,instruction,cur_cond_set,\
                                 choose_database=False,\

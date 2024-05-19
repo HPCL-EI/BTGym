@@ -15,31 +15,76 @@ from sympy import symbols, Not, Or, And, to_dnf, simplify_logic
 from btgym.utils.read_dataset import read_dataset
 from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process, act_format_records
 from btgym.utils.tools import collect_action_nodes,extract_objects
+from tools import execute_algorithm
 
 
+# from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
+# env = btgym.make("VH-PutMilkInFridge")
+# cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
+# cur_cond_set |= {f'IsClose({arg})' for arg in VHAction.CanOpenPlaces}
+# cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHAction.HasSwitchObjects}
+# big_actions = collect_action_nodes(env.behavior_lib)
+#
+# file_name="VS"
+# data_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}.txt"
+# output_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}_processed_data.txt"
+# output_csv_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}_processed_h=1.csv"
+# data1 = read_dataset(data_path)
+# len_data = len(data1)
+# print(f"导入 {len_data} 条数据")
+# print(data1[0])
 
-from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
-env = btgym.make("VH-PutMilkInFridge")
-cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
-cur_cond_set |= {f'IsClose({arg})' for arg in VHAction.CanOpenPlaces}
-cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHAction.HasSwitchObjects}
-big_actions = collect_action_nodes(env.behavior_lib)
+# # ================== RW ===============
+name = "RW"
+dataset = read_dataset(f"{name}_test_50.txt")
+from btgym.envs.robowaiter.exec_lib._base.VHTAction import VHTAction
+env = btgym.make("RWEnv")
+cur_cond_set = env.agents[0].condition_set = {'RobotNear(Bar)','Holding(Nothing)' }
+cur_cond_set |= {f'Exists({arg})' for arg in VHTAction.all_object-{'Coffee', 'Water', 'Dessert'}}
+print(f"共收集到 {len(VHTAction.all_object)} 个物体")
 
-file_name="VS"
-data_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}.txt"
-output_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}_processed_data.txt"
-output_csv_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}_processed_h=1.csv"
-data1 = read_dataset(data_path)
-len_data = len(data1)
-print(f"导入 {len_data} 条数据")
-print(data1[0])
+
+# # ================== RHS ===============
+# name = "RHS"
+# dataset = read_dataset(f"{name}_test_50.txt")
+# from btgym.envs.virtualhometextsmall.exec_lib._base.VHTAction import VHTAction
+# env = btgym.make("VHT-Small")
+# cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
+# cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction.CAN_OPEN}
+# cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
+# cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
+# big_actions = collect_action_nodes(env.behavior_lib)
+
+
+# ================== VH ===============
+# name = "VH"
+# dataset = read_dataset(f"{name}_test_50.txt")
+# from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
+# env = btgym.make("VH-PutMilkInFridge")
+# cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
+# cur_cond_set |= {f'IsClose({arg})' for arg in VHAction.CanOpenPlaces}
+# cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHAction.HasSwitchObjects}
+# big_actions = collect_action_nodes(env.behavior_lib)
+
+
+# ================== RHB ===============
+# name = "RHB"
+# dataset = read_dataset(f"{name}_test_50.txt")
+# from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction as RHB
+# env = btgym.make("VHT-PutMilkInFridge")
+# cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
+# cur_cond_set |= {f'IsClose({arg})' for arg in RHB.CAN_OPEN}
+# cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in RHB.HAS_SWITCH}
+# cur_cond_set |= {f'IsUnplugged({arg})' for arg in RHB.HAS_PLUG}
+# big_actions = collect_action_nodes(env.behavior_lib)
+
 
 # Initialize accumulators for lengths
 total_priority_act_length = 0
 total_algo_actions_length = 0
 num_entries = 0
-
-for n,d in enumerate(data1):
+planning_time_total_all = 0
+for n,d in enumerate(dataset):
     goal_str = ' & '.join(d["Goals"])
     act_str = ', '.join(d["Optimal Actions"])
 
@@ -62,9 +107,23 @@ for n,d in enumerate(data1):
     algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
                           priority_act_ls=priority_act_ls, key_predicates=key_predicates,
                           key_objects=priority_obj_ls,
-                          selected_algorithm="opt", mode="small-predicate-objs",
-                          llm_reflect=False, time_limit=None,
-                          heuristic_choice=1)
+                          selected_algorithm="opt", mode="big",
+                          llm_reflect=False, time_limit=180,
+                          heuristic_choice=-1)
+
+    expanded_num, planning_time_total, cost, error, act_num, current_cost, record_act_ls = \
+        execute_algorithm(algo, goal_set, cur_cond_set)
+    time_limit_exceeded = algo.algo.time_limit_exceeded
+    success = not error and not time_limit_exceeded
+
+    if time_limit_exceeded:
+        RED = "\033[31m"
+        RESET = "\033[0m"
+        print(f"{RED}- ID: {n}  Goal:{goal_str}  Time Out  -{RESET}")
+        planning_time_total=180
+    planning_time_total_all += planning_time_total
+    print("time:",planning_time_total)
+
     # Update accumulators
     total_priority_act_length += len(priority_act_ls)
     total_algo_actions_length += len(algo.actions)
@@ -77,3 +136,4 @@ average_algo_actions_length = total_algo_actions_length / num_entries
 # Print averages
 print(f"Average length of priority_act_ls: {average_priority_act_length}")
 print(f"Average length of algo.actions: {average_algo_actions_length}")
+print(f"Planning Time Total: {planning_time_total_all/len(dataset)}")

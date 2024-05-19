@@ -40,11 +40,11 @@ def extract_objects(actions):
 # output_path = f"{ROOT_PATH}/../test/VD_EXP/{file_name}_processed_data.txt"
 # output_csv_path = f"{ROOT_PATH}/../test/LLM_EXP/{file_name}_processed_h=0.csv"
 
-file_name="RW_30"
+file_name="RW_test_50"
 data_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}.txt"
 output_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}_processed_data.txt"
 output_csv_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}_processed_h=1.csv"
-need_cost = True
+need_cost = False
 # data1 = read_dataset(data_path)
 data1 = load_dataset_and_cost(data_path)
 len_data = len(data1)
@@ -94,8 +94,9 @@ def write_to_file(data, file_path):
     with open(file_path, 'a') as file:
         file.write(data + '\n')
 
+num=0
 for id, d in enumerate(data1):
-    print("\x1b[32m\ndata:", id, "\x1b[0m", d["Instruction"])
+    print("\x1b[32m\ndata:", id, "\x1b[0m")
 
     goal_str = ' & '.join(d["Goals"])
     act_str = ', '.join(d["Optimal Actions"])
@@ -161,23 +162,25 @@ for id, d in enumerate(data1):
     print("增加了：", set(correct_act) - priority_act)
     print("减少了：", priority_act - set(correct_act))
 
-    entry_str = f"{id+1}\n"
+    if current_cost==0:
+        continue
+    num+=1
+    entry_str = f"{num}\n"
     entry_str += f"Environment:1\n"
-    entry_str += f"Instruction: {d['Instruction']}\n"
+    entry_str += f"Instruction: {' '}\n"
     entry_str += f"Goals: {goal_str}\n"
     entry_str += f"Optimal Actions: {formatted_act}\n"
     entry_str += f"Vital Action Predicates: {formatted_predicates}\n"
     entry_str += f"Vital Objects: {formatted_objects}\n"
     if need_cost:
         entry_str += f"cost: {str(current_cost)}\n"
-
     write_to_file(entry_str, output_path)
     print("Written to file:", entry_str)
 
     results.append({
         'id': id + 1,
         'Environment': 1,
-        'Instruction': d['Instruction'],
+        'Instruction': '',
         'Goals': goal_str,
         'Optimal Actions': formatted_act,
         'Vital Action Predicates': formatted_predicates,

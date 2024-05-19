@@ -40,7 +40,10 @@ def extract_objects(actions):
 # output_csv_path = f"{ROOT_PATH}/../test/LLM_EXP/{file_name}_processed_h=0.csv"
 
 # file_name="VS"
-file_name="RHS_test_50"
+# file_name="RHS_test_50"
+# file_name="VH_test_50"
+
+file_name="RHB_test_50"
 data_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}.txt"
 output_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}_processed_data.txt"
 output_csv_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}_processed_h=1.csv"
@@ -50,13 +53,33 @@ len_data = len(data1)
 print(f"导入 {len_data} 条数据")
 print(data1[0])
 
+
 # RHS
-from btgym.envs.virtualhometextsmall.exec_lib._base.VHTAction import VHTAction
-env = btgym.make("VHT-Small")
+# from btgym.envs.virtualhometextsmall.exec_lib._base.VHTAction import VHTAction
+# env = btgym.make("VHT-Small")
+# cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
+# cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction.CAN_OPEN}
+# cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
+# cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
+# big_actions = collect_action_nodes(env.behavior_lib)
+
+# VH
+# from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
+# env = btgym.make("VH-PutMilkInFridge")
+# cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
+# cur_cond_set |= {f'IsClose({arg})' for arg in VHAction.CanOpenPlaces}
+# cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHAction.HasSwitchObjects}
+# big_actions = collect_action_nodes(env.behavior_lib)
+
+
+# RobotHowBig
+from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction as RHB
+env = btgym.make("VHT-PutMilkInFridge")
 cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
-cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction.CAN_OPEN}
-cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
-cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
+cur_cond_set |= {f'IsClose({arg})' for arg in RHB.CAN_OPEN}
+cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in RHB.HAS_SWITCH}
+cur_cond_set |= {f'IsUnplugged({arg})' for arg in RHB.HAS_PLUG}
+print(f"共收集到 {len(RHB.AllObject)} 个物体")
 big_actions = collect_action_nodes(env.behavior_lib)
 
 
@@ -67,15 +90,6 @@ big_actions = collect_action_nodes(env.behavior_lib)
 # cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
 # cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
 # big_actions = collect_action_nodes(env.behavior_lib)
-
-
-# from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
-# env = btgym.make("VH-PutMilkInFridge")
-# cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
-# cur_cond_set |= {f'IsClose({arg})' for arg in VHAction.CanOpenPlaces}
-# cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHAction.HasSwitchObjects}
-# big_actions = collect_action_nodes(env.behavior_lib)
-
 
 # 过滤动作
 def filter_actions(data, big_actions):
@@ -103,9 +117,20 @@ def write_to_file(data, file_path):
     with open(file_path, 'a') as file:
         file.write(data + '\n')
 
-for id, d in enumerate(data1):
+all_goal_set=set()
+id=0
+
+for nid, d in enumerate(data1):
     print("\x1b[32m\ndata:", id, "\x1b[0m", d["Instruction"])
     goal_str = ' & '.join(d["Goals"])
+
+    # 这个地方取个重
+    if goal_str in all_goal_set:
+        continue
+    else:
+        all_goal_set.add(goal_str)
+    id+=1
+
     act_str = ', '.join(d["Optimal Actions"])
     goal_set = goal_transfer_str(goal_str)
     print("goal_set:", goal_set)
@@ -170,7 +195,7 @@ for id, d in enumerate(data1):
     print("增加了：", set(correct_act) - priority_act)
     print("减少了：", priority_act - set(correct_act))
 
-    entry_str = f"{id+1}\n"
+    entry_str = f"{id}\n"
     entry_str += f"Environment:1\n"
     entry_str += f"Instruction: {d['Instruction']}\n"
     entry_str += f"Goals: {goal_str}\n"

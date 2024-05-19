@@ -1,0 +1,228 @@
+id,Environment,Instruction,Goals,Optimal Actions,Vital Action Predicates,Vital Objects,expanded_num,planning_time_total,current_cost,error,act_num
+1,1,,Exists_Coffee,Make_Coffee,Make,Coffee,2,0.0010004043579101562,5,False,1
+2,1,,On_VacuumCup_WaterStation,"MoveTo_VacuumCup, PickUp_VacuumCup, MoveTo_WaterStation, PutDown_VacuumCup_WaterStation","MoveTo, PickUp, PutDown","VacuumCup, WaterStation",6,0.0009996891021728516,52,False,4
+3,1,,On_Water_Table1,"Make_Water, MoveTo_Water, PickUp_Water, MoveTo_Table1, PutDown_Water_Table1","Make, MoveTo, PickUp, PutDown","Water, Table1",7,0.0010006427764892578,57,False,5
+4,1,,On_Yogurt_Table2,"MoveTo_Yogurt, PickUp_Yogurt, MoveTo_Table2, PutDown_Yogurt_Table2","MoveTo, PickUp, PutDown","Yogurt, Table2",6,0.0,52,False,4
+5,1,,Active_AC,Turn_AC_On,Turn,"AC, On",2,0.0,3,False,1
+6,1,,On_BottledDrink_Table3,"MoveTo_BottledDrink, PickUp_BottledDrink, MoveTo_Table3, PutDown_BottledDrink_Table3","MoveTo, PickUp, PutDown","BottledDrink, Table3",6,0.0,52,False,4
+7,1,,On_Dessert_Bar,Make_Dessert,Make,Dessert,7,0.0,5,False,1
+8,1,,On_Chips_Table3,"MoveTo_Chips, PickUp_Chips, MoveTo_Table3, PutDown_Chips_Table3","MoveTo, PickUp, PutDown","Chips, Table3",6,0.0,52,False,4
+9,1,,Active_TubeLight,Turn_TubeLight_On,Turn,"TubeLight, On",2,0.0,3,False,1
+10,1,,Closed_Curtain,Turn_Curtain_Off,Turn,"Curtain, Off",2,0.0,3,False,1
+11,1,,IsClean_Table1,Clean_Table1,Clean,Table1,2,0.0,10,False,1
+12,1,,On_Bernachon_Table1,"MoveTo_Bernachon, PickUp_Bernachon, MoveTo_Table1, PutDown_Bernachon_Table1","MoveTo, PickUp, PutDown","Bernachon, Table1",6,0.0010006427764892578,52,False,4
+13,1,,On_MilkDrink_Bar2,"MoveTo_MilkDrink, PickUp_MilkDrink, MoveTo_Bar2, PutDown_MilkDrink_Bar2","MoveTo, PickUp, PutDown","MilkDrink, Bar2",6,0.0010018348693847656,52,False,4
+14,1,,Active_AC,Turn_AC_On,Turn,"AC, On",2,0.0010001659393310547,3,False,1
+15,1,,On_Yogurt_Table2,"MoveTo_Yogurt, PickUp_Yogurt, MoveTo_Table2, PutDown_Yogurt_Table2","MoveTo, PickUp, PutDown","Yogurt, Table2",6,0.0009999275207519531,52,False,4
+16,1,,On_NFCJuice_Table2,"MoveTo_NFCJuice, PickUp_NFCJuice, MoveTo_Table2, PutDown_NFCJuice_Table2","MoveTo, PickUp, PutDown","NFCJuice, Table2",6,0.0010004043579101562,52,False,4
+17,1,,On_SpringWater_Table1,"MoveTo_SpringWater, PickUp_SpringWater, MoveTo_Table1, PutDown_SpringWater_Table1","MoveTo, PickUp, PutDown","SpringWater, Table1",6,0.001001119613647461,52,False,4
+18,1,,IsClean_Floor,Clean_Floor,Clean,Floor,2,0.0,10,False,1
+19,1,,IsClean_Chairs,Clean_Chairs,Clean,Chairs,2,0.0,10,False,1
+20,1,,Low_ACTemperature,"Turn_AC_On, Turn_ACTemperature_Down",Turn,"AC, On, ACTemperature, Down",3,0.0,6,False,2
+21,1,,On_ADMilk_CoffeeStation,"MoveTo_ADMilk, PickUp_ADMilk, MoveTo_CoffeeStation, PutDown_ADMilk_CoffeeStation","MoveTo, PickUp, PutDown","ADMilk, CoffeeStation",6,0.0,52,False,4
+22,1,,On_Milk_Bar,"MoveTo_Milk, PickUp_Milk, MoveTo_Bar, PutDown_Milk_Bar","MoveTo, PickUp, PutDown","Milk, Bar",6,0.0,52,False,4
+23,1,,Closed_Curtain,Turn_Curtain_Off,Turn,"Curtain, Off",2,0.0,3,False,1
+24,1,,Active_TubeLight,Turn_TubeLight_On,Turn,"TubeLight, On",2,0.0,3,False,1
+25,1,,On_Softdrink_Table3,"MoveTo_Softdrink, PickUp_Softdrink, MoveTo_Table3, PutDown_Softdrink_Table3","MoveTo, PickUp, PutDown","Softdrink, Table3",6,0.0,52,False,4
+26,1,,IsClean_Chairs,Clean_Chairs,Clean,Chairs,2,0.0,10,False,1
+27,1,,On_Dessert_Bar,Make_Dessert,Make,Dessert,7,0.0009996891021728516,5,False,1
+28,1,,On_Chips_Table3,"MoveTo_Chips, PickUp_Chips, MoveTo_Table3, PutDown_Chips_Table3","MoveTo, PickUp, PutDown","Chips, Table3",6,0.0010006427764892578,52,False,4
+29,1,,On_Coffee_Table1,"Make_Coffee, MoveTo_Coffee, PickUp_Coffee, MoveTo_Table1, PutDown_Coffee_Table1","Make, MoveTo, PickUp, PutDown","Coffee, Table1",7,0.0010004043579101562,57,False,5
+30,1,,On_Water_Bar2,"Make_Water, MoveTo_Water, PickUp_Water, MoveTo_Bar2, PutDown_Water_Bar2","Make, MoveTo, PickUp, PutDown","Water, Bar2",7,0.0010008811950683594,57,False,5
+31,1,,On_BottledDrink_Table1,"MoveTo_BottledDrink, PickUp_BottledDrink, MoveTo_Table1, PutDown_BottledDrink_Table1","MoveTo, PickUp, PutDown","BottledDrink, Table1",6,0.0,52,False,4
+32,1,,Inactive_HallLight,,,,1,0.0,0,True,0
+33,1,,IsClean_Floor,Clean_Floor,Clean,Floor,2,0.0,10,False,1
+34,1,,Exists_Coffee,Make_Coffee,Make,Coffee,2,0.0,5,False,1
+35,1,,On_Tray_Bar,,,,1,0.0,0,True,0
+36,1,,Active_AC,Turn_AC_On,Turn,"AC, On",2,0.0,3,False,1
+37,1,,On_Apple_QuietTable7,,,,1,0.0,0,True,0
+38,1,,Inactive_TubeLight,,,,1,0.0,0,True,0
+39,1,,On_CoffeeMachine_Bar,,,,1,0.0,0,True,0
+40,1,,High_ACTemperature,,,,1,0.0,0,True,0
+41,1,,On_Sandwiches_Table2,,,,1,0.0,0,True,0
+42,1,,Closed_Curtain,Turn_Curtain_Off,Turn,"Curtain, Off",2,0.0,3,False,1
+43,1,,IsClean_Chairs,Clean_Chairs,Clean,Chairs,2,0.0009999275207519531,10,False,1
+44,1,,On_Yogurt_LoungeArea,,,,1,0.0,0,True,0
+45,1,,Active_HallLight,Turn_HallLight_On,Turn,"HallLight, On",2,0.0,3,False,1
+46,1,,On_BottledDrink_CoffeeStation,"MoveTo_BottledDrink, PickUp_BottledDrink, MoveTo_CoffeeStation, PutDown_BottledDrink_CoffeeStation","MoveTo, PickUp, PutDown","BottledDrink, CoffeeStation",6,0.0,52,False,4
+47,1,,Inactive_AC,,,,1,0.0,0,True,0
+48,1,,Exists_Tea,,,,1,0.0,0,True,0
+49,1,,On_Dessert_QuietTable8,,,,1,0.0,0,True,0
+50,1,,Low_ACTemperature,,,,2,0.0010001659393310547,0,True,0
+51,1,,On_Newspaper_ReadingNook,,,,1,0.0,0,True,0
+52,1,,Inactive_TubeLight,,,,1,0.0,0,True,0
+53,1,,On_Mangosteen_Table3,,,,1,0.0,0,True,0
+54,1,,Inactive_CoffeeMachine,,,,1,0.0,0,True,0
+55,1,,IsClean_Floor,Clean_Floor,Clean,Floor,2,0.0,10,False,1
+56,1,,On_Cake_Table1,,,,1,0.0009987354278564453,0,True,0
+57,1,,Active_HallLight,Turn_HallLight_On,Turn,"HallLight, On",2,0.0,3,False,1
+58,1,,On_SpringWater_WaterStation,"MoveTo_SpringWater, PickUp_SpringWater, MoveTo_WaterStation, PutDown_SpringWater_WaterStation","MoveTo, PickUp, PutDown","SpringWater, WaterStation",6,0.0010004043579101562,52,False,4
+59,1,,Closed_Curtain,Turn_Curtain_Off,Turn,"Curtain, Off",2,0.0,3,False,1
+60,1,,Exists_Coffee,Make_Coffee,Make,Coffee,2,0.0,5,False,1
+61,1,,On_Chocolate_LoungeArea,,,,1,0.0,0,True,0
+62,1,,On_Bernachon_Bar,"MoveTo_Bernachon, PickUp_Bernachon, MoveTo_Bar, PutDown_Bernachon_Bar","MoveTo, PickUp, PutDown","Bernachon, Bar",6,0.0,52,False,4
+63,1,,Active_HallLight,Turn_HallLight_On,Turn,"HallLight, On",2,0.0,3,False,1
+64,1,,Exists_Desert,,,,1,0.0,0,True,0
+65,1,,Low_ACTemperature,,,,2,0.0,0,True,0
+66,1,,On_Coffee_Bar2,"Make_Coffee, MoveTo_Coffee, PickUp_Coffee, MoveTo_Bar2, PutDown_Coffee_Bar2","Make, MoveTo, PickUp, PutDown","Coffee, Bar2",7,0.0010001659393310547,57,False,5
+67,1,,IsClean_Table1,Clean_Table1,Clean,Table1,2,0.0,10,False,1
+68,1,,Exists_Milk,,,,1,0.0,0,False,0
+69,1,,On_SpringWater_Table3,"MoveTo_SpringWater, PickUp_SpringWater, MoveTo_Table3, PutDown_SpringWater_Table3","MoveTo, PickUp, PutDown","SpringWater, Table3",6,0.0009999275207519531,52,False,4
+70,1,,Active_TubeLight,Turn_TubeLight_On,Turn,"TubeLight, On",2,0.0,3,False,1
+71,1,,Exists_Chips,,,,1,0.0,0,False,0
+72,1,,On_NFCJuice_BrightTable6,"MoveTo_NFCJuice, PickUp_NFCJuice, MoveTo_BrightTable6, PutDown_NFCJuice_BrightTable6","MoveTo, PickUp, PutDown","NFCJuice, BrightTable6",6,0.0009999275207519531,52,False,4
+73,1,,Closed_Curtain,Turn_Curtain_Off,Turn,"Curtain, Off",2,0.0,3,False,1
+74,1,,Exists_ADMilk,,,,1,0.0,0,False,0
+75,1,,On_MilkDrink_Table2,"MoveTo_MilkDrink, PickUp_MilkDrink, MoveTo_Table2, PutDown_MilkDrink_Table2","MoveTo, PickUp, PutDown","MilkDrink, Table2",6,0.0,52,False,4
+76,1,,IsClean_Floor,Clean_Floor,Clean,Floor,2,0.0,10,False,1
+77,1,,On_Softdrink_CoffeeStation,"MoveTo_Softdrink, PickUp_Softdrink, MoveTo_CoffeeStation, PutDown_Softdrink_CoffeeStation","MoveTo, PickUp, PutDown","Softdrink, CoffeeStation",6,0.0,52,False,4
+78,1,,Active_TubeLight,Turn_TubeLight_On,Turn,"TubeLight, On",2,0.0,3,False,1
+79,1,,Exists_BottledDrink,,,,1,0.0,0,False,0
+80,1,,On_Yogurt_QuietTable7,,,,1,0.0,0,True,0
+81,1,,Exists_Desert,,,,1,0.0,0,True,0
+82,1,,On_Water_WindowTable4,,,,1,0.0,0,True,0
+83,1,,Active_AC,Turn_AC_On,Turn,"AC, On",2,0.0,3,False,1
+84,1,,Exists_SpringWater,,,,1,0.0,0,False,0
+85,1,,On_BottledDrink_WindowTable5,,,,1,0.0,0,True,0
+86,1,,Low_ACTemperature,,,,2,0.0,0,True,0
+87,1,,Exists_Milk,,,,1,0.0,0,False,0
+88,1,,On_Chips_Table1,"MoveTo_Chips, PickUp_Chips, MoveTo_Table1, PutDown_Chips_Table1","MoveTo, PickUp, PutDown","Chips, Table1",6,0.0,52,False,4
+89,1,,Active_HallLight,Turn_HallLight_On,Turn,"HallLight, On",2,0.0,3,False,1
+90,1,,Exists_VacuumCup,,,,1,0.0,0,False,0
+91,1,,On_Softdrink_QuietTable8,,,,1,0.0,0,True,0
+92,1,,IsClean_Chairs,Clean_Chairs,Clean,Chairs,2,0.0,10,False,1
+93,1,,On_Milk_WindowTable6,,,,1,0.0,0,True,0
+94,1,,Exists_ADMilk,,,,1,0.0,0,False,0
+95,1,,On_Coffee_Entrance,,,,1,0.0,0,True,0
+96,1,,Closed_Curtain,Turn_Curtain_Off,Turn,"Curtain, Off",2,0.0010001659393310547,3,False,1
+97,1,,On_SpringWater_Bar,"MoveTo_SpringWater, PickUp_SpringWater, MoveTo_Bar, PutDown_SpringWater_Bar","MoveTo, PickUp, PutDown","SpringWater, Bar",6,0.0009999275207519531,52,False,4
+98,1,,Exists_Yogurt,,,,1,0.0,0,False,0
+99,1,,On_Water_Table3,"Make_Water, MoveTo_Water, PickUp_Water, MoveTo_Table3, PutDown_Water_Table3","Make, MoveTo, PickUp, PutDown","Water, Table3",7,0.0,57,False,5
+100,1,,Active_AC,Turn_AC_On,Turn,"AC, On",2,0.0,3,False,1
+101,1,,Exists_Softdrink,,,,1,0.0,0,False,0
+102,1,,On_Bernachon_QuietTable9,,,,1,0.0,0,True,0
+103,1,,Low_ACTemperature,,,,1,0.0,0,True,0
+104,1,,Exists_SpringWater,,,,1,0.0,0,False,0
+105,1,,On_Yogurt_BrightTable6,"MoveTo_Yogurt, PickUp_Yogurt, MoveTo_BrightTable6, PutDown_Yogurt_BrightTable6","MoveTo, PickUp, PutDown","Yogurt, BrightTable6",6,0.0009996891021728516,52,False,4
+106,1,,Exists_Coffee,Make_Coffee,Make,Coffee,2,0.0,5,False,1
+107,1,,On_VacuumCup_WindowTable4,,,,1,0.0,0,True,0
+108,1,,IsClean_Table2,,,,1,0.0,0,True,0
+109,1,,On_Softdrink_WindowTable5,,,,1,0.0,0,True,0
+110,1,,Exists_BottledDrink,,,,1,0.0,0,False,0
+111,1,,On_NFCJuice_QuietTable7,,,,1,0.0,0,True,0
+112,1,,Closed_Curtain,Turn_Curtain_Off,Turn,"Curtain, Off",2,0.0,3,False,1
+113,1,,On_Desert_BrightTable6,,,,1,0.0,0,True,0
+114,1,,Exists_Yogurt,,,,1,0.0,0,False,0
+115,1,,On_MilkDrink_Table2,"MoveTo_MilkDrink, PickUp_MilkDrink, MoveTo_Table2, PutDown_MilkDrink_Table2","MoveTo, PickUp, PutDown","MilkDrink, Table2",6,0.0010001659393310547,52,False,4
+116,1,,Active_TubeLight,Turn_TubeLight_On,Turn,"TubeLight, On",2,0.0,3,False,1
+117,1,,Exists_Chips,,,,1,0.0010001659393310547,0,False,0
+118,1,,On_Water_WindowTable5,,,,1,0.0,0,True,0
+119,1,,Low_ACTemperature,,,,2,0.0,0,True,0
+120,1,,Exists_Milk,,,,1,0.0,0,False,0
+121,1,,On_Softdrink_CoffeeStation,"MoveTo_Softdrink, PickUp_Softdrink, MoveTo_CoffeeStation, PutDown_Softdrink_CoffeeStation","MoveTo, PickUp, PutDown","Softdrink, CoffeeStation",6,0.001001119613647461,52,False,4
+122,1,,Active_AC,Turn_AC_On,Turn,"AC, On",2,0.0010004043579101562,3,False,1
+123,1,,Exists_SpringWater,,,,1,0.0,0,False,0
+124,1,,On_Bernachon_Table3,"MoveTo_Bernachon, PickUp_Bernachon, MoveTo_Table3, PutDown_Bernachon_Table3","MoveTo, PickUp, PutDown","Bernachon, Table3",6,0.0010006427764892578,52,False,4
+125,1,,IsClean_Chairs,Clean_Chairs,Clean,Chairs,2,0.0,10,False,1
+126,1,,Exists_Coffee,Make_Coffee,Make,Coffee,2,0.0,5,False,1
+127,1,,On_VacuumCup_WindowTable6,,,,1,0.0,0,True,0
+128,1,,Active_HallLight,Turn_HallLight_On,Turn,"HallLight, On",2,0.0,3,False,1
+129,1,,On_NFCJuice_QuietTable9,,,,1,0.0,0,True,0
+130,1,,Exists_ADMilk,,,,1,0.0,0,False,0
+131,1,,On_Softdrink_Bar2,"MoveTo_Softdrink, PickUp_Softdrink, MoveTo_Bar2, PutDown_Softdrink_Bar2","MoveTo, PickUp, PutDown","Softdrink, Bar2",6,0.0,52,False,4
+132,1,,Closed_Curtain,Turn_Curtain_Off,Turn,"Curtain, Off",2,0.0,3,False,1
+133,1,,On_Desert_WindowTable4,,,,1,0.0010004043579101562,0,True,0
+134,1,,Exists_Yogurt,,,,1,0.0,0,False,0
+135,1,,On_MilkDrink_Table2,"MoveTo_MilkDrink, PickUp_MilkDrink, MoveTo_Table2, PutDown_MilkDrink_Table2","MoveTo, PickUp, PutDown","MilkDrink, Table2",6,0.0,52,False,4
+136,1,,IsClean_Floor,Clean_Floor,Clean,Floor,2,0.0,10,False,1
+137,1,,Exists_Milk,,,,1,0.0,0,False,0
+138,1,,On_SpringWater_QuietTable8,,,,1,0.0,0,True,0
+139,1,,Active_AC,Turn_AC_On,Turn,"AC, On",2,0.0010006427764892578,3,False,1
+140,1,,Exists_Softdrink,,,,1,0.0,0,False,0
+141,1,,On_Bernachon_WindowTable5,,,,1,0.0,0,True,0
+142,1,,Low_ACTemperature,,,,2,0.0,0,True,0
+143,1,,Exists_SpringWater,,,,1,0.0,0,False,0
+144,1,,On_Yogurt_QuietTable7,,,,1,0.0,0,True,0
+145,1,,IsClean_Table1,Clean_Table1,Clean,Table1,2,0.0,10,False,1
+146,1,,Exists_VacuumCup,,,,1,0.0,0,False,0
+147,1,,On_NFCJuice_WindowTable6,,,,1,0.0,0,True,0
+148,1,,Exists_Chips,,,,1,0.0,0,False,0
+149,1,,On_Milk_WindowTable4,,,,1,0.0,0,True,0
+150,1,,Exists_ADMilk,,,,1,0.0,0,False,0
+151,1,,On_Softdrink_CoffeeStation,"MoveTo_Softdrink, PickUp_Softdrink, MoveTo_CoffeeStation, PutDown_Softdrink_CoffeeStation","MoveTo, PickUp, PutDown","Softdrink, CoffeeStation",6,0.0010001659393310547,52,False,4
+152,1,,Active_HallLight,Turn_HallLight_On,Turn,"HallLight, On",2,0.0,3,False,1
+153,1,,Exists_BottledDrink,,,,1,0.0,0,False,0
+154,1,,On_Yogurt_QuietTable9,,,,1,0.0,0,True,0
+155,1,,Low_ACTemperature,,,,2,0.0,0,True,0
+156,1,,Exists_VacuumCup,,,,1,0.0,0,False,0
+157,1,,On_Coffee_Bar,"Make_Coffee, MoveTo_Coffee, PickUp_Coffee, MoveTo_Bar, PutDown_Coffee_Bar","Make, MoveTo, PickUp, PutDown","Coffee, Bar",7,0.0,57,False,5
+158,1,,IsClean_Table2,,,,1,0.0,0,True,0
+159,1,,On_Water_WindowTable6,,,,1,0.0,0,True,0
+160,1,,Exists_Milk,,,,1,0.0,0,False,0
+161,1,,On_Softdrink_Bar2,"MoveTo_Softdrink, PickUp_Softdrink, MoveTo_Bar2, PutDown_Softdrink_Bar2","MoveTo, PickUp, PutDown","Softdrink, Bar2",6,0.0010004043579101562,52,False,4
+162,1,,Active_TubeLight,Turn_TubeLight_On,Turn,"TubeLight, On",2,0.0,3,False,1
+163,1,,Exists_SpringWater,,,,1,0.0,0,False,0
+164,1,,On_Yogurt_Table3,"MoveTo_Yogurt, PickUp_Yogurt, MoveTo_Table3, PutDown_Yogurt_Table3","MoveTo, PickUp, PutDown","Yogurt, Table3",6,0.0010008811950683594,52,False,4
+165,1,,Low_ACTemperature,,,,2,0.0,0,True,0
+166,1,,Exists_BottledDrink,,,,1,0.0010013580322265625,0,False,0
+167,1,,On_Desert_WindowTable4,,,,1,0.0,0,True,0
+168,1,,Exists_Yogurt,,,,1,0.0,0,False,0
+169,1,,On_MilkDrink_BrightTable6,"MoveTo_MilkDrink, PickUp_MilkDrink, MoveTo_BrightTable6, PutDown_MilkDrink_BrightTable6","MoveTo, PickUp, PutDown","MilkDrink, BrightTable6",6,0.0010006427764892578,52,False,4
+170,1,,Active_AC,Turn_AC_On,Turn,"AC, On",2,0.0,3,False,1
+171,1,,Exists_Desert,,,,1,0.0,0,True,0
+172,1,,On_NFCJuice_WindowTable5,,,,1,0.0,0,True,0
+173,1,,IsClean_Chairs,Clean_Chairs,Clean,Chairs,2,0.0,10,False,1
+174,1,,Exists_Milk,,,,1,0.0,0,False,0
+175,1,,On_SpringWater_Table1,"MoveTo_SpringWater, PickUp_SpringWater, MoveTo_Table1, PutDown_SpringWater_Table1","MoveTo, PickUp, PutDown","SpringWater, Table1",6,0.0,52,False,4
+176,1,,Exists_VacuumCup,,,,1,0.0,0,False,0
+177,1,,On_Desert_QuietTable7,,,,1,0.0,0,True,0
+178,1,,Exists_Chips,,,,1,0.0,0,False,0
+179,1,,On_Water_WindowTable4,,,,1,0.0,0,True,0
+180,1,,Active_TubeLight,Turn_TubeLight_On,Turn,"TubeLight, On",2,0.0,3,False,1
+181,1,,Exists_SpringWater,,,,1,0.0,0,False,0
+182,1,,On_Yogurt_QuietTable9,,,,1,0.0,0,True,0
+183,1,,Low_ACTemperature,,,,2,0.0,0,True,0
+184,1,,Exists_VacuumCup,,,,1,0.0,0,False,0
+185,1,,On_Coffee_WindowTable5,,,,1,0.0,0,True,0
+186,1,,IsClean_Floor,Clean_Floor,Clean,Floor,2,0.0,10,False,1
+187,1,,Exists_ADMilk,,,,1,0.0,0,False,0
+188,1,,On_Softdrink_Bar,"MoveTo_Softdrink, PickUp_Softdrink, MoveTo_Bar, PutDown_Softdrink_Bar","MoveTo, PickUp, PutDown","Softdrink, Bar",6,0.0,52,False,4
+189,1,,Exists_Yogurt,,,,1,0.0,0,False,0
+190,1,,On_Water_WindowTable6,,,,1,0.0,0,True,0
+191,1,,Active_AC,Turn_AC_On,Turn,"AC, On",2,0.0,3,False,1
+192,1,,Exists_SpringWater,,,,1,0.001001119613647461,0,False,0
+193,1,,On_Yogurt_QuietTable8,,,,1,0.0,0,True,0
+194,1,,Exists_Desert,,,,1,0.0,0,True,0
+195,1,,On_MilkDrink_BrightTable6,"MoveTo_MilkDrink, PickUp_MilkDrink, MoveTo_BrightTable6, PutDown_MilkDrink_BrightTable6","MoveTo, PickUp, PutDown","MilkDrink, BrightTable6",6,0.0,52,False,4
+196,1,,Active_HallLight,Turn_HallLight_On,Turn,"HallLight, On",2,0.0,3,False,1
+197,1,,Exists_VacuumCup,,,,1,0.0,0,False,0
+198,1,,On_Bernachon_WindowTable4,,,,1,0.0,0,True,0
+199,1,,IsClean_Table3,,,,1,0.0,0,True,0
+200,1,,Exists_Yogurt,,,,1,0.0,0,False,0
+201,1,,On_Softdrink_WindowTable6,,,,1,0.0,0,True,0
+202,1,,Exists_ADMilk,,,,1,0.0,0,False,0
+203,1,,On_Water_BrightTable6,"Make_Water, MoveTo_Water, PickUp_Water, MoveTo_BrightTable6, PutDown_Water_BrightTable6","Make, MoveTo, PickUp, PutDown","Water, BrightTable6",7,0.0,57,False,5
+204,1,,Low_ACTemperature,,,,2,0.0,0,True,0
+205,1,,Exists_BottledDrink,,,,1,0.0,0,False,0
+206,1,,On_Yogurt_Table1,"MoveTo_Yogurt, PickUp_Yogurt, MoveTo_Table1, PutDown_Yogurt_Table1","MoveTo, PickUp, PutDown","Yogurt, Table1",6,0.0009999275207519531,52,False,4
+207,1,,Active_TubeLight,Turn_TubeLight_On,Turn,"TubeLight, On",2,0.0,3,False,1
+208,1,,Exists_Milk,,,,1,0.0,0,False,0
+209,1,,On_Water_Table2,"Make_Water, MoveTo_Water, PickUp_Water, MoveTo_Table2, PutDown_Water_Table2","Make, MoveTo, PickUp, PutDown","Water, Table2",7,0.0009996891021728516,57,False,5
+210,1,,Exists_SpringWater,,,,1,0.0,0,False,0
+211,1,,On_NFCJuice_Table3,"MoveTo_NFCJuice, PickUp_NFCJuice, MoveTo_Table3, PutDown_NFCJuice_Table3","MoveTo, PickUp, PutDown","NFCJuice, Table3",6,0.0009999275207519531,52,False,4
+212,1,,IsClean_Chairs,Clean_Chairs,Clean,Chairs,2,0.0,10,False,1
+213,1,,Exists_Desert,,,,1,0.0,0,True,0
+214,1,,On_MilkDrink_BrightTable6,"MoveTo_MilkDrink, PickUp_MilkDrink, MoveTo_BrightTable6, PutDown_MilkDrink_BrightTable6","MoveTo, PickUp, PutDown","MilkDrink, BrightTable6",6,0.0,52,False,4
+215,1,,Active_AC,Turn_AC_On,Turn,"AC, On",2,0.0,3,False,1
+216,1,,Exists_VacuumCup,,,,1,0.0,0,False,0
+217,1,,On_Bernachon_Bar2,"MoveTo_Bernachon, PickUp_Bernachon, MoveTo_Bar2, PutDown_Bernachon_Bar2","MoveTo, PickUp, PutDown","Bernachon, Bar2",6,0.0010001659393310547,52,False,4
+218,1,,Exists_Yogurt,,,,1,0.0,0,False,0
+219,1,,On_Softdrink_QuietTable8,,,,1,0.0,0,True,0
+220,1,,IsClean_Table1,Clean_Table1,Clean,Table1,2,0.0,10,False,1
+221,1,,Exists_ADMilk,,,,1,0.0,0,False,0
+222,1,,On_Water_WindowTable4,,,,1,0.0,0,True,0
+223,1,,Active_TubeLight,Turn_TubeLight_On,Turn,"TubeLight, On",2,0.0,3,False,1
+224,1,,Exists_SpringWater,,,,1,0.0,0,False,0
+225,1,,On_NFCJuice_WindowTable6,,,,1,0.0,0,True,0
+226,1,,Low_ACTemperature,,,,2,0.0,0,True,0
+227,1,,Exists_VacuumCup,,,,1,0.0,0,False,0

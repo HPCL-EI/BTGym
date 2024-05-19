@@ -8,8 +8,8 @@ class VHAction(Action):
 
     SurfacePlaces = {"kitchentable","plate","nightstand","desk","cabinet","bathroomcounter","stove"} # put
     SittablePlaces =  {"bed","sofa","chair","Bench"}  # sit
-    CanOpenPlaces= {"fridge","dishwasher","microwave","stove"}  # open
-    CanPutInPlaces={"fridge","dishwasher","microwave","stove"}  # put in
+    CanOpenPlaces= {"fridge","dishwasher","microwave","stove","cabinet"}  # open
+    CanPutInPlaces={"fridge","dishwasher","microwave","stove","cabinet"}  # put in
     Objects={"bananas",'chicken', 'cutlets','breadslice','chips','chocolatesyrup',
              'cupcake','milk','juice','wine',
              'cutleryknife','fryingpan','dishbowl','plate',

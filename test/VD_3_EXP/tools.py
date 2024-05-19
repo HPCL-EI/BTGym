@@ -272,11 +272,12 @@ def find_from_small_act(goal):
     from btgym.algos.bt_autogen.main_interface import BTExpInterface
     from btgym.algos.llm_client.tools import goal_transfer_str, act_format_records
 
+    from btgym.envs.virtualhometextsmall.exec_lib._base.VHTAction import VHTAction
     env = btgym.make("VHT-Small")
     cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
     cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction.CAN_OPEN}
-    cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
     cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
+    cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
     big_actions = collect_action_nodes(env.behavior_lib)
 
     algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
@@ -291,6 +292,8 @@ def find_from_small_act(goal):
     time_limit_exceeded = algo.algo.time_limit_exceeded
 
     success = not error and not time_limit_exceeded
+
+    print(f"====== goal: {goal}  success: {success} ========")
 
     _priority_act_ls, key_predicates, key_objects = act_format_records(record_act_ls)
     priority_act_ls = record_act_ls
@@ -326,3 +329,5 @@ def find_from_small_act(goal):
 # find_from_small_act(['IsIn_apple_microwave & IsClose_microwave & IsSwitchedOn_microwave']) #,'IsCut_breadslice'
 # find_from_small_act(['IsIn_apple_microwave & IsIn_cutlets_microwave']) #,'IsCut_breadslice'
 # find_from_small_act(['IsOn_kitchenknife_kitchentable'])
+
+# find_from_small_act(['IsIn_apple_microwave'])

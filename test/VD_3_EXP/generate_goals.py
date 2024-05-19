@@ -281,6 +281,10 @@ if __name__ == '__main__':
     mount = 100
 
     # goals_filename = ''
+    # for i in range(mount):
+    #     goal = get_goals_string()
+    #     print(goal)
+
+    a = random_generate_goals(mount,diffcult_type="easy")
     for i in range(mount):
-        goal = get_goals_string()
-        print(goal)
+        print(a[i])

@@ -96,15 +96,16 @@ def perform_test(env, chosen_goal, database_index_path, reflect_time=0, train=Fa
         # Calculate average distance
         avg_distance = np.mean(filtered_distances)
 
-        return success, avg_distance, priority_act_ls, key_predicates, key_objects, \
-            act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total, act_space, parsed_fail
-    else:
-        success = False
-        goal_set, priority_act_ls, key_predicates, key_objects, \
-            act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total, act_space = \
-            None, None, None, None, None, None, None, None, None, None, None
+        if success:
+            return success, avg_distance, priority_act_ls, key_predicates, key_objects, \
+                act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total, act_space, parsed_fail
 
     # 到这一步的都是没成功的，如果是训练集就计算，如果是测试集就进入扩大范围的阶段
+    success = False
+    goal_set, priority_act_ls, key_predicates, key_objects, \
+        act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total, act_space = \
+        None, None, None, None, None, None, None, None, None, None, None
+
     if train:  # 搜索小动作空间得到一个解
         success, priority_act_ls, key_predicates, key_objects, \
             act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total, act_space = \
@@ -211,7 +212,6 @@ default_prompt_file = f"{ROOT_PATH}/algos/llm_client/prompt_VHT_just_goal_no_exa
 dataset = read_dataset(f"{name}_test_20.txt")
 database_index_path = f"{ROOT_PATH}/../test/VD_3_EXP/DATABASE/0_goal_vectors.index"
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction as RHB
-
 env = btgym.make("VHT-PutMilkInFridge")
 cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
 cur_cond_set |= {f'IsClose({arg})' for arg in RHB.CAN_OPEN}
@@ -223,7 +223,13 @@ max_round = 20 + 1
 sample_num = 10
 vaild_num = 20
 diffcult_type = "easy"
-print_round = 2  # 每多少轮打印一次
+print_round = 5  # 每多少轮打印一次
+
+# max_round = 1 + 1
+# sample_num = 1
+# vaild_num = 0
+# diffcult_type = "easy"
+# print_round = 100  # 每多少轮打印一次
 
 test_results = []  # Details: 保存每轮下每个数据的具体情况
 metrics_df = pd.DataFrame(columns=["Round", "Test Success Rate Once", "Average Distance", "Average Expanded Num",
@@ -404,7 +410,7 @@ for round_num in range(0, 0 + max_round):
             plt.legend()
             plt.savefig(
                 f'output_{name}/TMP_APIC_{name}_{metric_name}_Sum_round{round_num}_mr={max_round}_smpl={sample_num}.png')
-
+        plt.show()
 # 输出最终的 Metrics
 print(f"{colors['green']}Test Success Rate: {success_rate}{colors['reset']}")
 print(f"{colors['green']}Average Parsed Fail: {average_parsed_fail}{colors['reset']}")

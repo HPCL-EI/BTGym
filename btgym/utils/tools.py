@@ -41,7 +41,7 @@ def collect_action_nodes(behavior_lib):
 
     for cls in behavior_lib["Action"].values():
         if cls.can_be_expanded:
-            print(f"可扩展动作：{cls.__name__}, 存在{len(cls.valid_args)}个有效论域组合")
+            # print(f"可扩展动作：{cls.__name__}, 存在{len(cls.valid_args)}个有效论域组合")
             if cls.num_args == 0:
                 action_list.append(Action(name=cls.get_ins_name(), **cls.get_info()))
             if cls.num_args == 1:

@@ -57,7 +57,7 @@ class VHTAction(Action):
     # cleaning_tools = {"rag", "duster", "papertowel", "brush"}
     # cutting_tools={"cutleryknife","kitchenknife"}
     cleaning_tools = {"rag"}
-    cutting_tools={"cutleryknife","kitchenknife"}
+    cutting_tools={"kitchenknife"}
 
 
 
@@ -84,7 +84,7 @@ class VHTAction(Action):
                "pear","plum","bellpepper"}
     # 无可切割物品
 
-    WASHABLE={"apple","bananas","carrot","chicken","lime","salmon", "peach","pear","plum","rag"}
+    WASHABLE={"apple","bananas","carrot","chicken","lime","salmon", "peach","pear","plum","rag","cutlets"}
 
     RECIPIENT = {"dishbowl", "wineglass", "coffeemaker", "cookingpot", "box", "mug", "toothbrush", "coffeepot","fryingpan", \
                  "waterglass", "sink", "plate", "washingmachine"}

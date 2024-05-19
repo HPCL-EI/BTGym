@@ -67,7 +67,7 @@ class VHTAction(Action):
     DRINKABLE = {'wine'}
 
     AllObject = SURFACES | SITTABLE | CAN_OPEN | CONTAINERS | GRABBABLE |\
-                 HAS_SWITCH | CUTABLE
+                 HAS_SWITCH | CUTABLE | WASHABLE|cleaning_tools|cutting_tools
 
     @property
     def action_class_name(self):

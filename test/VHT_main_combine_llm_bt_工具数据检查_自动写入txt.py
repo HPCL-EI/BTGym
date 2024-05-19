@@ -39,7 +39,8 @@ def extract_objects(actions):
 # output_path = f"{ROOT_PATH}/../test/VD_EXP/{file_name}_processed_data.txt"
 # output_csv_path = f"{ROOT_PATH}/../test/LLM_EXP/{file_name}_processed_h=0.csv"
 
-file_name="VS"
+# file_name="VS"
+file_name="RHS_test_50"
 data_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}.txt"
 output_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}_processed_data.txt"
 output_csv_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}_processed_h=1.csv"
@@ -48,6 +49,16 @@ data1 = read_dataset(data_path)
 len_data = len(data1)
 print(f"导入 {len_data} 条数据")
 print(data1[0])
+
+# RHS
+from btgym.envs.virtualhometextsmall.exec_lib._base.VHTAction import VHTAction
+env = btgym.make("VHT-Small")
+cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
+cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction.CAN_OPEN}
+cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
+cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
+big_actions = collect_action_nodes(env.behavior_lib)
+
 
 # 初始化环境
 # env = btgym.make("VHT-PutMilkInFridge")
@@ -58,19 +69,19 @@ print(data1[0])
 # big_actions = collect_action_nodes(env.behavior_lib)
 
 
-from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
-env = btgym.make("VH-PutMilkInFridge")
-cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
-cur_cond_set |= {f'IsClose({arg})' for arg in VHAction.CanOpenPlaces}
-cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHAction.HasSwitchObjects}
-big_actions = collect_action_nodes(env.behavior_lib)
+# from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
+# env = btgym.make("VH-PutMilkInFridge")
+# cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
+# cur_cond_set |= {f'IsClose({arg})' for arg in VHAction.CanOpenPlaces}
+# cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHAction.HasSwitchObjects}
+# big_actions = collect_action_nodes(env.behavior_lib)
 
 
 # 过滤动作
 def filter_actions(data, big_actions):
     all_action_names = set()
     for d in data:
-        print(d)
+        # print(d)
         priority_act_ls = act_str_process(d['Optimal Actions'], already_split=True)
         all_action_names.update(priority_act_ls)
     current_big_actions = [action for action in big_actions if action.name in all_action_names]
@@ -95,9 +106,6 @@ def write_to_file(data, file_path):
 for id, d in enumerate(data1):
     print("\x1b[32m\ndata:", id, "\x1b[0m", d["Instruction"])
 
-    goal_str = ' & '.join(d["Goals"])
-    act_str = ', '.join(d["Optimal Actions"])
-
     goal_set = goal_transfer_str(goal_str)
     print("goal_set:", goal_set)
     priority_act_ls = act_str_process(act_str)
@@ -106,6 +114,9 @@ for id, d in enumerate(data1):
     key_predicates = extract_objects(priority_act_ls)
 
     priority_obj_ls = []
+    goal_str = ' & '.join(d["Goals"])
+    act_str = ', '.join(d["Optimal Actions"])
+
     objects = set()
     pattern = re.compile(r'\((.*?)\)')
     for expr in chain(goal_set[0], priority_act_ls):

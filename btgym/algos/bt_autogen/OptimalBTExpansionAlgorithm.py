@@ -527,8 +527,8 @@ class OptBTExpAlgorithm:
             # Traverse actions to find applicable ones
             traversed_current = []
             for act in actions:
-                if "Turn" in act.name:
-                    tt = 1
+                # if "Turn" in act.name:
+                #     tt = 1
 
                 epsh += 0.00000000001
                 if not c & ((act.pre | act.add) - act.del_set) <= set():

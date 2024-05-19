@@ -239,23 +239,23 @@ if __name__ == '__main__':
     # 示例路径和布尔标志
     # file_path = f"{ROOT_PATH}/../test/dataset/database_cys_5.txt"
     # index_path = f"{ROOT_PATH}/../test/dataset/env_goal_vectors.txt"
-    # filename = "Group0"
+    filename = "0"
     # filename = "Group1"
     # filename = "Group01"
     # filename = "DB_rf=3_round9_G0"
     # file_path = f"{ROOT_PATH}/../test/dataset/DATABASE/{filename}.txt"
     # index_path = f"{ROOT_PATH}/../test/dataset/DATABASE/{filename}_env_goal_vectors.index"
 
-    # file_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/{filename}.txt"
-    # index_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/{filename}_env_goal_vectors.index"
-    # output_path = f"{ROOT_PATH}/../test/VD_EXP/DATABASE/DATABASE_{filename}_metadata.txt"
+    file_path = f"{ROOT_PATH}/../test/VD_3_EXP/DATABASE/{filename}.txt"
+    index_path = f"{ROOT_PATH}/../test/VD_3_EXP/DATABASE/{filename}_env_goal_vectors.index"
+    output_path = f"{ROOT_PATH}/../test/VD_3_EXP/DATABASE/DATABASE_{filename}_metadata.txt"
 
-    filename = "RW_100" #"RHB_100" #"VH_100" #"RHS_100"
-    file_path = f"{ROOT_PATH}/../test/SCENES_EXP/DATABASE/{filename}.txt"
-    index_path = f"{ROOT_PATH}/../test/SCENES_EXP/DATABASE/{filename}_env_goal_vectors.index"
-    output_path = f"{ROOT_PATH}/../test/SCENES_EXP/DATABASE/DATABASE_{filename}_metadata.txt"
+    # filename = "RW_100" #"RHB_100" #"VH_100" #"RHS_100"
+    # file_path = f"{ROOT_PATH}/../test/SCENES_EXP/DATABASE/{filename}.txt"
+    # index_path = f"{ROOT_PATH}/../test/SCENES_EXP/DATABASE/{filename}_env_goal_vectors.index"
+    # output_path = f"{ROOT_PATH}/../test/SCENES_EXP/DATABASE/DATABASE_{filename}_metadata.txt"
+
     should_rebuild_index = True  # 如果为 True，则重建数据库
-
     # 检查文件存在或决定是否重建
     if should_rebuild_index or not check_index_exists(index_path):
         # create_empty_index(dimension, index_path)

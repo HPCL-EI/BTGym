@@ -43,16 +43,25 @@ def extract_objects(actions):
 # file_name="RHS_test_50"
 # file_name="VH_test_50"
 
-file_name="RHB_test_50"
-data_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}.txt"
-output_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}_processed_data.txt"
-output_csv_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}_processed_h=1.csv"
+# file_name="easy_test_20"
+# data_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}.txt"
+# output_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}_processed_data.txt"
+# output_csv_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}_processed_h=1.csv"
+# need_cost = False
+# data1 = read_dataset(data_path)
+# len_data = len(data1)
+# print(f"导入 {len_data} 条数据")
+# print(data1[0])
+
+file_name="medium_test_20"
+data_path = f"{ROOT_PATH}/../test/VD_3_EXP/{file_name}.txt"
+output_path = f"{ROOT_PATH}/../test/VD_3_EXP/{file_name}_processed_data.txt"
+output_csv_path = f"{ROOT_PATH}/../test/VD_3_EXP/{file_name}_processed_h=1.csv"
 need_cost = False
 data1 = read_dataset(data_path)
 len_data = len(data1)
 print(f"导入 {len_data} 条数据")
 print(data1[0])
-
 
 # RHS
 # from btgym.envs.virtualhometextsmall.exec_lib._base.VHTAction import VHTAction

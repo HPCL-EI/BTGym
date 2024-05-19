@@ -165,7 +165,8 @@ def add_data_entry(index_path, llm, environment, goal, optimal_actions, vital_ac
     metadata = np.load(index_path.replace(".index", "_metadata.npy"), allow_pickle=True)
 
     # 生成新的键和值
-    new_key = f"{environment}: {goal}"
+    # new_key = f"{environment}: {goal}"
+    new_key = f"{goal}"
     new_value = {
         "Environment": environment,
         "Goals": goal,
@@ -247,7 +248,7 @@ if __name__ == '__main__':
     # index_path = f"{ROOT_PATH}/../test/dataset/DATABASE/{filename}_env_goal_vectors.index"
 
     file_path = f"{ROOT_PATH}/../test/VD_3_EXP/DATABASE/{filename}.txt"
-    index_path = f"{ROOT_PATH}/../test/VD_3_EXP/DATABASE/{filename}_env_goal_vectors.index"
+    index_path = f"{ROOT_PATH}/../test/VD_3_EXP/DATABASE/{filename}_goal_vectors.index"
     output_path = f"{ROOT_PATH}/../test/VD_3_EXP/DATABASE/DATABASE_{filename}_metadata.txt"
 
     # filename = "RW_100" #"RHB_100" #"VH_100" #"RHS_100"

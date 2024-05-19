@@ -1,0 +1,21 @@
+id,Environment,Instruction,Goals,Optimal Actions,Vital Action Predicates,Vital Objects,expanded_num,planning_time_total,current_cost,error,act_num
+2,1,Put the chicken in the microwave.,IsIn_chicken_microwave,"Walk_chicken, RightGrab_chicken, Walk_microwave, PlugIn_microwave, Open_microwave, RightPutIn_chicken_microwave","Walk, RightGrab, PlugIn, Open, RightPutIn","chicken, microwave",26,0.006983757019042969,56,False,6
+3,1,Switch on the table lamp.,IsSwitchedOn_tablelamp,"Walk_tablelamp, PlugIn_tablelamp, SwitchOn_tablelamp","Walk, PlugIn, SwitchOn",tablelamp,5,0.0010001659393310547,31,False,3
+4,1,,IsCut_carrot,"Walk_kitchenknife, RightGrab_kitchenknife, Walk_carrot, LeftGrab_carrot, Cut_carrot","Walk, RightGrab, LeftGrab, Cut","kitchenknife, carrot",9,0.0019941329956054688,49,False,5
+5,1,,IsPlugged_printer,"Walk_printer, PlugIn_printer","Walk, PlugIn",printer,3,0.0009970664978027344,23,False,2
+6,1,,IsClean_bench,"Walk_rag, RightGrab_rag, Walk_bench, Wipe_bench","Walk, RightGrab, Wipe","rag, bench",5,0.0009980201721191406,44,False,4
+7,1,"Put the pear, bananas, and the apple on the kitchentable.",IsOn_pear_kitchentable,"Walk_pear, RightGrab_pear, Walk_kitchentable, RightPut_pear_kitchentable","Walk, RightGrab, RightPut","pear, kitchentable",5,0.0009949207305908203,41,False,4
+8,1,Place the chicken and the cupcake on the kitchen table.,IsOn_chicken_kitchentable & IsOn_cupcake_kitchentable,"Walk_chicken, RightGrab_chicken, Walk_cupcake, LeftGrab_cupcake, Walk_kitchentable, RightPut_chicken_kitchentable, LeftPut_cupcake_kitchentable","Walk, RightGrab, LeftGrab, RightPut, LeftPut","chicken, cupcake, kitchentable",28,0.005989551544189453,67,False,7
+9,1,Put the cutlets in the microwave and switch it on.,IsIn_cutlets_microwave & IsSwitchedOn_microwave,"Walk_cutlets, RightGrab_cutlets, Walk_microwave, Open_microwave, PlugIn_microwave, RightPutIn_cutlets_microwave, Close_microwave, SwitchOn_microwave","Walk, RightGrab, Open, PlugIn, RightPutIn, Close, SwitchOn","cutlets, microwave",41,0.015957117080688477,67,False,8
+10,1,,IsCut_apple,"Walk_kitchenknife, RightGrab_kitchenknife, Walk_apple, LeftGrab_apple, Cut_apple","Walk, RightGrab, LeftGrab, Cut","kitchenknife, apple",9,0.001995086669921875,49,False,5
+11,1,,IsClean_apple,,,,2,0.0009572505950927734,0,True,0
+12,1,,IsSwitchedOn_washingmachine & IsOpen_door,"Walk_door, Open_door, Walk_washingmachine, PlugIn_washingmachine, SwitchOn_washingmachine","Walk, Open, PlugIn, SwitchOn","door, washingmachine",14,0.003989696502685547,49,False,5
+13,1,,IsOn_condimentbottle_radio,"Walk_condimentbottle, LeftGrab_condimentbottle, Walk_radio, LeftPut_condimentbottle_radio","Walk, LeftGrab, LeftPut","condimentbottle, radio",5,0.0009450912475585938,41,False,4
+14,1,,IsOpen_window & IsPlugged_dishwasher,"Walk_dishwasher, PlugIn_dishwasher, Walk_window, Open_window","Walk, PlugIn, Open","dishwasher, window",8,0.001993417739868164,41,False,4
+15,1,,IsClean_rag,"Walk_rag, RightGrab_rag, Walk_faucet, SwitchOn_faucet, Wash_rag","Walk, RightGrab, SwitchOn, Wash","rag, faucet",9,0.0019948482513427734,52,False,5
+16,1,,IsClean_peach,"Walk_peach, RightGrab_peach, Walk_faucet, SwitchOn_faucet, Wash_peach","Walk, RightGrab, SwitchOn, Wash","peach, faucet",9,0.002003908157348633,52,False,5
+17,1,,IsOpen_door & IsCut_peach,"Walk_kitchenknife, RightGrab_kitchenknife, Walk_door, Open_door, Walk_peach, LeftGrab_peach, Cut_peach","Walk, RightGrab, Open, LeftGrab, Cut","kitchenknife, door, peach",18,0.004987001419067383,67,False,7
+18,1,,IsClean_desk,"Walk_rag, RightGrab_rag, Walk_desk, Wipe_desk","Walk, RightGrab, Wipe","rag, desk",5,0.0009980201721191406,44,False,4
+19,1,,IsIn_milk_kitchencabinet,"Walk_milk, RightGrab_milk, Walk_kitchencabinet, Open_kitchencabinet, RightPutIn_milk_kitchencabinet","Walk, RightGrab, Open, RightPutIn","milk, kitchencabinet",9,0.002991914749145508,48,False,5
+20,1,,IsOn_plate_cuttingboard & IsNear_self_stove,"Walk_plate, LeftGrab_plate, Walk_cuttingboard, LeftPut_plate_cuttingboard, Walk_stove","Walk, LeftGrab, LeftPut","plate, cuttingboard, stove",6,0.002028226852416992,56,False,5
+21,1,,IsNear_self_chair,Walk_chair,Walk,chair,2,0.0009710788726806641,15,False,1

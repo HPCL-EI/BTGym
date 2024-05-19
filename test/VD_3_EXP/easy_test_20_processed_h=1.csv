@@ -1,0 +1,22 @@
+id,Environment,Instruction,Goals,Optimal Actions,Vital Action Predicates,Vital Objects,expanded_num,planning_time_total,current_cost,error,act_num
+2,1,,IsIn_bellpepper_box,"Walk_bellpepper, RightGrab_bellpepper, Walk_box, Open_box, RightPutIn_bellpepper_box","Walk, RightGrab, Open, RightPutIn","bellpepper, box",9,0.0020296573638916016,48,False,5
+3,1,Put the milk in the microwave to heat up and put the breadslice on the kitchentable.,IsIn_milk_microwave,"Walk_milk, RightGrab_milk, Walk_microwave, PlugIn_microwave, Open_microwave, RightPutIn_milk_microwave","Walk, RightGrab, PlugIn, Open, RightPutIn","milk, microwave",26,0.006981372833251953,56,False,6
+4,1,,IsOpen_book,"Walk_book, Open_book","Walk, Open",book,3,0.0009634494781494141,18,False,2
+5,1,"Turn off the tv, turn on the computer, open the curtains, and make sure the mouse and keyboard are plugged in.",IsOpen_curtains,"Walk_curtains, Open_curtains","Walk, Open",curtains,3,0.0,18,False,2
+6,1,"Turn off the tv, turn on the computer, open the curtains, and make sure the mouse and keyboard are plugged in.",IsOpen_cookingpot,"Walk_cookingpot, Open_cookingpot","Walk, Open",cookingpot,3,0.000997781753540039,18,False,2
+7,1,,IsPlugged_washingmachine,"Walk_washingmachine, PlugIn_washingmachine","Walk, PlugIn",washingmachine,3,0.0,23,False,2
+8,1,,IsPlugged_printer,"Walk_printer, PlugIn_printer","Walk, PlugIn",printer,3,0.0,23,False,2
+9,1,,IsPlugged_wallphone,"Walk_wallphone, PlugIn_wallphone","Walk, PlugIn",wallphone,3,0.0,23,False,2
+10,1,"Put the pear, bananas, and the apple on the kitchentable.",IsOn_pear_kitchentable,"Walk_pear, RightGrab_pear, Walk_kitchentable, RightPut_pear_kitchentable","Walk, RightGrab, RightPut","pear, kitchentable",5,0.0010173320770263672,41,False,4
+11,1,"Put the toothpaste, toothbrush, and towel on the bathroomcabinet.",IsOn_toothpaste_bathroomcabinet,"Walk_toothpaste, RightGrab_toothpaste, Walk_bathroomcabinet, RightPut_toothpaste_bathroomcabinet","Walk, RightGrab, RightPut","toothpaste, bathroomcabinet",5,0.0009996891021728516,41,False,4
+12,1,,IsSwitchedOn_dishwasher,"Walk_dishwasher, PlugIn_dishwasher, SwitchOn_dishwasher","Walk, PlugIn, SwitchOn",dishwasher,5,0.0009961128234863281,31,False,3
+13,1,,IsIn_milk_kitchencabinet,"Walk_milk, RightGrab_milk, Walk_kitchencabinet, Open_kitchencabinet, RightPutIn_milk_kitchencabinet","Walk, RightGrab, Open, RightPutIn","milk, kitchencabinet",9,0.001995086669921875,48,False,5
+14,1,,IsIn_notes_bookshelf,"Walk_notes, RightGrab_notes, Walk_bookshelf, RightPutIn_notes_bookshelf","Walk, RightGrab, RightPutIn","notes, bookshelf",7,0.0019936561584472656,45,False,4
+15,1,,IsNear_self_chair,Walk_chair,Walk,chair,2,0.0,15,False,1
+16,1,,IsNear_self_sofa,Walk_sofa,Walk,sofa,2,0.0,15,False,1
+17,1,,IsNear_self_desk,Walk_desk,Walk,desk,2,0.0009615421295166016,15,False,1
+18,1,Switch on the table lamp.,IsSwitchedOn_tablelamp,"Walk_tablelamp, PlugIn_tablelamp, SwitchOn_tablelamp","Walk, PlugIn, SwitchOn",tablelamp,5,0.0009920597076416016,31,False,3
+19,1,Switch on the table lamp.,IsSwitchedOn_toaster,"Walk_toaster, PlugIn_toaster, SwitchOn_toaster","Walk, PlugIn, SwitchOn",toaster,5,0.0009968280792236328,31,False,3
+20,1,Place the cupcake on the kitchen table.,IsOn_cupcake_nightstand,"Walk_cupcake, RightGrab_cupcake, Walk_nightstand, RightPut_cupcake_nightstand","Walk, RightGrab, RightPut","cupcake, nightstand",7,0.000997781753540039,41,False,4
+21,1,Put the breadslice and the milk in the fridge.,IsIn_breadslice_oven,"Walk_breadslice, RightGrab_breadslice, Walk_oven, PlugIn_oven, Open_oven, RightPutIn_breadslice_oven","Walk, RightGrab, PlugIn, Open, RightPutIn","breadslice, oven",46,0.018002748489379883,56,False,6
+22,1,Put the breadslice and the milk in the fridge.,IsIn_cutlets_stove,"Walk_cutlets, RightGrab_cutlets, Walk_stove, Open_stove, RightPutIn_cutlets_stove","Walk, RightGrab, Open, RightPutIn","cutlets, stove",31,0.01296544075012207,48,False,5

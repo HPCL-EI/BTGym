@@ -1,0 +1,16 @@
+1
+Environment:
+Instruction:
+Goals:
+Optimal Actions:
+Vital Action Predicates:
+Vital Objects:
+
+2
+Environment:1
+Instruction:
+Goals:IsNear_self_plate
+Optimal Actions:Walk_kitchentable, RightGrab_plate
+Vital Action Predicates:Walk, RightGrab
+Vital Objects:plate, kitchentable
+

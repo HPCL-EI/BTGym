@@ -1,0 +1,32 @@
+1
+Environment:
+Instruction:
+Goals:
+Optimal Actions:
+Vital Action Predicates:
+Vital Objects:
+
+2
+Environment:1
+Instruction:
+Goals:IsNear_self_plate
+Optimal Actions:Walk_kitchentable, RightGrab_plate
+Vital Action Predicates:Walk, RightGrab
+Vital Objects:plate, kitchentable
+
+3
+Environment:1
+Instruction:
+Goals:IsSwitchedOn_faucet
+Optimal Actions:Walk_kitchencounter, SwitchOn_faucet
+Vital Action Predicates:Walk, SwitchOn
+Vital Objects:kitchencounter, faucet
+
+4
+Environment:1
+Instruction:
+Goals:IsNear_self_window
+Optimal Actions:Walk_kitchentable, RightGrab_window
+Vital Action Predicates:Walk, RightGrab
+Vital Objects:window, kitchentable
+

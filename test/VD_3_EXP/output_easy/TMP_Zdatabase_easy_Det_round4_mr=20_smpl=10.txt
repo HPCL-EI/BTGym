@@ -1,0 +1,96 @@
+1
+Environment:
+Instruction:
+Goals:
+Optimal Actions:
+Vital Action Predicates:
+Vital Objects:
+
+2
+Environment:1
+Instruction:
+Goals:IsNear_self_plate
+Optimal Actions:Walk_kitchentable, RightGrab_plate
+Vital Action Predicates:Walk, RightGrab
+Vital Objects:plate, kitchentable
+
+3
+Environment:1
+Instruction:
+Goals:IsSwitchedOn_faucet
+Optimal Actions:Walk_kitchencounter, SwitchOn_faucet
+Vital Action Predicates:Walk, SwitchOn
+Vital Objects:kitchencounter, faucet
+
+4
+Environment:1
+Instruction:
+Goals:IsNear_self_window
+Optimal Actions:Walk_kitchentable, RightGrab_window
+Vital Action Predicates:Walk, RightGrab
+Vital Objects:window, kitchentable
+
+5
+Environment:1
+Instruction:
+Goals:IsPlugged_microwave
+Optimal Actions:Walk_kitchencounter, PlugIn_microwave
+Vital Action Predicates:Walk, PlugIn
+Vital Objects:microwave, kitchencounter
+
+6
+Environment:1
+Instruction:
+Goals:IsNear_self_apple
+Optimal Actions:Walk_kitchentable, RightGrab_apple
+Vital Action Predicates:Walk, RightGrab
+Vital Objects:apple, kitchentable
+
+7
+Environment:1
+Instruction:
+Goals:IsOpen_window
+Optimal Actions:Walk_kitchentable, RightGrab_window, Open_window
+Vital Action Predicates:Open, Walk, RightGrab
+Vital Objects:window, kitchentable
+
+8
+Environment:1
+Instruction:
+Goals:IsPlugged_fridge
+Optimal Actions:Walk_fridge, PlugIn_fridge
+Vital Action Predicates:Walk, PlugIn
+Vital Objects:fridge
+
+9
+Environment:1
+Instruction:
+Goals:IsPlugged_mouse
+Optimal Actions:Walk_kitchentable, PlugIn_mouse
+Vital Action Predicates:Walk, PlugIn
+Vital Objects:mouse, kitchentable
+
+10
+Environment:1
+Instruction:
+Goals:IsOpen_fridge
+Optimal Actions:Walk_kitchencounter, Open_fridge
+Vital Action Predicates:Open, Walk
+Vital Objects:fridge, kitchencounter
+
+11
+Environment:1
+Instruction:
+Goals:IsNear_self_tv
+Optimal Actions:Walk_tvstand, RightGrab_tv
+Vital Action Predicates:Walk, RightGrab
+Vital Objects:tvstand, tv
+
+12
+Environment:1
+Instruction:
+Goals:IsNear_self_faucet
+Optimal Actions:Walk_kitchencounter, RightGrab_faucet
+Vital Action Predicates:Walk, RightGrab
+Vital Objects:kitchencounter, faucet
+

@@ -50,9 +50,9 @@ Vital Objects: plate, cuttingboard, stove
 Environment:1
 Instruction: 
 Goals: IsNear_self_chair & IsOn_pear_kitchentable
-Optimal Actions: Walk_pear, LeftGrab_pear, Walk_kitchentable, LeftPut_pear_kitchentable, Walk_chair
-Vital Action Predicates: Walk, LeftGrab, LeftPut
-Vital Objects: pear, kitchentable, chair
+Optimal Actions: 
+Vital Action Predicates: 
+Vital Objects: 
 
 8
 Environment:1
@@ -106,9 +106,9 @@ Vital Objects: milk, microwave
 Environment:1
 Instruction: Put the remotecontrol on the sofa, turn on the TV, and put the clothespants in the closet.
 Goals: IsOn_remotecontrol_sofa & IsSwitchedOn_tv
-Optimal Actions: Walk_tv, PlugIn_tv, SwitchOn_tv, Walk_remotecontrol, RightGrab_remotecontrol, Walk_sofa, RightPut_remotecontrol_sofa
-Vital Action Predicates: Walk, PlugIn, SwitchOn, RightGrab, RightPut
-Vital Objects: tv, remotecontrol, sofa
+Optimal Actions: Walk_remotecontrol, RightGrab_remotecontrol, Walk_tv, PlugIn_tv, SwitchOn_tv, Walk_sofa, RightPut_remotecontrol_sofa
+Vital Action Predicates: Walk, RightGrab, PlugIn, SwitchOn, RightPut
+Vital Objects: remotecontrol, tv, sofa
 
 15
 Environment:1
@@ -153,7 +153,32 @@ Vital Objects: cutlets, desk, apple
 20
 Environment:1
 Instruction: 
+Goals: IsIn_cutlets_fridge & IsClose_fridge
+Optimal Actions: Walk_cutlets, RightGrab_cutlets, Walk_fridge, Open_fridge, PlugIn_fridge, RightPutIn_cutlets_fridge, Close_fridge
+Vital Action Predicates: Walk, RightGrab, Open, PlugIn, RightPutIn, Close
+Vital Objects: cutlets, fridge
+
+21
+Environment:1
+Instruction: 
+Goals: IsNear_self_plate & IsOpen_fridge
+Optimal Actions: Walk_fridge, Open_fridge, Walk_plate
+Vital Action Predicates: Walk, Open
+Vital Objects: fridge, plate
+
+22
+Environment:1
+Instruction: 
 Goals: IsPlugged_tv & IsCut_pear
 Optimal Actions: Walk_tv, PlugIn_tv, Walk_kitchenknife, RightGrab_kitchenknife, Walk_pear, LeftGrab_pear, Cut_pear
 Vital Action Predicates: Walk, PlugIn, RightGrab, LeftGrab, Cut
 Vital Objects: tv, kitchenknife, pear
+
+23
+Environment:1
+Instruction: 
+Goals: IsOn_breadslice_desk & IsPlugged_fridge
+Optimal Actions: Walk_fridge, PlugIn_fridge, Walk_breadslice, LeftGrab_breadslice, Walk_desk, LeftPut_breadslice_desk
+Vital Action Predicates: Walk, PlugIn, LeftGrab, LeftPut
+Vital Objects: fridge, breadslice, desk
+

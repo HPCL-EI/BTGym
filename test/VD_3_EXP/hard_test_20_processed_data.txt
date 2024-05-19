@@ -157,3 +157,4 @@ Goals: IsPlugged_tv & IsCut_pear
 Optimal Actions: Walk_tv, PlugIn_tv, Walk_kitchenknife, RightGrab_kitchenknife, Walk_pear, LeftGrab_pear, Cut_pear
 Vital Action Predicates: Walk, PlugIn, RightGrab, LeftGrab, Cut
 Vital Objects: tv, kitchenknife, pear
+

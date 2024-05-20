@@ -1,0 +1,21 @@
+round,id,goals,priority_act_ls,key_predicates,key_objects,act_num,error,time_limit_exceeded,act_space,expanded_num,current_cost,planning_time_total,average_distance,database_size,parsed_fail,fail
+0,14,IsNear_self_sofa,['Walk(sofa)'],['Walk'],['sofa'],1,False,False,1,2,15,0.0,1.6841103,1,0,0
+0,13,IsNear_self_chair,['Walk(chair)'],['Walk'],['chair'],1,False,False,1,2,15,0.0,1.7358218,1,0,0
+0,15,IsNear_self_desk,['Walk(desk)'],['Walk'],['desk'],1,False,False,1,2,15,0.0,1.7005669,1,0,0
+0,12,IsIn_notes_bookshelf,"['RightGrabFrom(notes,bookshelf)']","['', 'RightGrabFrom']","['', 'bookshelf', 'notes']",4,False,False,10,8,45,0.000997304916381836,1.6789347,1,0,1
+0,5,IsPlugged_washingmachine,"['PlugIn(HAS,PLUG)']","['', 'PlugIn']","['HAS', '', 'washingmachine', 'PLUG']",2,False,False,8,3,23,0.0,1.7450193,1,0,1
+0,3,IsOpen_curtains,"['Open(CAN,OPEN)']","['Open', '']","['', 'CAN', 'OPEN', 'curtains']",2,False,False,4,3,18,0.0009996891021728516,1.5774008,1,0,1
+0,10,IsSwitchedOn_dishwasher,"['SwitchOn(HAS,SWITCH,dishwasher)']","['', 'SwitchOn']","['HAS', 'SWITCH', 'dishwasher', '']",3,False,False,8,9,31,0.001956939697265625,1.6956997,1,0,1
+0,6,IsPlugged_printer,"['PlugIn(HAS,SWITCH,printer)']","['', 'PlugIn']","['printer', 'SWITCH', '', 'HAS']",2,False,False,8,3,23,0.03291010856628418,1.5955645,1,0,1
+0,4,IsOpen_cookingpot,"['Open(<CAN,OPEN>)']","['Open', '']","['', 'OPEN>', 'cookingpot', '<CAN']",2,False,False,8,3,18,0.0,1.5956179,1,0,1
+0,0,IsIn_bellpepper_box,"['RightGrabFrom(box)', 'LeftPutIn(bellpepper,box)']","['', 'RightGrabFrom', 'LeftPutIn']","['', 'bellpepper', 'box']",5,False,False,15,15,48,0.003991842269897461,1.5944142,1,0,1
+0,11,IsIn_milk_kitchencabinet,"['LeftGrabFrom(milk,kitchencabinet)']","['', 'LeftGrabFrom']","['', 'kitchencabinet', 'milk']",5,False,False,13,16,48,0.0029594898223876953,1.66876,1,0,1
+0,7,IsPlugged_wallphone,"['SwitchOff(wallphone)', 'UnplugOut(wallphone)']","['', 'UnplugOut', 'SwitchOff']","['', 'wallphone']",2,False,False,8,3,23,0.0009961128234863281,1.585826,1,0,1
+0,9,IsOn_toothpaste_bathroomcabinet,"['RightGrab(fromCONTAINERS)', 'LeftPutIn(bathroomcabinet)']","['', 'RightGrab', 'LeftPutIn']","['', 'bathroomcabinet', 'fromCONTAINERS', 'toothpaste']",4,False,False,14,8,41,0.0019948482513427734,1.6630127,1,0,1
+0,2,IsOpen_book,"['Open(<CAN,OPEN>)']","['Open', '']","['', 'OPEN>', 'book', '<CAN']",2,False,False,6,3,18,0.0,1.5094919,1,0,1
+0,1,IsIn_milk_microwave,"['RightGrabFrom(milk,microwave)', 'LeftPutIn(milk,microwave)']","['', 'RightGrabFrom', 'LeftPutIn']","['', 'microwave', 'milk']",6,False,False,15,45,56,0.010970115661621094,1.5937923,1,0,1
+0,8,IsOn_pear_kitchentable,"['RightGrab(pear)', 'RightPut(pear,kitchentable)']","['', 'RightGrab', 'RightPut']","['kitchentable', '', 'pear']",4,False,False,9,8,41,0.0020143985748291016,1.7030584,1,0,1
+0,17,IsSwitchedOn_toaster,"['SwitchOn(HAS,SWITCH,toaster)']","['', 'SwitchOn']","['HAS', 'SWITCH', 'toaster', '']",3,False,False,6,5,31,0.0,1.6822069,1,0,1
+0,16,IsSwitchedOn_tablelamp,"['SwitchOn(HAS,SWITCH,tablelamp)']","['', 'SwitchOn']","['HAS', 'SWITCH', 'tablelamp', '']",3,False,False,6,5,31,0.0009963512420654297,1.6847565,1,0,1
+0,18,IsOn_cupcake_nightstand,"['RightGrab(cupcake)', 'RightPut(cupcake,nightstand)']","['', 'RightGrab', 'RightPut']","['cupcake', '', 'nightstand']",4,False,False,11,8,41,0.0009989738464355469,1.7013211,1,0,1
+0,19,IsIn_breadslice_oven,"['RightGrab(breadslice)', 'RightPutIn(breadslice,oven)']","['', 'RightGrab', 'RightPutIn']","['', 'breadslice', 'oven']",6,False,False,14,36,56,0.008954524993896484,1.7093475,1,0,1

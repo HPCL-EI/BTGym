@@ -240,7 +240,7 @@ if __name__ == '__main__':
     # 示例路径和布尔标志
     # file_path = f"{ROOT_PATH}/../test/dataset/database_cys_5.txt"
     # index_path = f"{ROOT_PATH}/../test/dataset/env_goal_vectors.txt"
-    filename = "3"
+    filename = "0"
     # filename = "Group1"
     # filename = "Group01"
     # filename = "DB_rf=3_round9_G0"

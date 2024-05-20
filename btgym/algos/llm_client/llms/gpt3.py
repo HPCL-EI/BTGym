@@ -9,8 +9,8 @@ from openai import OpenAI
 class LLMGPT3():
     def __init__(self):
         self.client = OpenAI(
-            base_url="https://api.xty.app/v1", api_key="sk-FLyhhGWDsCZCTbmq640c5c61Ad3d45078eDe56CdDbF01c0a"
-            # base_url="https://api.chatgptid.net/v1",            api_key="sk-mNgid9RRRvQqsfl5A865705dC3Dc4538Ad4c2cAcAb052e83"
+            # base_url="https://api.xty.app/v1", api_key="sk-FLyhhGWDsCZCTbmq640c5c61Ad3d45078eDe56CdDbF01c0a"
+            base_url="https://api.chatgptid.net/v1",            api_key="sk-mNgid9RRRvQqsfl5A865705dC3Dc4538Ad4c2cAcAb052e83"
         )
 
     def request(self,message): # question

@@ -1,0 +1,72 @@
+1
+Environment:
+Instruction:
+Goals:
+Optimal Actions:
+Vital Action Predicates:
+Vital Objects:
+
+2
+Environment:1
+Instruction:
+Goals:IsIn_apple_kitchencabinet
+Optimal Actions:Walk_apple, RightGrab_apple, Walk_kitchencabinet, Open_kitchencabinet, RightPutIn_apple_kitchencabinet
+Vital Action Predicates:Walk, RightGrab, Open, RightPutIn
+Vital Objects:apple, kitchencabinet
+
+3
+Environment:1
+Instruction:
+Goals:IsOpen_kitchencabinet
+Optimal Actions:Walk_kitchencabinet, Open_kitchencabinet
+Vital Action Predicates:Walk, Open
+Vital Objects:kitchencabinet
+
+4
+Environment:1
+Instruction:
+Goals:IsPlugged_fridge
+Optimal Actions:Walk_fridge, PlugIn_fridge
+Vital Action Predicates:Walk, PlugIn
+Vital Objects:fridge
+
+5
+Environment:1
+Instruction:
+Goals:IsOpen_microwave
+Optimal Actions:Walk_microwave, Open_microwave
+Vital Action Predicates:Walk, Open
+Vital Objects:microwave
+
+6
+Environment:1
+Instruction:
+Goals:IsPlugged_tv
+Optimal Actions:Walk_tv, PlugIn_tv
+Vital Action Predicates:Walk, PlugIn
+Vital Objects:tv
+
+7
+Environment:1
+Instruction:
+Goals:IsPlugged_microwave
+Optimal Actions:Walk_microwave, PlugIn_microwave
+Vital Action Predicates:PlugIn, Walk
+Vital Objects:microwave
+
+8
+Environment:1
+Instruction:
+Goals:IsNear_self_plate
+Optimal Actions:Walk_plate, _
+Vital Action Predicates:, Walk
+Vital Objects:, plate
+
+9
+Environment:1
+Instruction:
+Goals:IsPlugged_mouse
+Optimal Actions:Walk_mouse, PlugIn_mouse
+Vital Action Predicates:PlugIn, Walk
+Vital Objects:mouse
+

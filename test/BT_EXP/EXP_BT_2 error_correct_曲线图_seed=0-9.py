@@ -8,9 +8,9 @@ import numpy as np
 # file_path = "./new_EXP_2_output/"
 # seeds = range(10)
 
-base_file_name = 'EXP_2_output_summary_bt_data_small_100_bigerror_heuristic=0_seed='
-file_path = "./exp_output_100/"
-seeds = range(16,50)
+base_file_name = 'EXP_2_output_summary_bt_data_small_100_bigerror_heuristic=1_seed='
+file_path = "exp_output_100/"
+seeds = range(0,49)
 
 # 初始化空的DataFrame用于合并数据
 df_list = []
@@ -25,8 +25,8 @@ for seed in seeds:
 df = pd.concat(df_list)
 
 # 列表中的三个y_name分别绘制图表
-# y_names = ["Total Current Cost", "Total Expanded Num", "Total Planning Time Total"]
-y_names = ["Total Current Cost"]
+y_names = ["Total Current Cost", "Total Expanded Num", "Total Planning Time Total"]
+# y_names = ["Total Current Cost"]
 
 # 是否平滑
 smooth = False

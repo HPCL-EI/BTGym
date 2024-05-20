@@ -332,14 +332,21 @@ for round_num in range(0, 0 + max_round):
             # 计算一次成功率
             if success and fail == 0:
                 test_success_count += 1
+            # hard_1 和 hard_2 是没有的
+            if not success:
+                result['current_cost']=max(200,result['current_cost'])
+                result['expanded_num'] = max(200, result['expanded_num'])
+                result['planning_time_total'] = max(5, result['planning_time_total'])
+                result['act_space'] = max(2000, result['act_space'])
 
             total_distance += result.get('average_distance') if result['average_distance'] is not None else 2
             total_expanded_num += result.get('expanded_num') if result['expanded_num'] is not None else 200
             total_planning_time_total += result.get('planning_time_total') if result[
-                                                                                  'planning_time_total'] is not None else 20
+                                                                                  'planning_time_total'] is not None else 5
             total_fail_count += fail
             total_parsed_fail += parsed_fail
             total_act_space += result.get('act_space') if result['act_space'] is not None else 20
+
 
             total_current_cost += result.get('current_cost') if result['current_cost'] is not None else 200
 

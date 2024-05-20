@@ -1,0 +1,48 @@
+1
+Environment:
+Instruction:
+Goals:
+Optimal Actions:
+Vital Action Predicates:
+Vital Objects:
+
+2
+Environment:1
+Instruction:
+Goals:IsClean_fridge & IsNear_self_tv
+Optimal Actions:Walk_rag, LeftGrab_rag, Walk_fridge, Wipe_fridge, Walk_tv
+Vital Action Predicates:Walk, LeftGrab, Wipe
+Vital Objects:rag, fridge, tv
+
+3
+Environment:1
+Instruction:
+Goals:IsIn_plate_garbagecan & IsNear_self_cutlets
+Optimal Actions:Walk_plate, LeftGrab_plate, Walk_garbagecan, LeftPutIn_plate_garbagecan, Walk_cutlets
+Vital Action Predicates:Walk, LeftGrab, LeftPutIn
+Vital Objects:plate, garbagecan, cutlets
+
+4
+Environment:1
+Instruction:
+Goals:IsNear_self_rag
+Optimal Actions:Walk_rag
+Vital Action Predicates:Walk
+Vital Objects:rag
+
+5
+Environment:1
+Instruction:
+Goals:IsPlugged_microwave
+Optimal Actions:Walk_microwave, PlugIn_microwave
+Vital Action Predicates:Walk, PlugIn
+Vital Objects:microwave
+
+6
+Environment:1
+Instruction:
+Goals:IsClean_tv
+Optimal Actions:Walk_rag, LeftGrab_rag, Walk_tv, Wipe_tv
+Vital Action Predicates:Wipe, Walk, LeftGrab
+Vital Objects:tv, rag
+

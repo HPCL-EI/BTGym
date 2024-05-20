@@ -216,10 +216,10 @@ def validate_goal(env, chosen_goal, n, database_index_path=None, round_num=None,
 
 
 # =========================  RHB ======================
-name = "easy"
+name = "medium"
 default_prompt_file = f"{ROOT_PATH}/algos/llm_client/prompt_VHT_just_goal_no_example.txt"
 dataset = read_dataset(f"{name}_test_20.txt")
-database_index_path = f"{ROOT_PATH}/../test/VD_3_EXP/DATABASE/0_goal_vectors.index"
+database_index_path = f"{ROOT_PATH}/../test/VD_3_EXP/DATABASE/1_goal_vectors.index"
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction as RHB
 env = btgym.make("VHT-PutMilkInFridge")
 cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
@@ -231,7 +231,7 @@ big_actions = collect_action_nodes(env.behavior_lib)
 max_round = 20 + 1
 sample_num = 5
 vaild_num = 20
-diffcult_type = "easy"
+diffcult_type = name
 print_round = 5  # 每多少轮打印一次
 
 # max_round = 1 + 1
@@ -384,7 +384,7 @@ for round_num in range(0, 0 + max_round):
 
     # Append the metrics of the current round to the DataFrame
     round_metrics = pd.DataFrame([{
-        "Round": round_num,
+        "round": round_num,
         "Test Success Rate Once": metrics_over_rounds["Test Success Rate Once"][-1],
         "Average Distance": metrics_over_rounds["Average Distance"][-1],
         "Average Expanded Num": metrics_over_rounds["Average Expanded Num"][-1],

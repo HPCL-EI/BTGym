@@ -1,0 +1,2 @@
+round,id,goals,priority_act_ls,key_predicates,key_objects,act_num,error,time_limit_exceeded,act_space,expanded_num,current_cost,planning_time_total,average_distance,database_size,round_num,avg_distance,fail,parsed_fail,database_num
+,19,IsNear_self_chair,['Walk(chair)'],['Walk'],['chair'],1,False,False,1,2,15,0.0,1.7358218,,0,1.7358218,0,0,1

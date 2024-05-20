@@ -1,0 +1,145 @@
+round,id,goals,priority_act_ls,key_predicates,key_objects,act_num,error,time_limit_exceeded,act_space,expanded_num,current_cost,planning_time_total,average_distance,database_size,round_num,avg_distance,fail,parsed_fail,database_num
+,6,IsPlugged_printer,"['Walk(printer)', 'PlugIn(printer)']","['Walk', 'PlugIn']",['printer'],2,False,False,2,3,23,0.0,1.5955645,,0,1.5955645,0,0,1
+,13,IsNear_self_chair,['Walk(chair)'],['Walk'],['chair'],1,False,False,1,2,15,0.0,1.7358218,,0,1.7358218,0,0,1
+,14,IsNear_self_sofa,['Walk(sofa)'],['Walk'],['sofa'],1,False,False,1,2,15,0.0019958019256591797,1.6841103,,0,1.6841103,0,0,1
+,2,IsOpen_book,"['Walk(book)', 'Open(book)']","['Open', 'Walk']",['book'],2,False,False,2,3,18,0.0010225772857666016,1.4200649,,1,1.4200649,0,0,6
+,3,IsOpen_curtains,"['Walk(curtains)', 'Open(curtains)']","['Open', 'Walk']",['curtains'],2,False,False,2,3,18,0.0009963512420654297,1.2132345,,1,1.2132345,0,0,6
+,4,IsOpen_cookingpot,"['Walk(cookingpot)', 'Open(cookingpot)']","['Open', 'Walk']",['cookingpot'],2,False,False,2,3,18,0.0,1.1618617,,1,1.1618617,0,0,6
+,5,IsPlugged_washingmachine,"['Walk(washingmachine)', 'PlugIn(washingmachine)']","['Walk', 'PlugIn']",['washingmachine'],2,False,False,2,3,23,0.0,1.3104702,,1,1.3104702,0,0,6
+,6,IsPlugged_printer,"['Walk(printer)', 'PlugIn(printer)']","['Walk', 'PlugIn']",['printer'],2,False,False,2,3,23,0.0,1.3353462,,1,1.3353462,0,0,6
+,7,IsPlugged_wallphone,"['Walk(wallphone)', 'PlugIn(wallphone)']","['Walk', 'PlugIn']",['wallphone'],2,False,False,2,3,23,0.0,1.3465844,,1,1.3465844,0,0,6
+,8,IsOn_pear_kitchentable,"['Walk(pear)', 'LeftGrab(pear)', 'Walk(kitchentable)', 'LeftPut(pear,kitchentable)']","['LeftGrab', 'LeftPut', 'Walk']","['kitchentable', 'pear']",4,False,False,4,5,41,0.003999948501586914,0.95550716,,1,0.95550716,0,0,6
+,12,IsIn_notes_bookshelf,"['Walk(notes)', 'LeftGrab(notes)', 'Walk(bookshelf)', 'LeftPutIn(notes,bookshelf)']","['LeftGrab', 'LeftPutIn', 'Walk']","['bookshelf', 'notes']",4,False,False,4,5,45,0.0019927024841308594,1.333986,,1,1.333986,0,0,6
+,13,IsNear_self_chair,['Walk(chair)'],['Walk'],['chair'],1,False,False,1,2,15,0.0012118816375732422,1.2941239,,1,1.2941239,0,0,6
+,14,IsNear_self_sofa,['Walk(sofa)'],['Walk'],['sofa'],1,False,False,1,2,15,0.0,1.2936609,,1,1.2936609,0,0,6
+,15,IsNear_self_desk,['Walk(desk)'],['Walk'],['desk'],1,False,False,1,2,15,0.0,1.231255,,1,1.231255,0,0,6
+,2,IsOpen_book,"['Walk(book)', 'Open(book)']","['Open', 'Walk']",['book'],2,False,False,2,3,18,0.0,1.2732565,,2,1.2732565,0,0,10
+,3,IsOpen_curtains,"['Walk(curtains)', 'Open(curtains)']","['Open', 'Walk']",['curtains'],2,False,False,2,3,18,0.0,1.0687778,,2,1.0687778,0,0,10
+,4,IsOpen_cookingpot,"['Walk(cookingpot)', 'Open(cookingpot)']","['Open', 'Walk']",['cookingpot'],2,False,False,2,3,18,0.0,1.0084683,,2,1.0084683,0,0,10
+,5,IsPlugged_washingmachine,"['Walk(washingmachine)', 'PlugIn(washingmachine)']","['Walk', 'PlugIn']",['washingmachine'],2,False,False,2,3,23,0.0,1.1946126,,2,1.1946126,0,0,10
+,6,IsPlugged_printer,"['Walk(printer)', 'PlugIn(printer)']","['Walk', 'PlugIn']",['printer'],2,False,False,2,3,23,0.0,1.2785624,,2,1.2785624,0,0,10
+,7,IsPlugged_wallphone,"['Walk(wallphone)', 'PlugIn(wallphone)']","['Walk', 'PlugIn']",['wallphone'],2,False,False,2,3,23,0.0009975433349609375,1.2504923,,2,1.2504923,0,0,10
+,11,IsIn_milk_kitchencabinet,"['Walk(milk)', 'RightGrab(milk)', 'Walk(kitchencabinet)', 'Open(kitchencabinet)', 'RightPutIn(milk,kitchencabinet)']","['Open', 'Walk', 'RightPutIn', 'RightGrab']","['milk', 'kitchencabinet']",5,False,False,6,9,48,0.0,0.63248616,,2,0.63248616,0,0,10
+,12,IsIn_notes_bookshelf,"['Walk(notes)', 'RightGrab(notes)', 'Walk(bookshelf)', 'RightPutIn(notes,bookshelf)']","['Walk', 'RightPutIn', 'RightGrab']","['bookshelf', 'notes']",4,False,False,4,5,45,0.0,1.2361977,,2,1.2361977,0,0,10
+,13,IsNear_self_chair,['Walk(chair)'],['Walk'],['chair'],1,False,False,1,2,15,0.0,1.2676095,,2,1.2676095,0,0,10
+,14,IsNear_self_sofa,['Walk(sofa)'],['Walk'],['sofa'],1,False,False,1,2,15,0.0009987354278564453,1.2519037,,2,1.2519037,0,0,10
+,15,IsNear_self_desk,['Walk(desk)'],['Walk'],['desk'],1,False,False,1,2,15,0.0009746551513671875,1.1998864,,2,1.1998864,0,0,10
+,2,IsOpen_book,"['Walk(book)', 'Open(book)']","['Open', 'Walk']",['book'],2,False,False,2,3,18,0.0,1.2707809,,3,1.2707809,0,0,14
+,3,IsOpen_curtains,"['Walk(curtains)', 'Open(curtains)']","['Open', 'Walk']",['curtains'],2,False,False,2,3,18,0.0009989738464355469,1.0687778,,3,1.0687778,0,0,14
+,4,IsOpen_cookingpot,"['Walk(cookingpot)', 'Open(cookingpot)']","['Open', 'Walk']",['cookingpot'],2,False,False,2,3,18,0.0009427070617675781,1.0084683,,3,1.0084683,0,0,14
+,5,IsPlugged_washingmachine,"['Walk(washingmachine)', 'PlugIn(washingmachine)']","['Walk', 'PlugIn']",['washingmachine'],2,False,False,2,3,23,0.003998517990112305,0.8659276,,3,0.8659276,0,0,14
+,6,IsPlugged_printer,"['Walk(printer)', 'PlugIn(printer)']","['Walk', 'PlugIn']",['printer'],2,False,False,2,3,23,0.0,0.8815409,,3,0.8815409,0,0,14
+,7,IsPlugged_wallphone,"['Walk(wallphone)', 'PlugIn(wallphone)']","['Walk', 'PlugIn']",['wallphone'],2,False,False,2,3,23,0.0,0.90773976,,3,0.90773976,0,0,14
+,8,IsOn_pear_kitchentable,"['Walk(pear)', 'LeftGrab(pear)', 'Walk(kitchentable)', 'LeftPut(pear,kitchentable)']","['LeftGrab', 'LeftPut', 'Walk']","['kitchentable', 'pear']",4,False,False,4,5,41,0.0,0.7086924,,3,0.7086924,0,0,14
+,11,IsIn_milk_kitchencabinet,"['Walk(milk)', 'RightGrab(milk)', 'Walk(kitchencabinet)', 'Open(kitchencabinet)', 'RightPutIn(milk,kitchencabinet)']","['Open', 'Walk', 'RightPutIn', 'RightGrab']","['milk', 'kitchencabinet']",5,False,False,6,9,48,0.0,0.63248616,,3,0.63248616,0,0,14
+,12,IsIn_notes_bookshelf,"['Walk(notes)', 'RightGrab(notes)', 'Walk(bookshelf)', 'RightPutIn(notes,bookshelf)']","['Walk', 'RightPutIn', 'RightGrab']","['bookshelf', 'notes']",4,False,False,4,5,45,0.0,1.2361977,,3,1.2361977,0,0,14
+,13,IsNear_self_chair,['Walk(chair)'],['Walk'],['chair'],1,False,False,1,2,15,0.0009968280792236328,1.1073209,,3,1.1073209,0,0,14
+,14,IsNear_self_sofa,['Walk(sofa)'],['Walk'],['sofa'],1,False,False,1,2,15,0.0009970664978027344,1.0816718,,3,1.0816718,0,0,14
+,15,IsNear_self_desk,['Walk(desk)'],['Walk'],['desk'],1,False,False,1,2,15,0.0,1.0401988,,3,1.0401988,0,0,14
+,18,IsOn_cupcake_nightstand,"['Walk(cupcake)', 'LeftGrab(cupcake)', 'Walk(nightstand)', 'LeftPut(cupcake,nightstand)']","['LeftGrab', 'LeftPut', 'Walk']","['nightstand', 'cupcake']",4,False,False,5,5,41,0.0019867420196533203,1.0487818,,3,1.0487818,0,0,14
+,2,IsOpen_book,"['Walk(book)', 'Open(book)']","['Open', 'Walk']",['book'],2,False,False,2,3,18,0.0,1.2518064,,4,1.2518064,0,0,17
+,3,IsOpen_curtains,"['Walk(curtains)', 'Open(curtains)']","['Open', 'Walk']",['curtains'],2,False,False,2,3,18,0.000997781753540039,1.0393689,,4,1.0393689,0,0,17
+,4,IsOpen_cookingpot,"['Walk(cookingpot)', 'Open(cookingpot)']","['Open', 'Walk']",['cookingpot'],2,False,False,2,3,18,0.0,1.0084683,,4,1.0084683,0,0,17
+,5,IsPlugged_washingmachine,"['Walk(washingmachine)', 'PlugIn(washingmachine)']","['Walk', 'PlugIn']",['washingmachine'],2,False,False,2,3,23,0.000997781753540039,0.8659276,,4,0.8659276,0,0,17
+,6,IsPlugged_printer,"['Walk(printer)', 'PlugIn(printer)']","['Walk', 'PlugIn']",['printer'],2,False,False,2,3,23,0.0029942989349365234,0.8814413,,4,0.8814413,0,0,17
+,7,IsPlugged_wallphone,"['Walk(wallphone)', 'PlugIn(wallphone)']","['Walk', 'PlugIn']",['wallphone'],2,False,False,2,3,23,0.0003466606140136719,0.90773976,,4,0.90773976,0,0,17
+,8,IsOn_pear_kitchentable,"['Walk(pear)', 'LeftGrab(pear)', 'Walk(kitchentable)', 'LeftPut(pear,kitchentable)']","['LeftGrab', 'LeftPut', 'Walk']","['kitchentable', 'pear']",4,False,False,4,5,41,0.0,0.6842654,,4,0.6842654,0,0,17
+,9,IsOn_toothpaste_bathroomcabinet,"['Walk(toothpaste)', 'LeftGrab(toothpaste)', 'Walk(bathroomcabinet)', 'LeftPut(toothpaste,bathroomcabinet)']","['LeftGrab', 'LeftPut', 'Walk']","['toothpaste', 'bathroomcabinet']",4,False,False,5,5,41,0.0,0.85412455,,4,0.85412455,0,0,17
+,11,IsIn_milk_kitchencabinet,"['Walk(milk)', 'RightGrab(milk)', 'Walk(kitchencabinet)', 'Open(kitchencabinet)', 'RightPutIn(milk,kitchencabinet)']","['Open', 'Walk', 'RightPutIn', 'RightGrab']","['milk', 'kitchencabinet']",5,False,False,6,9,48,0.015621185302734375,0.63248616,,4,0.63248616,0,0,17
+,12,IsIn_notes_bookshelf,"['Walk(notes)', 'RightGrab(notes)', 'Walk(bookshelf)', 'RightPutIn(notes,bookshelf)']","['Walk', 'RightPutIn', 'RightGrab']","['bookshelf', 'notes']",4,False,False,4,5,45,0.000997781753540039,1.2246892,,4,1.2246892,0,0,17
+,13,IsNear_self_chair,['Walk(chair)'],['Walk'],['chair'],1,False,False,1,2,15,0.0,0.9503805,,4,0.9503805,0,0,17
+,14,IsNear_self_sofa,['Walk(sofa)'],['Walk'],['sofa'],1,False,False,1,2,15,0.0,0.9217151,,4,0.9217151,0,0,17
+,15,IsNear_self_desk,['Walk(desk)'],['Walk'],['desk'],1,False,False,1,2,15,0.0,0.87639105,,4,0.87639105,0,0,17
+,18,IsOn_cupcake_nightstand,"['Walk(cupcake)', 'LeftGrab(cupcake)', 'Walk(nightstand)', 'LeftPut(cupcake,nightstand)']","['LeftGrab', 'LeftPut', 'Walk']","['nightstand', 'cupcake']",4,False,False,5,5,41,0.0,0.9515921,,4,0.9515921,0,0,17
+,2,IsOpen_book,"['Walk(book)', 'Open(book)']","['Open', 'Walk']",['book'],2,False,False,2,3,18,0.0,1.1048566,,5,1.1048566,0,0,19
+,3,IsOpen_curtains,"['Walk(curtains)', 'Open(curtains)']","['Open', 'Walk']",['curtains'],2,False,False,2,3,18,0.0,0.8855259,,5,0.8855259,0,0,19
+,4,IsOpen_cookingpot,"['Walk(cookingpot)', 'Open(cookingpot)']","['Open', 'Walk']",['cookingpot'],2,False,False,2,3,18,0.015006065368652344,0.9651278,,5,0.9651278,0,0,19
+,5,IsPlugged_washingmachine,"['Walk(washingmachine)', 'PlugIn(washingmachine)']","['Walk', 'PlugIn']",['washingmachine'],2,False,False,2,3,23,0.0,0.8659276,,5,0.8659276,0,0,19
+,6,IsPlugged_printer,"['Walk(printer)', 'PlugIn(printer)']","['Walk', 'PlugIn']",['printer'],2,False,False,2,3,23,0.0,0.8814413,,5,0.8814413,0,0,19
+,7,IsPlugged_wallphone,"['Walk(wallphone)', 'PlugIn(wallphone)']","['Walk', 'PlugIn']",['wallphone'],2,False,False,2,3,23,0.0009961128234863281,0.90773976,,5,0.90773976,0,0,19
+,8,IsOn_pear_kitchentable,"['Walk(pear)', 'LeftGrab(pear)', 'Walk(kitchentable)', 'LeftPut(pear,kitchentable)']","['LeftGrab', 'LeftPut', 'Walk']","['kitchentable', 'pear']",4,False,False,4,5,41,0.0,0.6842654,,5,0.6842654,0,0,19
+,9,IsOn_toothpaste_bathroomcabinet,"['Walk(toothpaste)', 'LeftGrab(toothpaste)', 'Walk(bathroomcabinet)', 'LeftPut(toothpaste,bathroomcabinet)']","['LeftGrab', 'LeftPut', 'Walk']","['toothpaste', 'bathroomcabinet']",4,False,False,5,5,41,0.0009968280792236328,0.85412455,,5,0.85412455,0,0,19
+,11,IsIn_milk_kitchencabinet,"['Walk(milk)', 'RightGrab(milk)', 'Walk(kitchencabinet)', 'Open(kitchencabinet)', 'RightPutIn(milk,kitchencabinet)']","['Open', 'Walk', 'RightPutIn', 'RightGrab']","['milk', 'kitchencabinet']",5,False,False,6,9,48,0.001994609832763672,0.63248616,,5,0.63248616,0,0,19
+,12,IsIn_notes_bookshelf,"['Walk(notes)', 'RightGrab(notes)', 'Walk(bookshelf)', 'RightPutIn(notes,bookshelf)']","['Walk', 'RightPutIn', 'RightGrab']","['bookshelf', 'notes']",4,False,False,4,5,45,0.0030045509338378906,1.1994867,,5,1.1994867,0,0,19
+,13,IsNear_self_chair,['Walk(chair)'],['Walk'],['chair'],1,False,False,1,2,15,0.0009975433349609375,0.93778914,,5,0.93778914,0,0,19
+,14,IsNear_self_sofa,['Walk(sofa)'],['Walk'],['sofa'],1,False,False,1,2,15,0.0,0.89799803,,5,0.89799803,0,0,19
+,15,IsNear_self_desk,['Walk(desk)'],['Walk'],['desk'],1,False,False,1,2,15,0.0,0.8463192,,5,0.8463192,0,0,19
+,18,IsOn_cupcake_nightstand,"['Walk(cupcake)', 'LeftGrab(cupcake)', 'Walk(nightstand)', 'LeftPut(cupcake,nightstand)']","['LeftGrab', 'LeftPut', 'Walk']","['nightstand', 'cupcake']",4,False,False,5,5,41,0.000997304916381836,0.9515921,,5,0.9515921,0,0,19
+,2,IsOpen_book,"['Walk(book)', 'Open(book)']","['Open', 'Walk']",['book'],2,False,False,2,3,18,0.0,1.1014049,,6,1.1014049,0,0,23
+,3,IsOpen_curtains,"['Walk(curtains)', 'Open(curtains)']","['Open', 'Walk']",['curtains'],2,False,False,2,3,18,0.0,0.86022013,,6,0.86022013,0,0,23
+,4,IsOpen_cookingpot,"['Walk(cookingpot)', 'Open(cookingpot)']","['Open', 'Walk']",['cookingpot'],2,False,False,2,3,18,0.0,0.9651278,,6,0.9651278,0,0,23
+,5,IsPlugged_washingmachine,"['Walk(washingmachine)', 'PlugIn(washingmachine)']","['Walk', 'PlugIn']",['washingmachine'],2,False,False,2,3,23,0.0,0.8659276,,6,0.8659276,0,0,23
+,6,IsPlugged_printer,"['Walk(printer)', 'PlugIn(printer)']","['Walk', 'PlugIn']",['printer'],2,False,False,2,3,23,0.0,0.8815409,,6,0.8815409,0,0,23
+,7,IsPlugged_wallphone,"['Walk(wallphone)', 'PlugIn(wallphone)']","['Walk', 'PlugIn']",['wallphone'],2,False,False,2,3,23,0.0,0.90773976,,6,0.90773976,0,0,23
+,9,IsOn_toothpaste_bathroomcabinet,"['Walk(toothpaste)', 'LeftGrab(toothpaste)', 'Walk(bathroomcabinet)', 'LeftPut(toothpaste,bathroomcabinet)']","['LeftGrab', 'LeftPut', 'Walk']","['toothpaste', 'bathroomcabinet']",4,False,False,5,5,41,0.0,0.8231104,,6,0.8231104,0,0,23
+,11,IsIn_milk_kitchencabinet,"['Walk(milk)', 'RightGrab(milk)', 'Walk(kitchencabinet)', 'Open(kitchencabinet)', 'RightPutIn(milk,kitchencabinet)']","['Open', 'Walk', 'RightPutIn', 'RightGrab']","['milk', 'kitchencabinet']",5,False,False,6,9,48,0.015627384185791016,0.58738714,,6,0.58738714,0,0,23
+,12,IsIn_notes_bookshelf,"['Walk(notes)', 'RightGrab(notes)', 'Walk(bookshelf)', 'RightPutIn(notes,bookshelf)']","['Walk', 'RightPutIn', 'RightGrab']","['bookshelf', 'notes']",4,False,False,4,5,45,0.0,1.1550324,,6,1.1550324,0,0,23
+,13,IsNear_self_chair,['Walk(chair)'],['Walk'],['chair'],1,False,False,1,2,15,0.0,0.788958,,6,0.788958,0,0,23
+,14,IsNear_self_sofa,['Walk(sofa2.)'],"['Walk', 'Walk\n3.']","['sofa2.', 'sofa']",1,False,False,1,2,15,0.0,0.77233875,,6,0.77233875,0,0,23
+,15,IsNear_self_desk,['Walk(desk)'],['Walk'],['desk'],1,False,False,1,2,15,0.0,0.7077754,,6,0.7077754,0,0,23
+,16,IsSwitchedOn_tablelamp,"['Walk(tablelamp)', 'PlugIn(tablelamp)', 'SwitchOn(tablelamp)']","['SwitchOn', 'Walk', 'PlugIn']",['tablelamp'],3,False,False,3,5,31,0.015602588653564453,0.821797,,6,0.821797,0,0,23
+,17,IsSwitchedOn_toaster,"['Walk(toaster)', 'PlugIn(toaster)', 'SwitchOn(toaster)']","['SwitchOn', 'Walk', 'PlugIn']",['toaster'],3,False,False,3,5,31,0.0,0.8563055,,6,0.8563055,0,0,23
+,18,IsOn_cupcake_nightstand,"['Walk(cupcake)', 'RightGrab(cupcake)', 'Walk(nightstand)', 'RightPut(cupcake,nightstand)']","['Walk', 'RightPut', 'RightGrab']","['nightstand', 'cupcake']",4,False,False,5,5,41,0.0,0.91980666,,6,0.91980666,0,0,23
+,2,IsOpen_book,"['Walk(book)', 'Open(book)']","['Open', 'Walk']",['book'],2,False,False,2,3,18,0.013008356094360352,1.0083036,,7,1.0083036,0,0,26
+,3,IsOpen_curtains,"['Walk(curtains)', 'Open(curtains)']","['Open', 'Walk']",['curtains'],2,False,False,2,3,18,0.0,0.799782,,7,0.799782,0,0,26
+,4,IsOpen_cookingpot,"['Walk(cookingpot)', 'Open(cookingpot)']","['Open', 'Walk']",['cookingpot'],2,False,False,2,3,18,0.0,0.88719475,,7,0.88719475,0,0,26
+,5,IsPlugged_washingmachine,"['Walk(washingmachine)', 'PlugIn(washingmachine)']","['Walk', 'PlugIn']",['washingmachine'],2,False,False,2,3,23,0.0,0.8659276,,7,0.8659276,0,0,26
+,6,IsPlugged_printer,"['Walk(printer)', 'PlugIn(printer)']","['Walk', 'PlugIn']",['printer'],2,False,False,2,3,23,0.0,0.8815409,,7,0.8815409,0,0,26
+,7,IsPlugged_wallphone,"['Walk(wallphone)', 'PlugIn(wallphone)']","['Walk', 'PlugIn']",['wallphone'],2,False,False,2,3,23,0.0,0.90773976,,7,0.90773976,0,0,26
+,9,IsOn_toothpaste_bathroomcabinet,"['Walk(toothpaste)', 'LeftGrab(toothpaste)', 'Walk(bathroomcabinet)', 'LeftPut(toothpaste,bathroomcabinet)']","['LeftGrab', 'LeftPut', 'Walk']","['toothpaste', 'bathroomcabinet']",4,False,False,5,5,41,0.0,0.8231104,,7,0.8231104,0,0,26
+,11,IsIn_milk_kitchencabinet,"['Walk(milk)', 'RightGrab(milk)', 'Walk(kitchencabinet)', 'Open(kitchencabinet)', 'RightPutIn(milk,kitchencabinet)']","['Open', 'Walk', 'RightPutIn', 'RightGrab']","['milk', 'kitchencabinet']",5,False,False,6,9,48,0.0,0.58738714,,7,0.58738714,0,0,26
+,12,IsIn_notes_bookshelf,"['Walk(notes)', 'RightGrab(notes)', 'Walk(bookshelf)', 'RightPutIn(notes,bookshelf)']","['Walk', 'RightPutIn', 'RightGrab']","['bookshelf', 'notes']",4,False,False,4,5,45,0.0,1.1550324,,7,1.1550324,0,0,26
+,13,IsNear_self_chair,['Walk(chair)'],['Walk'],['chair'],1,False,False,1,2,15,0.0,0.6543422,,7,0.6543422,0,0,26
+,14,IsNear_self_sofa,['Walk(sofa)'],['Walk'],['sofa'],1,False,False,1,2,15,0.0,0.6106081,,7,0.6106081,0,0,26
+,15,IsNear_self_desk,['Walk(desk)'],['Walk'],['desk'],1,False,False,1,2,15,0.0,0.57318586,,7,0.57318586,0,0,26
+,16,IsSwitchedOn_tablelamp,"['Walk(tablelamp)', 'PlugIn(tablelamp)', 'SwitchOn(tablelamp)']","['SwitchOn', 'Walk', 'PlugIn']",['tablelamp'],3,False,False,3,5,31,0.0,0.821797,,7,0.821797,0,0,26
+,17,IsSwitchedOn_toaster,"['Walk(toaster)', 'PlugIn(toaster)', 'SwitchOn(toaster)']","['SwitchOn', 'Walk', 'PlugIn']",['toaster'],3,False,False,3,5,31,0.0,0.8189529,,7,0.8189529,0,0,26
+,18,IsOn_cupcake_nightstand,"['Walk(cupcake)', 'LeftGrab(cupcake)', 'Walk(nightstand)', 'LeftPut(cupcake,nightstand)']","['LeftGrab', 'LeftPut', 'Walk']","['nightstand', 'cupcake']",4,False,False,5,5,41,0.0,0.91980666,,7,0.91980666,0,0,26
+,0,IsIn_bellpepper_box,"['Walk(bellpepper)', 'RightGrab(bellpepper)', 'Walk(box)', 'Open(box)', 'RightPutIn(bellpepper,box)']","['Open', 'Walk', 'RightPutIn', 'RightGrab']","['bellpepper', 'box']",5,False,False,7,9,48,0.0,1.079479,,8,1.079479,0,0,28
+,2,IsOpen_book,"['Walk(book)', 'Open(book)']","['Open', 'Walk']",['book'],2,False,False,2,3,18,0.0,1.0083036,,8,1.0083036,0,0,28
+,3,IsOpen_curtains,"['Walk(curtains)', 'Open(curtains)']","['Open', 'Walk']",['curtains'],2,False,False,2,3,18,0.0,0.799782,,8,0.799782,0,0,28
+,4,IsOpen_cookingpot,"['Walk(cookingpot)', 'Open(cookingpot)']","['Open', 'Walk']",['cookingpot'],2,False,False,2,3,18,0.015622854232788086,0.88719475,,8,0.88719475,0,0,28
+,5,IsPlugged_washingmachine,"['Walk(washingmachine)', 'PlugIn(washingmachine)']","['Walk', 'PlugIn']",['washingmachine'],2,False,False,2,3,23,0.0,0.8659276,,8,0.8659276,0,0,28
+,6,IsPlugged_printer,"['Walk(printer)', 'PlugIn(printer)']","['Walk', 'PlugIn']",['printer'],2,False,False,2,3,23,0.0,0.8815409,,8,0.8815409,0,0,28
+,7,IsPlugged_wallphone,"['Walk(wallphone)', 'PlugIn(wallphone)']","['Walk', 'PlugIn']",['wallphone'],2,False,False,2,3,23,0.0,0.90773976,,8,0.90773976,0,0,28
+,8,IsOn_pear_kitchentable,"['Walk(pear)', 'LeftGrab(pear)', 'Walk(kitchentable)', 'LeftPut(pear,kitchentable)']","['LeftGrab', 'LeftPut', 'Walk']","['kitchentable', 'pear']",4,False,False,4,5,41,0.0,0.61923957,,8,0.61923957,0,0,28
+,9,IsOn_toothpaste_bathroomcabinet,"['Walk(toothpaste)', 'LeftGrab(toothpaste)', 'Walk(bathroomcabinet)', 'LeftPut(toothpaste,bathroomcabinet)']","['LeftGrab', 'LeftPut', 'Walk']","['toothpaste', 'bathroomcabinet']",4,False,False,5,5,41,0.0,0.78933275,,8,0.78933275,0,0,28
+,11,IsIn_milk_kitchencabinet,"['Walk(milk)', 'RightGrab(milk)', 'Walk(kitchencabinet)', 'Open(kitchencabinet)', 'RightPutIn(milk,kitchencabinet)']","['Open', 'Walk', 'RightPutIn', 'RightGrab']","['milk', 'kitchencabinet']",5,False,False,6,9,48,0.0,0.56804764,,8,0.56804764,0,0,28
+,12,IsIn_notes_bookshelf,"['Walk(notes)', 'RightGrab(notes)', 'Walk(bookshelf)', 'Open(bookshelf)', 'RightPutIn(notes,bookshelf)']","['Open', 'Walk', 'RightPutIn', 'RightGrab']","['bookshelf', 'notes']",4,False,False,4,5,45,0.0,1.131905,,8,1.131905,0,0,28
+,13,IsNear_self_chair,['Walk(chair)'],['Walk'],['chair'],1,False,False,1,2,15,0.0,0.6543422,,8,0.6543422,0,0,28
+,14,IsNear_self_sofa,['Walk(sofa)'],['Walk'],['sofa'],1,False,False,1,2,15,0.0,0.6106081,,8,0.6106081,0,0,28
+,15,IsNear_self_desk,['Walk(desk)'],['Walk'],['desk'],1,False,False,1,2,15,0.0,0.57318586,,8,0.57318586,0,0,28
+,16,IsSwitchedOn_tablelamp,"['Walk(tablelamp)', 'PlugIn(tablelamp)', 'SwitchOn(tablelamp)']","['SwitchOn', 'Walk', 'PlugIn']",['tablelamp'],3,False,False,3,5,31,0.0,0.821797,,8,0.821797,0,0,28
+,17,IsSwitchedOn_toaster,"['Walk(toaster)', 'PlugIn(toaster)', 'SwitchOn(toaster)']","['SwitchOn', 'Walk', 'PlugIn']",['toaster'],3,False,False,3,5,31,0.0,0.8189703,,8,0.8189703,0,0,28
+,18,IsOn_cupcake_nightstand,"['Walk(cupcake)', 'LeftGrab(cupcake)', 'Walk(nightstand)', 'LeftPut(cupcake,nightstand)']","['LeftGrab', 'LeftPut', 'Walk']","['nightstand', 'cupcake']",4,False,False,5,5,41,0.0,0.91287136,,8,0.91287136,0,0,28
+,0,IsIn_bellpepper_box,"['Walk(bellpepper)', 'RightGrab(bellpepper)', 'Walk(box)', 'Open(box)', 'RightPutIn(bellpepper,box)']","['Open', 'Walk', 'RightPutIn', 'RightGrab']","['bellpepper', 'box']",5,False,False,7,9,48,0.0,1.079479,,9,1.079479,0,0,29
+,2,IsOpen_book,"['Walk(book)', 'Open(book)']","['Open', 'Walk']",['book'],2,False,False,2,3,18,0.0,1.0042099,,9,1.0042099,0,0,29
+,3,IsOpen_curtains,"['Walk(curtains)', 'Open(curtains)']","['Open', 'Walk']",['curtains'],2,False,False,2,3,18,0.0,0.799782,,9,0.799782,0,0,29
+,4,IsOpen_cookingpot,"['Walk(cookingpot)', 'Open(cookingpot)']","['Open', 'Walk']",['cookingpot'],2,False,False,2,3,18,0.0,0.88719475,,9,0.88719475,0,0,29
+,5,IsPlugged_washingmachine,"['Walk(washingmachine)', 'PlugIn(washingmachine)']","['Walk', 'PlugIn']",['washingmachine'],2,False,False,2,3,23,0.0,0.8659276,,9,0.8659276,0,0,29
+,6,IsPlugged_printer,"['Walk(printer)', 'PlugIn(printer)']","['Walk', 'PlugIn']",['printer'],2,False,False,2,3,23,0.015621185302734375,0.8815409,,9,0.8815409,0,0,29
+,7,IsPlugged_wallphone,"['Walk(wallphone)', 'PlugIn(wallphone)']","['Walk', 'PlugIn']",['wallphone'],2,False,False,2,3,23,0.0,0.90773976,,9,0.90773976,0,0,29
+,11,IsIn_milk_kitchencabinet,"['Walk(milk)', 'RightGrab(milk)', 'Walk(kitchencabinet)', 'Open(kitchencabinet)', 'RightPutIn(milk,kitchencabinet)']","['Open', 'Walk', 'RightPutIn', 'RightGrab']","['milk', 'kitchencabinet']",5,False,False,6,9,48,0.0,0.56804764,,9,0.56804764,0,0,29
+,12,IsIn_notes_bookshelf,"['Walk(notes)', 'RightGrab(notes)', 'Walk(bookshelf)', 'RightPutIn(notes,bookshelf)']","['Walk', 'RightPutIn', 'RightGrab']","['bookshelf', 'notes']",4,False,False,4,5,45,0.0,1.131905,,9,1.131905,0,0,29
+,13,IsNear_self_chair,['Walk(chair)'],['Walk'],['chair'],1,False,False,1,2,15,0.0,0.63676167,,9,0.63676167,0,0,29
+,14,IsNear_self_sofa,['Walk(sofa)'],['Walk'],['sofa'],1,False,False,1,2,15,0.0,0.60026324,,9,0.60026324,0,0,29
+,15,IsNear_self_desk,['Walk(desk)'],['Walk'],['desk'],1,False,False,1,2,15,0.0,0.5365112,,9,0.5365112,0,0,29
+,16,IsSwitchedOn_tablelamp,"['Walk(tablelamp)', 'PlugIn(tablelamp)', 'SwitchOn(tablelamp)']","['SwitchOn', 'Walk', 'PlugIn']",['tablelamp'],3,False,False,3,5,31,0.015622377395629883,0.821797,,9,0.821797,0,0,29
+,17,IsSwitchedOn_toaster,"['Walk(toaster)', 'PlugIn(toaster)', 'SwitchOn(toaster)']","['SwitchOn', 'Walk', 'PlugIn']",['toaster'],3,False,False,3,5,31,0.0,0.8189715,,9,0.8189715,0,0,29
+,18,IsOn_cupcake_nightstand,"['Walk(cupcake)', 'LeftGrab(cupcake)', 'Walk(nightstand)', 'LeftPut(cupcake,nightstand)']","['LeftGrab', 'LeftPut', 'Walk']","['nightstand', 'cupcake']",4,False,False,5,5,41,0.0,0.91287136,,9,0.91287136,0,0,29
+,0,IsIn_bellpepper_box,"['Walk(bellpepper)', 'RightGrab(bellpepper)', 'Walk(box)', 'Open(box)', 'RightPutIn(bellpepper,box)']","['Open', 'Walk', 'RightPutIn', 'RightGrab']","['bellpepper', 'box']",5,False,False,7,9,48,0.0,1.079479,,10,1.079479,0,0,30
+,2,IsOpen_book,"['Walk(book)', 'Open(book)']","['Open', 'Walk']",['book'],2,False,False,2,3,18,0.0,1.0042099,,10,1.0042099,0,0,30
+,3,IsOpen_curtains,"['Walk(curtains)', 'Open(curtains)']","['Open', 'Walk']",['curtains'],2,False,False,2,3,18,0.0,0.799782,,10,0.799782,0,0,30
+,4,IsOpen_cookingpot,"['Walk(cookingpot)', 'Open(cookingpot)']","['Open', 'Walk']",['cookingpot'],2,False,False,2,3,18,0.0,0.88719475,,10,0.88719475,0,0,30
+,5,IsPlugged_washingmachine,"['Walk(washingmachine)', 'PlugIn(washingmachine)']","['Walk', 'PlugIn']",['washingmachine'],2,False,False,2,3,23,0.0,0.8657917,,10,0.8657917,0,0,30
+,6,IsPlugged_printer,"['Walk(printer)', 'PlugIn(printer)']","['Walk', 'PlugIn']",['printer'],2,False,False,2,3,23,0.0,0.8815409,,10,0.8815409,0,0,30
+,7,IsPlugged_wallphone,"['Walk(wallphone)', 'PlugIn(wallphone)']","['Walk', 'PlugIn']",['wallphone'],2,False,False,2,3,23,0.0,0.9016627,,10,0.9016627,0,0,30
+,9,IsOn_toothpaste_bathroomcabinet,"['Walk(toothpaste)', 'LeftGrab(toothpaste)', 'Walk(bathroomcabinet)', 'LeftPut(toothpaste,bathroomcabinet)']","['LeftGrab', 'LeftPut', 'Walk']","['toothpaste', 'bathroomcabinet']",4,False,False,5,5,41,0.0,0.78933275,,10,0.78933275,0,0,30
+,10,IsSwitchedOn_dishwasher,"['Walk(dishwasher)', 'PlugIn(dishwasher)', 'SwitchOn(dishwasher)']","['SwitchOn', 'Walk', 'PlugIn']",['dishwasher'],3,False,False,3,5,31,0.0,0.7241727,,10,0.7241727,0,0,30
+,11,IsIn_milk_kitchencabinet,"['Walk(milk)', 'RightGrab(milk)', 'Walk(kitchencabinet)', 'Open(kitchencabinet)', 'RightPutIn(milk,kitchencabinet)']","['Open', 'Walk', 'RightPutIn', 'RightGrab']","['milk', 'kitchencabinet']",5,False,False,6,9,48,0.0,0.56804764,,10,0.56804764,0,0,30
+,12,IsIn_notes_bookshelf,"['Walk(notes)', 'RightGrab(notes)', 'Walk(bookshelf)', 'RightPutIn(notes,bookshelf)']","['Walk', 'RightPutIn', 'RightGrab']","['bookshelf', 'notes']",4,False,False,4,5,45,0.0,1.131905,,10,1.131905,0,0,30
+,13,IsNear_self_chair,['Walk(chair)'],['Walk'],['chair'],1,False,False,1,2,15,0.0,0.63676167,,10,0.63676167,0,0,30
+,14,IsNear_self_sofa,['Walk(sofa)'],['Walk'],['sofa'],1,False,False,1,2,15,0.0,0.60026324,,10,0.60026324,0,0,30
+,15,IsNear_self_desk,['Walk(desk)'],['Walk'],['desk'],1,False,False,1,2,15,0.0,0.5365112,,10,0.5365112,0,0,30
+,16,IsSwitchedOn_tablelamp,"['Walk(tablelamp)', 'PlugIn(tablelamp)', 'SwitchOn(tablelamp)']","['SwitchOn', 'Walk', 'PlugIn']",['tablelamp'],3,False,False,3,5,31,0.0,0.7410393,,10,0.7410393,0,0,30
+,17,IsSwitchedOn_toaster,"['Walk(toaster)', 'PlugIn(toaster)', 'SwitchOn(toaster)']","['SwitchOn', 'Walk', 'PlugIn']",['toaster'],3,False,False,3,5,31,0.0,0.7226795,,10,0.7226795,0,0,30

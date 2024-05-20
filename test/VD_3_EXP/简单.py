@@ -18,6 +18,7 @@ from btgym.algos.llm_client.vector_database_env_goal import add_data_entry, writ
     search_nearest_examples, add_to_database
 import matplotlib.pyplot as plt
 from generate_goals import random_generate_goals
+import concurrent.futures
 
 # Set random seed
 random_seed = 0
@@ -63,7 +64,7 @@ def perform_test(env, chosen_goal, database_index_path, reflect_time=0, train=Fa
                                     choose_database=choose_database, database_index_path=database_index_path)
 
     if not choose_database:
-        distances = 0
+        avg_distance = 0
     else:
         # Identify and filter out extreme values
         extreme_value_threshold = 1e10  # Define a threshold to filter out extreme values
@@ -71,6 +72,7 @@ def perform_test(env, chosen_goal, database_index_path, reflect_time=0, train=Fa
         # Calculate average distance
         avg_distance = np.mean(filtered_distances)
 
+    # 先看看是不是无效解
     if priority_act_ls != None:
         _priority_act_ls, pred, obj = act_format_records(priority_act_ls)
         key_predicates = list(set(llm_key_pred + pred))
@@ -90,26 +92,23 @@ def perform_test(env, chosen_goal, database_index_path, reflect_time=0, train=Fa
 
         act_space = len(algo.actions)
 
-        # Identify and filter out extreme values
-        extreme_value_threshold = 1e10  # Define a threshold to filter out extreme values
-        filtered_distances = distances[distances < extreme_value_threshold]
-        # Calculate average distance
-        avg_distance = np.mean(filtered_distances)
-
+        # 有效解并且成功
         if success:
             return success, avg_distance, priority_act_ls, key_predicates, key_objects, \
                 act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total, act_space, parsed_fail
+    else:
+        # 如果是无效解
+        success = False
+        goal_set, priority_act_ls, key_predicates, key_objects, \
+            act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total, act_space = \
+            chosen_goal, [], [], [], None, None, None, None, None, None, None
 
-    # 到这一步的都是没成功的，如果是训练集就计算，如果是测试集就进入扩大范围的阶段
-    success = False
-    goal_set, priority_act_ls, key_predicates, key_objects, \
-        act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total, act_space = \
-        None, None, None, None, None, None, None, None, None, None, None
-
+    # 到这一步，表示要么不成功，要么是无效解
     if train:  # 搜索小动作空间得到一个解
         success, priority_act_ls, key_predicates, key_objects, \
             act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total, act_space = \
             find_from_small_act(chosen_goal)
+
     # 测试集会返回到 validate_goal 中进行扩大动作空间
     return success, avg_distance, priority_act_ls, key_predicates, key_objects, \
         act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total, act_space, parsed_fail
@@ -126,14 +125,15 @@ def validate_goal(env, chosen_goal, n, database_index_path=None, round_num=None,
         act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total, \
         act_space, parsed_fail = test_result
 
-    if key_predicates==None:
+    if key_predicates == None:
         return {
             'round': round_num, 'id': n, 'goals': ' & '.join(chosen_goal), 'priority_act_ls': priority_act_ls,
             'key_predicates': key_predicates, 'key_objects': key_objects, 'act_num': act_num, 'error': error,
             'time_limit_exceeded': time_limit_exceeded, 'act_space': act_space, 'expanded_num': expanded_num,
             'current_cost': current_cost,
-            'planning_time_total': planning_time_total, 'average_distance': avg_distance, 'database_size': database_num
-        }, success, avg_distance, -1, parsed_fail
+            'planning_time_total': planning_time_total, 'average_distance': avg_distance, 'database_size': database_num,
+            "parsed_fail": parsed_fail, "fail": -1
+        }, success, -1, parsed_fail
 
     fail = 0
     while not success:
@@ -204,15 +204,14 @@ def validate_goal(env, chosen_goal, n, database_index_path=None, round_num=None,
 
     print(f"\033[92mtest:{n} {chosen_goal} {act_num}\033[0m")
 
-
-
     return {
         'round': round_num, 'id': n, 'goals': ' & '.join(chosen_goal), 'priority_act_ls': priority_act_ls,
         'key_predicates': key_predicates, 'key_objects': key_objects, 'act_num': act_num, 'error': error,
         'time_limit_exceeded': time_limit_exceeded, 'act_space': act_space, 'expanded_num': expanded_num,
         'current_cost': current_cost,
-        'planning_time_total': planning_time_total, 'average_distance': avg_distance, 'database_size': database_num
-    }, success, avg_distance, fail, parsed_fail
+        'planning_time_total': planning_time_total, 'average_distance': avg_distance, 'database_size': database_num,
+        "parsed_fail": parsed_fail, "fail": fail
+    }, success, fail, parsed_fail
 
 
 # =========================  RHB ======================
@@ -221,6 +220,7 @@ default_prompt_file = f"{ROOT_PATH}/algos/llm_client/prompt_VHT_just_goal_no_exa
 dataset = read_dataset(f"{name}_test_20.txt")
 database_index_path = f"{ROOT_PATH}/../test/VD_3_EXP/DATABASE/0_goal_vectors.index"
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction as RHB
+
 env = btgym.make("VHT-PutMilkInFridge")
 cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
 cur_cond_set |= {f'IsClose({arg})' for arg in RHB.CAN_OPEN}
@@ -228,17 +228,17 @@ cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in RHB.HAS_SWITCH}
 cur_cond_set |= {f'IsUnplugged({arg})' for arg in RHB.HAS_PLUG}
 big_actions = collect_action_nodes(env.behavior_lib)
 
-# max_round = 20 + 1
-# sample_num = 5
-# vaild_num = 20
-# diffcult_type = "easy"
-# print_round = 5  # 每多少轮打印一次
+max_round = 20 + 1
+sample_num = 5 #10
+vaild_num = 20
+diffcult_type = name
+print_round = 5  # 每多少轮打印一次
 
-max_round = 1 + 1
-sample_num = 1
-vaild_num = 2
-diffcult_type = "easy"
-print_round = 1  # 每多少轮打印一次
+# max_round = 2 + 1
+# sample_num = 1
+# vaild_num = 1
+# diffcult_type = name
+# print_round = 1  # 每多少轮打印一次
 
 test_results = []  # Details: 保存每轮下每个数据的具体情况
 metrics_df = pd.DataFrame(columns=["Round", "Test Success Rate Once", "Average Distance", "Average Expanded Num",
@@ -262,7 +262,6 @@ for round_num in range(0, 0 + max_round):
     test_success_count = 0
     total_expanded_num = 0
     total_planning_time_total = 0
-    total_cost_ratio = 0
     total_current_cost = 0
     total_fail_count = 0
     total_act_space = 0
@@ -314,7 +313,6 @@ for round_num in range(0, 0 + max_round):
         with open(round_index_path, 'wb') as f_dst:
             f_dst.write(f_src.read())
 
-
     # 更新一下向量数据库的数据数量
     # 读取存储的元数据
     metadata = np.load(database_index_path.replace(".index", "_metadata.npy"), allow_pickle=True)
@@ -323,43 +321,41 @@ for round_num in range(0, 0 + max_round):
 
     # ============== Testing Phase ===========
     # ========================= 并行 ========================
-    # with concurrent.futures.ThreadPoolExecutor() as executor:
-    #     futures = [executor.submit(validate_goal, env, d['Goals'], database_index_path, round_num, n, database_num,
-    #                                reflect_time=reflect_time,choose_database=True) \
-    #                for n, d in enumerate(vaild_dataset_test)]
-    #     for future in concurrent.futures.as_completed(futures):
-    #         result, success, _ = future.result()
-    # ========================= 并行 ========================
-
-    # ========================= 串行========================
     vaild_dataset = dataset[:vaild_num]
+    # with concurrent.futures.ThreadPoolExecutor() as executor:
+    #     futures = [executor.submit(validate_goal, env, d['Goals'], n, choose_database=True,
+    #                                database_index_path=database_index_path,
+    #                                database_num=database_num, round_num=round_num) \
+    #                for n, d in enumerate(vaild_dataset)]
+    #     for future in concurrent.futures.as_completed(futures):
+    #         result, success, fail, parsed_fail = future.result()
+    #         ========================= 并行 ========================
+    #         ========================= 串行========================
     for n, d in enumerate(vaild_dataset):
-        result, success, avg_distance, fail, parsed_fail = validate_goal(env, d['Goals'], n, choose_database=True,
-                                                                         database_index_path=database_index_path)
-        if fail==-1:
-            continue
-
-        result["round"] = round_num  # Add round_num to result
-        result["avg_distance"] = avg_distance
-        result["fail"] = fail
-        result["parsed_fail"] = parsed_fail
-        result["database_num"] = database_num
+        result, success, fail, parsed_fail = validate_goal(env, d['Goals'], n, choose_database=True,
+                                                           database_index_path=database_index_path,
+                                                           database_num=database_num, round_num=round_num)
+    # ========================= 串行========================
         test_results.append(result)
         # 计算一次成功率
         if success and fail == 0:
             test_success_count += 1
+        if not success:
+            result['current_cost'] = max(200,result['current_cost'])
+            result['expanded_num'] = max(200,result['expanded_num'])
+            result['planning_time_total'] = max(5, result['planning_time_total'])
+            result['act_space'] = max(2000, result['act_space'])
 
-        total_distance += avg_distance
-        total_planning_time_total += result.get('planning_time_total')
+
+        total_distance += result.get('average_distance') if result['average_distance'] is not None else 2
+        total_expanded_num += result.get('expanded_num') if result['expanded_num'] is not None else 200
+        total_planning_time_total += result.get('planning_time_total') if result[
+                                                                              'planning_time_total'] is not None else 20
         total_fail_count += fail
         total_parsed_fail += parsed_fail
-        total_act_space += result.get("act_space")
+        total_act_space += result.get('act_space') if result['act_space'] is not None else 20
+        total_current_cost += result.get('current_cost') if result['current_cost'] is not None else 200
 
-        if result['current_cost'] is not None:
-            current_cost = result['current_cost']
-            total_current_cost += 0
-            total_cost_ratio += 0
-            total_expanded_num += result['expanded_num']
 
     # 根据这一轮所有数据的情况，做一个统计
     num_entries = len(vaild_dataset)
@@ -373,14 +369,19 @@ for round_num in range(0, 0 + max_round):
     average_parsed_fail = total_parsed_fail / num_entries if num_entries else 0
 
     # 更新 metrics_over_rounds
-    metrics_over_rounds["Test Success Rate Once"] = np.append(metrics_over_rounds["Test Success Rate Once"], success_rate)
+    metrics_over_rounds["Test Success Rate Once"] = np.append(metrics_over_rounds["Test Success Rate Once"],
+                                                              success_rate)
     metrics_over_rounds["Average Distance"] = np.append(metrics_over_rounds["Average Distance"], average_distance)
-    metrics_over_rounds["Average Expanded Num"] = np.append(metrics_over_rounds["Average Expanded Num"], average_expanded_num)
-    metrics_over_rounds["Average Planning Time Total"] = np.append(metrics_over_rounds["Average Planning Time Total"], average_planning_time_total)
-    metrics_over_rounds["Average Current Cost"] = np.append(metrics_over_rounds["Average Current Cost"], average_current_cost)
+    metrics_over_rounds["Average Expanded Num"] = np.append(metrics_over_rounds["Average Expanded Num"],
+                                                            average_expanded_num)
+    metrics_over_rounds["Average Planning Time Total"] = np.append(metrics_over_rounds["Average Planning Time Total"],
+                                                                   average_planning_time_total)
+    metrics_over_rounds["Average Current Cost"] = np.append(metrics_over_rounds["Average Current Cost"],
+                                                            average_current_cost)
     metrics_over_rounds["Average Act Space"] = np.append(metrics_over_rounds["Average Act Space"], average_act_space)
     metrics_over_rounds["Average Fail Count"] = np.append(metrics_over_rounds["Average Fail Count"], average_fail_count)
-    metrics_over_rounds["Average Parsed Fail"] = np.append(metrics_over_rounds["Average Parsed Fail"], average_parsed_fail)
+    metrics_over_rounds["Average Parsed Fail"] = np.append(metrics_over_rounds["Average Parsed Fail"],
+                                                           average_parsed_fail)
 
     # Append the metrics of the current round to the DataFrame
     round_metrics = pd.DataFrame([{
@@ -411,8 +412,10 @@ for round_num in range(0, 0 + max_round):
     if (round_num) % print_round == 0:
         details_df = pd.DataFrame(test_results)  # 将 Details 保存为 CSV
         time_str = time.strftime('%Y%m%d%H%M%S', time.localtime())
-        details_df.to_csv(f'output_{name}/TMP_{name}_Det_round{round_num}_mr={max_round}_smpl={sample_num}.csv', index=False)
-        metrics_df.to_csv(f'output_{name}/TMP_{name}_Sum_round{round_num}_mr={max_round}_smpl={sample_num}.csv', index=False)  # 将 Metrics 保存为 CSV
+        details_df.to_csv(f'output_{name}/TMP_{name}_Det_round{round_num}_mr={max_round}_smpl={sample_num}.csv',
+                          index=False)
+        metrics_df.to_csv(f'output_{name}/TMP_{name}_Sum_round{round_num}_mr={max_round}_smpl={sample_num}.csv',
+                          index=False)  # 将 Metrics 保存为 CSV
         for metric_name in metrics_over_rounds.keys():
             plt.figure()
             plt.plot(metrics_df["Round"], metrics_df[metric_name], label=metric_name, marker='o')
@@ -423,6 +426,7 @@ for round_num in range(0, 0 + max_round):
             plt.savefig(
                 f'output_{name}/TMP_APIC_{name}_{metric_name}_Sum_round{round_num}_mr={max_round}_smpl={sample_num}.png')
         plt.show()
+
 # 输出最终的 Metrics
 print(f"{colors['green']}Test Success Rate: {success_rate}{colors['reset']}")
 print(f"{colors['green']}Average Parsed Fail: {average_parsed_fail}{colors['reset']}")

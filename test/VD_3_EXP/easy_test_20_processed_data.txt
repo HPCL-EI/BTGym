@@ -153,16 +153,8 @@ Vital Objects: cupcake, nightstand
 20
 Environment:1
 Instruction: Put the breadslice and the milk in the fridge.
-Goals: IsIn_breadslice_oven
-Optimal Actions: Walk_breadslice, RightGrab_breadslice, Walk_oven, PlugIn_oven, Open_oven, RightPutIn_breadslice_oven
+Goals: IsIn_chicken_oven
+Optimal Actions: Walk_chicken, RightGrab_chicken, Walk_oven, PlugIn_oven, Open_oven, RightPutIn_chicken_oven
 Vital Action Predicates: Walk, RightGrab, PlugIn, Open, RightPutIn
-Vital Objects: breadslice, oven
-
-21
-Environment:1
-Instruction: Put the breadslice and the milk in the fridge.
-Goals: IsIn_cutlets_stove
-Optimal Actions: Walk_cutlets, RightGrab_cutlets, Walk_stove, Open_stove, RightPutIn_cutlets_stove
-Vital Action Predicates: Walk, RightGrab, Open, RightPutIn
-Vital Objects: cutlets, stove
+Vital Objects: chicken, oven
 

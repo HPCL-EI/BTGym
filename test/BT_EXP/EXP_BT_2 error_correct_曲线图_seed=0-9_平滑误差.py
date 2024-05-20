@@ -29,7 +29,7 @@ df = pd.concat(df_list)
 y_names = ["Total Current Cost"]
 
 # 是否平滑
-smooth = False
+smooth = True
 
 for y_name in y_names:
     if not smooth:

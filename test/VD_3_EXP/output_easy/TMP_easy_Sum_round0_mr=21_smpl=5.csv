@@ -1,2 +1,2 @@
 Round,Test Success Rate Once,Average Distance,Average Expanded Num,Average Planning Time Total,Average Current Cost,Average Act Space,Average Fail Count,Average Parsed Fail
-0,0.25,1.6552897214889526,22.4,0.25760077238082885,39.05,1106.05,1.65,0.0
+0,0.15,1.6552897214889526,9.0,0.006869697570800781,31.85,374.7,1.15,0.0

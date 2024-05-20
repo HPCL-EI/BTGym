@@ -262,7 +262,6 @@ for round_num in range(0, 0 + max_round):
     test_success_count = 0
     total_expanded_num = 0
     total_planning_time_total = 0
-    total_cost_ratio = 0
     total_current_cost = 0
     total_fail_count = 0
     total_act_space = 0
@@ -349,6 +348,8 @@ for round_num in range(0, 0 + max_round):
             total_fail_count += fail
             total_parsed_fail += parsed_fail
             total_act_space += result.get('act_space') if result['act_space'] is not None else 20
+
+            total_current_cost += result.get('current') if result['current'] is not None else 200
 
         # if result['current_cost'] is not None:
         #     current_cost = result['current_cost']

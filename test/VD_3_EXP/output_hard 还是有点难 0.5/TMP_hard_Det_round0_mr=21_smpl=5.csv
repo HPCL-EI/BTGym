@@ -1,0 +1,2 @@
+round,id,goals,priority_act_ls,key_predicates,key_objects,act_num,error,time_limit_exceeded,act_space,expanded_num,current_cost,planning_time_total,average_distance,database_size,avg_distance,fail,parsed_fail,database_num
+0,6,IsNear_self_chair & IsOn_pear_kitchentable,"['Walk(chair)', 'RightGrab(pear)', 'RightPut(pear,kitchentable)']","['Walk', 'RightGrab', 'RightPut']","['pear', 'kitchentable', 'chair']",5,False,False,9,6,56,0.0009996891021728516,1.7358204,,1.7358204,0,0,1

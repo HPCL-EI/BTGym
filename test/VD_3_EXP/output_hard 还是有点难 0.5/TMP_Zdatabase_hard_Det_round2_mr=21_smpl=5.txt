@@ -1,0 +1,40 @@
+1
+Environment:
+Instruction:
+Goals:
+Optimal Actions:
+Vital Action Predicates:
+Vital Objects:
+
+2
+Environment:1
+Instruction:
+Goals:IsClean_apple & IsOpen_fridge
+Optimal Actions:Walk_apple, RightGrab_apple, Walk_fridge, Open_fridge, Walk_faucet, SwitchOn_faucet, Wash_apple
+Vital Action Predicates:Walk, RightGrab, Open, SwitchOn, Wash
+Vital Objects:apple, fridge, faucet
+
+3
+Environment:1
+Instruction:
+Goals:IsOpen_kitchencabinet & IsPlugged_fridge
+Optimal Actions:Walk_kitchencabinet, Open_kitchencabinet, Walk_fridge, PlugIn_fridge
+Vital Action Predicates:Walk, Open, PlugIn
+Vital Objects:kitchencabinet, fridge
+
+4
+Environment:1
+Instruction:
+Goals:IsNear_self_tv & IsOpen_microwave
+Optimal Actions:Walk_self_tv, RightGrab_tv, Open_microwave
+Vital Action Predicates:Walk, RightGrab, Open
+Vital Objects:microwave, tv, self
+
+5
+Environment:1
+Instruction:
+Goals:IsNear_self_kitchenknife
+Optimal Actions:Walk_self_kitchenknife, RightGrab_kitchenknife
+Vital Action Predicates:Walk, RightGrab
+Vital Objects:self, kitchenknife
+

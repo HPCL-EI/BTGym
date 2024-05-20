@@ -246,7 +246,7 @@ def get_goals_string_medium():
 # 生成 2-3个goal 稍微偏长
 def get_goals_string_hard():
     goal_list = []
-    goal_mount = random.randint(2, 3)
+    goal_mount = random.randint(1, 3)
     conditions = []
     for i in range(goal_mount):
         condition = random.choice(list(Condition))

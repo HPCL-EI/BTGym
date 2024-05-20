@@ -166,3 +166,4 @@ cython_debug/
 
 # pyc files
 __pycache__/
+test/VD_3_EXP/hard_test_20.txt

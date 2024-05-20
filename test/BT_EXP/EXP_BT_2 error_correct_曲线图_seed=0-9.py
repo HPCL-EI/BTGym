@@ -60,6 +60,8 @@ for y_name in y_names:
         # 不同的错误率
         error_rates = df['Error Rate'].unique()
         for err_rate in error_rates:
+            if err_rate==0.5:
+                continue
             subset = df[df['Error Rate'] == err_rate]
             if len(subset) > 3:  # 确保每个子集有足够的点
                 # 数据点
@@ -72,19 +74,58 @@ for y_name in y_names:
                 valid_indices = ~y_smoothed.isna()
                 x = x[valid_indices]
                 y_smoothed = y_smoothed[valid_indices]
+
+                # 移除重复的x值并平均相应的y值
+                x_unique, index = np.unique(x, return_index=True)
+                y_unique = [y_smoothed[x == xi].mean() for xi in x_unique]
+
                 # 创建样条插值对象
-                spline = interp1d(x, y_smoothed, kind='cubic')
-                # 生成更平滑的数据点
-                xnew = np.linspace(x.min(), x.max(), 300)
-                ynew = spline(xnew)
-                # 绘图
-                ax.plot(xnew, ynew, marker='', label=f'Error Rate = {err_rate * 100:.0f}%')  # 不显示标记
-                # 标记原始数据点
-                # ax.plot(x, y_smoothed, 'o', label=f'Original Points at Error Rate = {err_rate * 100:.0f}%')
+                if len(x_unique) > 3:  # 确保有足够的点进行插值
+                    spline = interp1d(x_unique, y_unique, kind='cubic')
+                    # 生成更平滑的数据点
+                    xnew = np.linspace(x_unique.min(), x_unique.max(), 300)
+                    ynew = spline(xnew)
+                    # 绘图
+                    ax.plot(xnew, ynew, marker='', label=f'Error Rate = {err_rate * 100:.0f}%')  # 不显示标记
+                else:
+                    # 如果点数不足以进行插值，直接绘制原始数据
+                    ax.plot(x_unique, y_unique, 'o', linestyle='-',
+                            label=f'Error Rate = {err_rate * 100:.0f}%')
             else:
                 # 如果点数不足以进行插值，直接绘制原始数据
                 ax.plot(subset['Correct Rate'], subset[y_name], 'o', linestyle='-',
                         label=f'Error Rate = {err_rate * 100:.0f}%')
+        # # 绘图设置
+        # fig, ax = plt.subplots(figsize=(10, 6))
+        #
+        # # 不同的错误率
+        # error_rates = df['Error Rate'].unique()
+        # for err_rate in error_rates:
+        #     subset = df[df['Error Rate'] == err_rate]
+        #     if len(subset) > 3:  # 确保每个子集有足够的点
+        #         # 数据点
+        #         x = subset['Correct Rate']
+        #         y = subset[y_name]
+        #         # 使用滑动窗口平滑数据
+        #         window_size = 3  # 滑动窗口大小设为3
+        #         y_smoothed = y.rolling(window=window_size, center=True).mean()  # 计算移动平均，center=True表示窗口中心对齐当前值
+        #         # 除去NaN值
+        #         valid_indices = ~y_smoothed.isna()
+        #         x = x[valid_indices]
+        #         y_smoothed = y_smoothed[valid_indices]
+        #         # 创建样条插值对象
+        #         spline = interp1d(x, y_smoothed, kind='cubic')
+        #         # 生成更平滑的数据点
+        #         xnew = np.linspace(x.min(), x.max(), 300)
+        #         ynew = spline(xnew)
+        #         # 绘图
+        #         ax.plot(xnew, ynew, marker='', label=f'Error Rate = {err_rate * 100:.0f}%')  # 不显示标记
+        #         # 标记原始数据点
+        #         # ax.plot(x, y_smoothed, 'o', label=f'Original Points at Error Rate = {err_rate * 100:.0f}%')
+        #     else:
+        #         # 如果点数不足以进行插值，直接绘制原始数据
+        #         ax.plot(subset['Correct Rate'], subset[y_name], 'o', linestyle='-',
+        #                 label=f'Error Rate = {err_rate * 100:.0f}%')
 
         ax.set_xlabel('Correct Rate')
         ax.set_ylabel(y_name)

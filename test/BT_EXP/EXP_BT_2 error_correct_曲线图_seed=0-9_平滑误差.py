@@ -1,16 +1,22 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from scipy.interpolate import interp1d
 import numpy as np
 
+heuristic=0
 # 文件名和路径
-# base_file_name = 'new_EXP_2_output_summary_bt_data_small_100_bigerror_heuristic=1_seed='
-# file_path = "./new_EXP_2_output/"
-# seeds = range(10)
-
-base_file_name = 'EXP_2_output_summary_bt_data_small_100_bigerror_heuristic=0_seed='
+base_file_name = f'EXP_2_output_summary_bt_data_small_100_bigerror_heuristic={heuristic}_seed='
 file_path = "exp_output_100/"
-seeds = range(0,50)
+seeds = range(0, 49)
+# 是否平滑
+smooth = True
+# window_size = 1  # 窗口大小
+# error_scale = 1  # 错误阴影缩放变量
+
+window_size = 1  # 窗口大小
+error_scale = 1  # 错误阴影缩放变量
+
+# 50-65
+# 不透明度
 
 # 初始化空的DataFrame用于合并数据
 df_list = []
@@ -25,71 +31,41 @@ for seed in seeds:
 df = pd.concat(df_list)
 
 # 列表中的三个y_name分别绘制图表
-# y_names = ["Total Current Cost", "Total Expanded Num", "Total Planning Time Total"]
 y_names = ["Total Current Cost"]
+# y_names = ["Total Expanded Num"]
 
-# 是否平滑
-smooth = True
+# y_names = ["Total Current Cost", "Total Expanded Num", "Total Planning Time Total"]
+# y_names = ["Total Current Cost", "Total Expanded Num"]
+
+def smooth_data(data, window_size):
+    return data.rolling(window=window_size, min_periods=1).mean()
 
 for y_name in y_names:
-    if not smooth:
-        # Plotting
-        # 无平滑处理
-        fig, ax = plt.subplots(figsize=(10, 6))
-        # Unique error rates to plot
-        error_rates = df['Error Rate'].unique()
-        for err_rate in error_rates:
-            subset = df[df['Error Rate'] == err_rate]
-            if err_rate==0.5:
-                continue
-            # 计算平均值
-            mean_data = subset.groupby('Correct Rate')[y_name].mean().reset_index()
-            print("err_rate:",err_rate,"mean_data:",mean_data)
-            ax.plot(mean_data['Correct Rate'], mean_data[y_name], marker='o', label=f'Error Rate = {err_rate*100}%')
-        ax.set_xlabel('Correct Rate')
-        ax.set_ylabel(y_name)
-        ax.set_title(f'{y_name} vs Correct Rate for Different Error Rates')
-        ax.legend()
-        plt.grid(True)
-        plt.savefig(f'plot1_total_{base_file_name}_{y_name}.png')  # Save the first plot
-        plt.show()
-    else:
-        # 绘图设置
-        fig, ax = plt.subplots(figsize=(10, 6))
+    # Plotting
+    fig, ax = plt.subplots(figsize=(10, 6))
+    # Unique error rates to plot
+    error_rates = df['Error Rate'].unique()
+    for err_rate in error_rates:
+        if err_rate == 0.5:
+            continue
+        subset = df[df['Error Rate'] == err_rate]
+        # 计算平均值和标准误差
+        mean_data = subset.groupby('Correct Rate')[y_name].mean().reset_index()
+        std_data = subset.groupby('Correct Rate')[y_name].std().reset_index()
 
-        # 不同的错误率
-        error_rates = df['Error Rate'].unique()
-        for err_rate in error_rates:
-            subset = df[df['Error Rate'] == err_rate]
-            if len(subset) > 3:  # 确保每个子集有足够的点
-                # 数据点
-                x = subset['Correct Rate']
-                y = subset[y_name]
-                # 使用滑动窗口平滑数据
-                window_size = 3  # 滑动窗口大小设为3
-                y_smoothed = y.rolling(window=window_size, center=True).mean()  # 计算移动平均，center=True表示窗口中心对齐当前值
-                # 除去NaN值
-                valid_indices = ~y_smoothed.isna()
-                x = x[valid_indices]
-                y_smoothed = y_smoothed[valid_indices]
-                # 创建样条插值对象
-                spline = interp1d(x, y_smoothed, kind='cubic')
-                # 生成更平滑的数据点
-                xnew = np.linspace(x.min(), x.max(), 300)
-                ynew = spline(xnew)
-                # 绘图
-                ax.plot(xnew, ynew, marker='', label=f'Error Rate = {err_rate * 100:.0f}%')  # 不显示标记
-                # 标记原始数据点
-                # ax.plot(x, y_smoothed, 'o', label=f'Original Points at Error Rate = {err_rate * 100:.0f}%')
-            else:
-                # 如果点数不足以进行插值，直接绘制原始数据
-                ax.plot(subset['Correct Rate'], subset[y_name], 'o', linestyle='-',
-                        label=f'Error Rate = {err_rate * 100:.0f}%')
+        if smooth:
+            mean_data[y_name] = smooth_data(mean_data[y_name], window_size)
+            std_data[y_name] = smooth_data(std_data[y_name], window_size)
 
-        ax.set_xlabel('Correct Rate')
-        ax.set_ylabel(y_name)
-        ax.set_title(f'{y_name} vs Correct Rate for Different Error Rates')
-        ax.legend()
-        plt.grid(True)
-        plt.savefig(f'plot1_total_{base_file_name}_{y_name}_smooth.png')  # Save the first plot
-        plt.show()
+        # 绘制曲线和误差填充
+        ax.plot(mean_data['Correct Rate'], mean_data[y_name], marker='o', label=f'Error Rate = {err_rate*100}%')
+        ax.fill_between(mean_data['Correct Rate'], mean_data[y_name] - error_scale * std_data[y_name],
+                        mean_data[y_name] + error_scale * std_data[y_name], alpha=0.2)
+
+    ax.set_xlabel('Correct Rate')
+    ax.set_ylabel(y_name)
+    ax.set_title(f'{y_name} vs Correct Rate for Different Error Rates')
+    ax.legend()
+    plt.grid(True)
+    plt.savefig(f'plot1_total_{base_file_name}_{y_name}_smooth.png')  # Save the plot
+    plt.show()

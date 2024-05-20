@@ -9,9 +9,9 @@ from openai import OpenAI
 class LLMGPT3():
     def __init__(self):
         self.client = OpenAI(
-            # base_url="https://api.xty.app/v1", api_key="sk-FLyhhGWDsCZCTbmq640c5c61Ad3d45078eDe56CdDbF01c0a"
-            base_url="https://gtapi.xiaoerchaoren.com:8932/v1",            api_key="sk-OO5BXh9SUMrnWR6q6fC035142aC94352A59f78E8655fE62b"
-
+            base_url="https://api.xty.app/v1", api_key="sk-FLyhhGWDsCZCTbmq640c5c61Ad3d45078eDe56CdDbF01c0a"
+            # base_url="https://gtapi.xiaoerchaoren.com:8932/v1",            api_key="sk-OO5BXh9SUMrnWR6q6fC035142aC94352A59f78E8655fE62b"
+        )
     def request(self,message): # question
         completion = self.client.chat.completions.create(
           model="gpt-3.5-turbo",

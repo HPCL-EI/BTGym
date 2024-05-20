@@ -365,7 +365,7 @@ for reflect_time in [1]:
             total_expanded_num += result['expanded_num'] if result['expanded_num'] is not None else 300
             total_planning_time_total += result['planning_time_total'] if result[
                                                                               'planning_time_total'] is not None else 3
-            total_current_cost += result['current_cost'] if result['current_cost'] is not None else 2000
+            total_current_cost += result['current_cost'] if result['current_cost'] is not None else 300
         # ========================= 串行========================
 
 

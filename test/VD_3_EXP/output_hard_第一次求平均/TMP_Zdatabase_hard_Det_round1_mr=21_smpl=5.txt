@@ -1,0 +1,32 @@
+1
+Environment:
+Instruction:
+Goals:
+Optimal Actions:
+Vital Action Predicates:
+Vital Objects:
+
+2
+Environment:1
+Instruction:
+Goals:IsClean_rag & IsSwitchedOn_candle
+Optimal Actions:Walk_candle, SwitchOn_candle, Walk_rag, RightGrab_rag, Walk_faucet, SwitchOn_faucet, Wash_rag
+Vital Action Predicates:Walk, SwitchOn, RightGrab, Wash
+Vital Objects:candle, rag, faucet
+
+3
+Environment:1
+Instruction:
+Goals:IsSwitchedOn_tv & IsOpen_fridge
+Optimal Actions:Walk_tv, PlugIn_tv, SwitchOn_tv, Walk_fridge, Open_fridge
+Vital Action Predicates:Walk, PlugIn, SwitchOn, Open
+Vital Objects:tv, fridge
+
+4
+Environment:1
+Instruction:
+Goals:IsNear_self_kitchenknife & IsPlugged_mouse
+Optimal Actions:Walk_mouse, PlugIn_mouse, Walk_kitchenknife
+Vital Action Predicates:Walk, PlugIn
+Vital Objects:mouse, kitchenknife
+

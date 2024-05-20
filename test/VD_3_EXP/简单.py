@@ -228,17 +228,17 @@ cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in RHB.HAS_SWITCH}
 cur_cond_set |= {f'IsUnplugged({arg})' for arg in RHB.HAS_PLUG}
 big_actions = collect_action_nodes(env.behavior_lib)
 
-max_round = 20 + 1
-sample_num = 5
-vaild_num = 20
-diffcult_type = "easy"
-print_round = 5  # 每多少轮打印一次
-
-# max_round = 1 + 1
-# sample_num = 1
-# vaild_num = 0
+# max_round = 20 + 1
+# sample_num = 5
+# vaild_num = 20
 # diffcult_type = "easy"
-# print_round = 100  # 每多少轮打印一次
+# print_round = 5  # 每多少轮打印一次
+
+max_round = 1 + 1
+sample_num = 1
+vaild_num = 2
+diffcult_type = "easy"
+print_round = 1  # 每多少轮打印一次
 
 test_results = []  # Details: 保存每轮下每个数据的具体情况
 metrics_df = pd.DataFrame(columns=["Round", "Test Success Rate Once", "Average Distance", "Average Expanded Num",

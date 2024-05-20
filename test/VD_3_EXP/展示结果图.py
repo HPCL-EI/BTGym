@@ -10,7 +10,7 @@ data = {name: pd.read_csv(file) for name, file in zip(names, metrics_files)}
 # Rounds scaled by 10
 rounds = data['easy']['Round'] * 10
 # Set the maximum rounds value
-max_rounds = 100  # Example value, you can change it to your desired maximum round
+max_rounds = 200  # Example value, you can change it to your desired maximum round
 # Filter the data based on max_rounds
 filtered_data = {name: df[rounds <= max_rounds] for name, df in data.items()}
 filtered_rounds = rounds[rounds <= max_rounds]
@@ -19,10 +19,10 @@ filtered_rounds = rounds[rounds <= max_rounds]
 # Define the metrics to plot
 metrics = [
     'Test Success Rate Once',
-    'Average Distance',
-    'Average Expanded Num',
+    'Average Distance', # 放附录
+    'Average Expanded Num', # 下降
     # 'Average Planning Time Total',
-    # 'Average Act Space'
+    'Average Act Space' # 下降
 ]
 
 # Plotting

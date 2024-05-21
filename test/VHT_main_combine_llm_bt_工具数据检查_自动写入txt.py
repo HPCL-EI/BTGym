@@ -53,7 +53,7 @@ def extract_objects(actions):
 # print(f"导入 {len_data} 条数据")
 # print(data1[0])
 
-file_name="easy_test_20"
+file_name="hard_test_20"
 data_path = f"{ROOT_PATH}/../test/VD_3_EXP/{file_name}.txt"
 output_path = f"{ROOT_PATH}/../test/VD_3_EXP/{file_name}_processed_data.txt"
 output_csv_path = f"{ROOT_PATH}/../test/VD_3_EXP/{file_name}_processed_h=1.csv"

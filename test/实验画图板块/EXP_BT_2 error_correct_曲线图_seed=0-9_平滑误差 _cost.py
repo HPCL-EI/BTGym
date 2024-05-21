@@ -7,9 +7,9 @@ matplotlib.rcParams['font.family'] = 'Times New Roman'
 # 尝试设置数学文本的字体，但这可能不会完全奏效
 matplotlib.rcParams['mathtext.fontset'] = 'stix'  # STIX 字体风格更接近 Times New Roman
 from matplotlib.ticker import MultipleLocator
-font1 = {'family': 'Times New Roman','color': 'Black','weight': 'normal','size': 32}
-font2 = {'family': 'Times New Roman','size': 22}
-font3 = {'family': 'Times New Roman','color': 'Black','weight': 'normal','size': 38}
+font1 = {'family': 'Times New Roman','color': 'Black','weight': 'normal','size': 34}
+font2 = {'family': 'Times New Roman','size': 24,'weight': 'normal'}
+font3 = {'family': 'Times New Roman','color': 'Black','weight': 'bold','size': 38}
 from matplotlib.ticker import MultipleLocator, FuncFormatter
 heuristic=0
 # 文件名和路径
@@ -39,8 +39,8 @@ for seed in seeds:
 df = pd.concat(df_list)
 
 # 列表中的三个y_name分别绘制图表
-# y_names = ["Total Current Cost"]
-y_names = ["Total Expanded Num"]
+y_names = ["Total Current Cost"]
+# y_names = ["Total Expanded Num"]
 
 # y_names = ["Total Current Cost", "Total Expanded Num", "Total Planning Time Total"]
 # y_names = ["Total Current Cost", "Total Expanded Num"]
@@ -69,10 +69,10 @@ for y_name in y_names:
         ax.plot(mean_data['Correct Rate'], mean_data[y_name], marker='o', \
                 label=f'Error Rate = {int(err_rate*100)}%',linewidth=3)
         ax.fill_between(mean_data['Correct Rate'], mean_data[y_name] - error_scale * std_data[y_name],
-                        mean_data[y_name] + error_scale * std_data[y_name], alpha=0.05)
+                        mean_data[y_name] + error_scale * std_data[y_name], alpha=0.04)
 
     ax.set_xlabel('Correct Rate',fontdict=font1)
-    ax.set_ylabel(y_name,fontdict=font1)
+    ax.set_ylabel("Total Costs",fontdict=font1)
     # ax.set_title(f'{y_name} vs Correct Rate for Different Error Rates')
     ax.legend(prop=font2)
     plt.grid(True)
@@ -81,6 +81,8 @@ for y_name in y_names:
     ax.xaxis.set_major_locator(MultipleLocator(0.2))
     ax.xaxis.set_major_formatter(FuncFormatter(lambda x, _: f'{int(x * 100)}%'))
 
+    # 设置 y 轴范围
+    ax.set_ylim(58.4, 59.2)
 
     labels = ax.get_xticklabels() + ax.get_yticklabels()
     [label.set_fontname('Times New Roman') for label in labels]
@@ -88,5 +90,5 @@ for y_name in y_names:
 
     # 调整布局以防止标签被截断
     plt.tight_layout()
-    plt.savefig(f"EXP_BT_2_plot_error_h{heuristic}.pdf", dpi=100, bbox_inches='tight', format='pdf')
+    plt.savefig(f"EXP_BT_2_plot_error_h{heuristic}_cost.pdf", dpi=100, bbox_inches='tight', format='pdf')
     plt.show()

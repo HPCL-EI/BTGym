@@ -314,47 +314,47 @@ for round_num in range(0, 0 + max_round):
     # ============== Testing Phase ===========
     # ========================= 并行 ========================
     vaild_dataset = dataset[:vaild_num]
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        futures = [executor.submit(validate_goal, env, d['Goals'], n, choose_database=True,
-                                   database_index_path=database_index_path,
-                                   database_num=database_num, round_num=round_num) \
-                   for n, d in enumerate(vaild_dataset)]
-        for future in concurrent.futures.as_completed(futures):
-            result, success, fail, parsed_fail = future.result()
+    # with concurrent.futures.ThreadPoolExecutor() as executor:
+    #     futures = [executor.submit(validate_goal, env, d['Goals'], n, choose_database=True,
+    #                                database_index_path=database_index_path,
+    #                                database_num=database_num, round_num=round_num) \
+    #                for n, d in enumerate(vaild_dataset)]
+    #     for future in concurrent.futures.as_completed(futures):
+    #         result, success, fail, parsed_fail = future.result()
             # ========================= 并行 ========================
-            # ========================= 串行========================
-            # for n, d in enumerate(vaild_dataset):
-            #     result, success, fail, parsed_fail = validate_goal(env, d['Goals'], n, choose_database=True,
-            #                                                        database_index_path=database_index_path,
-            #                                                        database_num=database_num, round_num=round_num)
-            # ========================= 串行========================
-            test_results.append(result)
-            # 计算一次成功率
-            if success and fail == 0:
-                test_success_count += 1
-            # hard_1 和 hard_2 是没有的
-            if not success:
-                result['current_cost']=max(200,result['current_cost'])
-                result['expanded_num'] = max(200, result['expanded_num'])
-                result['planning_time_total'] = max(5, result['planning_time_total'])
-                result['act_space'] = max(2000, result['act_space'])
+    # ========================= 串行========================
+    for n, d in enumerate(vaild_dataset):
+        result, success, fail, parsed_fail = validate_goal(env, d['Goals'], n, choose_database=True,
+                                                           database_index_path=database_index_path,
+                                                           database_num=database_num, round_num=round_num)
+    # ========================= 串行========================
+        test_results.append(result)
+        # 计算一次成功率
+        if success and fail == 0:
+            test_success_count += 1
+        # hard_1 和 hard_2 是没有的
+        if not success:
+            result['current_cost']=max(200,result['current_cost'])
+            result['expanded_num'] = max(200, result['expanded_num'])
+            result['planning_time_total'] = max(5, result['planning_time_total'])
+            result['act_space'] = max(2000, result['act_space'])
 
-            total_distance += result.get('average_distance') if result['average_distance'] is not None else 2
-            total_expanded_num += result.get('expanded_num') if result['expanded_num'] is not None else 200
-            total_planning_time_total += result.get('planning_time_total') if result[
-                                                                                  'planning_time_total'] is not None else 5
-            total_fail_count += fail
-            total_parsed_fail += parsed_fail
-            total_act_space += result.get('act_space') if result['act_space'] is not None else 20
+        total_distance += result.get('average_distance') if result['average_distance'] is not None else 2
+        total_expanded_num += result.get('expanded_num') if result['expanded_num'] is not None else 200
+        total_planning_time_total += result.get('planning_time_total') if result[
+                                                                              'planning_time_total'] is not None else 5
+        total_fail_count += fail
+        total_parsed_fail += parsed_fail
+        total_act_space += result.get('act_space') if result['act_space'] is not None else 20
 
 
-            total_current_cost += result.get('current_cost') if result['current_cost'] is not None else 200
+        total_current_cost += result.get('current_cost') if result['current_cost'] is not None else 200
 
-        # if result['current_cost'] is not None:
-        #     current_cost = result['current_cost']
-        #     total_current_cost += 0
-        #     total_cost_ratio += 0
-        #     total_expanded_num += result['expanded_num']
+    # if result['current_cost'] is not None:
+    #     current_cost = result['current_cost']
+    #     total_current_cost += 0
+    #     total_cost_ratio += 0
+    #     total_expanded_num += result['expanded_num']
 
     # 根据这一轮所有数据的情况，做一个统计
     num_entries = len(vaild_dataset)

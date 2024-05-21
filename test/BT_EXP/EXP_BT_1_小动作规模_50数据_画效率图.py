@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 # 导入数据
 # file_path = 'average_results_data=50_size=70.csv'
-file_path = 'EXP_1_average_results_100__size=90_20240512232528.csv'
+file_path = 'EXP_1_average_results_100_size=90_20240512232528.csv'
 average_df = pd.read_csv(file_path)
 
 # 假设heuristic_choices是从数据中提取的独立值

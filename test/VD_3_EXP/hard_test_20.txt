@@ -157,4 +157,3 @@ Goals: IsOn_waterglass_tvstand & IsSwitchedOn_tv
 Optimal Actions: Walk_tv, PlugIn_tv, SwitchOn_tv, Walk_waterglass, LeftGrab_waterglass, Walk_tvstand, LeftPut_waterglass_tvstand
 Vital Action Predicates: Walk, PlugIn, SwitchOn, LeftGrab, LeftPut
 Vital Objects: tv, waterglass, tvstand
-

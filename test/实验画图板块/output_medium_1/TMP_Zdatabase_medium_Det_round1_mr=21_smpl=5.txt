@@ -1,0 +1,40 @@
+1
+Environment:
+Instruction:
+Goals:
+Optimal Actions:
+Vital Action Predicates:
+Vital Objects:
+
+2
+Environment:1
+Instruction:
+Goals:IsNear_self_window & IsPlugged_fridge
+Optimal Actions:Walk_window, RightGrab_fridge, PlugIn_fridge
+Vital Action Predicates:RightGrab, PlugIn, Walk
+Vital Objects:fridge, window
+
+3
+Environment:1
+Instruction:
+Goals:IsSwitchedOn_candle & IsOpen_kitchencabinet
+Optimal Actions:Walk_kitchencabinet, Open_kitchencabinet, Walk_candle, SwitchOn_candle
+Vital Action Predicates:Walk, Open, SwitchOn
+Vital Objects:kitchencabinet, candle
+
+4
+Environment:1
+Instruction:
+Goals:IsOpen_fridge & IsOpen_window
+Optimal Actions:Walk_window, Open_window, Walk_fridge, Open_fridge
+Vital Action Predicates:Walk, Open
+Vital Objects:window, fridge
+
+5
+Environment:1
+Instruction:
+Goals:IsNear_self_fridge
+Optimal Actions:Walk_fridge
+Vital Action Predicates:Walk
+Vital Objects:fridge
+

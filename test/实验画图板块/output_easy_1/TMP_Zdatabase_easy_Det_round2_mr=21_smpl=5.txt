@@ -1,0 +1,88 @@
+1
+Environment:
+Instruction:
+Goals:
+Optimal Actions:
+Vital Action Predicates:
+Vital Objects:
+
+2
+Environment:1
+Instruction:
+Goals:IsIn_rag_microwave
+Optimal Actions:Walk_rag, RightGrab_rag, Walk_microwave, Open_microwave, PlugIn_microwave, RightPutIn_rag_microwave
+Vital Action Predicates:Walk, RightGrab, Open, PlugIn, RightPutIn
+Vital Objects:rag, microwave
+
+3
+Environment:1
+Instruction:
+Goals:IsPlugged_microwave
+Optimal Actions:Walk_microwave, PlugIn_microwave
+Vital Action Predicates:Walk, PlugIn
+Vital Objects:microwave
+
+4
+Environment:1
+Instruction:
+Goals:IsOn_plate_kitchencabinet
+Optimal Actions:Walk_plate, LeftGrab_plate, Walk_kitchencabinet, LeftPut_plate_kitchencabinet
+Vital Action Predicates:Walk, LeftGrab, LeftPut
+Vital Objects:plate, kitchencabinet
+
+5
+Environment:1
+Instruction:
+Goals:IsNear_self_cutlets
+Optimal Actions:Walk_cutlets, RightGrab_cutlets
+Vital Action Predicates:Walk, RightGrab
+Vital Objects:cutlets
+
+6
+Environment:1
+Instruction:
+Goals:IsOn_rag_kitchencabinet
+Optimal Actions:Walk_rag, LeftGrab_rag, Walk_kitchencabinet, LeftPut_rag_kitchencabinet
+Vital Action Predicates:Walk, LeftGrab, LeftPut
+Vital Objects:rag, kitchencabinet
+
+7
+Environment:1
+Instruction:
+Goals:IsOn_apple_bed
+Optimal Actions:Walk_apple, LeftGrab_apple, Walk_bed, LeftPut_apple_bed
+Vital Action Predicates:Walk, LeftGrab, LeftPut
+Vital Objects:apple, bed
+
+8
+Environment:1
+Instruction:
+Goals:IsPlugged_tv
+Optimal Actions:Walk_tv, PlugIn_tv
+Vital Action Predicates:PlugIn, Walk
+Vital Objects:tv
+
+9
+Environment:1
+Instruction:
+Goals:IsSwitchedOn_microwave
+Optimal Actions:Walk_microwave, PlugIn_microwave, SwitchOn_microwave
+Vital Action Predicates:Walk, PlugIn, SwitchOn
+Vital Objects:microwave
+
+10
+Environment:1
+Instruction:
+Goals:IsOn_apple_kitchencabinet
+Optimal Actions:Walk_apple, LeftGrab_apple, Walk_kitchencabinet, LeftPut_apple_kitchencabinet
+Vital Action Predicates:LeftGrab, Walk, LeftPut
+Vital Objects:kitchencabinet, apple
+
+11
+Environment:1
+Instruction:
+Goals:IsOpen_kitchencabinet
+Optimal Actions:Walk_kitchencabinet, Open_kitchencabinet
+Vital Action Predicates:Walk, Open
+Vital Objects:kitchencabinet
+

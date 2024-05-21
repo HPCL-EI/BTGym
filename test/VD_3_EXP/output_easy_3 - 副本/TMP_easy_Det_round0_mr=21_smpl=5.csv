@@ -1,0 +1,21 @@
+round,id,goals,priority_act_ls,key_predicates,key_objects,act_num,error,time_limit_exceeded,act_space,expanded_num,current_cost,planning_time_total,average_distance,database_size,parsed_fail,fail
+0,0,IsIn_bellpepper_box,"['RightGrabFrom(box,bellpepper)']","['', 'RightGrabFrom']","['', 'bellpepper', 'box']",5,False,False,15,14,48,0.0029921531677246094,1.5944142,1,0,1
+0,1,IsIn_milk_microwave,"['LeftGrabFrom(milk,microwave)', 'LeftPutIn(milk,fridge)']","['', 'LeftGrabFrom', 'LeftPutIn']","['microwave', '', 'fridge', 'milk']",6,False,False,25,61,56,0.021907806396484375,1.5937115,1,0,1
+0,2,IsOpen_book,['Open(book)'],"['', 'Open']","['', 'book\n\n2.\nOptimalActions:Walk_kitchentable', 'RightPut', 'RightPut_kitchentable\nVitalActionPredicates:Walk', 'book', 'RightGrab_clothesshirt', 'RightGrab']",2,False,False,6,3,18,0.000997781753540039,1.5094919,1,0,1
+0,4,IsOpen_cookingpot,['Open(cookingpot-)'],"['', 'Open', 'Open\n-']","['', 'cookingpot', 'cookingpot-']",2,False,False,8,3,18,0.0,1.5956179,1,0,1
+0,3,IsOpen_curtains,['Open(curtains)'],"['', 'Open']","['', 'curtains']",2,False,False,4,3,18,0.0009987354278564453,1.5774008,1,0,1
+0,5,IsPlugged_washingmachine,"['PlugIn(washingmachineObject<washingmachine>)', '<HAS(PLUG>Example-)']","['', 'PlugIn\n-', 'PlugIn', '<HAS']","['', 'washingmachineObject<washingmachine>', 'HAS_PLUG', 'washingmachine', 'PLUG>Example-']",2,False,False,8,3,23,0.0009930133819580078,1.7450193,1,0,1
+0,6,IsPlugged_printer,"['SwitchOn(HAS,SWITCH,printingmachine)', 'Open(CAN,OPEN,printingmachine)', 'IsPlugged(printer)']","['', 'IsPlugged', 'Open', 'SwitchOn']","['SWITCH', 'printer', 'HAS', 'CAN', '', 'OPEN']",2,False,False,8,3,23,0.000997781753540039,1.5955981,1,0,1
+0,9,IsOn_toothpaste_bathroomcabinet,"['Walk(bathroomcabinet)', 'RightGrab(toothpaste)']","['', 'RightGrab', 'Walk']","['', 'toothpaste', 'bathroomcabinet']",4,False,False,14,8,41,0.000997781753540039,1.6630127,1,0,1
+0,7,IsPlugged_wallphone,['Thesequenceofactionswiththelowesttotalcosttoachievethegoals.-()'],"['', 'Thesequenceofactionswiththelowesttotalcosttoachievethegoals.-', 'Actionpredicatesrepresentingtheactionsrequiredtoachievethegoals.\n-']","['Nounsrepresentingallitemsorentitiesinvolvedinaccomplishingthegoals.\n\nGoals:IsPlugged_wallphone\n\n[OptimalActions]\nPlugIn_wallphone\n\n[VitalActionPredicates]\nPlugIn\n\n[VitalObjects]\nwallphone', '']",2,False,False,7329,3,23,0.03187417984008789,1.585826,1,0,7
+0,10,IsSwitchedOn_dishwasher,['SwitchOn(dishwasher)'],"['', 'SwitchOn']","['', 'dishwasher']",3,False,False,8,9,31,0.003987312316894531,1.6956997,1,0,1
+0,8,IsOn_pear_kitchentable,"['Walk(kitchentable)', 'RightGrab(pear)', 'RightPutIn(pear,kitchentable)']","['', 'RightGrab', 'Walk', 'RightPutIn']","['', 'pear', 'kitchentable']",4,False,False,9,8,41,0.003010988235473633,1.7030417,1,0,1
+0,13,IsNear_self_chair,['Walk(chair)'],['Walk'],['chair'],1,False,False,1,2,15,0.0009996891021728516,1.7358218,1,0,0
+0,14,IsNear_self_sofa,['Walk(sofa)'],['Walk'],['sofa'],1,False,False,1,2,15,0.0,1.6841103,1,0,0
+0,15,IsNear_self_desk,['Walk(desk)'],['Walk'],['desk'],1,False,False,1,2,15,0.0009911060333251953,1.7006793,1,0,0
+0,11,IsIn_milk_kitchencabinet,['()'],[''],[''],0,True,True,7329,313,200,5.0103600025177,1.66876,1,0,7
+0,16,IsSwitchedOn_tablelamp,['SwitchOn(tablelamp)'],"['', 'SwitchOn']","['', 'tablelamp']",3,False,False,6,5,31,0.0009951591491699219,1.6847565,1,0,1
+0,12,IsIn_notes_bookshelf,"['Walk(bookshelf)', 'RightGrab(notes)']","['', 'RightGrab', 'Walk']","['bookshelf', '', 'notes']",4,False,False,10,8,45,0.003010272979736328,1.6789347,1,0,1
+0,17,IsSwitchedOn_toaster,['SwitchOn(toaster)'],"['', 'SwitchOn']","['', 'toaster']",3,False,False,6,5,31,0.0,1.6822069,1,0,1
+0,18,IsOn_cupcake_nightstand,"['RightGrab(cupcake)', 'LeftPut(cupcake,nightstand)']","['', 'LeftPut', 'RightGrab']","['', 'nightstand', 'cupcake']",4,False,False,11,8,41,0.0009968280792236328,1.7013211,1,0,1
+0,19,IsIn_chicken_oven,"['LeftGrabFrom(chicken,cabinet)', 'RightGrab(oven)', 'LeftPutIn(chicken,oven)']","['', 'RightGrab', 'LeftGrabFrom', 'LeftPutIn']","['', 'chicken', 'oven', 'cabinet']",6,False,False,23,66,56,0.02293872833251953,1.6103139,1,0,1

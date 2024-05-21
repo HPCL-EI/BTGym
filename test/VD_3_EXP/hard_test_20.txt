@@ -57,7 +57,7 @@ Vital Objects: pear, kitchentable, pillow, chair
 8
 Environment:1
 Instruction: Place the book and the cupcake on the nightstand.
-Goals: IsSwitcheOn_fridge & IsOn_cupcake_nightstand & IsNear_self_sofa
+Goals: IsSwitcheOn_fridge & IsOn_cupcake_nightstand 
 Optimal Actions: Walk_cupcake, LeftGrab_cupcake, Walk_book, RightGrab_book, Walk_nightstand, RightPut_book_nightstand, LeftPut_cupcake_nightstand, Walk_sofa
 Vital Action Predicates: Walk, LeftGrab, RightGrab, RightPut, LeftPut
 Vital Objects: cupcake, book, nightstand, sofa
@@ -73,7 +73,7 @@ Vital Objects: rag, clothespants, bed, kitchenknife, pie
 10
 Environment:1
 Instruction: Organize the paper and put it in the folder, then put the book on the desk and open it.
-Goals: IsIn_paper_folder & IsClose_folder & IsSwitchOn_tv
+Goals: IsIn_paper_folder & IsClose_folder
 Optimal Actions: Walk_paper, RightGrab_paper, Walk_folder, Open_folder, RightPutIn_paper_folder, Close_folder
 Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close
 Vital Objects: paper, folder

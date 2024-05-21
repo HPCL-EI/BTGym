@@ -1,0 +1,32 @@
+1
+Environment:
+Instruction:
+Goals:
+Optimal Actions:
+Vital Action Predicates:
+Vital Objects:
+
+2
+Environment:1
+Instruction:
+Goals:IsNear_self_bed & IsClean_window
+Optimal Actions:Walk_rag, LeftGrab_rag, Walk_window, Wipe_window, Walk_bed
+Vital Action Predicates:Walk, LeftGrab, Wipe
+Vital Objects:rag, window, bed
+
+3
+Environment:1
+Instruction:
+Goals:IsClean_apple & IsIn_apple_kitchencabinet & IsClose_kitchencabinet
+Optimal Actions:Walk_apple, RightGrab_apple, Walk_faucet, SwitchOn_faucet, Wash_apple, Walk_kitchencabinet, Open_kitchencabinet, RightPutIn_apple_kitchencabinet, Close_kitchencabinet
+Vital Action Predicates:Walk, RightGrab, SwitchOn, Wash, Open, RightPutIn, Close
+Vital Objects:apple, faucet, kitchencabinet
+
+4
+Environment:1
+Instruction:
+Goals:IsOn_plate_kitchencabinet & IsPlugged_microwave
+Optimal Actions:Walk_plate, RightGrab_plate, Walk_kitchencabinet, RightPut_plate_kitchencabinet, Walk_microwave, PlugIn_microwave
+Vital Action Predicates:Walk, RightGrab, RightPut, PlugIn
+Vital Objects:plate, kitchencabinet, microwave
+

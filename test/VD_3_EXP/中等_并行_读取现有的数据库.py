@@ -314,7 +314,7 @@ for round_num in range(0, 0 + max_round):
     # ============== Testing Phase ===========
     # ========================= 并行 ========================
     vaild_dataset = dataset[:vaild_num]
-    with concurrent.futures.ThreadPoolExecutor() as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
         futures = [executor.submit(validate_goal, env, d['Goals'], n, choose_database=True,
                                    database_index_path=database_index_path,
                                    database_num=database_num, round_num=round_num) \

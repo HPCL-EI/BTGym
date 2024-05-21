@@ -9,7 +9,7 @@ matplotlib.rcParams['mathtext.fontset'] = 'stix'  # STIX 字体风格更接近 T
 from matplotlib.ticker import MultipleLocator
 font1 = {'family': 'Times New Roman','color': 'Black','weight': 'normal','size': 32}
 font2 = {'family': 'Times New Roman','size': 22}
-font3 = {'family': 'Times New Roman','color': 'Black','weight': 'normal','size': 38}
+font3 = {'family': 'Times New Roman','size': 24,'weight': 'bold'}
 from matplotlib.ticker import MultipleLocator, FuncFormatter
 heuristic=0
 # 文件名和路径
@@ -66,15 +66,15 @@ for y_name in y_names:
             std_data[y_name] = smooth_data(std_data[y_name], window_size)
 
         # 绘制曲线和误差填充
-        ax.plot(mean_data['Correct Rate'], mean_data[y_name], marker='o', \
-                label=f'Error Rate = {int(err_rate*100)}%',linewidth=3)
+        ax.plot(mean_data['Correct Rate'], mean_data[y_name],markersize=8, marker='o', \
+                label=f'Error Rate = {int(err_rate*100)}%',linewidth=2.5)
         ax.fill_between(mean_data['Correct Rate'], mean_data[y_name] - error_scale * std_data[y_name],
-                        mean_data[y_name] + error_scale * std_data[y_name], alpha=0.05)
+                        mean_data[y_name] + error_scale * std_data[y_name], alpha=0.08)
 
     ax.set_xlabel('Correct Rate',fontdict=font1)
     ax.set_ylabel(y_name,fontdict=font1)
     # ax.set_title(f'{y_name} vs Correct Rate for Different Error Rates')
-    ax.legend(prop=font2)
+    ax.legend(prop=font3)
     plt.grid(True)
 
     # 设置 x 轴刻度和标签格式

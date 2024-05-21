@@ -322,7 +322,7 @@ for round_num in range(0, 0 + max_round):
     # ============== Testing Phase ===========
     # ========================= 并行 ========================
     vaild_dataset = dataset[:vaild_num]
-    with concurrent.futures.ThreadPoolExecutor() as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
         futures = [executor.submit(validate_goal, env, d['Goals'], n, choose_database=True,
                                    database_index_path=database_index_path,
                                    database_num=database_num, round_num=round_num) \
@@ -340,6 +340,12 @@ for round_num in range(0, 0 + max_round):
             # 计算一次成功率
             if success and fail == 0:
                 test_success_count += 1
+            if not success:
+                result['current_cost'] = max(200,result['current_cost'])
+                result['expanded_num'] = max(200,result['expanded_num'])
+                result['planning_time_total'] = max(5, result['planning_time_total'])
+                result['act_space'] = max(2000, result['act_space'])
+
 
             total_distance += result.get('average_distance') if result['average_distance'] is not None else 2
             total_expanded_num += result.get('expanded_num') if result['expanded_num'] is not None else 200
@@ -348,8 +354,7 @@ for round_num in range(0, 0 + max_round):
             total_fail_count += fail
             total_parsed_fail += parsed_fail
             total_act_space += result.get('act_space') if result['act_space'] is not None else 20
-
-            total_current_cost += result.get('current') if result['current'] is not None else 200
+            total_current_cost += result.get('current_cost') if result['current_cost'] is not None else 200
 
         # if result['current_cost'] is not None:
         #     current_cost = result['current_cost']

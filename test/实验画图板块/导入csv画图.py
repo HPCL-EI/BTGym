@@ -6,7 +6,7 @@ matplotlib.rcParams['font.family'] = 'Times New Roman'
 matplotlib.rcParams['mathtext.fontset'] = 'stix'  # STIX 字体风格更接近 Times New Roman
 from matplotlib.ticker import MultipleLocator
 font1 = {'family': 'Times New Roman','color': 'Black','weight': 'normal','size': 32}
-font2 = {'family': 'Times New Roman','size': 24}
+font2 = {'family': 'Times New Roman','size': 30}
 font3 = {'family': 'Times New Roman','color': 'Black','weight': 'normal','size': 38}
 from matplotlib.ticker import MultipleLocator, FuncFormatter
 # Define the metrics
@@ -25,9 +25,9 @@ metric2label={
 }
 
 name2label={
-    # 'easy':'Easy',
-    # "medium":'Medium',
-    # "hard":"Hard"
+    'easy':'Easy',
+    "medium":'Medium',
+    "hard":"Hard"
 }
 
 # Set the directory where the CSV files are stored
@@ -40,15 +40,16 @@ for metric in metrics:
 
     # Read the CSV file
     df = pd.read_csv(file_path)
-
+    df['round'] = int(df['round'] * 10)
     # Plotting
     fig, ax = plt.subplots(figsize=(10, 6))
 
     # Plot each heuristic's mean and fill the area between mean ± std
     for name in ['easy', 'medium', 'hard']:
-        ax.plot(df['round'], df[f'{name}_mean'], label=name, marker='o')  # Add marker='o' to show data points
+        ax.plot(df['round'], df[f'{name}_mean'], linewidth=2,\
+                label=name2label[name],markersize=8, marker='o')  # Add marker='o' to show data points
         ax.fill_between(df['round'], df[f'{name}_mean'] - df[f'{name}_std'], df[f'{name}_mean'] + df[f'{name}_std'],
-                         alpha=0.08)
+                         alpha=0.1)
 
     # plt.title(f'{metric} over Rounds (Smoothed)')
     ax.set_xlabel('Number of Training Samples',fontdict=font1)
@@ -62,5 +63,5 @@ for metric in metrics:
 
     # 调整布局以防止标签被截断
     plt.tight_layout()
-    plt.savefig(f'{metric.replace(" ", "_")}_over_Rounds.pdf', dpi=100, bbox_inches='tight', format='pdf')
+    plt.savefig(f'EXP_LLM_{metric.replace(" ", "_")}_over_Rounds.pdf', dpi=100, bbox_inches='tight', format='pdf')
     plt.show()

@@ -32,8 +32,8 @@ cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction_small.HAS_SWITCH}
 cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction_small.HAS_PLUG}
 
 #  &  & IsCut_apple
-goal_str = "IsIn_milk_fridge"
-act_str= ""
+goal_str = "IsClean_peach & IsClean_pear"
+act_str= "Walk_faucet,RightGrab_pear,SwitchOn_faucet"
 
 
 goal_set = goal_transfer_str(goal_str)
@@ -130,7 +130,7 @@ formatted_predicates = extract_and_format(predicate)
 formatted_objects = extract_and_format(objects)
 
 print("Goals:",goal_str)
-print("Actions:",formatted_act)
+print("Optimal Actions:",formatted_act)
 print("Vital Action Predicates:",formatted_predicates)
 print("Vital Objects:",formatted_objects)
 

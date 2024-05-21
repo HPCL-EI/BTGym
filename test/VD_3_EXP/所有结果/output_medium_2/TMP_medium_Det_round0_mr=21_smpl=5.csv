@@ -1,0 +1,21 @@
+round,id,goals,priority_act_ls,key_predicates,key_objects,act_num,error,time_limit_exceeded,act_space,expanded_num,current_cost,planning_time_total,average_distance,database_size,parsed_fail,fail
+0,19,IsNear_self_chair,['Walk(chair)'],['Walk'],['chair'],1,False,False,1,2,15,0.0,1.7358204,1,0,0
+0,3,IsPlugged_printer,['PlugIn(printer)'],"['', 'PlugIn']","['', 'printer']",2,False,False,8,3,23,0.0005035400390625,1.5955648,1,0,1
+0,1,IsSwitchedOn_tablelamp,['SwitchOn(tablelamp)'],"['', 'SwitchOn']","['', 'tablelamp']",3,False,False,6,5,31,0.0,1.6847572,1,0,1
+0,11,IsOn_condimentbottle_radio,"['RightPut(condimentbottle,radio)']","['', 'RightPut']","['', 'condimentbottle', 'radio']",4,False,False,18,8,41,0.0010004043579101562,1.6114986,1,0,1
+0,12,IsOpen_window & IsPlugged_dishwasher,"['Open(window)', 'PlugOut(dishwasher)']","['', 'Open', 'PlugOut']","['window', '', 'dishwasher']",4,False,False,12,8,41,0.0010001659393310547,1.5144167,1,0,1
+0,5,IsOn_pear_kitchentable,"['RightGrab(pear)', 'RightPut(pear,kitchentable)']","['', 'RightPut', 'RightGrab']","['', 'kitchentable', 'pear']",4,False,False,9,8,41,0.0010004043579101562,1.7030436,1,0,1
+0,7,IsIn_cutlets_microwave & IsSwitchedOn_microwave,"['PutIn(cutlets,microwave)', 'SwitchOn(microwave)']","['', 'PutIn', 'SwitchOn']","['', 'cutlets', 'microwave']",8,False,False,15,71,67,0.014146804809570312,1.6352711,1,0,1
+0,6,IsOn_chicken_kitchentable & IsOn_cupcake_kitchentable,"['RightPut(chicken,kitchentable)', 'RightPut(cupcake,kitchentable)']","['', 'RightPut']","['', 'chicken', 'kitchentable', 'cupcake']",7,False,False,14,54,67,0.007003068923950195,1.7414176,1,0,1
+0,17,IsIn_milk_kitchencabinet,"['LeftGrabFrom(milk,kitchencabinet)', 'LeftPutIn(milk,kitchencabinet)']","['', 'LeftPutIn', 'LeftGrabFrom']","['', 'milk', 'kitchencabinet']",5,False,False,13,18,48,0.0020003318786621094,1.6687593,1,0,1
+0,0,IsIn_chicken_microwave,"['RightPutIn(chicken,microwave)']","['', 'RightPutIn', 'PutIn']","['', 'chicken', 'microwave']",6,False,False,15,45,56,0.02377462387084961,1.634641,1,0,1
+0,16,IsClean_desk,['Wipe(desk)'],"['', 'Wipe']","['', 'desk']",4,False,False,7329,6,44,0.14794015884399414,1.7073326,1,0,7
+0,4,IsClean_bench,['Wipe(bench)'],"['', 'Wipe']","['', 'bench']",4,False,False,7329,6,44,0.11402750015258789,1.7184776,1,0,7
+0,9,IsClean_apple,['Wash(WASHABLE)'],"['', 'Wash']","['apple', 'WASHABLE', '']",0,True,True,7329,200,200,5.048203229904175,1.7327209,1,0,7
+0,14,IsClean_peach,['Wipe(peach)'],"['', 'Wipe']","['', 'peach']",0,True,True,7329,200,200,5.068256616592407,1.6522655,1,0,7
+0,13,IsClean_rag,['Wipe(rag)'],"['', 'Wipe']","['', 'rag']",0,True,True,7329,200,200,5.016433000564575,1.6992958,1,0,7
+0,8,IsCut_apple,"['Cut(<CUTABLE>,apple)']","['', 'Cut']","['apple', '', '<CUTABLE>']",0,True,True,7329,200,200,5.023819208145142,1.6641281,1,0,7
+0,15,IsOpen_door & IsCut_peach,"['Open(door)', 'Cut(peach)']","['', 'Open', 'Cut']","['door', 'peach', '']",0,True,True,7329,200,200,5.011967897415161,1.498595,1,0,7
+0,18,IsOn_plate_cuttingboard & IsNear_self_stove,"['RightGrabFrom(plate,containers)', 'RightPutIn(plate,containers)', 'RightGrabFrom(cuttingboard,containers)', 'RightPutIn(cuttingboard,containers)']","['', 'RightPutIn', 'RightGrabFrom']","['', 'plate', 'containers', 'cuttingboard']",5,False,False,7329,69,56,0.8723313808441162,1.7396815,1,0,7
+0,2,IsCut_carrot,['Thesequenceofactionswiththelowesttotalcosttoachievethegoals.-()'],"['Thesequenceofactionswiththelowesttotalcosttoachievethegoals.-', '', 'Actionpredicatesrepresentingtheactionsrequiredtoachievethegoals.\n-']","['', 'Cut_carrot\nVitalActionPredicates:RightGrab', 'Nounsrepresentingallitemsorentitiesinvolvedinaccomplishingthegoals.\n\nOptimalActions:RightGrab_kitchenknife', 'Cut']",0,True,True,7329,249,200,5.014035940170288,1.6659958,1,0,7
+0,10,IsSwitchedOn_washingmachine & IsOpen_door,[],[''],[''],0,True,True,7329,454,200,5.009623289108276,1.7616934,1,0,7

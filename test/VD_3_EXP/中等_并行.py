@@ -218,7 +218,7 @@ def validate_goal(env, chosen_goal, n, database_index_path=None, round_num=None,
 name = "medium"
 default_prompt_file = f"{ROOT_PATH}/algos/llm_client/prompt_VHT_just_goal_no_example.txt"
 dataset = read_dataset(f"{name}_test_20.txt")
-database_index_path = f"{ROOT_PATH}/../test/VD_3_EXP/DATABASE/0_goal_vectors.index"
+database_index_path = f"{ROOT_PATH}/../test/VD_3_EXP/DATABASE/1_goal_vectors.index"
 from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction as RHB
 
 env = btgym.make("VHT-PutMilkInFridge")
@@ -322,7 +322,7 @@ for round_num in range(0, 0 + max_round):
     # ============== Testing Phase ===========
     # ========================= 并行 ========================
     vaild_dataset = dataset[:vaild_num]
-    with concurrent.futures.ThreadPoolExecutor() as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
         futures = [executor.submit(validate_goal, env, d['Goals'], n, choose_database=True,
                                    database_index_path=database_index_path,
                                    database_num=database_num, round_num=round_num) \

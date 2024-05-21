@@ -50,7 +50,7 @@ if smooth:
 
     # plt.title('Average Planning Time Total vs Action Space Size')
     plt.xlabel('Action Space Size',fontdict=font1)
-    plt.ylabel('BT Planning Time(s)',fontdict=font1)
+    plt.ylabel('Planning Time(s)',fontdict=font1)
     ax.legend(prop=font2)
     plt.grid(True)
 

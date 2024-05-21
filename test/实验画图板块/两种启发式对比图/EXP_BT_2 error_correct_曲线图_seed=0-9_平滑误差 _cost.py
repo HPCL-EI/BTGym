@@ -8,8 +8,8 @@ matplotlib.rcParams['font.family'] = 'Times New Roman'
 matplotlib.rcParams['mathtext.fontset'] = 'stix'  # STIX 字体风格更接近 Times New Roman
 from matplotlib.ticker import MultipleLocator
 font1 = {'family': 'Times New Roman','color': 'Black','weight': 'normal','size': 34}
-font2 = {'family': 'Times New Roman','size': 24,'weight': 'normal'}
-font3 = {'family': 'Times New Roman','color': 'Black','weight': 'bold','size': 38}
+font2 = {'family': 'Times New Roman','size': 22}
+font3 = {'family': 'Times New Roman','size': 24,'weight': 'bold'}
 from matplotlib.ticker import MultipleLocator, FuncFormatter
 heuristic=0
 # 文件名和路径
@@ -74,7 +74,7 @@ for y_name in y_names:
     ax.set_xlabel('Correct Rate',fontdict=font1)
     ax.set_ylabel("Total Costs",fontdict=font1)
     # ax.set_title(f'{y_name} vs Correct Rate for Different Error Rates')
-    ax.legend(prop=font2)
+    ax.legend(prop=font3)
     plt.grid(True)
 
     # 设置 x 轴刻度和标签格式

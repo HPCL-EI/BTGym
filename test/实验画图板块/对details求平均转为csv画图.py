@@ -15,7 +15,8 @@ for difficulty in difficulties:
     all_dfs = []
 
     for i in range(1, 4):
-        if difficulty == "easy":
+        # file_path = f'output_{difficulty}_{i}/{difficulty}_details_20240521.csv'
+        if difficulty == "easy" or difficulty == "medium":
             file_path = f'output_{difficulty}_{i}/{difficulty}_details_20240521.csv'
         else:
             file_path = f'output_{difficulty}_{i}/{difficulty}_details_20240520.csv'
@@ -95,5 +96,5 @@ for metric in metrics:
     plt.ylabel(metric.replace("_", " ").capitalize())
     plt.grid(True)
     plt.legend()
-    plt.savefig(f'{metric.replace(" ", "_")}_over_Rounds.pdf', dpi=100, bbox_inches='tight', format='pdf')
+    plt.savefig(f'EXP_LLM_{metric.replace(" ", "_")}_over_Rounds.pdf', dpi=100, bbox_inches='tight', format='pdf')
     plt.show()

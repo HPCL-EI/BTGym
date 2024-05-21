@@ -40,8 +40,17 @@ for difficulty in difficulties:
         std_data[difficulty] = combined_df.groupby('round').std().reset_index()
 
 # Define a function to apply rolling window smoothing
+# def smooth_data(data, window_size=1):
+#     return data.rolling(window=window_size, min_periods=1, center=True).mean()
+
+
+# Define a function to apply rolling window smoothing
 def smooth_data(data, window_size=5):
-    return data.rolling(window=window_size, min_periods=1, center=True).mean()
+    smoothed = data.rolling(window=window_size, min_periods=1, center=True).mean()
+    # Pad the start and end to retain the original values at the boundaries
+    smoothed.iloc[:window_size//2] = data.iloc[:window_size//2]
+    # smoothed.iloc[-(window_size//2):] = data.iloc[-(window_size//2):]
+    return smoothed
 
 # Define the metrics to plot
 metrics = ['act_space', 'expanded_num', 'average_distance', 'success_rate']
@@ -86,5 +95,5 @@ for metric in metrics:
     plt.ylabel(metric.replace("_", " ").capitalize())
     plt.grid(True)
     plt.legend()
-    plt.savefig(f'{metric}_over_rounds_with_error_fill_smoothed.png')
+    plt.savefig(f'{metric.replace(" ", "_")}_over_Rounds.pdf', dpi=100, bbox_inches='tight', format='pdf')
     plt.show()

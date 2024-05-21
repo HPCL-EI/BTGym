@@ -25,9 +25,9 @@ metric2label={
 }
 
 name2label={
-    'easy':'Easy',
-    "medium":'Medium',
-    "hard":"Hard"
+    # 'easy':'Easy',
+    # "medium":'Medium',
+    # "hard":"Hard"
 }
 
 # Set the directory where the CSV files are stored
@@ -62,5 +62,5 @@ for metric in metrics:
 
     # 调整布局以防止标签被截断
     plt.tight_layout()
-    plt.savefig(f'{metric.replace(" ", "_")}_over_Rounds_with_error_fill_smoothed.png.pdf', dpi=100, bbox_inches='tight', format='pdf')
+    plt.savefig(f'{metric.replace(" ", "_")}_over_Rounds.pdf', dpi=100, bbox_inches='tight', format='pdf')
     plt.show()

@@ -21,36 +21,36 @@ process = subprocess.Popen(file_name, stdout=subprocess.PIPE, stderr=subprocess.
 #           '<char0> [Watch] <tv> (1)']
 
 # 准备早餐
-# script =  [
-#     # '<char0> [Walk] <fridge> (1)',
-#     # '<char0> [Open] <fridge> (1)',
-#     # '<char0> [Walk] <milk> (400)',
-#     # '<char0> [Grab] <milk> (400)',
-#     # '<char0> [Close] <fridge> (1)',
-#     # '<char0> [Put] <milk> (400) <desk> (1)'
-#
-#
-#     # '<char0> [Walk] <kitchentable> (1)',
-#     # '<char0> [Open] <fridge> (1)',
+script =  [
+    # '<char0> [Walk] <fridge> (1)',
+    # '<char0> [Open] <fridge> (1)',
+    # '<char0> [Walk] <milk> (400)',
+    # '<char0> [Grab] <milk> (400)',
+    # '<char0> [Close] <fridge> (1)',
+    # '<char0> [Put] <milk> (400) <desk> (1)'
+
+
+    # '<char0> [Walk] <kitchentable> (1)',
+    # '<char0> [Open] <fridge> (1)',
 # '<char0> [Walk] <desk> (2)',
 #     '<char0> [Walk] <mug> (257)',
 #     '<char0> [Grab] <mug> (257)',
-#     # '<char0> [Close] <fridge> (1)', #kitchencabinet=130
-#     # '<char0> [Put] <mug> (405) <desk> (1)'
-#
+    # '<char0> [Close] <fridge> (1)', #kitchencabinet=130
+    # '<char0> [Put] <mug> (405) <desk> (1)'
+
 # '<char0> [Put] <mug> (257) <desk> (2)'
-#
-#     ]
+
+    ]
 
 
 
 # test
-script = [
-'<char0> [walk] <washingmachine> (1)',
-    '<char0> [PlugIn] <washingmachine> (1)',
-    '<char0> [switchon] <washingmachine> (1)',
-
-]
+# script = [
+# '<char0> [walk] <washingmachine> (1)',
+#     '<char0> [PlugIn] <washingmachine> (1)',
+#     '<char0> [switchon] <washingmachine> (1)',
+#
+# ]
 
 
 
@@ -153,9 +153,9 @@ for no in env_g['nodes']:
 
 
 
-# comm.add_character('Chars/Female1')
+comm.add_character('Chars/Female1')
 # comm.add_character('Chars/Male1',initial_room="kitchen")
-comm.add_character('Chars/Male2')
+# comm.add_character('Chars/Male2')
 
 print('Generating video...')
 for script_instruction in script:

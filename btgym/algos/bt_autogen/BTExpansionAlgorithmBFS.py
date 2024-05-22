@@ -6,6 +6,7 @@ from btgym.algos.bt_autogen.behaviour_tree import Leaf, ControlBT
 from btgym.algos.bt_autogen.Action import Action,state_transition
 import random
 import numpy as np
+import time
 seed=0
 random.seed(seed)
 np.random.seed(seed)
@@ -93,7 +94,8 @@ def check_conflict(conds):
     return False
 
 class BTalgorithmBFS:
-    def __init__(self, verbose=False):
+    def __init__(self, verbose=False, llm_reflect=False, llm=None, messages=None, priority_act_ls=None, time_limit=None, \
+                 consider_priopity=False, heuristic_choice=-1):
         self.bt = None
         self.start = None
         self.goal = None
@@ -113,9 +115,11 @@ class BTalgorithmBFS:
 
         self.verbose = False
         self.bt_merge = False
-        self.output_just_best = False
+        self.output_just_best = True
         self.merge_time=999999
 
+        self.time_limit_exceeded = False
+        self.time_limit = time_limit
     def clear(self):
         self.bt = None
         self.start = None
@@ -165,7 +169,7 @@ class BTalgorithmBFS:
         '''
         Run the planning algorithm to calculate a behavior tree from the initial state, goal state, and available actions
         '''
-
+        start_time = time.time()
         self.start = start
         self.goal = goal
         self.actions = actions
@@ -210,7 +214,7 @@ class BTalgorithmBFS:
         if goal <= start:
             self.bt_without_merge = bt
             print("goal <= start, no need to generate bt.")
-            return bt, 0
+            return bt, 0,self.time_limit_exceeded
 
         while len(self.nodes) != 0:
             if self.nodes[0].cond_leaf.content in self.traversed:
@@ -255,7 +259,7 @@ class BTalgorithmBFS:
 
                 if c <= start:
                     bt = self.post_processing(current_pair , goal_cond_act_pair, subtree, bt,child_to_parent,cond_to_condActSeq)
-                    return bt, min_cost
+                    return bt, min_cost,self.time_limit_exceeded
 
                 if self.verbose:
                     print("Expansion complete for action node={}, with new conditions={}, min_cost={}".format(
@@ -267,6 +271,12 @@ class BTalgorithmBFS:
                 print("============")
             current_mincost = current_pair.cond_leaf.min_cost
 
+            # 超时处理
+            if self.time_limit != None and time.time() - start_time > self.time_limit:
+                self.time_limit_exceeded = True
+                bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
+                                          cond_to_condActSeq)
+                return bt, min_cost, self.time_limit_exceeded
 
             # ====================== Action Trasvers ============================ #
             # Traverse actions to find applicable ones
@@ -329,7 +339,7 @@ class BTalgorithmBFS:
                                 parent_of_c.children[0] = subtree
                                 bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt,
                                                           child_to_parent, cond_to_condActSeq)
-                                return bt, current_mincost + act.cost
+                                return bt, current_mincost + act.cost,self.time_limit_exceeded
 
 
                             if self.verbose:
@@ -353,7 +363,7 @@ class BTalgorithmBFS:
             print("Error: Couldn't find successful bt!")
             print("Algorithm ends!\n")
 
-        return bt, min_cost
+        return bt, min_cost,self.time_limit_exceeded
 
 
     def run_algorithm(self, start, goal, actions, merge_time=999999):
@@ -380,7 +390,7 @@ class BTalgorithmBFS:
 
         if len(goal) > 1:
             for g in goal:
-                bt_sel_tree, min_cost = self.run_algorithm_selTree(start, g, actions)
+                bt_sel_tree, min_cost , self.time_limit_exceeded= self.run_algorithm_selTree(start, g, actions)
                 subtree_with_costs_ls.append((bt_sel_tree, min_cost))
             # 要排个序再一次add
             sorted_trees = sorted(subtree_with_costs_ls, key=lambda x: x[1])
@@ -389,7 +399,7 @@ class BTalgorithmBFS:
             self.bt.add_child([subtree])
             self.min_cost = sorted_trees[0][1]
         else:
-            self.bt, min_cost = self.run_algorithm_selTree(start, goal[0], actions, merge_time=merge_time)
+            self.bt, min_cost, self.time_limit_exceeded = self.run_algorithm_selTree(start, goal[0], actions, merge_time=merge_time)
             self.min_cost = min_cost
             # print("min_cost:", mincost)
         return True

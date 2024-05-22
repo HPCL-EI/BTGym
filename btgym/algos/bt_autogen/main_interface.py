@@ -111,7 +111,7 @@ class BTExpInterface:
         elif self.selected_algorithm == "opt-h":
             self.algo = OptBTExpAlgorithmHeuristics(verbose=False)
         elif self.selected_algorithm == "bfs":
-            self.algo = BTalgorithmBFS(verbose=False)
+            self.algo = BTalgorithmBFS(verbose=False,time_limit = self.time_limit)
             # self.algo = BTalgorithm(verbose=False)
         elif self.selected_algorithm == "dfs":
             self.algo = BTalgorithmDFS(verbose=False)
@@ -128,8 +128,11 @@ class BTExpInterface:
         # return self.btml_string
         return True
 
-    def post_process(self):
-        self.btml_string = self.algo.get_btml()
+    def post_process(self,ptml_string=True):
+        if ptml_string:
+            self.btml_string = self.algo.get_btml()
+        else:
+            self.btml_string=""
         if self.selected_algorithm == "opt":
             self.min_cost = self.algo.min_cost
         else:
@@ -330,7 +333,7 @@ def collect_action_nodes(behavior_lib):
     for cls in behavior_lib["Action"].values():
         if cls.can_be_expanded:
             can_expand_ored+=1
-            # print(f"可扩展动作：{cls.__name__}, 存在{len(cls.valid_args)}个有效论域组合")
+            print(f"可扩展动作：{cls.__name__}, 存在{len(cls.valid_args)}个有效论域组合")
             # print({cls.__name__})
             if cls.num_args == 0:
                 action_list.append(Action(name=cls.get_ins_name(), **cls.get_info()))

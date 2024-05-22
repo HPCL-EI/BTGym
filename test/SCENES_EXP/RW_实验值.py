@@ -87,6 +87,15 @@ def validate_goal(env, chosen_goal, n, database_index_path=None, round_num=None,
         act_num, error, time_limit_exceeded, current_cost, expanded_num, planning_time_total, \
         act_space, parsed_fail  = test_result
 
+    if key_predicates==None:
+        return {
+            'round': round_num, 'id': n, 'goals': ' & '.join(chosen_goal), 'priority_act_ls': priority_act_ls,
+            'key_predicates': key_predicates, 'key_objects': key_objects, 'act_num': act_num, 'error': error,
+            'time_limit_exceeded': time_limit_exceeded, 'act_space': act_space, 'expanded_num': expanded_num,
+            'current_cost': current_cost,
+            'planning_time_total': planning_time_total, 'average_distance': avg_distance, 'database_size': database_num
+        }, success, avg_distance, -1, parsed_fail
+
     fail = 0
     while not success:
         fail += 1

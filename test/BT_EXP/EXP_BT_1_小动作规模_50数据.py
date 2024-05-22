@@ -52,13 +52,15 @@ analyze_data_tabular(data1,[97,1,1,1])
 # Initialize lists to store individual results and averages
 data_rows = []
 # action_space_sizes = list(range(15, 91, 5)) #51
-action_space_sizes = list(range(15, 101, 5)) #51
+action_space_sizes = list(range(15, 61, 5)) #51
+# action_space_sizes = list(range(65, 71, 5)) #51
 heuristic_choices = [0, 1, -1]
 average_rows = []
 
 num_samples = 100  # Update this to the number of samples to process
 
-
+# data1=data1[13:14]
+# num_samples = 1
 for sample_idx in range(min(len(data1), num_samples)):
 
     # 测试其中第1条
@@ -76,7 +78,11 @@ for sample_idx in range(min(len(data1), num_samples)):
         # print(f"\n============== action_space_sizes = {action_space_size} =============")
         custom_action_list = generate_custom_action_list(big_actions, action_space_size, d['Optimal Actions'])
 
-        for heuristic_choice in [0, 1, -1]:
+        # for heuristic_choice in [0, 1, -1]:
+        for heuristic_choice in [-1]:
+            select_algo = "bfs"
+            # select_algo = "opt"
+
             # if heuristic_choice == 0:
             #     print("----------priority = 0 的启发式 Running with Heuristic Choice = 0-----------")
             # elif heuristic_choice == 1:
@@ -86,7 +92,7 @@ for sample_idx in range(min(len(data1), num_samples)):
 
             algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set, \
                                   priority_act_ls=d['Optimal Actions'],  \
-                                  selected_algorithm="opt", mode="user-defined", action_list=custom_action_list,\
+                                  selected_algorithm=select_algo, mode="user-defined", action_list=custom_action_list,\
                                   llm_reflect=False, time_limit=None,
                                   heuristic_choice=heuristic_choice)
 
@@ -130,8 +136,8 @@ average_df = df[numeric_columns].groupby(['Action_Space_Size', 'Heuristic_Choice
 
 # Save individual and average results to CSV
 time_str = time.strftime('%Y%m%d%H%M%S', time.localtime())
-df.to_csv(f'EXP_1_individual_results_100_size=90_{time_str}.csv', index=False)
-average_df.to_csv(f'EXP_1_average_results_100__size=90_{time_str}.csv', index=False)
+df.to_csv(f'EXP_1_{select_algo}_individual_results_100_size=90_{time_str}.csv', index=False)
+average_df.to_csv(f'EXP_1_{select_algo}_average_results_100__size=90_{time_str}.csv', index=False)
 
 from scipy.interpolate import interp1d
 plt.figure(figsize=(10, 6))
@@ -150,5 +156,5 @@ plt.xlabel('Action Space Size')
 plt.ylabel('Average Planning Time Total')
 plt.legend()
 plt.grid(True)
-plt.savefig(f'EXP_1_average_planning_time_plot_50_size=90_{time_str}.png')
+plt.savefig(f'EXP_1_{select_algo}_average_planning_time_plot_50_size=90_{time_str}.png')
 plt.show()

@@ -35,13 +35,13 @@ from tools import execute_algorithm
 # print(data1[0])
 
 # # ================== RW ===============
-name = "RW"
-dataset = read_dataset(f"{name}_test_50.txt")
-from btgym.envs.robowaiter.exec_lib._base.VHTAction import VHTAction
-env = btgym.make("RWEnv")
-cur_cond_set = env.agents[0].condition_set = {'RobotNear(Bar)','Holding(Nothing)' }
-cur_cond_set |= {f'Exists({arg})' for arg in VHTAction.all_object-{'Coffee', 'Water', 'Dessert'}}
-print(f"共收集到 {len(VHTAction.all_object)} 个物体")
+# name = "RW"
+# dataset = read_dataset(f"{name}_test_50.txt")
+# from btgym.envs.robowaiter.exec_lib._base.VHTAction import VHTAction
+# env = btgym.make("RWEnv")
+# cur_cond_set = env.agents[0].condition_set = {'RobotNear(Bar)','Holding(Nothing)' }
+# cur_cond_set |= {f'Exists({arg})' for arg in VHTAction.all_object-{'Coffee', 'Water', 'Dessert'}}
+# print(f"共收集到 {len(VHTAction.all_object)} 个物体")
 
 
 # # ================== RHS ===============
@@ -68,15 +68,15 @@ print(f"共收集到 {len(VHTAction.all_object)} 个物体")
 
 
 # ================== RHB ===============
-# name = "RHB"
-# dataset = read_dataset(f"{name}_test_50.txt")
-# from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction as RHB
-# env = btgym.make("VHT-PutMilkInFridge")
-# cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
-# cur_cond_set |= {f'IsClose({arg})' for arg in RHB.CAN_OPEN}
-# cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in RHB.HAS_SWITCH}
-# cur_cond_set |= {f'IsUnplugged({arg})' for arg in RHB.HAS_PLUG}
-# big_actions = collect_action_nodes(env.behavior_lib)
+name = "RHB"
+dataset = read_dataset(f"{name}_test_50.txt")
+from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction as RHB
+env = btgym.make("VHT-PutMilkInFridge")
+cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
+cur_cond_set |= {f'IsClose({arg})' for arg in RHB.CAN_OPEN}
+cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in RHB.HAS_SWITCH}
+cur_cond_set |= {f'IsUnplugged({arg})' for arg in RHB.HAS_PLUG}
+big_actions = collect_action_nodes(env.behavior_lib)
 
 
 # Initialize accumulators for lengths
@@ -107,9 +107,9 @@ for n,d in enumerate(dataset):
     algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
                           priority_act_ls=priority_act_ls, key_predicates=key_predicates,
                           key_objects=priority_obj_ls,
-                          selected_algorithm="opt", mode="big",
+                          selected_algorithm="opt", mode="small-predicate-objs", #mode=""
                           llm_reflect=False, time_limit=180,
-                          heuristic_choice=-1)
+                          heuristic_choice=0)
 
     expanded_num, planning_time_total, cost, error, act_num, current_cost, record_act_ls = \
         execute_algorithm(algo, goal_set, cur_cond_set)
@@ -134,6 +134,6 @@ average_priority_act_length = total_priority_act_length / num_entries
 average_algo_actions_length = total_algo_actions_length / num_entries
 
 # Print averages
-print(f"Average length of priority_act_ls: {average_priority_act_length}")
-print(f"Average length of algo.actions: {average_algo_actions_length}")
+print(f"最优路径长度: {average_priority_act_length}")
+print(f"动作空间大小: {average_algo_actions_length}")
 print(f"Planning Time Total: {planning_time_total_all/len(dataset)}")

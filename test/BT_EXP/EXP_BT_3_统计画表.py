@@ -2,7 +2,7 @@ import pandas as pd
 
 # 假设 results_df 是之前代码生成的包含所有结果的 DataFrame
 # 载入DataFrame
-filename = "EXP_BT_3_big_small_3algo_table_001_record_timeout"
+filename = "EXP_BT_3_big_small_3algo_table_001_record_timeout_bfs"
 results_df = pd.read_csv(f"{filename}.csv")
 
 # 定义mode和heuristic的映射

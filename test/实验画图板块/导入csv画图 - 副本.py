@@ -5,22 +5,22 @@ matplotlib.rcParams['font.family'] = 'Times New Roman'
 # 尝试设置数学文本的字体，但这可能不会完全奏效
 matplotlib.rcParams['mathtext.fontset'] = 'stix'  # STIX 字体风格更接近 Times New Roman
 from matplotlib.ticker import MultipleLocator
-font1 = {'family': 'Times New Roman','color': 'Black','weight': 'normal','size': 32}
+font1 = {'family': 'Times New Roman','color': 'Black','weight': 'bold','size': 40}
 font2 = {'family': 'Times New Roman','size': 30}
-font3 = {'family': 'Times New Roman','color': 'Black','weight': 'normal','size': 38}
+font3 = {'family': 'Times New Roman','weight': 'bold','size': 32}
 from matplotlib.ticker import MultipleLocator, FuncFormatter
 # Define the metrics
 metrics = [
     'Success_rate',
     'Average_distance',
     'Expanded_num',
-    'Act_space'
+    'Act_space',
 ]
 
 metric2label={
     'Success_rate': 'Success Rate',
     'Average_distance': 'Nearest Neighbor Distance',
-    'Expanded_num': 'Expanded Num',
+    'Expanded_num': 'Expanded Nodes',
     'Act_space': 'Action Space Size'
 }
 
@@ -60,7 +60,7 @@ for metric in metrics:
     ax.set_xlabel('Number of Training Samples',fontdict=font1)
     ax.set_ylabel(metric2label[metric],fontdict=font1)
     plt.grid(True)
-    ax.legend(prop=font2)
+    ax.legend(prop=font3)
 
     # Adjust the y-axis for Success Rate to show as percentage
     if metric == 'Success_rate':
@@ -70,7 +70,7 @@ for metric in metrics:
 
     labels = ax.get_xticklabels() + ax.get_yticklabels()
     [label.set_fontname('Times New Roman') for label in labels]
-    [label.set_fontsize(30) for label in labels]
+    [label.set_fontsize(32) for label in labels]
 
     # 调整布局以防止标签被截断
     plt.tight_layout()

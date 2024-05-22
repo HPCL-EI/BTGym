@@ -154,9 +154,9 @@ class OptBTExpAlgorithm:
         self.subtree_count = 1
 
         self.verbose = verbose
-        self.bt_merge = False
+        self.bt_merge = True
         self.output_just_best = True
-        self.merge_time = 999999
+        self.merge_time = 5
 
         self.act_bt = None
 
@@ -718,7 +718,7 @@ class OptBTExpAlgorithm:
 
         if len(goal) > 1:
             for g in goal:
-                bt_sel_tree, min_cost = self.run_algorithm_selTree(start, g, actions)
+                bt_sel_tree, min_cost,time_limit_exceeded = self.run_algorithm_selTree(start, g, actions)
                 subtree_with_costs_ls.append((bt_sel_tree, min_cost))
             # 要排个序再一次add
             sorted_trees = sorted(subtree_with_costs_ls, key=lambda x: x[1])

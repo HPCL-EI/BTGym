@@ -7,11 +7,11 @@ matplotlib.rcParams['font.family'] = 'Times New Roman'
 # 尝试设置数学文本的字体，但这可能不会完全奏效
 matplotlib.rcParams['mathtext.fontset'] = 'stix'  # STIX 字体风格更接近 Times New Roman
 from matplotlib.ticker import MultipleLocator
-font1 = {'family': 'Times New Roman','color': 'Black','weight': 'normal','size': 32}
+font1 = {'family': 'Times New Roman','color': 'Black','weight': 'bold','size': 34}
 font2 = {'family': 'Times New Roman','size': 22}
 font3 = {'family': 'Times New Roman','size': 24,'weight': 'bold'}
 from matplotlib.ticker import MultipleLocator, FuncFormatter
-heuristic=0
+heuristic=1
 # 文件名和路径
 base_file_name = f'EXP_2_output_summary_bt_data_small_100_bigerror_heuristic={heuristic}_seed='
 file_path = "exp_output_100/"
@@ -72,7 +72,7 @@ for y_name in y_names:
                         mean_data[y_name] + error_scale * std_data[y_name], alpha=0.08)
 
     ax.set_xlabel('Correct Rate',fontdict=font1)
-    ax.set_ylabel(y_name,fontdict=font1)
+    ax.set_ylabel("Expanded Nodes",fontdict=font1)
     # ax.set_title(f'{y_name} vs Correct Rate for Different Error Rates')
     ax.legend(prop=font3)
     plt.grid(True)
@@ -84,7 +84,7 @@ for y_name in y_names:
 
     labels = ax.get_xticklabels() + ax.get_yticklabels()
     [label.set_fontname('Times New Roman') for label in labels]
-    [label.set_fontsize(30) for label in labels]
+    [label.set_fontsize(34) for label in labels]
 
     # 调整布局以防止标签被截断
     plt.tight_layout()

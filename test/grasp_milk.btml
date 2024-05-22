@@ -1,155 +1,113 @@
 selector
-    sequence
-        cond IsClose(microwave)
-        cond IsClean(keyboard)
-        cond IsSwitchedOn(microwave)
-        cond IsPlugged(microwave)
-        cond IsOn(coffeepot,desk)
-        cond IsIn(milk,microwave)
-    sequence
-        cond IsLeftHolding(self,coffeepot)
-        cond IsClose(microwave)
-        cond IsClean(keyboard)
-        cond IsSwitchedOn(microwave)
-        cond IsNear(self,desk)
-        cond IsPlugged(microwave)
-        cond IsIn(milk,microwave)
-        act LeftPut(coffeepot,desk)
-    sequence
-        cond IsLeftHolding(self,coffeepot)
-        cond IsStanding(self)
-        cond IsClean(keyboard)
-        cond IsSwitchedOn(microwave)
-        cond IsClose(microwave)
-        cond IsPlugged(microwave)
-        cond IsIn(milk,microwave)
-        act Walk(desk)
-    sequence
-        cond IsLeftHolding(self,coffeepot)
-        cond IsStanding(self)
-        cond IsClose(microwave)
-        cond IsSwitchedOn(microwave)
-        cond IsPlugged(microwave)
-        cond IsNear(self,keyboard)
-        cond IsIn(milk,microwave)
-        cond IsHoldingCleaningTool(self)
-        act Wipe(keyboard)
-    sequence
-        cond IsLeftHolding(self,coffeepot)
-        cond IsStanding(self)
-        cond IsClose(microwave)
-        cond IsSwitchedOn(microwave)
-        cond IsPlugged(microwave)
-        cond IsIn(milk,microwave)
-        cond IsHoldingCleaningTool(self)
-        act Walk(keyboard)
-    sequence
-        cond IsClose(microwave)
-        cond IsStanding(self)
-        cond IsSwitchedOn(microwave)
-        cond IsLeftHandEmpty(self)
-        cond IsPlugged(microwave)
-        cond IsNear(self,coffeepot)
-        cond IsIn(milk,microwave)
-        cond IsHoldingCleaningTool(self)
-        act LeftGrab(coffeepot)
-    sequence
-        cond IsStanding(self)
-        cond IsClose(microwave)
-        cond IsSwitchedOn(microwave)
-        cond IsLeftHandEmpty(self)
-        cond IsPlugged(microwave)
-        cond IsIn(milk,microwave)
-        cond IsHoldingCleaningTool(self)
-        act Walk(coffeepot)
-    sequence
-        cond IsClose(microwave)
-        cond IsStanding(self)
-        cond IsSwitchedOn(microwave)
-        cond IsLeftHandEmpty(self)
-        cond IsPlugged(microwave)
-        cond IsRightHandEmpty(self)
-        cond IsNear(self,rag)
-        cond IsIn(milk,microwave)
-        act RightGrab(rag)
-    sequence
-        cond IsStanding(self)
-        cond IsClose(microwave)
-        cond IsSwitchedOn(microwave)
-        cond IsLeftHandEmpty(self)
-        cond IsPlugged(microwave)
-        cond IsRightHandEmpty(self)
-        cond IsIn(milk,microwave)
-        act Walk(rag)
-    sequence
-        cond IsSwitchedOff(microwave)
-        cond IsClose(microwave)
-        cond IsStanding(self)
-        cond IsLeftHandEmpty(self)
-        cond IsPlugged(microwave)
-        cond IsRightHandEmpty(self)
-        cond IsIn(milk,microwave)
-        cond IsNear(self,microwave)
-        act SwitchOn(microwave)
-    sequence
-        cond IsSwitchedOff(microwave)
-        cond IsStanding(self)
-        cond IsOpen(microwave)
-        cond IsLeftHandEmpty(self)
-        cond IsPlugged(microwave)
-        cond IsRightHandEmpty(self)
-        cond IsIn(milk,microwave)
-        cond IsNear(self,microwave)
-        act Close(microwave)
-    sequence
-        cond IsSwitchedOff(microwave)
-        cond IsStanding(self)
-        cond IsOpen(microwave)
-        cond IsLeftHandEmpty(self)
-        cond IsPlugged(microwave)
-        cond IsRightHolding(self,milk)
-        cond IsNear(self,microwave)
-        act RightPutIn(milk,microwave)
-    sequence
-        cond IsSwitchedOff(microwave)
-        cond IsClose(microwave)
-        cond IsStanding(self)
-        cond IsLeftHandEmpty(self)
-        cond IsPlugged(microwave)
-        cond IsNear(self,microwave)
-        cond IsRightHolding(self,milk)
-        act Open(microwave)
-    sequence
-        cond IsSwitchedOff(microwave)
-        cond IsClose(microwave)
-        cond IsStanding(self)
-        cond IsLeftHandEmpty(self)
-        cond IsUnplugged(microwave)
-        cond IsNear(self,microwave)
-        cond IsRightHolding(self,milk)
-        act PlugIn(microwave)
-    sequence
-        cond IsSwitchedOff(microwave)
-        cond IsClose(microwave)
-        cond IsStanding(self)
-        cond IsLeftHandEmpty(self)
-        cond IsUnplugged(microwave)
-        cond IsRightHolding(self,milk)
-        act Walk(microwave)
-    sequence
-        cond IsSwitchedOff(microwave)
-        cond IsStanding(self)
-        cond IsClose(microwave)
-        cond IsLeftHandEmpty(self)
-        cond IsRightHandEmpty(self)
-        cond IsUnplugged(microwave)
-        cond IsNear(self,milk)
-        act RightGrab(milk)
-    sequence
-        cond IsSwitchedOff(microwave)
-        cond IsClose(microwave)
-        cond IsStanding(self)
-        cond IsLeftHandEmpty(self)
-        cond IsRightHandEmpty(self)
-        cond IsUnplugged(microwave)
-        act Walk(milk)
+    selector
+        cond IsIn(radio,bookshelf)
+        cond IsClean(bookshelf)
+        sequence
+            cond IsIn(radio,bookshelf)
+            selector
+                selector
+                    selector
+                        selector
+                            sequence
+                                cond IsHoldingCleaningTool(self)
+                                selector
+                                    sequence
+                                        cond IsNear(self,bookshelf)
+                                        act Wipe(bookshelf)
+                                    sequence
+                                        cond IsStanding(self)
+                                        act Walk(bookshelf)
+                            sequence
+                                cond IsLeftHandEmpty(self)
+                                cond IsStanding(self)
+                                cond IsNear(self,rag)
+                                act LeftGrab(rag)
+                        sequence
+                            cond IsLeftHandEmpty(self)
+                            cond IsStanding(self)
+                            act Walk(rag)
+                    sequence
+                        cond IsLeftHolding(self,clock)
+                        cond IsStanding(self)
+                        cond IsNear(self,bookshelf)
+                        act LeftPutIn(clock,bookshelf)
+                sequence
+                    cond IsLeftHolding(self,clock)
+                    cond IsStanding(self)
+                    act Walk(bookshelf)
+    selector
+        cond IsClean(bookshelf)
+        cond IsOn(clock,bookshelf)
+        sequence
+            cond IsRightHolding(self,clock)
+            selector
+                sequence
+                    cond IsNear(self,bookshelf)
+                    selector
+                        sequence
+                            cond IsClean(bookshelf)
+                            act RightPut(clock,bookshelf)
+                        sequence
+                            cond IsHoldingCleaningTool(self)
+                            act Wipe(bookshelf)
+                sequence
+                    cond IsStanding(self)
+                    cond IsHoldingCleaningTool(self)
+                    act Walk(bookshelf)
+        sequence
+            cond IsRightHandEmpty(self)
+            cond IsStanding(self)
+            selector
+                selector
+                    sequence
+                        cond IsHoldingCleaningTool(self)
+                        selector
+                            sequence
+                                cond IsNear(self,clock)
+                                act RightGrab(clock)
+                            act Walk(clock)
+                    sequence
+                        cond IsLeftHandEmpty(self)
+                        cond IsNear(self,rag)
+                        act LeftGrab(rag)
+                sequence
+                    cond IsLeftHandEmpty(self)
+                    act Walk(rag)
+    selector
+        cond IsClean(bookshelf)
+        cond IsIn(clock,bookshelf)
+        sequence
+            cond IsRightHolding(self,clock)
+            selector
+                sequence
+                    cond IsNear(self,bookshelf)
+                    selector
+                        sequence
+                            cond IsClean(bookshelf)
+                            act RightPutIn(clock,bookshelf)
+                        sequence
+                            cond IsHoldingCleaningTool(self)
+                            act Wipe(bookshelf)
+                sequence
+                    cond IsStanding(self)
+                    cond IsHoldingCleaningTool(self)
+                    act Walk(bookshelf)
+        sequence
+            cond IsRightHandEmpty(self)
+            cond IsStanding(self)
+            selector
+                selector
+                    sequence
+                        cond IsHoldingCleaningTool(self)
+                        selector
+                            sequence
+                                cond IsNear(self,clock)
+                                act RightGrab(clock)
+                            act Walk(clock)
+                    sequence
+                        cond IsLeftHandEmpty(self)
+                        cond IsNear(self,rag)
+                        act LeftGrab(rag)
+                sequence
+                    cond IsLeftHandEmpty(self)
+                    act Walk(rag)

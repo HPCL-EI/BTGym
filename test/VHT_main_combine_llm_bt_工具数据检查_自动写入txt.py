@@ -33,11 +33,11 @@ def extract_objects(actions):
 # 直接读入 env=1 的数据
 # file_name = "test_data_40_0518_no_processed"
 # file_name = "test_data_40_0518_2_no_processed"
-
-# data_path = f"{ROOT_PATH}/../test/VD_EXP/{file_name}.txt"
-# data_path = f"{ROOT_PATH}/../test/dataset/{file_name}.txt"
-# output_path = f"{ROOT_PATH}/../test/VD_EXP/{file_name}_processed_data.txt"
-# output_csv_path = f"{ROOT_PATH}/../test/LLM_EXP/{file_name}_processed_h=0.csv"
+file_name = "RHB_100"
+data_path = f"{ROOT_PATH}/../test/dataset/{file_name}.txt"
+data_path = f"{ROOT_PATH}/../test/dataset/{file_name}.txt"
+output_path = f"{ROOT_PATH}/../test/dataset/{file_name}_processed_data.txt"
+output_csv_path = f"{ROOT_PATH}/../test/dataset/{file_name}_processed_h=0.csv"
 
 # file_name="VS"
 # file_name="RHS_test_50"
@@ -47,21 +47,22 @@ def extract_objects(actions):
 # data_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}.txt"
 # output_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}_processed_data.txt"
 # output_csv_path = f"{ROOT_PATH}/../test/SCENES_EXP/{file_name}_processed_h=1.csv"
+need_cost = False
+# data1 = read_dataset(data_path)
+data1 = read_dataset(data_path)
+len_data = len(data1)
+print(f"导入 {len_data} 条数据")
+print(data1[0])
+
+# file_name="hard_test_20"
+# data_path = f"{ROOT_PATH}/../test/VD_3_EXP/{file_name}.txt"
+# output_path = f"{ROOT_PATH}/../test/VD_3_EXP/{file_name}_processed_data.txt"
+# output_csv_path = f"{ROOT_PATH}/../test/VD_3_EXP/{file_name}_processed_h=1.csv"
 # need_cost = False
 # data1 = read_dataset(data_path)
 # len_data = len(data1)
 # print(f"导入 {len_data} 条数据")
 # print(data1[0])
-
-file_name="hard_test_20"
-data_path = f"{ROOT_PATH}/../test/VD_3_EXP/{file_name}.txt"
-output_path = f"{ROOT_PATH}/../test/VD_3_EXP/{file_name}_processed_data.txt"
-output_csv_path = f"{ROOT_PATH}/../test/VD_3_EXP/{file_name}_processed_h=1.csv"
-need_cost = False
-data1 = read_dataset(data_path)
-len_data = len(data1)
-print(f"导入 {len_data} 条数据")
-print(data1[0])
 
 # RHS
 # from btgym.envs.virtualhometextsmall.exec_lib._base.VHTAction import VHTAction

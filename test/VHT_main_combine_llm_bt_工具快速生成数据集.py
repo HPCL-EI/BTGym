@@ -27,14 +27,25 @@ env = btgym.make("VHT-PutMilkInFridge")
 # env = btgym.make("VHT-Small")
 
 cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
-cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction_small.CAN_OPEN}
-cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction_small.HAS_SWITCH}
-cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction_small.HAS_PLUG}
+cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction.CAN_OPEN}
+cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
+cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
 
-#  &  & IsCut_apple
-goal_str = "IsClean_peach & IsClean_pear"
-act_str= "Walk_faucet,RightGrab_pear,SwitchOn_faucet"
+#  &  & IsCut_apple & IsCut_pear
+# goal_str = "IsClean_peach &  IsOn_peach_desk "
+# act_str= "Walk_peach,Walk_faucet,RightGrab_pear,SwitchOn_faucet,Walk_rag,Walk_kitchenknife"
+# "IsCut_cutlets & IsIn_cutlets_stove & IsClose_stove"
+# goal_str = "IsCut_cutlets & IsIn_cutlets_stove & IsSwitchedOn_stove"
+# act_str= "Walk_stove, Open_stove, Walk_kitchenknife, RightGrab_kitchenknife, Walk_cutlets, LeftGrab_cutlets, Walk_stove, Cut_cutlets, LeftPutIn_cutlets_stove, Close_stove"
+#
 
+# goal_str = "IsIn_clothesshirt_clothespile & IsIn_clothespants_clothespile & IsClose_clothespile"
+# act_str= ("\""
+#           "Walk_milk, RightGrab_milk, Walk_fridge, PlugIn_fridge, Open_fridge, RightPutIn_milk_fridge")
+# & IsIn_radio_bookshelf &
+goal_str = "(IsOn_clock_bookshelf | IsIn_radio_bookshelf | IsIn_clock_bookshelf) & IsClean_bookshelf"
+act_str= ("\""
+          "Walk_rag")
 
 goal_set = goal_transfer_str(goal_str)
 print("goal_set:",goal_set)
@@ -72,6 +83,17 @@ planning_time_total = (end_time - start_time)
 print("planning_time_total:", planning_time_total)
 print("cost_total:", cost)
 time_limit_exceeded = algo.algo.time_limit_exceeded
+
+
+
+file_name = "grasp_milk"
+file_path = f'./{file_name}.btml'
+with open(file_path, 'w') as file:
+    file.write(ptml_string)
+bt = BehaviorTree(file_name + ".btml", env.behavior_lib)
+bt.print()
+bt.draw()
+
 
 
 # simulation and test

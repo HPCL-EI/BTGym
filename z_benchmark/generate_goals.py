@@ -1,7 +1,7 @@
 import random
 import time
 import os
-
+import re
 import btgym
 from btgym.utils import ROOT_PATH
 from btgym.utils.read_dataset import read_dataset
@@ -14,10 +14,10 @@ from goal_generator.vh_gen import VirtualHomeGoalGen
 from goal_generator.rhs_gen import RobotHowSmallGoalGen
 from goal_generator.rh_gen import RobotHowGoalGen
 
-data_num = 1
-max_goal_num=1
-diffcult_type= "single" #"single"  #"mix" "multi"
-scene = "VH"
+data_num = 100
+max_goal_num=500
+diffcult_type= "mix" #"single"  #"mix" "multi"
+scene = "RH"
 
 if scene=="RW":
     # ===================== RoboWaiter ========================
@@ -94,15 +94,26 @@ need_cost = False
 
 # 把env，goal，act，act pred，obj
 id=0
-# for i,goal_str in enumerate(goal_ls):
-for i,goal_str in enumerate(['IsIn_milk_fridge']):
+for i,goal_str in enumerate(goal_ls):
+# for i,goal_str in enumerate(['IsIn_milk_fridge']):
 
     print("i:",i,"goal_str:",goal_str)
+
+    # 把关键物体装进去
+    objects = {'rag','faucet','kitchenknife'}
+    pattern = re.compile(r'\((.*?)\)')
+    goal_set = goal_transfer_str(goal_str)
+    for expr in goal_set[0]:
+        match = pattern.search(expr)
+        if match:
+            objects.update(match.group(1).split(','))
+    priority_obj_ls = list(objects)
+
     algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
                           priority_act_ls=[], key_predicates=[],
-                          key_objects=[],
-                          selected_algorithm="opt", mode="big",
-                          llm_reflect=False, time_limit=15,
+                          key_objects=priority_obj_ls,
+                          selected_algorithm="opt", mode="small-objs",
+                          llm_reflect=False, time_limit=10,
                           heuristic_choice=-1)
 
     goal_set = goal_transfer_str(goal_str)

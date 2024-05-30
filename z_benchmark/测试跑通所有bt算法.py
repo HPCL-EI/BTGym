@@ -14,8 +14,8 @@ from goal_generator.vh_gen import VirtualHomeGoalGen
 from goal_generator.rhs_gen import RobotHowSmallGoalGen
 from goal_generator.rh_gen import RobotHowGoalGen
 
-data_num = 1
-max_goal_num=1
+data_num = 100
+max_goal_num=500
 diffcult_type= "single" #"single"  #"mix" "multi"
 scene = "VH"
 

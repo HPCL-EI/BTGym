@@ -1,14 +1,19 @@
 selector
     cond IsOn(milk,desk)
     sequence
-        cond IsLeftHolding(self,milk)
         cond IsNear(self,desk)
+        cond IsLeftHolding(self,milk)
         act LeftPut(milk,desk)
     sequence
-        cond IsRightHolding(self,milk)
+        cond IsNear(self,desk)
         selector
-            cond IsNear(self,desk)
+            cond IsRightHolding(self,milk)
             sequence
-                cond IsStanding(self)
-                act Walk(desk)
+                selector
+                    cond IsNear(self,milk)
+                    sequence
+                        cond IsStanding(self)
+                        act Walk(milk)
+                cond IsRightHandEmpty(self)
+                act RightGrab(milk)
         act RightPut(milk,desk)

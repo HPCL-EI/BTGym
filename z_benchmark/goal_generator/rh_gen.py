@@ -1,6 +1,6 @@
 import random
 from z_benchmark.goal_generator.GoalGen import GoalGenerator
-
+import itertools
 
 class RobotHowGoalGen(GoalGenerator):
 
@@ -121,17 +121,42 @@ class RobotHowGoalGen(GoalGenerator):
         self.cond_pred = {'IsOn_', 'IsIn_', 'IsOpen_', 'IsSwitchedOn_', 'IsClean_',
                      'IsPlugged_', 'IsCut_', 'IsNear_self_'}
 
+
+        self.set_1_food = self.GRABBABLE & (self.EATABLE|self.DRINKABLE|{"apple","bananas",'chicken','cutlets','breadslice','chips','chocolatesyrup',
+                     'milk','wine',"cereal","plate","lime","salmon", "peach","pear","plum"})
+        self.set_2_cloth =  self.GRABBABLE & {"clothespile","clothesshirt","clothespants"}
+        self.putIn_valid_args = set(list(itertools.product(self.set_1_food, \
+                                            self.CONTAINERS - {"washingmachine","dishwasher","printer","folder","closet","clothespile"})) \
+                     + list(itertools.product(self.GRABBABLE-self.set_1_food-self.set_2_cloth,\
+                        self.CONTAINERS-{"fridge","microwave","stove","fryingpan","closet","clothespile","washingmachine","dishwasher","printer","folder"})) \
+                    + list(itertools.product(self.set_2_cloth,self.CONTAINERS-{"fridge","microwave","stove","fryingpan","dishwasher","printer","folder"})) \
+                + list(itertools.product(self.GRABBABLE & {"dishbowl","plate"}, {"dishwasher"})) \
+                + list(itertools.product(self.GRABBABLE & {"paper"}, {"printer","folder"})) \
+                + list(itertools.product(self.GRABBABLE & {"papertowel"}, {"garbagecan"})))
+
+
+
+        self.put_valid_args = set(list(itertools.product(self.GRABBABLE-self.set_1_food, self.SURFACES-{"towelrack","plate","fryingpan"})) \
+                        + list(itertools.product(self.GRABBABLE & {'towel'}, {"towelrack"})) \
+                        + list(itertools.product(self.set_1_food, self.SURFACES-{"towelrack","bathroomcounter"})))
+
+
+
     def condition2goal(self,condition):
         goal = ''
         if condition == 'IsOn_':
-            A = random.choice(list(self.GRABBABLE))
-            B = random.choice(list(self.SURFACES))
+            # A = random.choice(list(self.GRABBABLE))
+            # B = random.choice(list(self.SURFACES))
+            random_choice = random.choice(list(self.put_valid_args))
+            A, B = random_choice
             goal = 'IsOn_' + A + '_' + B
         elif condition == 'IsIn_':
-            A = random.choice(list(self.GRABBABLE))
-            B = random.choice(list(self.CONTAINERS))
-            A = A.split('-')[0]
-            B = B.split('-')[0]
+            # A = random.choice(list(self.GRABBABLE))
+            # A = A.split('-')[0]
+            # # B = random.choice(list(self.CONTAINERS))
+            # # B = B.split('-')[0]
+            random_choice = random.choice(list(self.putIn_valid_args))
+            A, B = random_choice
             goal += 'IsIn_' + A + '_' + B
             if B in self.CAN_OPEN:
                 goal += ' & IsClose_' + B

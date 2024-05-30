@@ -25,6 +25,10 @@ class GoalGenerator:
         self.cond_pred = {'IsOn_', 'IsIn_', 'IsOpen_', 'IsSwitchedOn_', 'IsClean_',
                      'IsPlugged_', 'IsCut_', 'IsNear_self_'}
 
+
+
+
+
     def condition2goal(self,condition, easy=False):
         goal = ''
         if condition == 'IsOn_':

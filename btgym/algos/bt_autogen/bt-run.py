@@ -2,6 +2,8 @@ import random
 import numpy as np
 import copy
 import time
+from btgym.algos.bt_autogen.WeakAlgorithmBFS import WeakalgorithmBFS
+
 #定义行动类，行动包括前提、增加和删除影响
 class Action:
     def __init__(self,name='anonymous action'):
@@ -377,10 +379,16 @@ if __name__ == '__main__':
                 states.append(state)
             state = random.sample(states,1)[0]
         # 选择测试本文算法btalgorithm，或对比算法weakalgorithm
-        algo = BTalgorithm()
-        #algo = Weakalgorithm()
+        g_ls = goal
+        # algo = BTalgorithm()
+        # algo = Weakalgorithm()
+
+
+        algo = WeakalgorithmBFS()
+        g_ls = [goal]
+
         start_time = time.time()
-        if algo.run_algorithm(start, goal, list(actions)):#运行算法，规划后行为树为algo.bt
+        if algo.run_algorithm(start, g_ls, list(actions)):#运行算法，规划后行为树为algo.bt
             total_tree_size.append( algo.bt.count_size()-1)
         else:
             print ("error")

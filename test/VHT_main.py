@@ -6,7 +6,7 @@ import btgym
 from btgym.utils import ROOT_PATH
 from btgym.algos.llm_client.llms.gpt3 import LLMGPT3
 from btgym.algos.bt_autogen.main_interface import BTExpInterface
-from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
+from btgym.envs.RobotHow.exec_lib._base.RHAction import VHTAction
 from btgym.algos.bt_autogen.tools import state_transition
 from sympy import symbols, Not, Or, And, to_dnf
 from sympy import symbols, simplify_logic

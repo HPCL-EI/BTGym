@@ -5,7 +5,7 @@ from btgym.algos.llm_client.tools import goal_transfer_str, act_format_records
 from tools import *
 
 
-from btgym.envs.robowaiter.exec_lib._base.VHTAction import VHTAction
+from btgym.envs.RoboWaiter.exec_lib._base.RWAction import VHTAction
 env = btgym.make("RWEnv")
 cur_cond_set = env.agents[0].condition_set = {'RobotNear(Bar)','Holding(Nothing)' }
 cur_cond_set |= {f'Exists({arg})' for arg in VHTAction.all_object-{'Coffee', 'Water', 'Dessert'}}

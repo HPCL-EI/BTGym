@@ -2,7 +2,7 @@
 from btgym.algos.bt_autogen.Action import Action
 from btgym.utils.read_dataset import read_dataset
 from btgym.utils import ROOT_PATH
-from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
+from btgym.envs.RobotHow.exec_lib._base.RHAction import RHAction
 import pickle
 
 
@@ -78,7 +78,7 @@ def refresh_VHT_samll_data():
              'POURABLE', 'DRINKABLE']
     categories_objs_dic={}
     for ctg in categories:
-        categories_objs_dic[ctg] = getattr(VHTAction, ctg)
+        categories_objs_dic[ctg] = getattr(RHAction, ctg)
         categories_objs_dic[ctg] &= objs
 
 

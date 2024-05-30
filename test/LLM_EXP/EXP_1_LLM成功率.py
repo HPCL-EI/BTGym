@@ -3,7 +3,7 @@ import btgym
 import time
 from btgym import BehaviorTree
 from btgym.algos.bt_autogen.main_interface import BTExpInterface
-from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
+from btgym.envs.RobotHow.exec_lib._base.RHAction import VHTAction
 from btgym.utils import ROOT_PATH
 from btgym.utils.read_dataset import read_dataset
 from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process, act_format_records

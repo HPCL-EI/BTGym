@@ -10,7 +10,7 @@ import btgym
 from btgym.utils import ROOT_PATH
 from btgym.algos.llm_client.llms.gpt3 import LLMGPT3
 from btgym.algos.bt_autogen.main_interface import BTExpInterface
-from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
+from btgym.envs.RobotHow.exec_lib._base.RHAction import VHTAction
 from sympy import symbols, Not, Or, And, to_dnf, simplify_logic
 from btgym.utils.read_dataset import read_dataset
 from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process, act_format_records
@@ -60,7 +60,7 @@ print(data1[0])
 # big_actions = collect_action_nodes(env.behavior_lib)
 
 
-from btgym.envs.robowaiter.exec_lib._base.VHTAction import VHTAction
+from btgym.envs.RoboWaiter.exec_lib._base.RWAction import VHTAction
 env = btgym.make("RWEnv")
 cur_cond_set = env.agents[0].condition_set = {'RobotNear(Bar)','Holding(Nothing)' }
 cur_cond_set |= {f'Exists({arg})' for arg in VHTAction.all_object-{'Coffee', 'Water', 'Dessert'}}

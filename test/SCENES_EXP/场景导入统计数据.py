@@ -1,4 +1,4 @@
-from btgym.envs.virtualhometext.exec_lib._base.VHTAction_small import VHTAction_small
+from btgym.envs.RobotHow.exec_lib._base.VHTAction_small import VHTAction_small
 from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
 
 from btgym.utils.tools import collect_action_nodes
@@ -16,7 +16,7 @@ cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHAction.HasSwitchObjects}
 print(f"共收集到 {len(VHAction.AllObject)} 个物体")
 
 # RobotHowSmall
-# from btgym.envs.virtualhometextsmall.exec_lib._base.VHTAction import VHTAction as RHS
+# from btgym.envs.RobotHow_Small.exec_lib._base.VHTAction import VHTAction as RHS
 # env = btgym.make("VHT-Small")
 # cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
 # cur_cond_set |= {f'IsClose({arg})' for arg in RHS.CAN_OPEN}
@@ -26,7 +26,7 @@ print(f"共收集到 {len(VHAction.AllObject)} 个物体")
 
 
 # RobotHowBig
-# from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction as RHB
+# from btgym.envs.RobotHow.exec_lib._base.VHTAction import VHTAction as RHB
 # env = btgym.make("VHT-PutMilkInFridge")
 # cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
 # cur_cond_set |= {f'IsClose({arg})' for arg in RHB.CAN_OPEN}

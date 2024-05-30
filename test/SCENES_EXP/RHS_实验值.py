@@ -169,7 +169,7 @@ def validate_goal(env, chosen_goal, n, database_index_path=None, round_num=None,
 # dataset = read_dataset(f"RHS.txt")
 # # dataset = load_dataset_and_cost(f"RHS.txt")
 # # env, _ = setup_default_env()
-# from btgym.envs.virtualhometextsmall.exec_lib._base.VHTAction import VHTAction as RHS
+# from btgym.envs.RobotHow_Small.exec_lib._base.VHTAction import VHTAction as RHS
 # env = btgym.make("VHT-Small")
 # cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
 # cur_cond_set |= {f'IsClose({arg})' for arg in RHS.CAN_OPEN}
@@ -183,7 +183,7 @@ default_prompt_file = f"prompt_{name}_no_example.txt"
 dataset = read_dataset(f"{name}_test_50.txt")
 database_index_path = f"{ROOT_PATH}/../test/SCENES_EXP/DATABASE/{name}_100_env_goal_vectors.index"
 
-from btgym.envs.virtualhometextsmall.exec_lib._base.VHTAction import VHTAction
+from btgym.envs.RobotHow_Small.exec_lib._base.RHSAction import VHTAction
 
 env = btgym.make("VHT-Small")
 cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}

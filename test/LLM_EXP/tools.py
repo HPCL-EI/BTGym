@@ -2,7 +2,7 @@
 from btgym.utils.read_dataset import read_dataset
 import btgym
 import time
-from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
+from btgym.envs.RobotHow.exec_lib._base.RHAction import VHTAction
 
 # 随机生成一堆goal
 

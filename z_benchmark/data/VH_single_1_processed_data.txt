@@ -1,0 +1,8 @@
+1
+Environment: 
+Instruction: 
+Goals: IsIn_milk_fridge
+Optimal Actions: Walk_milk, RightGrab_milk, Walk_fridge, Open_fridge, RightPutIn_milk_fridge
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn
+Vital Objects: milk, fridge
+

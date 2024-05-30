@@ -35,7 +35,7 @@ def set_to_tuple(s):
     """
     return tuple(sorted(s))
 
-# 互斥状态映射
+# self状态:互斥状态映射
 mutually_exclusive_states = {
     'IsLeftHandEmpty': 'IsLeftHolding',
     'IsLeftHolding': 'IsLeftHandEmpty',
@@ -43,16 +43,20 @@ mutually_exclusive_states = {
     'IsRightHolding': 'IsRightHandEmpty',
 
     'IsSitting': 'IsStanding',
-    'IsStanding': 'IsSitting'
+    'IsStanding': 'IsSitting',
+
 }
 
-# Mapping from state to anti-state
-state_to_opposite={
+# 物体状态: Mapping from state to anti-state
+state_to_opposite = {
     'IsOpen': 'IsClose',
     'IsClose': 'IsOpen',
     'IsSwitchedOff': 'IsSwitchedOn',
-    'IsSwitchedOn':'IsSwitchedOff'
+    'IsSwitchedOn': 'IsSwitchedOff',
+    'IsPlugged': 'IsUnplugged',
+    'IsUnplugged': 'IsPlugged',
 }
+
 
 def extract_argument(state):
     match = re.search(r'\((.*?)\)', state)
@@ -60,37 +64,52 @@ def extract_argument(state):
         return match.group(1)
     return None
 
+
 def update_state(c, state_dic):
     for state, opposite in state_to_opposite.items():
         if state in c:
             obj = extract_argument(c)
-            if obj in state_dic:
-                # 如果对象已经有一个反状态，返回False表示冲突
-                if state_dic[obj] == opposite:
-                    return False
+            if obj in state_dic and opposite in state_dic[obj]:
+                return False
             # 更新状态字典
-            state_dic[obj] = state
+            elif obj in state_dic:
+                state_dic[obj].add(state)
+            else:
+                state_dic[obj] = set()
+                state_dic[obj].add(state)
             break
     return True
 
+
 def check_conflict(conds):
-    obj_state_dic={}
-    is_near=False
+    obj_state_dic = {}
+    self_state_dic = {}
+    self_state_dic['self'] = set()
+    is_near = False
     for c in conds:
         if "IsNear" in c and is_near:
             return True
         elif "IsNear" in c:
-            is_near=True
+            is_near = True
+            continue
         # Cannot be updated, the value already exists in the past
         if not update_state(c, obj_state_dic):
             return True
         # Check for mutually exclusive states without obj
         for state, opposite in mutually_exclusive_states.items():
-            if state in c and opposite in obj_state_dic.values():
+            if state in c and opposite in self_state_dic['self']:
                 return True
             elif state in c:
-                obj_state_dic['self'] = state
+                self_state_dic['self'].add(state)
                 break
+    # 检查是否同时具有 'IsHoldingCleaningTool(self)', 'IsLeftHandEmpty(self)', 'IsRightHandEmpty(self)'
+    required_states = {'IsHoldingCleaningTool(self)', 'IsLeftHandEmpty(self)', 'IsRightHandEmpty(self)'}
+    if all(state in conds for state in required_states):
+        return True
+    required_states = {'IsHoldingKnife(self)', 'IsLeftHandEmpty(self)', 'IsRightHandEmpty(self)'}
+    if all(state in conds for state in required_states):
+        return True
+
     return False
 
 class BTalgorithmDFS:

@@ -1,10 +1,11 @@
-from btgym.algos.bt_autogen.Action import Action, state_transition
+from btgym.algos.bt_autogen.Action import state_transition
 from btgym.algos.bt_autogen.OptimalBTExpansionAlgorithm import OptBTExpAlgorithm
-from btgym.algos.bt_autogen.OptimalBTExpansionAlgorithm_baseline import OptBTExpAlgorithm_BaseLine
-from btgym.algos.bt_autogen.BTExpansionAlgorithm import BTalgorithm
+from btgym.algos.bt_autogen.other_code.OptimalBTExpansionAlgorithm_baseline import OptBTExpAlgorithm_BaseLine
 from btgym.algos.bt_autogen.BTExpansionAlgorithmBFS import BTalgorithmBFS
 from btgym.algos.bt_autogen.BTExpansionAlgorithmDFS import BTalgorithmDFS
-from btgym.algos.bt_autogen.OptimalBTExpansionAlgorithmHeuristics import OptBTExpAlgorithmHeuristics
+from btgym.algos.bt_autogen.OBTEA import OBTEAlgorithm
+from btgym.algos.bt_autogen.WeakAlgorithmBFS import WeakalgorithmBFS
+from btgym.algos.bt_autogen.other_code.OptimalBTExpansionAlgorithmHeuristics import OptBTExpAlgorithmHeuristics
 from btgym.algos.bt_autogen.examples import *
 import re
 import random
@@ -92,29 +93,32 @@ class BTExpInterface:
         :return: A btml string representing the outcome of the behavior tree.
         """
         self.goal = goal
-        # if self.bt_algo_opt:
-        #     self.algo = OptBTExpAlgorithm(verbose=False)
-        # else:
-        #     self.algo = BTalgorithm(verbose=False)
         if self.selected_algorithm == "opt":
-
             self.algo = OptBTExpAlgorithm(verbose=False, \
                                           llm_reflect=self.llm_reflect, llm=self.llm, messages=self.messages, \
                                           priority_act_ls=self.priority_act_ls,time_limit=self.time_limit,
                                           consider_priopity = self.consider_priopity,
                                           heuristic_choice = self.heuristic_choice)
-
-        elif self.selected_algorithm == "baseline":
-            self.algo = OptBTExpAlgorithm_BaseLine(verbose=False, \
+        elif self.selected_algorithm == "obtea":
+            self.algo = OBTEAlgorithm(verbose=False, \
                                           llm_reflect=self.llm_reflect, llm=self.llm, messages=self.messages, \
-                                          priority_act_ls=self.priority_act_ls)
-        elif self.selected_algorithm == "opt-h":
-            self.algo = OptBTExpAlgorithmHeuristics(verbose=False)
+                                          priority_act_ls=self.priority_act_ls, time_limit=self.time_limit,
+                                          consider_priopity=self.consider_priopity,
+                                          heuristic_choice=self.heuristic_choice)
         elif self.selected_algorithm == "bfs":
             self.algo = BTalgorithmBFS(verbose=False,time_limit = self.time_limit)
             # self.algo = BTalgorithm(verbose=False)
         elif self.selected_algorithm == "dfs":
             self.algo = BTalgorithmDFS(verbose=False)
+        elif self.selected_algorithm == "weak":
+            self.algo = WeakalgorithmBFS(verbose=False)
+
+        # elif self.selected_algorithm == "baseline":
+        #     self.algo = OptBTExpAlgorithm_BaseLine(verbose=False, \
+        #                                   llm_reflect=self.llm_reflect, llm=self.llm, messages=self.messages, \
+        #                                   priority_act_ls=self.priority_act_ls)
+        # elif self.selected_algorithm == "opt-h":
+        #     self.algo = OptBTExpAlgorithmHeuristics(verbose=False)
         else:
             print("Error in algorithm selection: This algorithm does not exist.")
 

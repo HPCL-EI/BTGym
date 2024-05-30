@@ -115,7 +115,7 @@ dataset = load_dataset_and_cost(f"rw.txt")
 
 
 # env, _ = setup_default_env()
-from btgym.envs.robowaiter.exec_lib._base.VHTAction import VHTAction
+from btgym.envs.RoboWaiter.exec_lib._base.RWAction import VHTAction
 env = btgym.make("RWEnv")
 cur_cond_set = env.agents[0].condition_set = {'RobotNear(Bar)','Holding(Nothing)' }
 cur_cond_set |= {f'Exists({arg})' for arg in VHTAction.all_object-{'Coffee', 'Water', 'Dessert'}}

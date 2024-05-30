@@ -30,7 +30,7 @@ for env_index in range(50):
     _, env_g = comm.environment_graph()
 
     # 将 env_g 保存到
-    # graph_path = f'{ROOT_PATH}\\envs\\virtualhometext\\graphs\\simulation\\graph_{env_index}.pkl'
+    # graph_path = f'{ROOT_PATH}\\envs\\RobotHow\\graphs\\simulation\\graph_{env_index}.pkl'
     # print(graph_path)
     # 将字典保存到 graph_input.pkl 文件中
     # with open(graph_path, "wb") as pkl_file:

@@ -10,7 +10,7 @@ import btgym
 from btgym.utils import ROOT_PATH
 from btgym.algos.llm_client.llms.gpt3 import LLMGPT3
 from btgym.algos.bt_autogen.main_interface import BTExpInterface
-from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
+from btgym.envs.RobotHow.exec_lib._base.RHAction import VHTAction
 from sympy import symbols, Not, Or, And, to_dnf, simplify_logic
 from btgym.utils.read_dataset import read_dataset
 from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process, act_format_records
@@ -65,7 +65,7 @@ print(data1[0])
 # print(data1[0])
 
 # RHS
-# from btgym.envs.virtualhometextsmall.exec_lib._base.VHTAction import VHTAction
+# from btgym.envs.RobotHow_Small.exec_lib._base.VHTAction import VHTAction
 # env = btgym.make("VHT-Small")
 # cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
 # cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction.CAN_OPEN}
@@ -83,7 +83,7 @@ print(data1[0])
 
 
 # RobotHowBig
-from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction as RHB
+from btgym.envs.RobotHow.exec_lib._base.RHAction import RHAction as RHB
 env = btgym.make("VHT-PutMilkInFridge")
 cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
 cur_cond_set |= {f'IsClose({arg})' for arg in RHB.CAN_OPEN}

@@ -6,8 +6,8 @@ import btgym
 from btgym.utils import ROOT_PATH
 from btgym.algos.llm_client.llms.gpt3 import LLMGPT3
 from btgym.algos.bt_autogen.main_interface import BTExpInterface
-from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
-from btgym.envs.virtualhometext.exec_lib._base.VHTAction_small import VHTAction_small
+from btgym.envs.RobotHow.exec_lib._base.RHAction import VHTAction
+from btgym.envs.RobotHow.exec_lib._base.VHTAction_small import VHTAction_small
 from itertools import chain
 
 from sympy import symbols, Not, Or, And, to_dnf

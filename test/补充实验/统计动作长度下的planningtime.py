@@ -12,8 +12,8 @@ from btgym.utils import ROOT_PATH
 from btgym.algos.llm_client.llms.gpt3 import LLMGPT3
 from btgym.algos.llm_client.llms.gpt4 import LLMGPT4
 from btgym.algos.bt_autogen.main_interface import BTExpInterface, collect_action_nodes
-from btgym.envs.virtualhometext.exec_lib._base.VHTAction_small import VHTAction_small
-from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
+from btgym.envs.RobotHow.exec_lib._base.VHTAction_small import VHTAction_small
+from btgym.envs.RobotHow.exec_lib._base.RHAction import VHTAction
 from btgym.algos.bt_autogen.tools import state_transition
 from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process, act_format_records
 from btgym.algos.bt_autogen.Action import Action

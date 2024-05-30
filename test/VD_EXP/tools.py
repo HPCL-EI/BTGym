@@ -2,7 +2,7 @@
 from btgym.utils.read_dataset import read_dataset
 import btgym
 import time
-from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction
+from btgym.envs.RobotHow.exec_lib._base.RHAction import VHTAction
 from tools import *
 # 随机生成一堆goal
 
@@ -226,7 +226,7 @@ def analyze_data_tabular(data1, counts):
 
 
 def find_from_small_act(goal):
-    from btgym.envs.virtualhometext.exec_lib._base.VHTAction_small import VHTAction_small
+    from btgym.envs.RobotHow.exec_lib._base.VHTAction_small import VHTAction_small
     from btgym.utils.tools import collect_action_nodes
     from btgym.algos.bt_autogen.main_interface import BTExpInterface
     from btgym.algos.llm_client.tools import goal_transfer_str, act_format_records

@@ -220,7 +220,7 @@ name = "medium"
 default_prompt_file = f"{ROOT_PATH}/algos/llm_client/prompt_VHT_just_goal_no_example.txt"
 dataset = read_dataset(f"{name}_test_20.txt")
 database_index_path = f"{ROOT_PATH}/../test/VD_3_EXP/DATABASE/0_goal_vectors.index"
-from btgym.envs.virtualhometext.exec_lib._base.VHTAction import VHTAction as RHB
+from btgym.envs.RobotHow.exec_lib._base.RHAction import VHTAction as RHB
 env = btgym.make("VHT-PutMilkInFridge")
 cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
 cur_cond_set |= {f'IsClose({arg})' for arg in RHB.CAN_OPEN}

@@ -114,7 +114,7 @@ def check_conflict(conds):
 
 class BTalgorithmBFS:
     def __init__(self, verbose=False, llm_reflect=False, llm=None, messages=None, priority_act_ls=None, time_limit=None, \
-                 consider_priopity=False, heuristic_choice=-1):
+                 consider_priopity=False, heuristic_choice=-1,output_just_best=True):
         self.bt = None
         self.start = None
         self.goal = None
@@ -134,7 +134,7 @@ class BTalgorithmBFS:
 
         self.verbose = False
         self.bt_merge = False
-        self.output_just_best = True
+        self.output_just_best = output_just_best
         self.merge_time=999999
 
         self.time_limit_exceeded = False

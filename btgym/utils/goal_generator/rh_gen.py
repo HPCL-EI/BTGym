@@ -1,5 +1,5 @@
 import random
-from z_benchmark.goal_generator.GoalGen import GoalGenerator
+from btgym.utils.goal_generator.GoalGen import GoalGenerator
 import itertools
 
 class RobotHowGoalGen(GoalGenerator):

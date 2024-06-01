@@ -40,8 +40,12 @@ def read_dataset(filename='./dataset_old_0410.txt'):
             value = value.strip()
             dict[key] = value
             if key == 'Environment':
-                v = int(value)
-                dict[key] = v
+                try:
+                    v = int(value)  # 尝试转换value为整数
+                except ValueError:
+                    v = str(value)  # 如果转换失败，将value作为字符串处理
+
+                dict[key] = v  # 更新字典
             if key in ('Vital Action Predicates', 'Vital Objects', 'Optimal Actions'):
                 parts = [v.strip() for v in value.split(",")]
                 dict[key] = parts

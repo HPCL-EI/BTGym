@@ -1,18 +1,11 @@
-import random
 import time
-import os
 
 import btgym
-from btgym.utils import ROOT_PATH
-from btgym.utils.read_dataset import read_dataset
-from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process, act_format_records
+from btgym.algos.llm_client.tools import goal_transfer_str
 from btgym.algos.bt_autogen.main_interface import BTExpInterface
 
 from btgym.utils.tools import collect_action_nodes
-from goal_generator.rw_gen import RoboWaiterGoalGen
-from goal_generator.vh_gen import VirtualHomeGoalGen
-from goal_generator.rhs_gen import RobotHowSmallGoalGen
-from goal_generator.rh_gen import RobotHowGoalGen
+from btgym.utils.goal_generator.vh_gen import VirtualHomeGoalGen
 
 data_num = 100
 max_goal_num=500

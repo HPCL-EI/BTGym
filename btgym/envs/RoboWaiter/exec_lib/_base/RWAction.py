@@ -16,6 +16,9 @@ class RWAction(Action):
 
     all_place = tables_for_guiding | tables_for_placement
 
+    SURFACES = tables_for_placement
+    GRABBABLE =all_object
+
     @property
     def action_class_name(self):
         return self.__class__.__name__

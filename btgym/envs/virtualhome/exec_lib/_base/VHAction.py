@@ -22,6 +22,20 @@ class VHAction(Action):
     AllObject = SurfacePlaces | SittablePlaces | CanOpenPlaces | CanPutInPlaces | Objects |\
                  HasSwitchObjects
 
+
+    # ===================
+    SURFACES = SurfacePlaces
+    SITTABLE = SittablePlaces
+    CAN_OPEN = CanOpenPlaces
+    CONTAINERS = CanPutInPlaces
+    GRABBABLE = Objects
+    HAS_SWITCH = HasSwitchObjects
+
+
+
+    # AllObject = SURFACES | SITTABLE | CAN_OPEN | CONTAINERS | GRABBABLE | HAS_SWITCH
+
+
     # SurfacePlaces = set()  # put
     # SittablePlaces = set()  # sit
     # CanOpenPlaces= {"fridge"}  # open

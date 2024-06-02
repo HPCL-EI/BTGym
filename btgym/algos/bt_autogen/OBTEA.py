@@ -484,6 +484,10 @@ class OBTEAlgorithm:
                 if c <= start:
                     bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
                                               cond_to_condActSeq)
+                    self.expanded_percentages.append(
+                        calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+                    self.traversed_percentages.append(
+                        calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
                     return bt, min_cost, self.time_limit_exceeded
             # =============额外家的
             elif c == set() and c <= start:

@@ -520,6 +520,8 @@ class OptBTExpAlgorithm:
                                               cond_to_condActSeq)
                     self.expanded_percentages.append(
                         calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+                    self.traversed_percentages.append(
+                        calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
                     return bt, min_cost, self.time_limit_exceeded
             # =============额外家的
             elif c == set() and c <= start:

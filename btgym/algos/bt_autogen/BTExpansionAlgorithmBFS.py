@@ -255,6 +255,10 @@ class BTalgorithmBFS:
 
         if goal <= start:
             self.bt_without_merge = bt
+            self.expanded_percentages.append(
+                calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+            self.traversed_percentages.append(
+                calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
             print("goal <= start, no need to generate bt.")
             return bt, 0,self.time_limit_exceeded
 
@@ -314,6 +318,10 @@ class BTalgorithmBFS:
 
                 if c <= start:
                     bt = self.post_processing(current_pair , goal_cond_act_pair, subtree, bt,child_to_parent,cond_to_condActSeq)
+                    self.expanded_percentages.append(
+                        calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+                    self.traversed_percentages.append(
+                        calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
                     return bt, min_cost,self.time_limit_exceeded
 
                 if self.verbose:
@@ -395,6 +403,13 @@ class BTalgorithmBFS:
                                 parent_of_c.children[0] = subtree
                                 bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt,
                                                           child_to_parent, cond_to_condActSeq)
+
+                                self.expanded_act.append(act.name)
+                                self.traversed_act.append(act.name)
+                                self.expanded_percentages.append(
+                                    calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+                                self.traversed_percentages.append(
+                                    calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
                                 return bt, current_mincost + act.cost,self.time_limit_exceeded
 
 

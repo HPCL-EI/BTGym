@@ -9,6 +9,44 @@ import time
 # from btgym.algos.bt_autogen.OptimalBTExpansionAlgorithm import OptBTExpAlgorithm
 
 
+from btgym.algos.bt_autogen.behaviour_tree import Leaf, ControlBT
+def dfs_btml_indent(btml_string, parnode, level=0, is_root=False, act_bt_tree=False):
+    indent = " " * (level * 4)  # 4 spaces per indent level
+    for child in parnode.children:
+        if isinstance(child, Leaf):
+
+            if is_root and len(child.content) > 1:
+                # 把多个 cond 串起来
+                btml_string += " " * (level * 4) + "sequence\n"
+                if act_bt_tree == False:
+                    for c in child.content:
+                        btml_string += " " * ((level + 1) * 4) + "cond " + str(c) + "\n"
+
+            elif child.type == 'cond':
+                # 直接添加cond及其内容，不需要特别处理根节点下多个cond的情况
+                # self.btml_string += indent + "cond " + ', '.join(map(str, child.content)) + "\n"
+                # 对每个条件独立添加，确保它们各占一行
+                if act_bt_tree == False:
+                    for c in child.content:
+                        btml_string += indent + "cond " + str(c) + "\n"
+            elif child.type == 'act':
+                # 直接添加act及其内容
+                btml_string += indent + 'act ' + child.content.name + "\n"
+        elif isinstance(child, ControlBT):
+            if child.type == '?':
+                btml_string += indent + "selector\n"
+                dfs_btml_indent(btml_string,child, level + 1, act_bt_tree=act_bt_tree)  # 增加缩进级别
+            elif child.type == '>':
+                btml_string += indent + "sequence\n"
+                dfs_btml_indent(btml_string, child, level + 1, act_bt_tree=act_bt_tree)  # 增加缩进级别
+        return btml_string
+def get_btml(bt, use_braces=True, act_bt_tree=False):
+    btml_string = "selector\n"
+    btml_string = dfs_btml_indent(btml_string,bt.children[0], 1, is_root=True)
+    return btml_string
+
+
+
 # Function to calculate the percentage of priority actions in expanded actions
 def calculate_priority_percentage(expanded, priority_act_ls):
     count_priority_actions = len( {act_name for act_name in expanded if act_name in priority_act_ls})

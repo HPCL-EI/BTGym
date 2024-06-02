@@ -38,7 +38,7 @@ print("Optimal Actions:", d['Optimal Actions'])
 algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
                       priority_act_ls=[], key_predicates=[],
                       key_objects=[],
-                      selected_algorithm="opt", mode="big",
+                      selected_algorithm="bfs", mode="big",
                       llm_reflect=False, time_limit=15,
                           heuristic_choice=-1,output_just_best=False)
 
@@ -142,11 +142,11 @@ def modify_condition_set(cur_cond_set):
 
 
 successful_executions = 0  # 用于跟踪成功（非错误）的执行次数
-exe_times = 5 #100
+exe_times = 100 #100
 for i in range(exe_times):
     print("----------")
     new_cur_state = modify_condition_set(cur_cond_set)
-    error, state, act_num, current_cost, record_act_ls = algo.execute_bt(goal_set[0], new_cur_state, verbose=True)
+    error, state, act_num, current_cost, record_act_ls = algo.execute_bt(goal_set[0], new_cur_state, verbose=False)
     # 检查是否有错误，如果没有，则增加成功计数
     if not error:
         successful_executions += 1

@@ -162,23 +162,46 @@ class WeakalgorithmBFS:
         self.bt_without_merge = None
         self.subtree_count = 1
 
-    def post_processing(self,pair_node,g_cond_anc_pair,subtree,bt,child_to_parent,cond_to_condActSeq):
+    def post_processing(self,pair_node,g_cond_anc_pair,subtree,bt,child_to_parent,cond_to_condActSeq,success = True):
         '''
         Process the summary work after the algorithm ends.
         '''
-        # if self.output_just_best:
-        #     # Only output the best
-        #     output_stack = []
-        #     tmp_pair = pair_node
-        #     while tmp_pair != g_cond_anc_pair:
-        #         tmp_seq_struct = cond_to_condActSeq[tmp_pair]
-        #         output_stack.append(tmp_seq_struct)
-        #         tmp_pair = child_to_parent[tmp_pair]
-        #
-        #     while output_stack != []:
-        #         tmp_seq_struct = output_stack.pop()
-        #         print(tmp_seq_struct)
-        #         subtree.add_child([copy.deepcopy(tmp_seq_struct)])
+
+        if self.output_just_best:
+
+            if success:
+                new_bt = ControlBT(type='cond')
+                goal_condition_node = Leaf(type='cond', content=g_cond_anc_pair.cond_leaf.content, min_cost=0)
+                # Retain the expanded nodes in the subtree first
+                new_subtree = ControlBT(type='?')
+                new_subtree.add_child([copy.deepcopy(goal_condition_node)])
+
+                # =================================
+                # Only output the best
+                output_stack = []
+                tmp_pair = pair_node
+                while tmp_pair != g_cond_anc_pair:
+                    tmp_seq_struct = cond_to_condActSeq[tmp_pair]
+                    output_stack.append(tmp_seq_struct)
+                    tmp_pair = child_to_parent[tmp_pair]
+
+                while output_stack != []:
+                    tmp_seq_struct = output_stack.pop()
+                    print(tmp_seq_struct)
+                    new_subtree.add_child([copy.deepcopy(tmp_seq_struct)])
+
+                # 如果不是空树
+                new_bt.add_child([new_subtree])
+                bt = copy.deepcopy(new_bt)
+            else:
+                new_bt = ControlBT(type='cond')
+                new_subtree = ControlBT(type='?')
+                goal_condition_node = Leaf(type='cond', content=g_cond_anc_pair.cond_leaf.content, min_cost=0)
+                new_subtree.add_child([copy.deepcopy(goal_condition_node)])
+                new_bt.add_child([new_subtree])
+                bt = copy.deepcopy(new_bt)
+
+
 
         # self.tree_size = self.bfs_cal_tree_size_subtree(bt)
         self.bt_without_merge = bt
@@ -256,8 +279,8 @@ class WeakalgorithmBFS:
 
             if index == -1:
                 print('Algorithm Failure, all conditions expanded')
-                # bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
-                #                           cond_to_condActSeq)
+                bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
+                                          cond_to_condActSeq,success=False)
                 return bt, min_cost, self.time_limit_exceeded
 
             self.cycles += 1
@@ -305,7 +328,7 @@ class WeakalgorithmBFS:
             if self.time_limit != None and time.time() - start_time > self.time_limit:
                 self.time_limit_exceeded = True
                 bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
-                                          cond_to_condActSeq)
+                                          cond_to_condActSeq,success=False)
                 return bt, min_cost, self.time_limit_exceeded
 
             # ====================== Action Trasvers ============================ #
@@ -360,8 +383,6 @@ class WeakalgorithmBFS:
             self.traversed.append(c)
             # ====================== End Action Trasvers ============================ #
 
-            self.bt_without_merge = bt
-
             if self.bt_merge:
                 bt = self.merge_adjacent_conditions_stack_time(bt, merge_time=merge_time)
 
@@ -374,6 +395,10 @@ class WeakalgorithmBFS:
             if val == 'success' or val == 'running':
                 canrun = True
 
+
+        bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
+                                  cond_to_condActSeq)
+        self.bt_without_merge = bt
         return bt, min_cost,self.time_limit_exceeded
 
 
@@ -605,22 +630,23 @@ class WeakalgorithmBFS:
                     self.btml_string += "sequence{\n"
                     self.dfs_btml(parnode=child)
                 self.btml_string += '}\n'
-
-    def dfs_btml_indent(self, parnode, level=0, is_root=False):
+    def dfs_btml_indent(self, parnode, level=0, is_root=False, act_bt_tree=False):
         indent = " " * (level * 4)  # 4 spaces per indent level
         for child in parnode.children:
             if isinstance(child, Leaf):
 
-                if child.type == 'cond':
-                    if not is_root and len(child.content) > 1:
-                        # 把多个 cond 串起来
-                        self.btml_string += " " * (level * 4) + "sequence\n"
+                if is_root and len(child.content) > 1:
+                    # 把多个 cond 串起来
+                    self.btml_string += " " * (level * 4) + "sequence\n"
+                    if act_bt_tree == False:
                         for c in child.content:
                             self.btml_string += " " * ((level + 1) * 4) + "cond " + str(c) + "\n"
-                    else:
-                        # 直接添加cond及其内容，不需要特别处理根节点下多个cond的情况
-                        # self.btml_string += indent + "cond " + ', '.join(map(str, child.content)) + "\n"
-                        # 对每个条件独立添加，确保它们各占一行
+
+                elif child.type == 'cond':
+                    # 直接添加cond及其内容，不需要特别处理根节点下多个cond的情况
+                    # self.btml_string += indent + "cond " + ', '.join(map(str, child.content)) + "\n"
+                    # 对每个条件独立添加，确保它们各占一行
+                    if act_bt_tree == False:
                         for c in child.content:
                             self.btml_string += indent + "cond " + str(c) + "\n"
                 elif child.type == 'act':
@@ -629,20 +655,26 @@ class WeakalgorithmBFS:
             elif isinstance(child, ControlBT):
                 if child.type == '?':
                     self.btml_string += indent + "selector\n"
-                    self.dfs_btml_indent(child, level + 1)  # 增加缩进级别
+                    self.dfs_btml_indent(child, level + 1, act_bt_tree=act_bt_tree)  # 增加缩进级别
                 elif child.type == '>':
                     self.btml_string += indent + "sequence\n"
-                    self.dfs_btml_indent(child, level + 1)  # 增加缩进级别
+                    self.dfs_btml_indent(child, level + 1, act_bt_tree=act_bt_tree)  # 增加缩进级别
 
-    def get_btml(self, use_braces=True):
+    def get_btml(self, use_braces=True, act_bt_tree=False):
 
         if use_braces:
             self.btml_string = "selector\n"
-            self.dfs_btml_indent(self.bt.children[0], 1, is_root=True)
+            if act_bt_tree == False:
+                self.dfs_btml_indent(self.bt.children[0], 1, is_root=True)
+            else:
+                self.dfs_btml_indent(self.act_bt.children[0], 1, is_root=True, act_bt_tree=act_bt_tree)
             return self.btml_string
         else:
             self.btml_string = "selector{\n"
-            self.dfs_btml(self.bt.children[0], is_root=True)
+            if act_bt_tree == False:
+                self.dfs_btml(self.bt.children[0], is_root=True)
+            else:
+                self.dfs_btml(self.act_bt.children[0], is_root=True, act_bt_tree=True)
             self.btml_string += '}\n'
         return self.btml_string
 

@@ -1,17 +1,2 @@
 selector
-    cond IsNear(self,tv)
-    sequence
-        sequence
-            cond IsNear(self,tv)
-            cond IsLeftHandEmpty(self)
-            cond IsSwitchedOn(tv)
-        act SwitchOff(tv)
-    sequence
-        sequence
-            cond IsNear(self,tv)
-            cond IsSwitchedOff(tv)
-            cond IsLeftHandEmpty(self)
-        act SwitchOn(tv)
-    sequence
-        cond IsStanding(self)
-        act Walk(tv)
+    cond IsIn(book,cabinet)

@@ -14,6 +14,8 @@ seed=0
 random.seed(seed)
 np.random.seed(seed)
 
+from btgym.algos.bt_autogen.tools import get_btml
+
 # 封装好的主接口
 class BTExpInterface:
     def __init__(self, behavior_lib, cur_cond_set, priority_act_ls=[], key_predicates=[], key_objects=[], selected_algorithm="opt",
@@ -138,6 +140,7 @@ class BTExpInterface:
     def post_process(self,ptml_string=True):
         if ptml_string:
             self.btml_string = self.algo.get_btml()
+            # self.btml_string = get_btml(self.algo.bt)
         else:
             self.btml_string=""
         if self.selected_algorithm == "opt":

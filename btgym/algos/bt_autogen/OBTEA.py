@@ -205,25 +205,34 @@ class OBTEAlgorithm:
 
         self.act_bt = None
 
-    def post_processing(self, pair_node, g_cond_anc_pair, subtree, bt, child_to_parent, cond_to_condActSeq):
+    def post_processing(self, pair_node, g_cond_anc_pair, subtree, bt, child_to_parent, cond_to_condActSeq,success = True):
         '''
         Process the summary work after the algorithm ends.
         '''
         if self.output_just_best:
             # Only output the best
-            output_stack = []
-            tmp_pair = pair_node
-            while tmp_pair != g_cond_anc_pair:
-                tmp_seq_struct = cond_to_condActSeq[tmp_pair]
-                output_stack.append(tmp_seq_struct)
-                tmp_pair = child_to_parent[tmp_pair]
+            if success:
+                output_stack = []
+                tmp_pair = pair_node
+                while tmp_pair != g_cond_anc_pair:
+                    tmp_seq_struct = cond_to_condActSeq[tmp_pair]
+                    output_stack.append(tmp_seq_struct)
+                    tmp_pair = child_to_parent[tmp_pair]
 
-            while output_stack != []:
-                tmp_seq_struct = output_stack.pop()
-                # print(tmp_seq_struct)
-                subtree.add_child([copy.deepcopy(tmp_seq_struct)])
+                while output_stack != []:
+                    tmp_seq_struct = output_stack.pop()
+                    # print(tmp_seq_struct)
+                    subtree.add_child([copy.deepcopy(tmp_seq_struct)])
+            else:
+                new_bt = ControlBT(type='cond')
+                new_subtree = ControlBT(type='?')
+                goal_condition_node = Leaf(type='cond', content=g_cond_anc_pair.cond_leaf.content, min_cost=0)
+                new_subtree.add_child([copy.deepcopy(goal_condition_node)])
+                new_bt.add_child([new_subtree])
+                bt = copy.deepcopy(new_bt)
 
-        self.tree_size = self.bfs_cal_tree_size_subtree(bt)
+
+        # self.tree_size = self.bfs_cal_tree_size_subtree(bt)
         self.bt_without_merge = bt
         if self.bt_merge:
             bt = self.merge_adjacent_conditions_stack_time(bt, merge_time=self.merge_time)
@@ -514,7 +523,7 @@ class OBTEAlgorithm:
             if self.time_limit != None and time.time() - start_time > self.time_limit:
                 self.time_limit_exceeded = True
                 bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
-                                          cond_to_condActSeq)
+                                          cond_to_condActSeq,success=False)
                 return bt, min_cost, self.time_limit_exceeded
 
                 if self.verbose:

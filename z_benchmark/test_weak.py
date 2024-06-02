@@ -37,7 +37,7 @@ big_actions = collect_action_nodes(env.behavior_lib)
 
 
 # for i, d in enumerate(data[:1]):
-for i, d in enumerate(data[2:3]):
+for i, d in enumerate(data[1:2]): # data[3:4]
     goal_str = ' & '.join(d["Goals"])
     goal_set = goal_transfer_str(goal_str)
     opt_act = act_str_process(d['Optimal Actions'], already_split=True)
@@ -45,7 +45,7 @@ for i, d in enumerate(data[2:3]):
     algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
                           priority_act_ls=opt_act, key_predicates=[],
                           key_objects=[],
-                          selected_algorithm="bfs", mode="big",
+                          selected_algorithm="weak", mode="big",
                           llm_reflect=False, time_limit=15,
                           heuristic_choice=-1,exp=True,output_just_best=True)
 
@@ -75,5 +75,5 @@ for i, d in enumerate(data[2:3]):
     from btgym import BehaviorTree
 
     bt = BehaviorTree(file_name + ".btml", env.behavior_lib)
-    # bt.print()
+    bt.print()
     bt.draw()

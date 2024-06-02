@@ -142,7 +142,7 @@ def modify_condition_set(cur_cond_set):
 
 
 successful_executions = 0  # 用于跟踪成功（非错误）的执行次数
-exe_times = 100
+exe_times = 5 #100
 for i in range(exe_times):
     print("----------")
     new_cur_state = modify_condition_set(cur_cond_set)

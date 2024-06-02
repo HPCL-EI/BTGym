@@ -12,6 +12,8 @@ import asyncio
 from btgym.algos.llm_client.llms.gpt3 import LLMGPT3
 from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process
 
+from btgym.algos.bt_autogen.tools  import calculate_priority_percentage
+
 seed = 0
 random.seed(seed)
 np.random.seed(seed)
@@ -147,7 +149,12 @@ class OptBTExpAlgorithm:
         self.tree_size = 0
 
         self.expanded = []  # Conditions for storing expanded nodes
+        self.expanded_act =[] # 0602
+        self.expanded_percentages = []
+
         self.traversed = []  # Conditions for storing nodes that have been put into the priority queue
+        self.traversed_act = []
+        self.traversed_percentages = []
         self.traversed_state_num = 0
 
         self.bt_without_merge = None
@@ -172,6 +179,10 @@ class OptBTExpAlgorithm:
         self.consider_priopity = consider_priopity
         self.heuristic_choice = heuristic_choice
 
+        # 0602
+        self.expanded_percentages = []
+
+
     def clear(self):
         self.bt = None
         self.start = None
@@ -184,13 +195,21 @@ class OptBTExpAlgorithm:
         self.tree_size = 0
 
         self.expanded = []  # Conditions for storing expanded nodes
+        self.expanded_act =[] # 0602
+        self.expanded_percentages = []
+
         self.traversed = []  # Conditions for storing nodes that have been put into the priority queue
+        self.traversed_act = []
+        self.traversed_percentages = []
         self.traversed_state_num = 0
 
         self.bt_without_merge = None
         self.subtree_count = 1
 
         self.act_bt = None
+
+        # 0602
+        self.expanded_percentages = []
 
     def post_processing(self, pair_node, g_cond_anc_pair, subtree, bt, child_to_parent, cond_to_condActSeq):
         '''
@@ -382,8 +401,14 @@ class OptBTExpAlgorithm:
         self.tree_size = 0
 
         self.expanded = []  # Conditions for storing expanded nodes
+        self.expanded_act = []
+        self.expanded_percentages = []
+
 
         self.traversed = []  # Conditions for storing nodes that have been put into the priority queue
+        self.traversed_act = []
+        self.traversed_percentages = []
+
         self.traversed_state_num = 0
 
         self.bt_without_merge = None
@@ -446,6 +471,16 @@ class OptBTExpAlgorithm:
         epsh = 0
         while len(self.nodes) != 0:
 
+            # 0602 记录有多少动作在里面了
+            # print("self.priority_act_ls",self.priority_act_ls)
+            # 当前是第 len(self.expanded) 个
+            # 求对应的扩展的动作里占了self.priority_act_ls的百分之几
+            # Add the initial percentage for the goal node
+            self.expanded_percentages.append(calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+            self.traversed_percentages.append(calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
+
+
+
             # 调用大模型
             if self.llm_reflect:
                 # if len(self.expanded) % 2000 == 0 and len(self.expanded) >= 100:
@@ -473,6 +508,7 @@ class OptBTExpAlgorithm:
                     [copy.deepcopy(current_pair.cond_leaf), copy.deepcopy(current_pair.act_leaf)])
                 # self.expanded.append(c)
                 self.expanded.append(current_pair.cond_leaf)
+                self.expanded_act.append(current_pair.act_leaf.content.name)
 
                 if self.output_just_best:
                     cond_to_condActSeq[current_pair] = sequence_structure
@@ -482,6 +518,8 @@ class OptBTExpAlgorithm:
                 if c <= start:
                     bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
                                               cond_to_condActSeq)
+                    self.expanded_percentages.append(
+                        calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
                     return bt, min_cost, self.time_limit_exceeded
             # =============额外家的
             elif c == set() and c <= start:
@@ -490,6 +528,7 @@ class OptBTExpAlgorithm:
                     [copy.deepcopy(current_pair.cond_leaf), copy.deepcopy(current_pair.act_leaf)])
                 # self.expanded.append(c)
                 self.expanded.append(current_pair.cond_leaf)
+                self.expanded_act.append(current_pair.act_leaf.content.name)
 
                 if self.output_just_best:
                     cond_to_condActSeq[current_pair] = sequence_structure
@@ -672,6 +711,7 @@ class OptBTExpAlgorithm:
                             self.traversed_state_num += 1
                             # Put all action nodes that meet the conditions into the list
                             traversed_current.append(c_attr)
+                            self.traversed_act.append(act.name)
 
                             if self.verbose:
                                 print("———— -- Action={} meets conditions, new condition={}".format(act.name, c_attr))

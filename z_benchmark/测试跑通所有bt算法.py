@@ -26,7 +26,7 @@ cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHAction.HasSwitchObjects}
 big_actions = collect_action_nodes(env.behavior_lib)
 
 # for i,goal_str in enumerate(goal_ls):
-for i,goal_str in enumerate(['IsOn_milk_desk']): # IsOpen_fridge &
+for i,goal_str in enumerate(['IsOpen_fridge']): #  & IsOn_milk_desk
 # for i,goal_str in enumerate(['IsIn_milk_fridge']):
     print("i:", i, "goal_str:", goal_str)
 

@@ -108,7 +108,7 @@ class BTExpInterface:
                                           consider_priopity=self.consider_priopity,
                                           heuristic_choice=self.heuristic_choice,output_just_best=self.output_just_best)
         elif self.selected_algorithm == "bfs":
-            self.algo = BTalgorithmBFS(verbose=False,time_limit = self.time_limit,output_just_best=self.output_just_best)
+            self.algo = BTalgorithmBFS(verbose=False,time_limit = self.time_limit,output_just_best=self.output_just_best,priority_act_ls=self.priority_act_ls)
             # self.algo = BTalgorithm(verbose=False)
         elif self.selected_algorithm == "dfs":
             self.algo = BTalgorithmDFS(verbose=False)

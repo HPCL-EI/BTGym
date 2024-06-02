@@ -1,0 +1,560 @@
+1
+Environment: 
+Instruction: 
+Goals: IsOpen_stove & IsOn_cupcake_cabinet & IsNear_self_cabinet
+Optimal Actions: Walk_stove, Open_stove, Walk_cupcake, LeftGrab_cupcake, Walk_cabinet, LeftPut_cupcake_cabinet
+Vital Action Predicates: Walk, Open, LeftGrab, LeftPut
+Vital Objects: stove, cupcake, cabinet
+
+2
+Environment: 
+Instruction: 
+Goals: IsOn_cupcake_cabinet & IsOpen_microwave
+Optimal Actions: Walk_microwave, Open_microwave, Walk_cupcake, RightGrab_cupcake, Walk_cabinet, RightPut_cupcake_cabinet
+Vital Action Predicates: Walk, Open, RightGrab, RightPut
+Vital Objects: microwave, cupcake, cabinet
+
+3
+Environment: 
+Instruction: 
+Goals: IsOpen_stove & IsSwitchedOn_toaster
+Optimal Actions: Walk_stove, Open_stove, Walk_toaster, SwitchOn_toaster
+Vital Action Predicates: Walk, Open, SwitchOn
+Vital Objects: stove, toaster
+
+4
+Environment: 
+Instruction: 
+Goals: IsOn_fryingpan_kitchentable & IsSwitchedOn_tablelamp
+Optimal Actions: Walk_tablelamp, SwitchOn_tablelamp, Walk_fryingpan, LeftGrab_fryingpan, Walk_kitchentable, LeftPut_fryingpan_kitchentable
+Vital Action Predicates: Walk, SwitchOn, LeftGrab, LeftPut
+Vital Objects: tablelamp, fryingpan, kitchentable
+
+5
+Environment: 
+Instruction: 
+Goals: IsOn_plate_bathroomcounter & IsOn_fryingpan_desk
+Optimal Actions: Walk_fryingpan, LeftGrab_fryingpan, Walk_plate, RightGrab_plate, Walk_desk, LeftPut_fryingpan_desk, Walk_bathroomcounter, RightPut_plate_bathroomcounter
+Vital Action Predicates: Walk, LeftGrab, RightGrab, LeftPut, RightPut
+Vital Objects: fryingpan, plate, desk, bathroomcounter
+
+6
+Environment: 
+Instruction: 
+Goals: IsOpen_fridge & IsOn_bananas_plate & IsNear_self_bed
+Optimal Actions: Walk_fridge, Open_fridge, Walk_bananas, RightGrab_bananas, Walk_plate, RightPut_bananas_plate, Walk_bed
+Vital Action Predicates: Walk, Open, RightGrab, RightPut
+Vital Objects: fridge, bananas, plate, bed
+
+7
+Environment: 
+Instruction: 
+Goals: IsOn_book_kitchentable & IsOpen_microwave
+Optimal Actions: Walk_microwave, Open_microwave, Walk_book, RightGrab_book, Walk_kitchentable, RightPut_book_kitchentable
+Vital Action Predicates: Walk, Open, RightGrab, RightPut
+Vital Objects: microwave, book, kitchentable
+
+8
+Environment: 
+Instruction: 
+Goals: IsNear_self_desk & IsIn_chocolatesyrup_stove & IsClose_stove
+Optimal Actions: Walk_chocolatesyrup, RightGrab_chocolatesyrup, Walk_stove, Open_stove, RightPutIn_chocolatesyrup_stove, Close_stove, Walk_desk
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close
+Vital Objects: chocolatesyrup, stove, desk
+
+9
+Environment: 
+Instruction: 
+Goals: IsOpen_microwave & IsSwitchedOn_toaster
+Optimal Actions: Walk_microwave, Open_microwave, Walk_toaster, SwitchOn_toaster
+Vital Action Predicates: Walk, Open, SwitchOn
+Vital Objects: microwave, toaster
+
+10
+Environment: 
+Instruction: 
+Goals: IsNear_self_cutlets & IsIn_fryingpan_microwave & IsClose_microwave
+Optimal Actions: Walk_fryingpan, RightGrab_fryingpan, Walk_microwave, Open_microwave, RightPutIn_fryingpan_microwave, Close_microwave, Walk_cutlets
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close
+Vital Objects: fryingpan, microwave, cutlets
+
+11
+Environment: 
+Instruction: 
+Goals: IsNear_self_bananas & IsOn_chocolatesyrup_kitchentable
+Optimal Actions: Walk_chocolatesyrup, LeftGrab_chocolatesyrup, Walk_kitchentable, LeftPut_chocolatesyrup_kitchentable, Walk_bananas
+Vital Action Predicates: Walk, LeftGrab, LeftPut
+Vital Objects: chocolatesyrup, kitchentable, bananas
+
+12
+Environment: 
+Instruction: 
+Goals: IsIn_plate_fridge & IsClose_fridge & IsNear_self_kitchentable
+Optimal Actions: Walk_plate, RightGrab_plate, Walk_fridge, Open_fridge, RightPutIn_plate_fridge, Close_fridge, Walk_kitchentable
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close
+Vital Objects: plate, fridge, kitchentable
+
+13
+Environment: 
+Instruction: 
+Goals: IsNear_self_coffeemaker & IsIn_bananas_fridge & IsClose_fridge
+Optimal Actions: Walk_bananas, RightGrab_bananas, Walk_fridge, Open_fridge, RightPutIn_bananas_fridge, Close_fridge, Walk_coffeemaker
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close
+Vital Objects: bananas, fridge, coffeemaker
+
+14
+Environment: 
+Instruction: 
+Goals: IsOpen_cabinet & IsSwitchedOn_coffeemaker & IsOpen_microwave
+Optimal Actions: Walk_cabinet, Open_cabinet, Walk_microwave, Open_microwave, Walk_coffeemaker, SwitchOn_coffeemaker
+Vital Action Predicates: Walk, Open, SwitchOn
+Vital Objects: cabinet, microwave, coffeemaker
+
+15
+Environment: 
+Instruction: 
+Goals: IsSwitchedOn_tv & IsSwitchedOn_computer
+Optimal Actions: Walk_computer, SwitchOn_computer, Walk_tv, SwitchOn_tv
+Vital Action Predicates: Walk, SwitchOn
+Vital Objects: computer, tv
+
+16
+Environment: 
+Instruction: 
+Goals: IsSwitchedOn_coffeemaker & IsSwitchedOn_dishwasher & IsOpen_cabinet
+Optimal Actions: Walk_coffeemaker, SwitchOn_coffeemaker, Walk_dishwasher, SwitchOn_dishwasher, Walk_cabinet, Open_cabinet
+Vital Action Predicates: Walk, SwitchOn, Open
+Vital Objects: coffeemaker, dishwasher, cabinet
+
+17
+Environment: 
+Instruction: 
+Goals: IsSwitchedOn_tv & IsOpen_microwave & IsOpen_microwave
+Optimal Actions: Walk_microwave, Open_microwave, Walk_tv, SwitchOn_tv
+Vital Action Predicates: Walk, Open, SwitchOn
+Vital Objects: microwave, tv
+
+18
+Environment: 
+Instruction: 
+Goals: IsNear_self_coffeemaker & IsOpen_dishwasher & IsOn_dishbowl_cabinet
+Optimal Actions: Walk_dishbowl, RightGrab_dishbowl, Walk_cabinet, RightPut_dishbowl_cabinet, Walk_dishwasher, Open_dishwasher, Walk_coffeemaker
+Vital Action Predicates: Walk, RightGrab, RightPut, Open
+Vital Objects: dishbowl, cabinet, dishwasher, coffeemaker
+
+19
+Environment: 
+Instruction: 
+Goals: IsOpen_cabinet & IsNear_self_stove & IsIn_breadslice_cabinet
+Optimal Actions: Walk_breadslice, RightGrab_breadslice, Walk_cabinet, Open_cabinet, RightPutIn_breadslice_cabinet, Walk_stove
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn
+Vital Objects: breadslice, cabinet, stove
+
+20
+Environment: 
+Instruction: 
+Goals: IsOpen_cabinet & IsOn_chocolatesyrup_desk
+Optimal Actions: Walk_cabinet, Open_cabinet, Walk_chocolatesyrup, RightGrab_chocolatesyrup, Walk_desk, RightPut_chocolatesyrup_desk
+Vital Action Predicates: Walk, Open, RightGrab, RightPut
+Vital Objects: cabinet, chocolatesyrup, desk
+
+21
+Environment: 
+Instruction: 
+Goals: IsSwitchedOn_coffeemaker & IsOpen_dishwasher
+Optimal Actions: Walk_dishwasher, Open_dishwasher, Walk_coffeemaker, SwitchOn_coffeemaker
+Vital Action Predicates: Walk, Open, SwitchOn
+Vital Objects: dishwasher, coffeemaker
+
+22
+Environment: 
+Instruction: 
+Goals: IsIn_plate_stove & IsClose_stove & IsNear_self_tv
+Optimal Actions: Walk_plate, RightGrab_plate, Walk_stove, Open_stove, RightPutIn_plate_stove, Close_stove, Walk_tv
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close
+Vital Objects: plate, stove, tv
+
+23
+Environment: 
+Instruction: 
+Goals: IsOpen_microwave & IsSwitchedOn_lightswitch
+Optimal Actions: Walk_microwave, Open_microwave, Walk_lightswitch, SwitchOn_lightswitch
+Vital Action Predicates: Walk, Open, SwitchOn
+Vital Objects: microwave, lightswitch
+
+24
+Environment: 
+Instruction: 
+Goals: IsSwitchedOn_toaster & IsOpen_microwave
+Optimal Actions: Walk_microwave, Open_microwave, Walk_toaster, SwitchOn_toaster
+Vital Action Predicates: Walk, Open, SwitchOn
+Vital Objects: microwave, toaster
+
+25
+Environment: 
+Instruction: 
+Goals: IsSwitchedOn_computer & IsOpen_stove
+Optimal Actions: Walk_stove, Open_stove, Walk_computer, SwitchOn_computer
+Vital Action Predicates: Walk, Open, SwitchOn
+Vital Objects: stove, computer
+
+26
+Environment: 
+Instruction: 
+Goals: IsNear_self_chocolatesyrup & IsIn_wine_stove & IsClose_stove
+Optimal Actions: Walk_wine, RightGrab_wine, Walk_stove, Open_stove, RightPutIn_wine_stove, Close_stove, Walk_chocolatesyrup
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close
+Vital Objects: wine, stove, chocolatesyrup
+
+27
+Environment: 
+Instruction: 
+Goals: IsIn_wine_microwave & IsClose_microwave & IsNear_self_cupcake
+Optimal Actions: Walk_wine, RightGrab_wine, Walk_microwave, Open_microwave, RightPutIn_wine_microwave, Close_microwave, Walk_cupcake
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close
+Vital Objects: wine, microwave, cupcake
+
+28
+Environment: 
+Instruction: 
+Goals: IsIn_juice_microwave & IsClose_microwave & IsNear_self_stove
+Optimal Actions: Walk_juice, RightGrab_juice, Walk_microwave, Open_microwave, RightPutIn_juice_microwave, Close_microwave, Walk_stove
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close
+Vital Objects: juice, microwave, stove
+
+29
+Environment: 
+Instruction: 
+Goals: IsIn_breadslice_microwave & IsClose_microwave & IsNear_self_computer
+Optimal Actions: Walk_breadslice, RightGrab_breadslice, Walk_microwave, Open_microwave, RightPutIn_breadslice_microwave, Close_microwave, Walk_computer
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close
+Vital Objects: breadslice, microwave, computer
+
+30
+Environment: 
+Instruction: 
+Goals: IsIn_waterglass_dishwasher & IsClose_dishwasher & IsNear_self_fryingpan
+Optimal Actions: Walk_waterglass, RightGrab_waterglass, Walk_dishwasher, Open_dishwasher, RightPutIn_waterglass_dishwasher, Close_dishwasher, Walk_fryingpan
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close
+Vital Objects: waterglass, dishwasher, fryingpan
+
+31
+Environment: 
+Instruction: 
+Goals: IsNear_self_dishbowl & IsSwitchedOn_coffeemaker
+Optimal Actions: Walk_coffeemaker, SwitchOn_coffeemaker, Walk_dishbowl
+Vital Action Predicates: Walk, SwitchOn
+Vital Objects: coffeemaker, dishbowl
+
+32
+Environment: 
+Instruction: 
+Goals: IsSwitchedOn_computer & IsSwitchedOn_tv
+Optimal Actions: Walk_computer, SwitchOn_computer, Walk_tv, SwitchOn_tv
+Vital Action Predicates: Walk, SwitchOn
+Vital Objects: computer, tv
+
+33
+Environment: 
+Instruction: 
+Goals: IsSwitchedOn_microwave & IsNear_self_fridge & IsOpen_microwave
+Optimal Actions: Walk_microwave, Open_microwave, SwitchOn_microwave, Walk_fridge
+Vital Action Predicates: Walk, Open, SwitchOn
+Vital Objects: microwave, fridge
+
+34
+Environment: 
+Instruction: 
+Goals: IsSwitchedOn_dishwasher & IsSwitchedOn_tv
+Optimal Actions: Walk_dishwasher, SwitchOn_dishwasher, Walk_tv, SwitchOn_tv
+Vital Action Predicates: Walk, SwitchOn
+Vital Objects: dishwasher, tv
+
+35
+Environment: 
+Instruction: 
+Goals: IsIn_breadslice_fridge & IsClose_fridge & IsNear_self_cutlets
+Optimal Actions: Walk_breadslice, RightGrab_breadslice, Walk_fridge, Open_fridge, RightPutIn_breadslice_fridge, Close_fridge, Walk_cutlets
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close
+Vital Objects: breadslice, fridge, cutlets
+
+36
+Environment: 
+Instruction: 
+Goals: IsSwitchedOn_toaster & IsSwitchedOn_lightswitch
+Optimal Actions: Walk_lightswitch, SwitchOn_lightswitch, Walk_toaster, SwitchOn_toaster
+Vital Action Predicates: Walk, SwitchOn
+Vital Objects: lightswitch, toaster
+
+37
+Environment: 
+Instruction: 
+Goals: IsOn_cutleryknife_stove & IsSwitchedOn_computer
+Optimal Actions: Walk_computer, SwitchOn_computer, Walk_cutleryknife, LeftGrab_cutleryknife, Walk_stove, LeftPut_cutleryknife_stove
+Vital Action Predicates: Walk, SwitchOn, LeftGrab, LeftPut
+Vital Objects: computer, cutleryknife, stove
+
+38
+Environment: 
+Instruction: 
+Goals: IsNear_self_lightswitch & IsIn_plate_fridge & IsClose_fridge
+Optimal Actions: Walk_plate, RightGrab_plate, Walk_fridge, Open_fridge, RightPutIn_plate_fridge, Close_fridge, Walk_lightswitch
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close
+Vital Objects: plate, fridge, lightswitch
+
+39
+Environment: 
+Instruction: 
+Goals: IsOn_dishbowl_desk & IsOn_breadslice_bathroomcounter
+Optimal Actions: Walk_breadslice, LeftGrab_breadslice, Walk_dishbowl, RightGrab_dishbowl, Walk_desk, RightPut_dishbowl_desk, Walk_bathroomcounter, LeftPut_breadslice_bathroomcounter
+Vital Action Predicates: Walk, LeftGrab, RightGrab, RightPut, LeftPut
+Vital Objects: breadslice, dishbowl, desk, bathroomcounter
+
+40
+Environment: 
+Instruction: 
+Goals: IsOpen_fridge & IsOpen_stove & IsSwitchedOn_dishwasher
+Optimal Actions: Walk_stove, Open_stove, Walk_dishwasher, SwitchOn_dishwasher, Walk_fridge, Open_fridge
+Vital Action Predicates: Walk, Open, SwitchOn
+Vital Objects: stove, dishwasher, fridge
+
+41
+Environment: 
+Instruction: 
+Goals: IsOpen_cabinet & IsSwitchedOn_lightswitch & IsSwitchedOn_lightswitch
+Optimal Actions: Walk_cabinet, Open_cabinet, Walk_lightswitch, SwitchOn_lightswitch
+Vital Action Predicates: Walk, Open, SwitchOn
+Vital Objects: cabinet, lightswitch
+
+42
+Environment: 
+Instruction: 
+Goals: IsOn_dishbowl_kitchentable & IsOpen_dishwasher
+Optimal Actions: Walk_dishwasher, Open_dishwasher, Walk_dishbowl, RightGrab_dishbowl, Walk_kitchentable, RightPut_dishbowl_kitchentable
+Vital Action Predicates: Walk, Open, RightGrab, RightPut
+Vital Objects: dishwasher, dishbowl, kitchentable
+
+43
+Environment: 
+Instruction: 
+Goals: IsOpen_fridge & IsSwitchedOn_tv & IsNear_self_kitchentable
+Optimal Actions: Walk_fridge, Open_fridge, Walk_tv, SwitchOn_tv, Walk_kitchentable
+Vital Action Predicates: Walk, Open, SwitchOn
+Vital Objects: fridge, tv, kitchentable
+
+44
+Environment: 
+Instruction: 
+Goals: IsSwitchedOn_coffeemaker & IsNear_self_bathroomcounter
+Optimal Actions: Walk_coffeemaker, SwitchOn_coffeemaker, Walk_bathroomcounter
+Vital Action Predicates: Walk, SwitchOn
+Vital Objects: coffeemaker, bathroomcounter
+
+45
+Environment: 
+Instruction: 
+Goals: IsSwitchedOn_faucet & IsSwitchedOn_faucet & IsSwitchedOn_lightswitch
+Optimal Actions: Walk_faucet, SwitchOn_faucet, Walk_lightswitch, SwitchOn_lightswitch
+Vital Action Predicates: Walk, SwitchOn
+Vital Objects: faucet, lightswitch
+
+46
+Environment: 
+Instruction: 
+Goals: IsNear_self_kitchentable & IsIn_chicken_stove & IsClose_stove
+Optimal Actions: Walk_chicken, RightGrab_chicken, Walk_stove, Open_stove, RightPutIn_chicken_stove, Close_stove, Walk_kitchentable
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close
+Vital Objects: chicken, stove, kitchentable
+
+47
+Environment: 
+Instruction: 
+Goals: IsOn_dishbowl_cabinet & IsNear_self_cupcake & IsSwitchedOn_toaster
+Optimal Actions: Walk_dishbowl, RightGrab_dishbowl, Walk_toaster, SwitchOn_toaster, Walk_cabinet, RightPut_dishbowl_cabinet, Walk_cupcake
+Vital Action Predicates: Walk, RightGrab, SwitchOn, RightPut
+Vital Objects: dishbowl, toaster, cabinet, cupcake
+
+48
+Environment: 
+Instruction: 
+Goals: IsNear_self_desk & IsOpen_cabinet
+Optimal Actions: Walk_cabinet, Open_cabinet, Walk_desk
+Vital Action Predicates: Walk, Open
+Vital Objects: cabinet, desk
+
+49
+Environment: 
+Instruction: 
+Goals: IsNear_self_breadslice & IsNear_self_breadslice & IsOpen_stove
+Optimal Actions: Walk_stove, Open_stove, Walk_breadslice
+Vital Action Predicates: Walk, Open
+Vital Objects: stove, breadslice
+
+50
+Environment: 
+Instruction: 
+Goals: IsOpen_cabinet & IsSwitchedOn_computer & IsOpen_fridge
+Optimal Actions: Walk_cabinet, Open_cabinet, Walk_fridge, Open_fridge, Walk_computer, SwitchOn_computer
+Vital Action Predicates: Walk, Open, SwitchOn
+Vital Objects: cabinet, fridge, computer
+
+51
+Environment: 
+Instruction: 
+Goals: IsSwitchedOn_toaster & IsSwitchedOn_toaster & IsSwitchedOn_toaster
+Optimal Actions: Walk_toaster, SwitchOn_toaster
+Vital Action Predicates: Walk, SwitchOn
+Vital Objects: toaster
+
+52
+Environment: 
+Instruction: 
+Goals: IsIn_wine_cabinet & IsClose_cabinet & IsNear_self_cutleryknife
+Optimal Actions: Walk_wine, RightGrab_wine, Walk_cabinet, Open_cabinet, RightPutIn_wine_cabinet, Close_cabinet, Walk_cutleryknife
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close
+Vital Objects: wine, cabinet, cutleryknife
+
+53
+Environment: 
+Instruction: 
+Goals: IsSwitchedOn_tv & IsOn_milk_plate
+Optimal Actions: Walk_tv, SwitchOn_tv, Walk_milk, LeftGrab_milk, Walk_plate, LeftPut_milk_plate
+Vital Action Predicates: Walk, SwitchOn, LeftGrab, LeftPut
+Vital Objects: tv, milk, plate
+
+54
+Environment: 
+Instruction: 
+Goals: IsSwitchedOn_dishwasher & IsNear_self_milk
+Optimal Actions: Walk_dishwasher, SwitchOn_dishwasher, Walk_milk
+Vital Action Predicates: Walk, SwitchOn
+Vital Objects: dishwasher, milk
+
+55
+Environment: 
+Instruction: 
+Goals: IsNear_self_wine & IsSwitchedOn_faucet
+Optimal Actions: Walk_faucet, SwitchOn_faucet, Walk_wine
+Vital Action Predicates: Walk, SwitchOn
+Vital Objects: faucet, wine
+
+56
+Environment: 
+Instruction: 
+Goals: IsNear_self_nightstand & IsOn_chicken_kitchentable & IsOpen_stove
+Optimal Actions: Walk_chicken, RightGrab_chicken, Walk_stove, Open_stove, Walk_kitchentable, RightPut_chicken_kitchentable, Walk_nightstand
+Vital Action Predicates: Walk, RightGrab, Open, RightPut
+Vital Objects: chicken, stove, kitchentable, nightstand
+
+57
+Environment: 
+Instruction: 
+Goals: IsOpen_dishwasher & IsNear_self_computer & IsOpen_stove
+Optimal Actions: Walk_dishwasher, Open_dishwasher, Walk_stove, Open_stove, Walk_computer
+Vital Action Predicates: Walk, Open
+Vital Objects: dishwasher, stove, computer
+
+58
+Environment: 
+Instruction: 
+Goals: IsNear_self_book & IsIn_chips_fridge & IsClose_fridge
+Optimal Actions: Walk_chips, RightGrab_chips, Walk_fridge, Open_fridge, RightPutIn_chips_fridge, Close_fridge, Walk_book
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close
+Vital Objects: chips, fridge, book
+
+59
+Environment: 
+Instruction: 
+Goals: IsNear_self_stove & IsSwitchedOn_dishwasher
+Optimal Actions: Walk_dishwasher, SwitchOn_dishwasher, Walk_stove
+Vital Action Predicates: Walk, SwitchOn
+Vital Objects: dishwasher, stove
+
+60
+Environment: 
+Instruction: 
+Goals: IsIn_chips_cabinet & IsClose_cabinet & IsNear_self_dishwasher
+Optimal Actions: Walk_chips, RightGrab_chips, Walk_cabinet, Open_cabinet, RightPutIn_chips_cabinet, Close_cabinet, Walk_dishwasher
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close
+Vital Objects: chips, cabinet, dishwasher
+
+61
+Environment: 
+Instruction: 
+Goals: IsOpen_microwave & IsNear_self_faucet & IsOpen_stove
+Optimal Actions: Walk_microwave, Open_microwave, Walk_stove, Open_stove, Walk_faucet
+Vital Action Predicates: Walk, Open
+Vital Objects: microwave, stove, faucet
+
+62
+Environment: 
+Instruction: 
+Goals: IsNear_self_Bench & IsOpen_dishwasher
+Optimal Actions: Walk_dishwasher, Open_dishwasher, Walk_Bench
+Vital Action Predicates: Walk, Open
+Vital Objects: dishwasher, Bench
+
+63
+Environment: 
+Instruction: 
+Goals: IsIn_milk_microwave & IsClose_microwave & IsNear_self_nightstand
+Optimal Actions: Walk_milk, RightGrab_milk, Walk_microwave, Open_microwave, RightPutIn_milk_microwave, Close_microwave, Walk_nightstand
+Vital Action Predicates: Walk, RightGrab, Open, RightPutIn, Close
+Vital Objects: milk, microwave, nightstand
+
+64
+Environment: 
+Instruction: 
+Goals: IsOpen_cabinet & IsOpen_fridge
+Optimal Actions: Walk_fridge, Open_fridge, Walk_cabinet, Open_cabinet
+Vital Action Predicates: Walk, Open
+Vital Objects: fridge, cabinet
+
+65
+Environment: 
+Instruction: 
+Goals: IsOn_milk_cabinet & IsOn_chips_nightstand
+Optimal Actions: Walk_chips, RightGrab_chips, Walk_milk, LeftGrab_milk, Walk_nightstand, RightPut_chips_nightstand, Walk_cabinet, LeftPut_milk_cabinet
+Vital Action Predicates: Walk, RightGrab, LeftGrab, RightPut, LeftPut
+Vital Objects: chips, milk, nightstand, cabinet
+
+66
+Environment: 
+Instruction: 
+Goals: IsOn_bananas_stove & IsOpen_dishwasher
+Optimal Actions: Walk_bananas, RightGrab_bananas, Walk_dishwasher, Open_dishwasher, Walk_stove, RightPut_bananas_stove
+Vital Action Predicates: Walk, RightGrab, Open, RightPut
+Vital Objects: bananas, dishwasher, stove
+
+67
+Environment: 
+Instruction: 
+Goals: IsOpen_microwave & IsSwitchedOn_microwave & IsSwitchedOn_coffeemaker
+Optimal Actions: Walk_coffeemaker, SwitchOn_coffeemaker, Walk_microwave, SwitchOn_microwave, Open_microwave
+Vital Action Predicates: Walk, SwitchOn, Open
+Vital Objects: coffeemaker, microwave
+
+68
+Environment: 
+Instruction: 
+Goals: IsSwitchedOn_lightswitch & IsOpen_microwave
+Optimal Actions: Walk_microwave, Open_microwave, Walk_lightswitch, SwitchOn_lightswitch
+Vital Action Predicates: Walk, Open, SwitchOn
+Vital Objects: microwave, lightswitch
+
+69
+Environment: 
+Instruction: 
+Goals: IsSwitchedOn_toaster & IsOpen_stove & IsNear_self_dishwasher
+Optimal Actions: Walk_stove, Open_stove, Walk_toaster, SwitchOn_toaster, Walk_dishwasher
+Vital Action Predicates: Walk, Open, SwitchOn
+Vital Objects: stove, toaster, dishwasher
+
+70
+Environment: 
+Instruction: 
+Goals: IsOn_juice_plate & IsOn_cupcake_cabinet
+Optimal Actions: Walk_juice, LeftGrab_juice, Walk_cupcake, RightGrab_cupcake, Walk_plate, LeftPut_juice_plate, Walk_cabinet, RightPut_cupcake_cabinet
+Vital Action Predicates: Walk, LeftGrab, RightGrab, LeftPut, RightPut
+Vital Objects: juice, cupcake, plate, cabinet
+

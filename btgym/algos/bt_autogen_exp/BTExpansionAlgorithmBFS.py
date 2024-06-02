@@ -11,6 +11,9 @@ seed=0
 random.seed(seed)
 np.random.seed(seed)
 
+from btgym.algos.bt_autogen.tools  import calculate_priority_percentage
+
+
 class CondActPair:
     def __init__(self, cond_leaf, act_leaf):
         self.cond_leaf = cond_leaf
@@ -112,9 +115,9 @@ def check_conflict(conds):
 
     return False
 
-class WeakalgorithmBFS:
+class BTalgorithmBFS:
     def __init__(self, verbose=False, llm_reflect=False, llm=None, messages=None, priority_act_ls=None, time_limit=None, \
-                 consider_priopity=False, heuristic_choice=-1,output_just_best=True,exp=False):
+                 consider_priopity=False, heuristic_choice=-1,output_just_best=True):
         self.bt = None
         self.start = None
         self.goal = None
@@ -126,7 +129,12 @@ class WeakalgorithmBFS:
         self.tree_size = 0
 
         self.expanded = []  # Conditions for storing expanded nodes
+        self.expanded_act =[] # 0602
+        self.expanded_percentages = []
+
         self.traversed = []  # Conditions for storing nodes that have been put into the priority queue
+        self.traversed_act = []
+        self.traversed_percentages = []
         self.traversed_state_num = 0
 
         self.bt_without_merge = None
@@ -134,14 +142,13 @@ class WeakalgorithmBFS:
 
         self.verbose = False
         self.bt_merge = False
-        self.output_just_best = True
+        self.output_just_best = output_just_best
         self.merge_time=999999
 
         self.time_limit_exceeded = False
         self.time_limit = time_limit
 
-        self.output_just_best = output_just_best
-        self.exp = exp
+        self.priority_act_ls = priority_act_ls
 
 
     def clear(self):
@@ -156,11 +163,17 @@ class WeakalgorithmBFS:
         self.tree_size = 0
 
         self.expanded = []  # Conditions for storing expanded nodes
+        self.expanded_act =[] # 0602
+        self.expanded_percentages = []
+
         self.traversed = []  # Conditions for storing nodes that have been put into the priority queue
+        self.traversed_act = []
+        self.traversed_percentages = []
         self.traversed_state_num = 0
 
         self.bt_without_merge = None
         self.subtree_count = 1
+
 
     def post_processing(self,pair_node,g_cond_anc_pair,subtree,bt,child_to_parent,cond_to_condActSeq):
         '''
@@ -207,7 +220,12 @@ class WeakalgorithmBFS:
         self.tree_size = 0
 
         self.expanded = []  # Conditions for storing expanded nodes
+        self.expanded_act =[] # 0602
+        self.expanded_percentages = []
+
         self.traversed = []  # Conditions for storing nodes that have been put into the priority queue
+        self.traversed_act = []
+        self.traversed_percentages = []
         self.traversed_state_num = 0
 
         self.bt_without_merge = None
@@ -237,28 +255,38 @@ class WeakalgorithmBFS:
 
         if goal <= start:
             self.bt_without_merge = bt
+            self.expanded_percentages.append(
+                calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+            self.traversed_percentages.append(
+                calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
             print("goal <= start, no need to generate bt.")
             return bt, 0,self.time_limit_exceeded
 
-        current_pair = goal_cond_act_pair
-        min_cost = float('inf')
+        while len(self.nodes) != 0:
 
-        canrun = False
-        while not canrun:
-            index = -1
-            for i in range(0, len(self.nodes)):
-                if self.nodes[0].cond_leaf.content in self.traversed:
-                    self.nodes.pop(0)
-                    continue
-                index = i
-                current_pair = self.nodes.pop(0)
-                min_cost = current_pair.cond_leaf.min_cost
 
-            if index == -1:
-                print('Algorithm Failure, all conditions expanded')
-                # bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
-                #                           cond_to_condActSeq)
-                return bt, min_cost, self.time_limit_exceeded
+            # 0602 记录有多少动作在里面了
+            # print("self.priority_act_ls",self.priority_act_ls)
+            # 当前是第 len(self.expanded) 个
+            # 求对应的扩展的动作里占了self.priority_act_ls的百分之几
+            # Add the initial percentage for the goal node
+            self.expanded_percentages.append(calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+            self.traversed_percentages.append(calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
+
+
+
+            if self.nodes[0].cond_leaf.content in self.traversed:
+                self.nodes.pop(0)
+                # print("pop")
+                continue
+            current_pair = self.nodes.pop(0)
+            min_cost = current_pair.cond_leaf.min_cost
+
+
+            # if len(self.nodes)!=0:
+            #     print("len(self.nodes):",len(self.nodes),self.nodes[0].act_leaf.content.name)
+            # else:
+            #     print("len(self.nodes):", len(self.nodes))
 
             self.cycles += 1
 
@@ -286,9 +314,14 @@ class WeakalgorithmBFS:
                 subtree.add_child([copy.deepcopy(current_pair.cond_leaf)])  # 子树首先保留所扩展结点
 
                 self.expanded.append(c)
+                self.expanded_act.append(current_pair.act_leaf.content.name)
 
                 if c <= start:
                     bt = self.post_processing(current_pair , goal_cond_act_pair, subtree, bt,child_to_parent,cond_to_condActSeq)
+                    self.expanded_percentages.append(
+                        calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+                    self.traversed_percentages.append(
+                        calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
                     return bt, min_cost,self.time_limit_exceeded
 
                 if self.verbose:
@@ -313,66 +346,93 @@ class WeakalgorithmBFS:
             traversed_current = []
             for act in actions:
 
-                if not c & act.add <= set():
+                if not c & ((act.pre | act.add) - act.del_set) <= set():
                     if (c - act.del_set) == c:
-                        danger = True
-                        self.danger = True
+                        if self.verbose:
+                            # Action satisfies conditions for expansion
+                            print(f"———— 动作：{act.name}  满足条件可以扩展")
+                        c_attr = (act.pre | c) - act.add
 
-                    c_attr = act.pre
-                    valid = True
+                        if check_conflict(c_attr):
+                            if self.verbose:
+                                print("———— Conflict: action={}, conditions={}".format(act.name, act))
+                            continue
 
-                    if valid:
-                        sequence_structure = ControlBT(type='>')
+                        # 剪枝操作,现在的条件是以前扩展过的条件的超集
+                        valid = True
 
-                        for j in c_attr:
-                            if j in self.traversed:
-                                continue
-                            c_attr_node = Leaf(type='cond', content={j})
-                            a_attr_node = Leaf(type='act', content=act)
-                            sequence_structure.add_child([c_attr_node])
-                            if j not in start:
-                                new_pair = CondActPair(cond_leaf=c_attr_node, act_leaf=a_attr_node)
-                                self.nodes.append(new_pair)
+                        # for expanded_condition in self.expanded:
+                        #     if expanded_condition <= c_attr:
+                        #         valid = False
+                        #         break
 
-                                if self.output_just_best:
-                                    child_to_parent[new_pair] = current_pair
+                        for expanded_condition in self.traversed:
+                            if expanded_condition <= c_attr:
+                                valid = False
+                                break
 
-                        a_node = Leaf(type='act', content=act)
-                        sequence_structure.add_child([a_node])
-                        subtree.add_child([sequence_structure])
+                        if valid:
+                            c_attr_node = Leaf(type='cond', content=c_attr, min_cost=current_mincost + act.cost)
+                            a_attr_node = Leaf(type='act', content=act,
+                                               min_cost=current_mincost + act.cost)
+                            new_pair = CondActPair(cond_leaf=c_attr_node, act_leaf=a_attr_node)
+                            self.nodes.append(new_pair)
 
-                        self.traversed_state_num += 1
+                            # Need to record: The upper level of c_attr is c
+                            # if self.output_just_best:
+                            #     child_to_parent[new_pair] = current_pair
 
-                        # 在这里跳出
-                        # if c_attr <= start:
-                        #     parent_of_c = current_pair.cond_leaf.parent
-                        #     parent_of_c.children[0] = subtree
-                        #     bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt,
-                        #                               child_to_parent, cond_to_condActSeq)
-                        #     print("c_attr <= start")
-                        #     return bt, current_mincost + act.cost,self.time_limit_exceeded
+                            self.traversed_state_num += 1
+                            self.traversed_act.append(act.name)
+                            # Put all action nodes that meet the conditions into the list
+                            # traversed_current.append(c_attr)
 
+                            # 直接扩展这些动作到行为树上
+                            # 构建行动的顺序结构
+                            sequence_structure = ControlBT(type='>')
+                            sequence_structure.add_child([c_attr_node, a_attr_node])
+                            # 将顺序结构添加到子树
+                            subtree.add_child([sequence_structure])
+
+                            if self.output_just_best:
+                                child_to_parent[new_pair] = current_pair
+
+                            # 在这里跳出
+                            if c_attr <= start:
+                                parent_of_c = current_pair.cond_leaf.parent
+                                parent_of_c.children[0] = subtree
+                                bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt,
+                                                          child_to_parent, cond_to_condActSeq)
+
+                                self.expanded_act.append(act.name)
+                                self.traversed_act.append(act.name)
+                                self.expanded_percentages.append(
+                                    calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+                                self.traversed_percentages.append(
+                                    calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
+                                return bt, current_mincost + act.cost,self.time_limit_exceeded
+
+
+                            if self.verbose:
+                                print("———— -- Action={} meets conditions, new condition={}".format(act.name, c_attr))
 
             # 将原条件结点c_node替换为扩展后子树subtree
             parent_of_c = current_pair.cond_leaf.parent
-            p_index = current_pair.cond_leaf.parent_index
-            parent_of_c.children[p_index] = subtree
+            parent_of_c.children[0] = subtree
             self.traversed.append(c)
             # ====================== End Action Trasvers ============================ #
 
-            self.bt_without_merge = bt
+        # self.tree_size = self.bfs_cal_tree_size_subtree(bt)
 
-            if self.bt_merge:
-                bt = self.merge_adjacent_conditions_stack_time(bt, merge_time=merge_time)
 
-            if self.verbose:
-                print("Error: Couldn't find successful bt!")
-                print("Algorithm ends!\n")
+        self.bt_without_merge = bt
 
-            val, obj = bt.tick(start)
-            canrun = False
-            if val == 'success' or val == 'running':
-                canrun = True
+        if self.bt_merge:
+            bt = self.merge_adjacent_conditions_stack_time(bt, merge_time=merge_time)
+
+        if self.verbose:
+            print("Error: Couldn't find successful bt!")
+            print("Algorithm ends!\n")
 
         return bt, min_cost,self.time_limit_exceeded
 

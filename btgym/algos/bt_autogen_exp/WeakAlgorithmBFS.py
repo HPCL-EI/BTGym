@@ -114,7 +114,7 @@ def check_conflict(conds):
 
 class WeakalgorithmBFS:
     def __init__(self, verbose=False, llm_reflect=False, llm=None, messages=None, priority_act_ls=None, time_limit=None, \
-                 consider_priopity=False, heuristic_choice=-1,output_just_best=True,exp=False):
+                 consider_priopity=False, heuristic_choice=-1):
         self.bt = None
         self.start = None
         self.goal = None
@@ -139,11 +139,6 @@ class WeakalgorithmBFS:
 
         self.time_limit_exceeded = False
         self.time_limit = time_limit
-
-        self.output_just_best = output_just_best
-        self.exp = exp
-
-
     def clear(self):
         self.bt = None
         self.start = None

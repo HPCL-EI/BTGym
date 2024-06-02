@@ -12,10 +12,10 @@ from btgym.utils.goal_generator.vh_gen import VirtualHomeGoalGen
 from btgym.utils.goal_generator.rhs_gen import RobotHowSmallGoalGen
 from btgym.utils.goal_generator.rh_gen import RobotHowGoalGen
 
-data_num = 100
-max_goal_num=500
-diffcult_type= "mix" #"single"  #"mix" "multi"
-scene = "RH"
+data_num = 1000
+max_goal_num=2000
+diffcult_type= "single" #"single"  #"mix" "multi"
+scene = "RHS"
 
 if scene=="RW":
     # ===================== RoboWaiter ========================
@@ -79,7 +79,7 @@ elif scene=="RH":
 
 
 file_name = f"{scene}_{diffcult_type}_{data_num}"
-output_path = f"{ROOT_PATH}/../z_benchmark/data/{file_name}_processed_data.txt"
+output_path = f"{ROOT_PATH}/../z_benchmark/data/num1000/{file_name}_processed_data.txt"
 
 
 def write_to_file(data, file_path):
@@ -110,9 +110,9 @@ for i,goal_str in enumerate(goal_ls):
     algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
                           priority_act_ls=[], key_predicates=[],
                           key_objects=priority_obj_ls,
-                          selected_algorithm="opt", mode="small-objs",
+                          selected_algorithm="opt", mode="big", # "small-objs"
                           llm_reflect=False, time_limit=10,
-                          heuristic_choice=-1)
+                          heuristic_choice=-1,exp=False)
 
     goal_set = goal_transfer_str(goal_str)
 

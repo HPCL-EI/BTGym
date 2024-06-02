@@ -117,7 +117,7 @@ def check_conflict(conds):
 
 class BTalgorithmBFS:
     def __init__(self, verbose=False, llm_reflect=False, llm=None, messages=None, priority_act_ls=None, time_limit=None, \
-                 consider_priopity=False, heuristic_choice=-1,output_just_best=True):
+                 consider_priopity=False, heuristic_choice=-1,output_just_best=True,exp=False):
         self.bt = None
         self.start = None
         self.goal = None
@@ -150,6 +150,8 @@ class BTalgorithmBFS:
 
         self.priority_act_ls = priority_act_ls
 
+        self.exp = exp
+
 
     def clear(self):
         self.bt = None
@@ -179,19 +181,19 @@ class BTalgorithmBFS:
         '''
         Process the summary work after the algorithm ends.
         '''
-        # if self.output_just_best:
-        #     # Only output the best
-        #     output_stack = []
-        #     tmp_pair = pair_node
-        #     while tmp_pair != g_cond_anc_pair:
-        #         tmp_seq_struct = cond_to_condActSeq[tmp_pair]
-        #         output_stack.append(tmp_seq_struct)
-        #         tmp_pair = child_to_parent[tmp_pair]
-        #
-        #     while output_stack != []:
-        #         tmp_seq_struct = output_stack.pop()
-        #         print(tmp_seq_struct)
-        #         subtree.add_child([copy.deepcopy(tmp_seq_struct)])
+        if self.output_just_best:
+            # Only output the best
+            output_stack = []
+            tmp_pair = pair_node
+            while tmp_pair != g_cond_anc_pair:
+                tmp_seq_struct = cond_to_condActSeq[tmp_pair]
+                output_stack.append(tmp_seq_struct)
+                tmp_pair = child_to_parent[tmp_pair]
+
+            while output_stack != []:
+                tmp_seq_struct = output_stack.pop()
+                print(tmp_seq_struct)
+                subtree.add_child([copy.deepcopy(tmp_seq_struct)])
 
         # self.tree_size = self.bfs_cal_tree_size_subtree(bt)
         self.bt_without_merge = bt
@@ -270,8 +272,9 @@ class BTalgorithmBFS:
             # 当前是第 len(self.expanded) 个
             # 求对应的扩展的动作里占了self.priority_act_ls的百分之几
             # Add the initial percentage for the goal node
-            self.expanded_percentages.append(calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
-            self.traversed_percentages.append(calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
+            if self.exp:
+                self.expanded_percentages.append(calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+                self.traversed_percentages.append(calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
 
 
 
@@ -318,10 +321,11 @@ class BTalgorithmBFS:
 
                 if c <= start:
                     bt = self.post_processing(current_pair , goal_cond_act_pair, subtree, bt,child_to_parent,cond_to_condActSeq)
-                    self.expanded_percentages.append(
-                        calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
-                    self.traversed_percentages.append(
-                        calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
+                    if self.exp:
+                        self.expanded_percentages.append(
+                            calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+                        self.traversed_percentages.append(
+                            calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
                     return bt, min_cost,self.time_limit_exceeded
 
                 if self.verbose:
@@ -403,13 +407,13 @@ class BTalgorithmBFS:
                                 parent_of_c.children[0] = subtree
                                 bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt,
                                                           child_to_parent, cond_to_condActSeq)
-
-                                self.expanded_act.append(act.name)
-                                self.traversed_act.append(act.name)
-                                self.expanded_percentages.append(
-                                    calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
-                                self.traversed_percentages.append(
-                                    calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
+                                if self.exp:
+                                    self.expanded_act.append(act.name)
+                                    self.traversed_act.append(act.name)
+                                    self.expanded_percentages.append(
+                                        calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+                                    self.traversed_percentages.append(
+                                        calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
                                 return bt, current_mincost + act.cost,self.time_limit_exceeded
 
 

@@ -181,19 +181,19 @@ class BTalgorithmBFS:
         '''
         Process the summary work after the algorithm ends.
         '''
-        if self.output_just_best:
-            # Only output the best
-            output_stack = []
-            tmp_pair = pair_node
-            while tmp_pair != g_cond_anc_pair:
-                tmp_seq_struct = cond_to_condActSeq[tmp_pair]
-                output_stack.append(tmp_seq_struct)
-                tmp_pair = child_to_parent[tmp_pair]
-
-            while output_stack != []:
-                tmp_seq_struct = output_stack.pop()
-                print(tmp_seq_struct)
-                subtree.add_child([copy.deepcopy(tmp_seq_struct)])
+        # if self.output_just_best:
+        #     # Only output the best
+        #     output_stack = []
+        #     tmp_pair = pair_node
+        #     while tmp_pair != g_cond_anc_pair:
+        #         tmp_seq_struct = cond_to_condActSeq[tmp_pair]
+        #         output_stack.append(tmp_seq_struct)
+        #         tmp_pair = child_to_parent[tmp_pair]
+        #
+        #     while output_stack != []:
+        #         tmp_seq_struct = output_stack.pop()
+        #         print(tmp_seq_struct)
+        #         subtree.add_child([copy.deepcopy(tmp_seq_struct)])
 
         # self.tree_size = self.bfs_cal_tree_size_subtree(bt)
         self.bt_without_merge = bt

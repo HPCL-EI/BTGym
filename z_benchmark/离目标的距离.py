@@ -47,7 +47,7 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
                                   key_objects=[],
                                   selected_algorithm=algo_str, mode="big",
                                   llm_reflect=False, time_limit=3,
-                                  heuristic_choice=heuristic_choice,exp=True)
+                                  heuristic_choice=heuristic_choice,exp=True,output_just_best=True)
 
             goal_set = goal_transfer_str(goal_str)
             # start_time = time.time()

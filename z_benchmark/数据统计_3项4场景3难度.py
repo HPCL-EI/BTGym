@@ -5,7 +5,6 @@ from collections import Counter
 import random
 from btgym.utils import ROOT_PATH
 import numpy as np
-os.chdir(f'{ROOT_PATH}/../z_benchmark')
 import time
 import re
 import btgym
@@ -18,7 +17,7 @@ from btgym.envs.RobotHow.exec_lib._base.RHAction import RHAction
 from btgym.envs.RobotHow_Small.exec_lib._base.RHSAction import RHSAction
 from btgym.envs.RoboWaiter.exec_lib._base.RWAction import RWAction
 from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
-
+os.chdir(f'{ROOT_PATH}/../z_benchmark')
 
 
 scene_Type = {}
@@ -83,7 +82,7 @@ def plot_hist(plot_type,difficulty):
         plt.ylabel('Counts')
         plt.title(f'Histogram of Lengths of {plot_type} in {scene} of {difficulty}')
         plt.xticks(list(counts.keys()))
-        plt.savefig(f'./images/{plot_type}_{difficulty}_{scene}.png',dpi=100)
+        plt.savefig(f'./images_histogram/{plot_type}_{scene}_{difficulty}.png',dpi=100)
         plt.show()
 
 plot_type = 'Objects'   # 'Actions', 'Predicates', 'Objects'

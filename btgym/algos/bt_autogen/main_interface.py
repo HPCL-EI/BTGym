@@ -55,15 +55,15 @@ class BTExpInterface:
             self.actions = self.big_actions
         elif mode=="user-defined":
             self.actions = action_list
-            print(f"自定义小动作空间：收集到 {len(self.actions)} 个动作")
+            # print(f"自定义小动作空间：收集到 {len(self.actions)} 个动作")
             # print("----------------------------------------------")
         elif mode=="small-objs":
             self.actions = self.collect_compact_object_actions(key_objects)
-            print(f"选择小动作空间，只考虑物体：收集到 {len(self.actions)} 个动作")
+            # print(f"选择小动作空间，只考虑物体：收集到 {len(self.actions)} 个动作")
             # print("----------------------------------------------")
         elif mode=="small-predicate-objs":
             self.actions = self.collect_compact_predicate_object_actions(key_predicates,key_objects)
-            print(f"选择小动作空间，考虑谓词和物体：收集到 {len(self.actions)} 个动作")
+            # print(f"选择小动作空间，考虑谓词和物体：收集到 {len(self.actions)} 个动作")
             # print("----------------------------------------------")
 
 
@@ -340,7 +340,7 @@ def collect_action_nodes(behavior_lib):
     for cls in behavior_lib["Action"].values():
         if cls.can_be_expanded:
             can_expand_ored+=1
-            print(f"可扩展动作：{cls.__name__}, 存在{len(cls.valid_args)}个有效论域组合")
+            # print(f"可扩展动作：{cls.__name__}, 存在{len(cls.valid_args)}个有效论域组合")
             # print({cls.__name__})
             if cls.num_args == 0:
                 action_list.append(Action(name=cls.get_ins_name(), **cls.get_info()))
@@ -351,8 +351,8 @@ def collect_action_nodes(behavior_lib):
                 for args in cls.valid_args:
                     action_list.append(Action(name=cls.get_ins_name(*args), **cls.get_info(*args)))
 
-    print(f"共收集到 {len(action_list)} 个实例化动作")
-    print(f"共收集到 {can_expand_ored} 个动作谓词")
+    # print(f"共收集到 {len(action_list)} 个实例化动作")
+    # print(f"共收集到 {can_expand_ored} 个动作谓词")
 
     # for a in self.action_list:
     #     if "Turn" in a.name:

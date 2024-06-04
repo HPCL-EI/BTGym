@@ -173,16 +173,16 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
     plt.savefig(f'./percentage_images/{percentages_type}_{difficulty}_{scene}.png', dpi=100)
     plt.show()
 
-max_epoch = 2000
-data_num = 100
+max_epoch = 200
+data_num = 5
 algo_type = ['opt_h0','opt_h0_llm', 'obtea', 'bfs']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
 
 for percentages_type in ['expanded']:  # 'expanded', 'traversed', 'cost'
     for difficulty in ['multi']:  # 'single', 'multi'
         print(f"============ percentages_type = {percentages_type}, difficulty = {difficulty} =============")
-        for scene in ['RH', 'RHS']:  # 'RH', 'RHS', 'RW', 'VH'
+        for scene in ['RHS']:  # 'RH', 'RHS', 'RW', 'VH'
             print(f"++++++++++ scene = {scene} ++++++++++")
-            plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, data_num, save_csv=True)
+            plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, data_num, save_csv=False)
 
 
 

@@ -174,7 +174,7 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
     plt.show()
 
 max_epoch = 200
-data_num = 5
+data_num = 100
 algo_type = ['opt_h0','opt_h0_llm', 'obtea', 'bfs']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
 
 for percentages_type in ['expanded']:  # 'expanded', 'traversed', 'cost'

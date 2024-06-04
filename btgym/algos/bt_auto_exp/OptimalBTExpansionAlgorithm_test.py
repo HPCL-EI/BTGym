@@ -592,8 +592,8 @@ class OptBTExpAlgorithm:
                     if error:
                         cur_cost = 999999999999999999
                     tmp_cost += cur_cost/(1+cur_cost)
-
-                cost_every_exp += tmp_cost/len(traversed_current)
+                if len(traversed_current) != 0:
+                    cost_every_exp += tmp_cost/len(traversed_current)
                 self.simu_cost_ls.append(cost_every_exp)
 
                 if len(self.expanded)>self.max_expanded_num:

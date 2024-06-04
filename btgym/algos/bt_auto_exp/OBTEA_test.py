@@ -137,7 +137,8 @@ def check_conflict(conds):
 
 class OBTEAlgorithm:
     def __init__(self, verbose=False, llm_reflect=False, llm=None, messages=None, priority_act_ls=None, time_limit=None, \
-                 consider_priopity=False, heuristic_choice=-1,output_just_best=True,exp=False,exp_cost=False):
+                 consider_priopity=False, heuristic_choice=-1,output_just_best=True,exp=False,exp_cost=False,
+                 max_expanded_num=100):
         self.bt = None
         self.start = None
         self.goal = None
@@ -183,6 +184,7 @@ class OBTEAlgorithm:
         self.exp_cost = exp_cost
         self.max_min_cost_ls = []
         self.simu_cost_ls = []
+        self.max_expanded_num=max_expanded_num
 
     def clear(self):
         self.bt = None
@@ -554,12 +556,27 @@ class OBTEAlgorithm:
             current_trust = current_pair.cond_leaf.trust_cost
 
             if self.exp_cost:
-            # 模拟调用计算cost
-                tmp_bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
-                                          cond_to_condActSeq)
-                error, state, act_num, current_cost, record_act_ls = execute_bt(tmp_bt,goal, c,
-                                                                                 verbose=False)
-                self.simu_cost_ls.append(current_cost)
+                # cal  current_cost
+                # 一共 self.max_expanded_num
+                # self.max_expanded_num=10
+                # traversed_current 中全部都需要算一个  cost
+                cost_every_exp = self.max_expanded_num - len(self.expanded) + 1
+                tmp_bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt,
+                                              child_to_parent,
+                                              cond_to_condActSeq)
+                error, state, act_num, cur_cost, record_act_ls = execute_bt(tmp_bt, goal, c_attr,
+                                                                            verbose=False)
+                if error:
+                    cur_cost = 999999999999999999
+                if len(traversed_current) != 0:
+                    cost_every_exp += tmp_cost / (1 + cur_cost)
+                self.simu_cost_ls.append(cost_every_exp)
+
+                if self.traversed_state_num > self.max_expanded_num:
+                    bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt,
+                                              child_to_parent,
+                                              cond_to_condActSeq)
+                    return bt, min_cost, self.time_limit_exceeded
 
             # if self.verbose:
             # if current_pair.act_leaf.content != None:

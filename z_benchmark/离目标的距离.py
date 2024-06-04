@@ -135,7 +135,7 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
 
         # save detail to csv
         detailed_df = pd.DataFrame.from_records(detail_rows)
-        save_path = f'./algo_details/{difficulty}_{scene}_{algo_str}.csv'
+        save_path = f'./algo_details/{difficulty}_{scene}_{algo_str_complete}.csv'
         detailed_df.to_csv(save_path, index=False)
 
         # 保存所有epoch的数据
@@ -143,7 +143,7 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
             if heuristic_choice == 0: algo_str = 'opt_h0'
             if heuristic_choice == 1: algo_str = 'opt_h1'
             df = pd.DataFrame(corr_ratio_all)
-            file_path = f'./percentage_output/{percentages_type}_{difficulty}_{scene}_{algo_str}.csv'
+            file_path = f'./percentage_output/{percentages_type}_{difficulty}_{scene}_{algo_str_complete}.csv'
             df.to_csv(file_path, index=False, header=False)
 
 
@@ -173,16 +173,16 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
     plt.savefig(f'./percentage_images/{percentages_type}_{difficulty}_{scene}.png', dpi=100)
     plt.show()
 
-max_epoch = 200
+max_epoch = 2000
 data_num = 100
-algo_type = ['opt_h0','opt_h0_llm', 'obtea', 'bfs']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
+algo_type = ['obtea']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
 
 for percentages_type in ['expanded']:  # 'expanded', 'traversed', 'cost'
     for difficulty in ['multi']:  # 'single', 'multi'
         print(f"============ percentages_type = {percentages_type}, difficulty = {difficulty} =============")
         for scene in ['RHS']:  # 'RH', 'RHS', 'RW', 'VH'
             print(f"++++++++++ scene = {scene} ++++++++++")
-            plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, data_num, save_csv=False)
+            plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, data_num, save_csv=True)
 
 
 

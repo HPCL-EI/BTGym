@@ -42,15 +42,11 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
         elif algo_str == "opt_h1": heuristic_choice = 1
         if algo_str in ['opt_h0', 'opt_h1',"opt_h0_llm"]: algo_str = 'opt'
 
-        # Initialize DataFrame for recording results
-        detailed_results = pd.DataFrame(columns=[
-            'Scene', 'Algorithm', 'Data Index', 'Goal String', 'Optimal Actions', 'LLM Optimal Actions',
-            'Vital Action Predicates', 'Vital Objects', 'Time Limit Exceeded', 'Error', 'Expanded Number',
-            'Planning Time Total', 'Current Cost', 'Action Number', 'Recorded Action List'
-        ])
+        # Recording result details
+        detail_rows = []
 
         for i, (d,ld) in enumerate(zip(data[:data_num],llm_data[:data_num])):
-            print("i:",i)
+            # print("i:",i)
             goal_str = ' & '.join(d["Goals"])
             goal_set = goal_transfer_str(goal_str)
             opt_act = act_str_process(d['Optimal Actions'], already_split=True)
@@ -93,16 +89,27 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
             time_limit_exceeded = algo.algo.time_limit_exceeded
             ptml_string, cost, expanded_num = algo.post_process()
             error, state, act_num, current_cost, record_act_ls = algo.execute_bt(goal_set[0], cur_cond_set, verbose=False)
-            print(f"\x1b[32m Goal:{goal_str} \n Executed {act_num} action steps\x1b[0m",
-                  "\x1b[31mERROR\x1b[0m" if error else "",
-                  "\x1b[31mTIMEOUT\x1b[0m" if time_limit_exceeded else "")
-            print("current_cost:", current_cost, "expanded_num:", expanded_num, "planning_time_total:", planning_time_total)
+            # print(f"\x1b[32m Goal:{goal_str} \n Executed {act_num} action steps\x1b[0m",
+            #       "\x1b[31mERROR\x1b[0m" if error else "",
+            #       "\x1b[31mTIMEOUT\x1b[0m" if time_limit_exceeded else "")
+            # print("current_cost:", current_cost, "expanded_num:", expanded_num, "planning_time_total:", planning_time_total)
 
             # 记录每个场景 每个算法 每条数据的详细结果 存入 csv
-            # goal_str    d['Optimal Actions']   ld['Optimal Actions']  d['Vital Action Predicates']   d['Vital Objects']
-            # time_limit_exceeded,  error,  expanded_num, planning_time_total, current_cost, act_num, record_act_ls
-
-
+            new_row = {
+                'Goal': goal_str,
+                'Optimal_Actions': d['Optimal Actions'],
+                'LLM_Optimal_Actions': ld['Optimal Actions'],
+                'Vital_Action_Predicates': d['Vital Action Predicates'],
+                'Vital_Objects': d['Vital Objects'],
+                'Time_Limit_Exceeded': time_limit_exceeded,
+                'Error': error,
+                'Expanded_Number': expanded_num,
+                'Planning_Time_Total': planning_time_total,
+                'Current_Cost': current_cost,
+                'Action_Number': act_num,
+                'Recorded_Action_List': record_act_ls,
+            }
+            detail_rows.append(new_row)
 
             if percentages_type == 'expanded':
                 corr_ratio = algo.algo.expanded_percentages
@@ -117,6 +124,11 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
                 corr_ratio = corr_ratio[:max_epoch]
 
             corr_ratio_all.append(corr_ratio)
+
+        # save detail to csv
+        detailed_df = pd.DataFrame.from_records(detail_rows)
+        save_path = f'./algo_details/{difficulty}_{scene}_{algo_str}.csv'
+        detailed_df.to_csv(save_path, index=False)
 
         # 保存所有epoch的数据
         if save_csv == True:
@@ -154,13 +166,13 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
     plt.show()
 
 max_epoch = 1000
-data_num = 100
-algo_type = ['opt_h0','opt_h0_llm', 'obtea', 'bfs']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
+data_num = 4
+algo_type = ['opt_h0_llm']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
 
 for percentages_type in ['expanded']:  # 'expanded', 'traversed', 'cost'
-    for difficulty in ['multi']:  # 'single', 'multi'
+    for difficulty in ['single']:  # 'single', 'multi'
         print(f"============ percentages_type = {percentages_type}, difficulty = {difficulty} =============")
-        for scene in ['RH', 'RHS','VH']:  # 'RH', 'RHS', 'RW', 'VH'
+        for scene in ['VH']:  # 'RH', 'RHS', 'RW', 'VH'
             print(f"++++++++++ scene = {scene} ++++++++++")
             plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, data_num, save_csv=True)
 

@@ -460,6 +460,7 @@ class OBTEAlgorithm:
             return bt, 0, self.time_limit_exceeded
 
         epsh = 0
+        cost_every_exp=0
         while len(self.nodes) != 0:
 
             # 0602 记录有多少动作在里面了
@@ -511,15 +512,15 @@ class OBTEAlgorithm:
                 else:
                     subtree.add_child([copy.deepcopy(sequence_structure)])
 
-                if c <= start:
-                    bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
-                                              cond_to_condActSeq)
-                    if self.exp:
-                        self.expanded_percentages.append(
-                            calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
-                        self.traversed_percentages.append(
-                            calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
-                    return bt, min_cost, self.time_limit_exceeded
+                # if c <= start:
+                #     bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
+                #                               cond_to_condActSeq)
+                #     if self.exp:
+                #         self.expanded_percentages.append(
+                #             calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+                #         self.traversed_percentages.append(
+                #             calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
+                #     return bt, min_cost, self.time_limit_exceeded
             # =============额外家的
             elif c == set() and c <= start:
                 sequence_structure = ControlBT(type='>')
@@ -555,26 +556,26 @@ class OBTEAlgorithm:
             current_mincost = current_pair.cond_leaf.min_cost
             current_trust = current_pair.cond_leaf.trust_cost
 
+            # 模拟调用计算cost
             if self.exp_cost:
                 # cal  current_cost
                 # 一共 self.max_expanded_num
                 # self.max_expanded_num=10
                 # traversed_current 中全部都需要算一个  cost
-                cost_every_exp = self.max_expanded_num - len(self.expanded) + 1
-                tmp_bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt,
-                                              child_to_parent,
-                                              cond_to_condActSeq)
-                error, state, act_num, cur_cost, record_act_ls = execute_bt(tmp_bt, goal, c_attr,
-                                                                            verbose=False)
-                if error:
-                    cur_cost = 999999999999999999
-                if len(traversed_current) != 0:
-                    cost_every_exp += tmp_cost / (1 + cur_cost)
+                # exp=False,exp_cost=True,output_just_best=False,max_expanded_num=max_epoch
+                # cost_every_exp = self.max_expanded_num - len(self.expanded) + 1
+                tmp_bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
+                                          cond_to_condActSeq)
+                error, state, act_num, cur_cost, record_act_ls = execute_bt(tmp_bt, goal, c,
+                                                                                verbose=False)
+                # if error:
+                #     cur_cost = 999999999999999999
+
+                cost_every_exp += cur_cost
                 self.simu_cost_ls.append(cost_every_exp)
 
-                if self.traversed_state_num > self.max_expanded_num:
-                    bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt,
-                                              child_to_parent,
+                if len(self.expanded)>self.max_expanded_num:
+                    bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
                                               cond_to_condActSeq)
                     return bt, min_cost, self.time_limit_exceeded
 

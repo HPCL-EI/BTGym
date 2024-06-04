@@ -5,7 +5,7 @@ import random
 def get_SR(scene, algo_str, just_best):
     return round(random.random(), 2)
 
-algorithms = ['opt_h0', 'opt_h1', 'obtea', 'bfs', 'dfs']  # 'opt_h0', 'opt_h1', 'obtea', 'bfs', 'dfs'
+algorithms = ['opt_h0','opt_h0_llm', 'obtea', 'bfs']  # 'opt_h0', 'opt_h1', 'obtea', 'bfs', 'dfs'
 scenes = ['RH', 'RHS', 'RW', 'VH']  # 'RH', 'RHS', 'RW', 'VH'
 just_best_bts = [True, False] # True, False
 

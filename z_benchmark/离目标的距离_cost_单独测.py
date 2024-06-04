@@ -46,8 +46,8 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
         detail_rows = []
 
         for i, (d,ld) in enumerate(zip(data[:data_num],llm_data[:data_num])):
-            if i%10 == 0:
-                print("i:",i)
+            # if i%10 == 0:
+            print("i:",i)
             goal_str = ' & '.join(d["Goals"])
             goal_set = goal_transfer_str(goal_str)
             opt_act = act_str_process(d['Optimal Actions'], already_split=True)
@@ -67,7 +67,7 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
                 priority_opt_act = act_str_process(ld['Optimal Actions'], already_split=True)
                 print("llm_opt_act:",priority_opt_act)
                 print("opt_act:", opt_act)
-            if "opt" in algo_str_complete:
+            elif "opt" in algo_str_complete:
                 priority_opt_act=opt_act
 
             algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
@@ -75,8 +75,8 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
                                   key_objects=[],
                                   selected_algorithm=algo_str, mode="big",
                                   llm_reflect=False, time_limit=5,
-                                  heuristic_choice=heuristic_choice,exp=False,exp_cost=True,
-                                  output_just_best=False,max_expanded_num=10)
+                                  heuristic_choice=heuristic_choice,exp=False,exp_cost=True,output_just_best=False,
+                                  theory_priority_act_ls=opt_act,max_expanded_num=max_epoch)
 
             goal_set = goal_transfer_str(goal_str)
             start_time = time.time()
@@ -126,6 +126,10 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
             elif percentages_type == 'cost':
                 # corr_ratio = algo.algo.max_min_cost_ls
                 corr_ratio = algo.algo.simu_cost_ls
+                # corr_ratio = corr_ratio/max_epoch
+                # corr_ratio = corr_ratio/([1]*max_epoch-corr_ratio)
+
+                print(corr_ratio)
             if len(corr_ratio) < max_epoch:
                 corr_ratio.extend([corr_ratio[-1]] * (max_epoch - len(corr_ratio)))
             else:
@@ -134,16 +138,16 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
             corr_ratio_all.append(corr_ratio)
 
         # save detail to csv
-        detailed_df = pd.DataFrame.from_records(detail_rows)
-        save_path = f'./algo_details/{difficulty}_{scene}_{algo_str}.csv'
-        detailed_df.to_csv(save_path, index=False)
+        # detailed_df = pd.DataFrame.from_records(detail_rows)
+        # save_path = f'./algo_details/{difficulty}_{scene}_{algo_str_complete}.csv'
+        # detailed_df.to_csv(save_path, index=False)
 
         # 保存所有epoch的数据
         if save_csv == True:
             if heuristic_choice == 0: algo_str = 'opt_h0'
             if heuristic_choice == 1: algo_str = 'opt_h1'
             df = pd.DataFrame(corr_ratio_all)
-            file_path = f'./percentage_output/{percentages_type}_{difficulty}_{scene}_{algo_str}.csv'
+            file_path = f'./percentage_output/{percentages_type}_{difficulty}_{scene}_{algo_str_complete}.csv'
             df.to_csv(file_path, index=False, header=False)
 
 
@@ -173,16 +177,17 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
     plt.savefig(f'./percentage_images/{percentages_type}_{difficulty}_{scene}.png', dpi=100)
     plt.show()
 
-max_epoch = 10
-data_num = 10
-algo_type = ['opt_h0','obtea']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
+max_epoch = 50
+data_num = 1
+algo_type = ['opt_h0','opt_h0_llm','obtea','bfs']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
 
 for percentages_type in ['cost']:  # 'expanded', 'traversed', 'cost'
     for difficulty in ['multi']:  # 'single', 'multi'
         print(f"============ percentages_type = {percentages_type}, difficulty = {difficulty} =============")
-        for scene in [ 'RHS']:  # 'RH', 'RHS', 'RW', 'VH'
+        for scene in ['RH']:  # 'RH', 'RHS', 'RW', 'VH'
             print(f"++++++++++ scene = {scene} ++++++++++")
-            plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, data_num, save_csv=True)
+            plot_percentage(percentages_type, difficulty, scene, algo_type,
+                            max_epoch, data_num, save_csv=True)
 
 
 

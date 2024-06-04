@@ -267,6 +267,8 @@ class BTalgorithmBFS:
         self.max_min_cost_ls = []
         self.simu_cost_ls = []
 
+        cost_every_exp=0
+
         if self.verbose:
             print("\nAlgorithm starts！")
 
@@ -297,6 +299,7 @@ class BTalgorithmBFS:
                 calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
             print("goal <= start, no need to generate bt.")
             return bt, 0,self.time_limit_exceeded
+
 
         while len(self.nodes) != 0:
 
@@ -463,20 +466,16 @@ class BTalgorithmBFS:
                                 # 一共 self.max_expanded_num
                                 # self.max_expanded_num=10
                                 # traversed_current 中全部都需要算一个  cost
-                                cost_every_exp = self.max_expanded_num - len(self.expanded) + 1
                                 tmp_bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt,
                                                               child_to_parent,
                                                               cond_to_condActSeq)
 
                                 error, state, act_num, cur_cost, record_act_ls = execute_bt(tmp_bt, goal, c,
                                                                                             verbose=False)
-                                if error:
-                                    cur_cost = 999999999999999999
-                                if len(traversed_current) != 0:
-                                    cost_every_exp += tmp_cost / (1 + cur_cost)
+                                cost_every_exp += cur_cost
                                 self.simu_cost_ls.append(cost_every_exp)
 
-                                if len(self.expanded) > self.max_expanded_num:
+                                if self.traversed_state_num > self.max_expanded_num:
                                     bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt,
                                                               child_to_parent,
                                                               cond_to_condActSeq)

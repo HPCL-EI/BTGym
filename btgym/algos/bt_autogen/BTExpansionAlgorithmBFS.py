@@ -118,7 +118,7 @@ def check_conflict(conds):
 
 class BTalgorithmBFS:
     def __init__(self, verbose=False, llm_reflect=False, llm=None, messages=None, priority_act_ls=None, time_limit=None, \
-                 consider_priopity=False, heuristic_choice=-1,output_just_best=True,exp=False,exp_cost=False):
+                 consider_priopity=False, heuristic_choice=-1,output_just_best=True,exp=False,exp_cost=False,theory_priority_act_ls=None):
         self.bt = None
         self.start = None
         self.goal = None
@@ -155,6 +155,12 @@ class BTalgorithmBFS:
         self.exp_cost = exp_cost
         self.max_min_cost_ls = []
         self.simu_cost_ls = []
+        self.expanded_act_ls_ls = []
+
+        if theory_priority_act_ls != None:
+            self.theory_priority_act_ls = theory_priority_act_ls
+        else:
+            self.theory_priority_act_ls = priority_act_ls
 
 
     def clear(self):
@@ -182,6 +188,7 @@ class BTalgorithmBFS:
 
         self.max_min_cost_ls = []
         self.simu_cost_ls = []
+        self.expanded_act_ls_ls = []
 
 
     def post_processing(self,pair_node,g_cond_anc_pair,subtree,bt,child_to_parent,cond_to_condActSeq,success=True):
@@ -289,9 +296,9 @@ class BTalgorithmBFS:
         if goal <= start:
             self.bt_without_merge = bt
             self.expanded_percentages.append(
-                calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+                calculate_priority_percentage(self.expanded_act, self.theory_priority_act_ls))
             self.traversed_percentages.append(
-                calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
+                calculate_priority_percentage(self.traversed_act, self.theory_priority_act_ls))
             print("goal <= start, no need to generate bt.")
             return bt, 0,self.time_limit_exceeded
 
@@ -329,8 +336,9 @@ class BTalgorithmBFS:
             c = current_pair.cond_leaf.content
 
             if self.exp:
-                self.expanded_percentages.append(calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
-                self.traversed_percentages.append(calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
+                self.expanded_act_ls_ls.append(self.expanded_act)
+                self.expanded_percentages.append(calculate_priority_percentage(self.expanded_act, self.theory_priority_act_ls))
+                self.traversed_percentages.append(calculate_priority_percentage(self.traversed_act, self.theory_priority_act_ls))
                 if current_pair.act_leaf.content!=None:
                     self.max_min_cost_ls.append(current_pair.act_leaf.trust_cost)
                 else:
@@ -363,10 +371,11 @@ class BTalgorithmBFS:
                 if c <= start:
                     bt = self.post_processing(current_pair , goal_cond_act_pair, subtree, bt,child_to_parent,cond_to_condActSeq)
                     if self.exp:
+                        self.expanded_act_ls_ls.append(self.expanded_act)
                         self.expanded_percentages.append(
-                            calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+                            calculate_priority_percentage(self.expanded_act, self.theory_priority_act_ls))
                         self.traversed_percentages.append(
-                            calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
+                            calculate_priority_percentage(self.traversed_act, self.theory_priority_act_ls))
                     return bt, min_cost,self.time_limit_exceeded
 
                 if self.verbose:
@@ -462,10 +471,11 @@ class BTalgorithmBFS:
                                 if self.exp:
                                     self.expanded_act.append(act.name)
                                     self.traversed_act.append(act.name)
+                                    self.expanded_act_ls_ls.append(self.expanded_act)
                                     self.expanded_percentages.append(
-                                        calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+                                        calculate_priority_percentage(self.expanded_act, self.theory_priority_act_ls))
                                     self.traversed_percentages.append(
-                                        calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
+                                        calculate_priority_percentage(self.traversed_act, self.theory_priority_act_ls))
                                     self.max_min_cost_ls.append(new_pair.act_leaf.trust_cost)
                                 return bt, current_mincost + act.cost,self.time_limit_exceeded
 

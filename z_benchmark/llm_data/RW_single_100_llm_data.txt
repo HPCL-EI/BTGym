@@ -502,13 +502,13 @@ Optimal Actions: Clean_Chairs
 Vital Action Predicates: Clean
 Vital Objects: Chairs
 
-55
-Environment:1
+65
+Environment: 
 Instruction: 
-Goals: RobotNear_Bar
-Optimal Actions: MoveTo_Robot, MoveTo_Bar
-Vital Action Predicates: 
-Vital Objects: 
+Goals: RobotNear_BrightTable6
+Optimal Actions: MoveTo_BrightTable6
+Vital Action Predicates: MoveTo
+Vital Objects: BrightTable6
 
 56
 Environment:1
@@ -687,12 +687,12 @@ Vital Action Predicates: MoveTo, PickUp, PutDown
 Vital Objects: Yogurt, WaterStation
 
 78
-Environment:1
+Environment: 
 Instruction: 
-Goals: RobotNear_Bar
-Optimal Actions: MoveTo_Robot_Bar
-Vital Action Predicates: 
-Vital Objects: 
+Goals: RobotNear_Table2
+Optimal Actions: MoveTo_Table2
+Vital Action Predicates: MoveTo
+Vital Objects: Table2
 
 79
 Environment:1

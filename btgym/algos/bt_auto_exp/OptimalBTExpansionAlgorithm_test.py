@@ -577,21 +577,28 @@ class OptBTExpAlgorithm:
 
             # 模拟调用计算cost
             if self.exp_cost:
-                # 计算 trased 中所有上一轮新加入节点到goal的cost
+                # cal  current_cost
+                # 一共 self.max_expanded_num
+                # self.max_expanded_num=10
+                # traversed_current 中全部都需要算一个  cost
                 tmp_bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
-                                              cond_to_condActSeq)
-                self.tmp_bt_ls.append(copy.deepcopy(tmp_bt))
-                self.traversed_c_ls.append(traversed_current)
+                                          cond_to_condActSeq)
 
-                if self.expanded>self.max_expanded_num:
+                cost_every_exp = self.max_expanded_num - len(self.expanded) + 1
+                tmp_cost = 0
+                for tr_c in traversed_current:
+                    error, state, act_num, cur_cost, record_act_ls = execute_bt(tmp_bt, goal, tr_c,
+                                                                                    verbose=False)
+                    if error:
+                        cur_cost = 999999999999999999
+                    tmp_cost += cur_cost/(1+cur_cost)
+
+                cost_every_exp += tmp_cost/len(traversed_current)
+                self.simu_cost_ls.append(cost_every_exp)
+
+                if len(self.expanded)>self.max_expanded_num:
                     return bt, min_cost, self.time_limit_exceeded
 
-
-                #     tmp_bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
-                #                               cond_to_condActSeq)
-                #     error, state, act_num, current_cost, record_act_ls = execute_bt(tmp_bt,goal, c,
-                #                                                                      verbose=False)
-                #     self.simu_cost_ls.append(current_cost)
 
 
             # ====================== Action Trasvers ============================ #

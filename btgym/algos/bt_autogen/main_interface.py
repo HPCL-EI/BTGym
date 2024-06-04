@@ -25,11 +25,14 @@ class BTExpInterface:
     def __init__(self, behavior_lib, cur_cond_set, priority_act_ls=[], key_predicates=[], key_objects=[], selected_algorithm="opt",
                  mode="big",
                  bt_algo_opt=True, llm_reflect=False, llm=None, messages=None, action_list=None,use_priority_act=True,time_limit=None,
-                 heuristic_choice=-1,output_just_best=True,exp=False,exp_cost=False,max_expanded_num=None):
+                 heuristic_choice=-1,output_just_best=True,exp=False,exp_cost=False,max_expanded_num=None,
+                 theory_priority_act_ls=None):
         """
         Initialize the BTOptExpansion with a list of actions.
         :param action_list: A list of actions to be used in the behavior tree.
         """
+
+
         self.cur_cond_set = cur_cond_set
         self.bt_algo_opt = bt_algo_opt
         self.selected_algorithm = selected_algorithm
@@ -83,8 +86,14 @@ class BTExpInterface:
         if self.priority_act_ls !=[]:
             self.consider_priopity=True
 
+
         # if self.heuristic_choice==-1: 在 adjust_action_priority 里面已经写了这个控制
         #     self.priority_act_ls=[]
+
+        if theory_priority_act_ls!=None:
+            self.theory_priority_act_ls=theory_priority_act_ls
+        else:
+            self.theory_priority_act_ls=self.priority_act_ls
 
         self.actions = self.adjust_action_priority(self.actions, self.priority_act_ls, self.priority_obj_ls,
                                                        self.selected_algorithm)
@@ -109,15 +118,18 @@ class BTExpInterface:
                                               llm_reflect=self.llm_reflect, llm=self.llm, messages=self.messages, \
                                               priority_act_ls=self.priority_act_ls,time_limit=self.time_limit,
                                               consider_priopity = self.consider_priopity,exp_cost=self.exp_cost,
-                                              heuristic_choice = self.heuristic_choice,output_just_best=self.output_just_best,exp=self.exp)
+                                              heuristic_choice = self.heuristic_choice,output_just_best=self.output_just_best,
+                                              exp=self.exp,theory_priority_act_ls=self.theory_priority_act_ls)
             elif self.selected_algorithm == "obtea":
                 self.algo = OBTEAlgorithm(verbose=False, \
                                               llm_reflect=self.llm_reflect, llm=self.llm, messages=self.messages, \
                                               priority_act_ls=self.priority_act_ls, time_limit=self.time_limit,
                                               consider_priopity=self.consider_priopity,exp_cost=self.exp_cost,
-                                              heuristic_choice=self.heuristic_choice,output_just_best=self.output_just_best,exp=self.exp)
+                                              heuristic_choice=self.heuristic_choice,output_just_best=self.output_just_best,
+                                          exp=self.exp,theory_priority_act_ls=self.theory_priority_act_ls)
             elif self.selected_algorithm == "bfs":
-                self.algo = BTalgorithmBFS(verbose=False,time_limit = self.time_limit,output_just_best=self.output_just_best,priority_act_ls=self.priority_act_ls,exp_cost=self.exp_cost,exp=self.exp)
+                self.algo = BTalgorithmBFS(verbose=False,time_limit = self.time_limit,output_just_best=self.output_just_best,
+                                           priority_act_ls=self.priority_act_ls,exp_cost=self.exp_cost,exp=self.exp,theory_priority_act_ls=self.theory_priority_act_ls)
                 # self.algo = BTalgorithm(verbose=False)
             elif self.selected_algorithm == "dfs":
                 self.algo = BTalgorithmDFS(verbose=False)
@@ -325,7 +337,7 @@ class BTExpInterface:
         # if verbose:
         #     print(f"一定运行了 {act_num-1} 个动作步")
         #     print("current_cost:",current_cost)
-        return error,state,act_num-1,current_cost,record_act[:-1]
+        return error,state,act_num-1,current_cost,record_act[:-1],current_tick_time
 
 
     # 方法一：查找所有初始状态是否包含当前状态

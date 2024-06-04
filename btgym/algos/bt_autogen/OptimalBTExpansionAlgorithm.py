@@ -137,7 +137,8 @@ def check_conflict(conds):
 
 class OptBTExpAlgorithm:
     def __init__(self, verbose=False, llm_reflect=False, llm=None, messages=None, priority_act_ls=None, time_limit=None, \
-                 consider_priopity=False, heuristic_choice=-1,output_just_best=True,exp=False,exp_cost=False):
+                 consider_priopity=False, heuristic_choice=-1,output_just_best=True,exp=False,exp_cost=False,
+                 theory_priority_act_ls=None):
         self.bt = None
         self.start = None
         self.goal = None
@@ -170,7 +171,12 @@ class OptBTExpAlgorithm:
         self.llm_reflect = llm_reflect
         self.llm = llm
         self.messages = messages
+
         self.priority_act_ls = priority_act_ls
+        if theory_priority_act_ls!=None:
+            self.theory_priority_act_ls = theory_priority_act_ls
+        else:
+            self.theory_priority_act_ls = priority_act_ls
 
         self.act_cost_dic = {}
         self.time_limit_exceeded = False
@@ -184,6 +190,7 @@ class OptBTExpAlgorithm:
         self.exp = exp
         self.exp_cost = exp_cost
         self.simu_cost_ls = []
+        self.expanded_act_ls_ls = []
 
     def clear(self):
         self.bt = None
@@ -213,6 +220,7 @@ class OptBTExpAlgorithm:
         # 0602
         self.expanded_percentages = []
         self.simu_cost_ls = []
+        self.expanded_act_ls_ls=[]
 
     def post_processing(self, pair_node, g_cond_anc_pair, subtree, bt, child_to_parent, cond_to_condActSeq):
         '''
@@ -406,6 +414,7 @@ class OptBTExpAlgorithm:
         self.expanded = []  # Conditions for storing expanded nodes
         self.expanded_act = []
         self.expanded_percentages = []
+        self.expanded_act_ls_ls = []
 
 
         self.traversed = []  # Conditions for storing nodes that have been put into the priority queue
@@ -480,8 +489,10 @@ class OptBTExpAlgorithm:
             # 当前是第 len(self.expanded) 个
             # 求对应的扩展的动作里占了self.priority_act_ls的百分之几
             # Add the initial percentage for the goal node
-            self.expanded_percentages.append(calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
-            self.traversed_percentages.append(calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
+            if self.exp:
+                self.expanded_act_ls_ls.append(self.expanded_act)
+                self.expanded_percentages.append(calculate_priority_percentage(self.expanded_act, self.theory_priority_act_ls))
+                self.traversed_percentages.append(calculate_priority_percentage(self.traversed_act, self.theory_priority_act_ls))
 
 
 
@@ -522,10 +533,13 @@ class OptBTExpAlgorithm:
                 if c <= start:
                     bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
                                               cond_to_condActSeq)
-                    self.expanded_percentages.append(
-                        calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
-                    self.traversed_percentages.append(
-                        calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
+                    if self.exp:
+                        self.expanded_act_ls_ls.append(self.expanded_act)
+                        self.expanded_percentages.append(
+                            calculate_priority_percentage(self.expanded_act, self.theory_priority_act_ls))
+                        self.traversed_percentages.append(
+                            calculate_priority_percentage(self.traversed_act, self.theory_priority_act_ls))
+
                     return bt, min_cost, self.time_limit_exceeded
             # =============额外家的
             elif c == set() and c <= start:

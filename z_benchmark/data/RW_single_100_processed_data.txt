@@ -513,10 +513,10 @@ Vital Objects: Chairs
 65
 Environment: 
 Instruction: 
-Goals: RobotNear_Bar
-Optimal Actions: 
-Vital Action Predicates: 
-Vital Objects: 
+Goals: RobotNear_BrightTable6
+Optimal Actions: MoveTo_BrightTable6
+Vital Action Predicates: MoveTo
+Vital Objects: BrightTable6
 
 66
 Environment: 
@@ -697,10 +697,10 @@ Vital Objects: Yogurt, WaterStation
 88
 Environment: 
 Instruction: 
-Goals: RobotNear_Bar
-Optimal Actions: 
-Vital Action Predicates: 
-Vital Objects: 
+Goals: RobotNear_Table2
+Optimal Actions: MoveTo_Table2
+Vital Action Predicates: MoveTo
+Vital Objects: Table2
 
 89
 Environment: 

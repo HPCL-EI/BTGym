@@ -42,7 +42,7 @@ Vital Objects: rag, fridge
 Environment:1
 Instruction: 
 Goals: IsNear_self_microwave
-Optimal Actions: Walk_mimalActions:Walk_microwave
+Optimal Actions: Walk_microwave
 Vital Action Predicates: Walk
 Vital Objects: microwave
 

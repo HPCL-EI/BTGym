@@ -74,7 +74,6 @@ class BTExpInterface:
             # print(f"选择小动作空间，考虑谓词和物体：收集到 {len(self.actions)} 个动作")
             # print("----------------------------------------------")
 
-
         if use_priority_act:
             self.priority_act_ls = self.filter_actions(priority_act_ls)
             self.priority_obj_ls = key_objects

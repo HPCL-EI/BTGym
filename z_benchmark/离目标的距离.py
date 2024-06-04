@@ -64,11 +64,17 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
             if algo_str_complete == "opt_h0_llm":
                 llm_opt_act = act_str_process(ld['Optimal Actions'], already_split=True)
                 algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
-                                      priority_act_ls=llm_opt_act, key_predicates=d['Vital Action Predicates'],
-                                      key_objects=d['Vital Objects'],
-                                      selected_algorithm=algo_str, mode="small-predicate-objs",
+                                      priority_act_ls=llm_opt_act, key_predicates=[],
+                                      key_objects=[],
+                                      selected_algorithm=algo_str, mode="big",
                                       llm_reflect=False, time_limit=5,
                                       heuristic_choice=heuristic_choice,exp=True,exp_cost=False,output_just_best=True)
+                # algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
+                #                       priority_act_ls=llm_opt_act, key_predicates=d['Vital Action Predicates'],
+                #                       key_objects=d['Vital Objects'],
+                #                       selected_algorithm=algo_str, mode="small-predicate-objs",
+                #                       llm_reflect=False, time_limit=5,
+                #                       heuristic_choice=heuristic_choice,exp=True,exp_cost=False,output_just_best=True)
             # 大空间
             else:
                 algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,

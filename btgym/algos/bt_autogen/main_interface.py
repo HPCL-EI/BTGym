@@ -14,6 +14,10 @@ seed=0
 random.seed(seed)
 np.random.seed(seed)
 
+from btgym.algos.bt_auto_exp.OptimalBTExpansionAlgorithm_test import OptBTExpAlgorithm as OptBTExpAlgorithm_test
+from btgym.algos.bt_auto_exp.BTExpansionAlgorithmBFS_test import BTalgorithmBFS as BTalgorithmBFS_test
+from btgym.algos.bt_auto_exp.OBTEA_test import OBTEAlgorithm as OBTEAlgorithm_test
+
 from btgym.algos.bt_autogen.tools import get_btml
 
 # 封装好的主接口
@@ -21,7 +25,7 @@ class BTExpInterface:
     def __init__(self, behavior_lib, cur_cond_set, priority_act_ls=[], key_predicates=[], key_objects=[], selected_algorithm="opt",
                  mode="big",
                  bt_algo_opt=True, llm_reflect=False, llm=None, messages=None, action_list=None,use_priority_act=True,time_limit=None,
-                 heuristic_choice=-1,output_just_best=True,exp=False,exp_cost=False):
+                 heuristic_choice=-1,output_just_best=True,exp=False,exp_cost=False,max_expanded_num=None):
         """
         Initialize the BTOptExpansion with a list of actions.
         :param action_list: A list of actions to be used in the behavior tree.
@@ -34,6 +38,7 @@ class BTExpInterface:
         self.output_just_best = output_just_best
         self.exp = exp
         self.exp_cost = exp_cost
+        self.max_expanded_num=max_expanded_num
 
         # 剪枝操作,现在的条件是以前扩展过的条件的超集
         self.consider_priopity = False
@@ -99,34 +104,56 @@ class BTExpInterface:
         :return: A btml string representing the outcome of the behavior tree.
         """
         self.goal = goal
-        if self.selected_algorithm == "opt":
-            self.algo = OptBTExpAlgorithm(verbose=False, \
-                                          llm_reflect=self.llm_reflect, llm=self.llm, messages=self.messages, \
-                                          priority_act_ls=self.priority_act_ls,time_limit=self.time_limit,
-                                          consider_priopity = self.consider_priopity,exp_cost=self.exp_cost,
-                                          heuristic_choice = self.heuristic_choice,output_just_best=self.output_just_best,exp=self.exp)
-        elif self.selected_algorithm == "obtea":
-            self.algo = OBTEAlgorithm(verbose=False, \
-                                          llm_reflect=self.llm_reflect, llm=self.llm, messages=self.messages, \
-                                          priority_act_ls=self.priority_act_ls, time_limit=self.time_limit,
-                                          consider_priopity=self.consider_priopity,exp_cost=self.exp_cost,
-                                          heuristic_choice=self.heuristic_choice,output_just_best=self.output_just_best,exp=self.exp)
-        elif self.selected_algorithm == "bfs":
-            self.algo = BTalgorithmBFS(verbose=False,time_limit = self.time_limit,output_just_best=self.output_just_best,priority_act_ls=self.priority_act_ls,exp_cost=self.exp_cost,exp=self.exp)
-            # self.algo = BTalgorithm(verbose=False)
-        elif self.selected_algorithm == "dfs":
-            self.algo = BTalgorithmDFS(verbose=False)
-        elif self.selected_algorithm == "weak":
-            self.algo = WeakalgorithmBFS(verbose=False,time_limit = self.time_limit,output_just_best=self.output_just_best,priority_act_ls=self.priority_act_ls,exp=self.exp)
-
-        # elif self.selected_algorithm == "baseline":
-        #     self.algo = OptBTExpAlgorithm_BaseLine(verbose=False, \
-        #                                   llm_reflect=self.llm_reflect, llm=self.llm, messages=self.messages, \
-        #                                   priority_act_ls=self.priority_act_ls)
-        # elif self.selected_algorithm == "opt-h":
-        #     self.algo = OptBTExpAlgorithmHeuristics(verbose=False)
+        if not self.exp_cost:
+            if self.selected_algorithm == "opt":
+                self.algo = OptBTExpAlgorithm(verbose=False, \
+                                              llm_reflect=self.llm_reflect, llm=self.llm, messages=self.messages, \
+                                              priority_act_ls=self.priority_act_ls,time_limit=self.time_limit,
+                                              consider_priopity = self.consider_priopity,exp_cost=self.exp_cost,
+                                              heuristic_choice = self.heuristic_choice,output_just_best=self.output_just_best,exp=self.exp)
+            elif self.selected_algorithm == "obtea":
+                self.algo = OBTEAlgorithm(verbose=False, \
+                                              llm_reflect=self.llm_reflect, llm=self.llm, messages=self.messages, \
+                                              priority_act_ls=self.priority_act_ls, time_limit=self.time_limit,
+                                              consider_priopity=self.consider_priopity,exp_cost=self.exp_cost,
+                                              heuristic_choice=self.heuristic_choice,output_just_best=self.output_just_best,exp=self.exp)
+            elif self.selected_algorithm == "bfs":
+                self.algo = BTalgorithmBFS(verbose=False,time_limit = self.time_limit,output_just_best=self.output_just_best,priority_act_ls=self.priority_act_ls,exp_cost=self.exp_cost,exp=self.exp)
+                # self.algo = BTalgorithm(verbose=False)
+            elif self.selected_algorithm == "dfs":
+                self.algo = BTalgorithmDFS(verbose=False)
+            elif self.selected_algorithm == "weak":
+                self.algo = WeakalgorithmBFS(verbose=False,time_limit = self.time_limit,output_just_best=self.output_just_best,priority_act_ls=self.priority_act_ls,exp=self.exp)
+            else:
+                print("Error in algorithm selection: This algorithm does not exist.")
         else:
-            print("Error in algorithm selection: This algorithm does not exist.")
+            if self.selected_algorithm == "opt":
+                self.algo = OptBTExpAlgorithm_test(verbose=False, \
+                                              llm_reflect=self.llm_reflect, llm=self.llm, messages=self.messages, \
+                                              priority_act_ls=self.priority_act_ls,time_limit=self.time_limit,
+                                              consider_priopity = self.consider_priopity,exp_cost=self.exp_cost,
+                                              heuristic_choice = self.heuristic_choice,output_just_best=self.output_just_best,\
+                                                   exp=self.exp,max_expanded_num=self.max_expanded_num)
+            elif self.selected_algorithm == "obtea":
+                self.algo = OBTEAlgorithm_test(verbose=False, \
+                                              llm_reflect=self.llm_reflect, llm=self.llm, messages=self.messages, \
+                                              priority_act_ls=self.priority_act_ls, time_limit=self.time_limit,
+                                              consider_priopity=self.consider_priopity,exp_cost=self.exp_cost,
+                                              heuristic_choice=self.heuristic_choice,output_just_best=self.output_just_best,\
+                                               exp=self.exp,max_expanded_num=self.max_expanded_num)
+            elif self.selected_algorithm == "bfs":
+                self.algo = BTalgorithmBFS_test(verbose=False,time_limit = self.time_limit,output_just_best=self.output_just_best,\
+                                                priority_act_ls=self.priority_act_ls,exp_cost=self.exp_cost,exp=self.exp,\
+                                                max_expanded_num=self.max_expanded_num)
+            else:
+                print("Error in algorithm selection: This algorithm does not exist.")
+            # elif self.selected_algorithm == "baseline":
+            #     self.algo = OptBTExpAlgorithm_BaseLine(verbose=False, \
+            #                                   llm_reflect=self.llm_reflect, llm=self.llm, messages=self.messages, \
+            #                                   priority_act_ls=self.priority_act_ls)
+            # elif self.selected_algorithm == "opt-h":
+            #     self.algo = OptBTExpAlgorithmHeuristics(verbose=False)
+
 
         self.algo.clear()
         self.algo.run_algorithm(self.cur_cond_set, self.goal, self.actions)  # 调用算法得到行为树保存至 algo.bt

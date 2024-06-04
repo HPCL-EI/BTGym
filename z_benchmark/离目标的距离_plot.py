@@ -3,8 +3,17 @@ import matplotlib.pyplot as plt
 from btgym.utils import ROOT_PATH
 import pandas as pd
 import numpy as np
+import matplotlib
+
 os.chdir(f'{ROOT_PATH}/../z_benchmark')
 
+matplotlib.rcParams['font.family'] = 'Times New Roman'
+matplotlib.rcParams['font.size'] = 30
+matplotlib.rcParams['mathtext.fontset'] = 'stix'
+
+font1 = {'family': 'Times New Roman','color': 'Black','weight': 'bold','size': 40} #normal
+font2 = {'family': 'Times New Roman','size': 26,'weight': 'bold'}
+font3 = {'family': 'Times New Roman','color': 'Black','weight': 'bold','size': 38}
 
 def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch):
     mean_corr_ratio = []  # 存储5个算法下的mean
@@ -27,7 +36,7 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch):
     std_corr_ratio = np.array(std_corr_ratio)
     epochs = np.arange(1, max_epoch + 1)
 
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(10, 9))
     for i, algo_str in enumerate(algo_type):
         # # 误差线
         # # plt.errorbar(epochs, mean_corr_ratio, yerr=std_corr_ratio, fmt='-o', capsize=5, label='Mean with Std Dev')
@@ -41,11 +50,12 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch):
     plt.title(f'{percentages_type} ratio in {scene} ({difficulty})')
     plt.legend()
     plt.grid(True)
-    plt.savefig(f'./percentage_images/{percentages_type}_{difficulty}_{scene}.png', dpi=100)
+    plt.savefig(f'./percentage_images/{percentages_type}_{difficulty}_{scene}.png',
+                dpi=100, bbox_inches='tight')
     plt.show()
 
 max_epoch = 2000
-algo_type = ['opt_h0', 'obtea', 'bfs']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
+algo_type = ['opt_h0','opt_h0_llm', 'obtea', 'bfs']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
 
 for percentages_type in ['expanded']:  # 'expanded', 'traversed', 'cost'
     for difficulty in ['single', 'multi']:  # 'single', 'multi'

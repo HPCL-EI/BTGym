@@ -8,8 +8,53 @@ import time
 # from btgym.algos.bt_autogen.Action import Action,generate_random_state,state_transition
 # from btgym.algos.bt_autogen.OptimalBTExpansionAlgorithm import OptBTExpAlgorithm
 
-
 from btgym.algos.bt_autogen.behaviour_tree import Leaf, ControlBT
+
+
+def execute_bt(bt,goal, state, verbose=True):
+    from btgym.algos.bt_autogen.tools import state_transition
+    steps = 0
+    current_cost = 0
+    current_tick_time = 0
+    act_num = 1
+    record_act = []
+    error = False
+
+    val, obj, cost, tick_time = bt.cost_tick(state, 0, 0)  # tick行为树，obj为所运行的行动
+    if verbose:
+        print(f"Action: {act_num}  {obj.__str__().ljust(35)}cost: {cost}")
+    record_act.append(obj.__str__())
+    current_tick_time += tick_time
+    current_cost += cost
+    while val != 'success' and val != 'failure':
+        state = state_transition(state, obj)
+        val, obj, cost, tick_time = bt.cost_tick(state, 0, 0)
+        act_num += 1
+        if verbose:
+            print(f"Action: {act_num}  {obj.__str__().ljust(35)}cost: {cost}")
+        record_act.append(obj.__str__())
+        current_cost += cost
+        current_tick_time += tick_time
+        if (val == 'failure'):
+            if verbose:
+                print("bt fails at step", steps)
+            error = True
+            break
+        steps += 1
+        if (steps >= 500):  # 至多运行500步
+            break
+    if goal <= state:  # 错误解，目标条件不在执行后状态满足
+        if verbose:
+            print("Finished!")
+    else:
+        error = True
+    # if verbose:
+    #     print(f"一定运行了 {act_num-1} 个动作步")
+    #     print("current_cost:",current_cost)
+    return error, state, act_num - 1, current_cost, record_act[:-1]
+
+
+
 def dfs_btml_indent(btml_string, parnode, level=0, is_root=False, act_bt_tree=False):
     indent = " " * (level * 4)  # 4 spaces per indent level
     for child in parnode.children:

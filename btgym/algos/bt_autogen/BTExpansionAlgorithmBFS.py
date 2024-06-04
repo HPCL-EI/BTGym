@@ -12,6 +12,7 @@ random.seed(seed)
 np.random.seed(seed)
 
 from btgym.algos.bt_autogen.tools  import calculate_priority_percentage
+from btgym.algos.bt_autogen.tools  import *
 
 
 class CondActPair:
@@ -117,7 +118,7 @@ def check_conflict(conds):
 
 class BTalgorithmBFS:
     def __init__(self, verbose=False, llm_reflect=False, llm=None, messages=None, priority_act_ls=None, time_limit=None, \
-                 consider_priopity=False, heuristic_choice=-1,output_just_best=True,exp=False):
+                 consider_priopity=False, heuristic_choice=-1,output_just_best=True,exp=False,exp_cost=False):
         self.bt = None
         self.start = None
         self.goal = None
@@ -151,6 +152,9 @@ class BTalgorithmBFS:
         self.priority_act_ls = priority_act_ls
 
         self.exp = exp
+        self.exp_cost = exp_cost
+        self.max_min_cost_ls = []
+        self.simu_cost_ls = []
 
 
     def clear(self):
@@ -175,6 +179,9 @@ class BTalgorithmBFS:
 
         self.bt_without_merge = None
         self.subtree_count = 1
+
+        self.max_min_cost_ls = []
+        self.simu_cost_ls = []
 
 
     def post_processing(self,pair_node,g_cond_anc_pair,subtree,bt,child_to_parent,cond_to_condActSeq,success=True):
@@ -201,7 +208,7 @@ class BTalgorithmBFS:
 
                 while output_stack != []:
                     tmp_seq_struct = output_stack.pop()
-                    print(tmp_seq_struct)
+                    # print(tmp_seq_struct)
                     new_subtree.add_child([copy.deepcopy(tmp_seq_struct)])
 
                 # 如果不是空树
@@ -254,13 +261,16 @@ class BTalgorithmBFS:
         self.bt_without_merge = None
         self.subtree_count = 1
 
+        self.max_min_cost_ls = []
+        self.simu_cost_ls = []
+
         if self.verbose:
             print("\nAlgorithm starts！")
 
         # Initialize the behavior tree with only the target conditions
         bt = ControlBT(type='cond')
-        goal_condition_node = Leaf(type='cond', content=goal, min_cost=0)
-        goal_action_node = Leaf(type='act', content=None, min_cost=0)
+        goal_condition_node = Leaf(type='cond', content=goal, min_cost=0,trust_cost=0)
+        goal_action_node = Leaf(type='act', content=None, min_cost=0,trust_cost=0)
         bt.add_child([goal_condition_node])
 
         # Retain the expanded nodes in the subtree first
@@ -293,10 +303,6 @@ class BTalgorithmBFS:
             # 当前是第 len(self.expanded) 个
             # 求对应的扩展的动作里占了self.priority_act_ls的百分之几
             # Add the initial percentage for the goal node
-            if self.exp:
-                self.expanded_percentages.append(calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
-                self.traversed_percentages.append(calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
-
 
 
             if self.nodes[0].cond_leaf.content in self.traversed:
@@ -321,6 +327,14 @@ class BTalgorithmBFS:
                 print("\nSelecting condition node for expansion:", current_pair.cond_leaf.content)
 
             c = current_pair.cond_leaf.content
+
+            if self.exp:
+                self.expanded_percentages.append(calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+                self.traversed_percentages.append(calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
+                if current_pair.act_leaf.content!=None:
+                    self.max_min_cost_ls.append(current_pair.act_leaf.trust_cost)
+                else:
+                    self.max_min_cost_ls.append(0)
 
             # # Mount the action node and extend the behavior tree if condition is not the goal and not an empty set
             if c != goal and c != set():
@@ -364,6 +378,16 @@ class BTalgorithmBFS:
                 print("Traverse all actions and find actions that meet the conditions:")
                 print("============")
             current_mincost = current_pair.cond_leaf.min_cost
+            current_trust = current_pair.cond_leaf.trust_cost
+
+            if self.exp_cost:
+            # 模拟调用计算cost
+                tmp_bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
+                                          cond_to_condActSeq)
+                error, state, act_num, current_cost, record_act_ls = execute_bt(tmp_bt,goal, c,
+                                                                                 verbose=False)
+                # print("current_cost:",current_cost)
+                self.simu_cost_ls.append(current_cost)
 
             # 超时处理
             if self.time_limit != None and time.time() - start_time > self.time_limit:
@@ -403,9 +427,9 @@ class BTalgorithmBFS:
                                 break
 
                         if valid:
-                            c_attr_node = Leaf(type='cond', content=c_attr, min_cost=current_mincost + act.cost)
+                            c_attr_node = Leaf(type='cond', content=c_attr, min_cost=current_mincost + act.cost,trust_cost=current_trust+ act.cost)
                             a_attr_node = Leaf(type='act', content=act,
-                                               min_cost=current_mincost + act.cost)
+                                               min_cost=current_mincost + act.cost,trust_cost=current_trust+ act.cost)
                             new_pair = CondActPair(cond_leaf=c_attr_node, act_leaf=a_attr_node)
                             self.nodes.append(new_pair)
 
@@ -442,6 +466,7 @@ class BTalgorithmBFS:
                                         calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
                                     self.traversed_percentages.append(
                                         calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
+                                    self.max_min_cost_ls.append(new_pair.act_leaf.trust_cost)
                                 return bt, current_mincost + act.cost,self.time_limit_exceeded
 
 

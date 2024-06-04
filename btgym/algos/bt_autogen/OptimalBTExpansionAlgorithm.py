@@ -13,7 +13,7 @@ from btgym.algos.llm_client.llms.gpt3 import LLMGPT3
 from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process
 
 from btgym.algos.bt_autogen.tools  import calculate_priority_percentage
-
+from btgym.algos.bt_autogen.tools  import *
 seed = 0
 random.seed(seed)
 np.random.seed(seed)
@@ -137,7 +137,7 @@ def check_conflict(conds):
 
 class OptBTExpAlgorithm:
     def __init__(self, verbose=False, llm_reflect=False, llm=None, messages=None, priority_act_ls=None, time_limit=None, \
-                 consider_priopity=False, heuristic_choice=-1,output_just_best=True,exp=False):
+                 consider_priopity=False, heuristic_choice=-1,output_just_best=True,exp=False,exp_cost=False):
         self.bt = None
         self.start = None
         self.goal = None
@@ -181,8 +181,9 @@ class OptBTExpAlgorithm:
 
         # 0602
         self.expanded_percentages = []
-        self.exp = exp # test
-
+        self.exp = exp
+        self.exp_cost = exp_cost
+        self.simu_cost_ls = []
 
     def clear(self):
         self.bt = None
@@ -211,32 +212,25 @@ class OptBTExpAlgorithm:
 
         # 0602
         self.expanded_percentages = []
+        self.simu_cost_ls = []
 
-    def post_processing(self, pair_node, g_cond_anc_pair, subtree, bt, child_to_parent, cond_to_condActSeq,success=True):
+    def post_processing(self, pair_node, g_cond_anc_pair, subtree, bt, child_to_parent, cond_to_condActSeq):
         '''
         Process the summary work after the algorithm ends.
         '''
         if self.output_just_best:
-            if success:
-                # Only output the best
-                output_stack = []
-                tmp_pair = pair_node
-                while tmp_pair != g_cond_anc_pair:
-                    tmp_seq_struct = cond_to_condActSeq[tmp_pair]
-                    output_stack.append(tmp_seq_struct)
-                    tmp_pair = child_to_parent[tmp_pair]
+            # Only output the best
+            output_stack = []
+            tmp_pair = pair_node
+            while tmp_pair != g_cond_anc_pair:
+                tmp_seq_struct = cond_to_condActSeq[tmp_pair]
+                output_stack.append(tmp_seq_struct)
+                tmp_pair = child_to_parent[tmp_pair]
 
-                while output_stack != []:
-                    tmp_seq_struct = output_stack.pop()
-                    # print(tmp_seq_struct)
-                    subtree.add_child([copy.deepcopy(tmp_seq_struct)])
-            else:
-                new_bt = ControlBT(type='cond')
-                new_subtree = ControlBT(type='?')
-                goal_condition_node = Leaf(type='cond', content=g_cond_anc_pair.cond_leaf.content, min_cost=0)
-                new_subtree.add_child([copy.deepcopy(goal_condition_node)])
-                new_bt.add_child([new_subtree])
-                bt = copy.deepcopy(new_bt)
+            while output_stack != []:
+                tmp_seq_struct = output_stack.pop()
+                # print(tmp_seq_struct)
+                subtree.add_child([copy.deepcopy(tmp_seq_struct)])
 
         self.tree_size = self.bfs_cal_tree_size_subtree(bt)
         self.bt_without_merge = bt
@@ -422,6 +416,7 @@ class OptBTExpAlgorithm:
 
         self.bt_without_merge = None
         self.subtree_count = 1
+        self.simu_cost_ls = []
 
         if self.verbose:
             print("\nAlgorithm starts！")
@@ -485,9 +480,8 @@ class OptBTExpAlgorithm:
             # 当前是第 len(self.expanded) 个
             # 求对应的扩展的动作里占了self.priority_act_ls的百分之几
             # Add the initial percentage for the goal node
-            if self.exp :
-                self.expanded_percentages.append(calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
-                self.traversed_percentages.append(calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
+            self.expanded_percentages.append(calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+            self.traversed_percentages.append(calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
 
 
 
@@ -528,11 +522,10 @@ class OptBTExpAlgorithm:
                 if c <= start:
                     bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
                                               cond_to_condActSeq)
-                    if self.exp :
-                        self.expanded_percentages.append(
-                            calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
-                        self.traversed_percentages.append(
-                            calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
+                    self.expanded_percentages.append(
+                        calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+                    self.traversed_percentages.append(
+                        calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
                     return bt, min_cost, self.time_limit_exceeded
             # =============额外家的
             elif c == set() and c <= start:
@@ -555,7 +548,7 @@ class OptBTExpAlgorithm:
             if self.time_limit != None and time.time() - start_time > self.time_limit:
                 self.time_limit_exceeded = True
                 bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
-                                          cond_to_condActSeq,success=False)
+                                          cond_to_condActSeq)
                 return bt, min_cost, self.time_limit_exceeded
 
                 if self.verbose:
@@ -568,6 +561,16 @@ class OptBTExpAlgorithm:
                 print("============")
             current_mincost = current_pair.cond_leaf.min_cost
             current_trust = current_pair.cond_leaf.trust_cost
+
+
+            if self.exp_cost:
+            # 模拟调用计算cost
+                tmp_bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
+                                          cond_to_condActSeq)
+                error, state, act_num, current_cost, record_act_ls = execute_bt(tmp_bt,goal, c,
+                                                                                 verbose=False)
+                self.simu_cost_ls.append(current_cost)
+
 
             # if self.verbose:
             # if current_pair.act_leaf.content != None:
@@ -733,8 +736,9 @@ class OptBTExpAlgorithm:
             # ====================== End Action Trasvers ============================ #
 
         bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
-                                  cond_to_condActSeq, success=False)
-        # self.tree_size = self.bfs_cal_tree_size_subtree(bt)
+                                  cond_to_condActSeq)
+
+        self.tree_size = self.bfs_cal_tree_size_subtree(bt)
         self.bt_without_merge = bt
 
         if self.bt_merge:

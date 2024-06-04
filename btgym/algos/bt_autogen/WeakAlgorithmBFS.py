@@ -10,7 +10,7 @@ import time
 seed=0
 random.seed(seed)
 np.random.seed(seed)
-
+from btgym.algos.bt_autogen.tools  import calculate_priority_percentage
 class CondActPair:
     def __init__(self, cond_leaf, act_leaf):
         self.cond_leaf = cond_leaf
@@ -126,7 +126,12 @@ class WeakalgorithmBFS:
         self.tree_size = 0
 
         self.expanded = []  # Conditions for storing expanded nodes
+        self.expanded_act =[] # 0602
+        self.expanded_percentages = []
+
         self.traversed = []  # Conditions for storing nodes that have been put into the priority queue
+        self.traversed_act = []
+        self.traversed_percentages = []
         self.traversed_state_num = 0
 
         self.bt_without_merge = None
@@ -142,7 +147,10 @@ class WeakalgorithmBFS:
 
         self.output_just_best = output_just_best
         self.exp = exp
+        self.priority_act_ls = priority_act_ls
 
+        self.max_min_cost_ls = []
+        self.simu_cost_ls = []
 
     def clear(self):
         self.bt = None
@@ -156,11 +164,19 @@ class WeakalgorithmBFS:
         self.tree_size = 0
 
         self.expanded = []  # Conditions for storing expanded nodes
+        self.expanded_act =[] # 0602
+        self.expanded_percentages = []
+
         self.traversed = []  # Conditions for storing nodes that have been put into the priority queue
+        self.traversed_act = []
+        self.traversed_percentages = []
         self.traversed_state_num = 0
 
         self.bt_without_merge = None
         self.subtree_count = 1
+
+        self.max_min_cost_ls = []
+        self.simu_cost_ls = []
 
     def post_processing(self,pair_node,g_cond_anc_pair,subtree,bt,child_to_parent,cond_to_condActSeq,success = True):
         '''
@@ -230,19 +246,27 @@ class WeakalgorithmBFS:
         self.tree_size = 0
 
         self.expanded = []  # Conditions for storing expanded nodes
+        self.expanded_act =[] # 0602
+        self.expanded_percentages = []
+
         self.traversed = []  # Conditions for storing nodes that have been put into the priority queue
+        self.traversed_act = []
+        self.traversed_percentages = []
         self.traversed_state_num = 0
 
         self.bt_without_merge = None
         self.subtree_count = 1
+
+        self.max_min_cost_ls = []
+        self.simu_cost_ls = []
 
         if self.verbose:
             print("\nAlgorithm starts！")
 
         # Initialize the behavior tree with only the target conditions
         bt = ControlBT(type='cond')
-        goal_condition_node = Leaf(type='cond', content=goal, min_cost=0)
-        goal_action_node = Leaf(type='act', content=None, min_cost=0)
+        goal_condition_node = Leaf(type='cond', content=goal, min_cost=0,trust_cost=0)
+        goal_action_node = Leaf(type='act', content=None, min_cost=0,trust_cost=0)
         bt.add_child([goal_condition_node])
 
         # Retain the expanded nodes in the subtree first
@@ -292,6 +316,22 @@ class WeakalgorithmBFS:
                 print("\nSelecting condition node for expansion:", current_pair.cond_leaf.content)
 
             c = current_pair.cond_leaf.content
+            current_trust = current_pair.cond_leaf.trust_cost
+            self.expanded.append(c)
+            if self.exp:
+                self.expanded_percentages.append(calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+                self.traversed_percentages.append(calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
+
+                if current_pair.act_leaf.content!=None:
+                    self.max_min_cost_ls.append(current_pair.act_leaf.trust_cost)
+                else:
+                    self.max_min_cost_ls.append(0)
+
+
+            if self.exp:
+                if current_pair.act_leaf.content!=None:
+                    self.expanded_act.append(current_pair.act_leaf.content.name)
+
 
             # # Mount the action node and extend the behavior tree if condition is not the goal and not an empty set
             if c != goal and c != set():
@@ -311,6 +351,11 @@ class WeakalgorithmBFS:
                 self.expanded.append(c)
 
                 if c <= start:
+                    if self.exp:
+                        self.expanded_percentages.append(
+                            calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+                        self.traversed_percentages.append(
+                            calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
                     bt = self.post_processing(current_pair , goal_cond_act_pair, subtree, bt,child_to_parent,cond_to_condActSeq)
                     return bt, min_cost,self.time_limit_exceeded
 
@@ -350,8 +395,8 @@ class WeakalgorithmBFS:
                         for j in c_attr:
                             if j in self.traversed:
                                 continue
-                            c_attr_node = Leaf(type='cond', content={j})
-                            a_attr_node = Leaf(type='act', content=act)
+                            c_attr_node = Leaf(type='cond', content={j},trust_cost=current_trust+ act.cost)
+                            a_attr_node = Leaf(type='act', content=act,trust_cost=current_trust+ act.cost)
                             sequence_structure.add_child([c_attr_node])
                             if j not in start:
                                 new_pair = CondActPair(cond_leaf=c_attr_node, act_leaf=a_attr_node)
@@ -359,6 +404,10 @@ class WeakalgorithmBFS:
 
                                 if self.output_just_best:
                                     child_to_parent[new_pair] = current_pair
+
+                        if self.exp:
+                            self.traversed_act.append(act.name)
+
 
                         a_node = Leaf(type='act', content=act)
                         sequence_structure.add_child([a_node])
@@ -397,7 +446,7 @@ class WeakalgorithmBFS:
 
 
         bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
-                                  cond_to_condActSeq)
+                                  cond_to_condActSeq, success=False)
         self.bt_without_merge = bt
         return bt, min_cost,self.time_limit_exceeded
 

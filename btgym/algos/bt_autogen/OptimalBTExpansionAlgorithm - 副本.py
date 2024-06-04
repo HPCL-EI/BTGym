@@ -11,7 +11,7 @@ import numpy as np
 import asyncio
 from btgym.algos.llm_client.llms.gpt3 import LLMGPT3
 from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process
-from btgym.algos.bt_autogen.tools  import calculate_priority_percentage
+
 from btgym.algos.bt_autogen.tools  import *
 
 seed = 0
@@ -135,9 +135,9 @@ def check_conflict(conds):
     return False
 
 
-class OBTEAlgorithm:
+class OptBTExpAlgorithm:
     def __init__(self, verbose=False, llm_reflect=False, llm=None, messages=None, priority_act_ls=None, time_limit=None, \
-                 consider_priopity=False, heuristic_choice=-1,output_just_best=True,exp=False,exp_cost=False):
+                 consider_priopity=False, heuristic_choice=-1,output_just_best=True,exp=False):
         self.bt = None
         self.start = None
         self.goal = None
@@ -179,10 +179,13 @@ class OBTEAlgorithm:
         self.consider_priopity = consider_priopity
         self.heuristic_choice = heuristic_choice
 
-        self.exp = exp
-        self.exp_cost = exp_cost
+        # 0602
+        self.expanded_percentages = []
+        self.exp = exp # test
+
         self.max_min_cost_ls = []
         self.simu_cost_ls = []
+
 
     def clear(self):
         self.bt = None
@@ -209,35 +212,39 @@ class OBTEAlgorithm:
 
         self.act_bt = None
 
+        # 0602
+        self.expanded_percentages = []
         self.max_min_cost_ls = []
-        self.simu_cost_ls = []
+        self.simu_cost_ls=[]
 
-    def post_processing(self, pair_node, g_cond_anc_pair, subtree, bt, child_to_parent, cond_to_condActSeq,success = True):
+    def post_processing(self, pair_node, g_cond_anc_pair, algo_subtree, algo_bt, child_to_parent, cond_to_condActSeq,success=True):
         '''
         Process the summary work after the algorithm ends.
         '''
+        bt = copy.deepcopy(algo_bt)
+        subtree = copy.deepcopy(algo_subtree)
+
         if self.output_just_best:
             # Only output the best
-            if success:
-                output_stack = []
-                tmp_pair = pair_node
-                while tmp_pair != g_cond_anc_pair:
-                    tmp_seq_struct = cond_to_condActSeq[tmp_pair]
-                    output_stack.append(tmp_seq_struct)
-                    tmp_pair = child_to_parent[tmp_pair]
+            output_stack = []
+            tmp_pair = pair_node
+            while tmp_pair != g_cond_anc_pair:
+                tmp_seq_struct = cond_to_condActSeq[tmp_pair]
+                output_stack.append(tmp_seq_struct)
+                tmp_pair = child_to_parent[tmp_pair]
 
-                while output_stack != []:
-                    tmp_seq_struct = output_stack.pop()
-                    # print(tmp_seq_struct)
-                    subtree.add_child([copy.deepcopy(tmp_seq_struct)])
-            else:
-                new_bt = ControlBT(type='cond')
-                new_subtree = ControlBT(type='?')
-                goal_condition_node = Leaf(type='cond', content=g_cond_anc_pair.cond_leaf.content, min_cost=0)
-                new_subtree.add_child([copy.deepcopy(goal_condition_node)])
-                new_bt.add_child([new_subtree])
-                bt = copy.deepcopy(new_bt)
+            while output_stack != []:
+                tmp_seq_struct = output_stack.pop()
+                # print(tmp_seq_struct)
+                subtree.add_child([copy.deepcopy(tmp_seq_struct)])
 
+            # else:
+            #     new_bt = ControlBT(type='cond')
+            #     new_subtree = ControlBT(type='?')
+            #     goal_condition_node = Leaf(type='cond', content=g_cond_anc_pair.cond_leaf.content, min_cost=0)
+            #     new_subtree.add_child([copy.deepcopy(goal_condition_node)])
+            #     new_bt.add_child([new_subtree])
+            #     bt = copy.deepcopy(new_bt)
 
         # self.tree_size = self.bfs_cal_tree_size_subtree(bt)
         self.bt_without_merge = bt
@@ -411,20 +418,21 @@ class OBTEAlgorithm:
         self.tree_size = 0
 
         self.expanded = []  # Conditions for storing expanded nodes
-        self.expanded_act =[] # 0602
+        self.expanded_act = []
         self.expanded_percentages = []
+
 
         self.traversed = []  # Conditions for storing nodes that have been put into the priority queue
         self.traversed_act = []
         self.traversed_percentages = []
-        self.traversed_state_num = 0
-
-        self.bt_without_merge = None
-        self.subtree_count = 1
 
         self.max_min_cost_ls = []
         self.simu_cost_ls = []
 
+        self.traversed_state_num = 0
+
+        self.bt_without_merge = None
+        self.subtree_count = 1
 
         if self.verbose:
             print("\nAlgorithm starts！")
@@ -436,6 +444,9 @@ class OBTEAlgorithm:
 
         # Initialize the behavior tree with only the target conditions
         bt = ControlBT(type='cond')
+        # goal_condition_node = Leaf(type='cond', content=goal, min_cost=0)
+        # goal_action_node = Leaf(type='act', content=None, min_cost=0)
+
         goal_condition_node = Leaf(type='cond', content=goal, min_cost=0,trust_cost=0)
         goal_action_node = Leaf(type='act', content=None, min_cost=0,trust_cost=0)
 
@@ -444,6 +455,26 @@ class OBTEAlgorithm:
         subtree.add_child([copy.deepcopy(goal_condition_node)])
         bt.add_child([subtree])
         goal_cond_act_pair = CondActPair(cond_leaf=goal_condition_node, act_leaf=goal_action_node)
+
+        # I(C,act)
+        for act in self.priority_act_ls:
+            if act not in goal_cond_act_pair.pact_dic:
+                goal_cond_act_pair.pact_dic[act] = 1
+            else:
+                goal_cond_act_pair.pact_dic[act] += 1
+
+        D_first_cost = 0
+        D_first_num = 0
+        for key, value in goal_cond_act_pair.pact_dic.items():
+            # print(key, value)
+            # if key not in self.act_cost_dic.keys():
+            #     print("key",key)
+            D_first_cost += self.act_cost_dic[key] * value
+            D_first_num += value
+        goal_condition_node.trust_cost = 0
+        goal_action_node.trust_cost = 0
+        goal_condition_node.min_cost = D_first_cost
+        goal_action_node.min_cost = D_first_cost
 
         # Using priority queues to store extended nodes
         heapq.heappush(self.nodes, goal_cond_act_pair)
@@ -465,10 +496,6 @@ class OBTEAlgorithm:
             # 当前是第 len(self.expanded) 个
             # 求对应的扩展的动作里占了self.priority_act_ls的百分之几
             # Add the initial percentage for the goal node
-            if self.exp :
-                self.expanded_percentages.append(calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
-                self.traversed_percentages.append(calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
-
 
             # 调用大模型
             if self.llm_reflect:
@@ -490,6 +517,11 @@ class OBTEAlgorithm:
 
             c = current_pair.cond_leaf.content
             if self.exp:
+                self.expanded_percentages.append(
+                    calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+                self.traversed_percentages.append(
+                    calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
+
                 if current_pair.act_leaf.content!=None:
                     self.max_min_cost_ls.append(current_pair.act_leaf.trust_cost)
                 else:
@@ -512,7 +544,7 @@ class OBTEAlgorithm:
                 if c <= start:
                     bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
                                               cond_to_condActSeq)
-                    if self.exp:
+                    if self.exp :
                         self.expanded_percentages.append(
                             calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
                         self.traversed_percentages.append(
@@ -553,13 +585,13 @@ class OBTEAlgorithm:
             current_mincost = current_pair.cond_leaf.min_cost
             current_trust = current_pair.cond_leaf.trust_cost
 
-            if self.exp_cost:
-            # 模拟调用计算cost
-                tmp_bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
-                                          cond_to_condActSeq)
-                error, state, act_num, current_cost, record_act_ls = execute_bt(tmp_bt,goal, c,
-                                                                                 verbose=False)
-                self.simu_cost_ls.append(current_cost)
+            # if self.exp:
+            # # 模拟调用计算cost
+            #     tmp_bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
+            #                               cond_to_condActSeq)
+            #     error, state, act_num, current_cost, record_act_ls = execute_bt(tmp_bt,goal, c,
+            #                                                                      verbose=False)
+            #     self.simu_cost_ls.append(current_cost)
 
             # if self.verbose:
             # if current_pair.act_leaf.content != None:
@@ -609,11 +641,90 @@ class OBTEAlgorithm:
 
                         if valid:
 
-                            c_attr_node = Leaf(type='cond', content=c_attr, min_cost=current_mincost + act.cost,trust_cost=current_trust+ act.cost)
-                            a_attr_node = Leaf(type='act', content=act, min_cost=current_mincost + act.cost,trust_cost=current_trust+ act.cost)
+                            # g=trust_cost
+                            # h= h_cost
+                            # c_attr_node = Leaf(type='cond', content=c_attr, trust_cost=current_trust + act.cost)
+                            # a_attr_node = Leaf(type='act', content=act, trust_cost=current_trust + act.cost)
+
+                            # c_attr_node = Leaf(type='cond', content=c_attr, parent_cost=current_mincost)
+                            # a_attr_node = Leaf(type='act', content=act, parent_cost=current_mincost)
+
+                            c_attr_node = Leaf(type='cond', content=c_attr, min_cost=current_mincost + act.cost,
+                                               parent_cost=current_mincost,trust_cost=current_trust+ act.cost)
+                            a_attr_node = Leaf(type='act', content=act, min_cost=current_mincost + act.cost,
+                                               parent_cost=current_mincost,trust_cost=current_trust+ act.cost)
 
                             new_pair = CondActPair(cond_leaf=c_attr_node, act_leaf=a_attr_node)
                             new_pair.path = current_pair.path + 1
+
+                            # I(C,act)
+                            # new_cost = current_mincost + act.cost
+                            # new_pair.pact_dic = copy.deepcopy(current_pair.pact_dic)
+                            # if act.name in new_pair.pact_dic and new_pair.pact_dic[act.name] > 0:
+                            #     new_cost = current_mincost + act.priority
+                            #     new_pair.pact_dic[act.name] -= 1
+                            # c_attr_node.min_cost = new_cost
+                            # a_attr_node.min_cost = new_cost
+
+                            h = 0
+
+                            new_pair.pact_dic = copy.deepcopy(current_pair.pact_dic)
+                            if act.name in new_pair.pact_dic and new_pair.pact_dic[act.name] > 0:
+                                new_pair.pact_dic[act.name] -= 1
+                                c_attr_node.min_cost = current_mincost + act.priority
+                                a_attr_node.min_cost = current_mincost + act.priority
+
+                            # 最迟启发式：h 是到重点的距离，通过计算 new_pair.pact_dic得到
+                            # h = 0
+                            # new_pair.pact_dic = copy.deepcopy(current_pair.pact_dic)
+                            # if act.name in new_pair.pact_dic and new_pair.pact_dic[act.name] > 0:
+                            #     new_pair.pact_dic[act.name] -= 1
+                            #
+                            # for key, value in new_pair.pact_dic.items():
+                            #     # print(key, value)
+                            #     h += self.act_cost_dic[key] * value
+                            # c_attr_node.min_cost = c_attr_node.trust_cost + h - epsh
+                            # a_attr_node.min_cost = a_attr_node.trust_cost + h - epsh
+
+                            # h = 0
+                            # new_pair.pact_dic = copy.deepcopy(current_pair.pact_dic)
+                            # if act.name in new_pair.pact_dic and new_pair.pact_dic[act.name] > 0:
+                            #     new_pair.pact_dic[act.name] -= 1
+                            #
+                            # for key, value in new_pair.pact_dic.items():
+                            #     # print(key, value)
+                            #     h += self.act_cost_dic[key] * value
+                            # c_attr_node.min_cost = c_attr_node.trust_cost + h*10000 - epsh
+                            # a_attr_node.min_cost = a_attr_node.trust_cost + h*10000 - epsh
+
+                            # 启发式：乘一下
+                            # new_pair.pact_dic = copy.deepcopy(current_pair.pact_dic)
+                            # if act.name in new_pair.pact_dic and new_pair.pact_dic[act.name] > 0:
+                            #     new_pair.pact_dic[act.name] -= 1
+                            # remaining = 0
+                            # remaining_num = 0
+                            # g = current_trust + act.cost
+                            # for key, value in new_pair.pact_dic.items():
+                            #     # print(key, value)
+                            #     remaining += self.act_cost_dic[key] * value
+                            #     remaining_num += value
+                            # h =remaining * (remaining_num / D_first_num)
+                            # # h = min(max(0,D_first_cost-g), remaining * (remaining_num / D_first_num))
+                            # c_attr_node.min_cost = c_attr_node.trust_cost + h - epsh
+                            # a_attr_node.min_cost = a_attr_node.trust_cost + h - epsh
+
+                            # 0425启发式：h=max(0,D-g)* (剩余/D)
+                            # g=current_trust + act.cost
+                            # # max(0,D_first_cost-g)
+                            # remaining = 0
+                            # for key, value in new_pair.pact_dic.items():
+                            #     remaining+=self.act_cost_dic[key] * value
+                            # if D_first_cost==0:
+                            #     h=0
+                            # else:
+                            #     h=max(0,D_first_cost-g)*(remaining/D_first_cost)
+                            # c_attr_node.min_cost = c_attr_node.trust_cost + h - epsh
+                            # a_attr_node.min_cost = a_attr_node.trust_cost + h - epsh
 
                             heapq.heappush(self.nodes, new_pair)
 
@@ -646,9 +757,8 @@ class OBTEAlgorithm:
             # ====================== End Action Trasvers ============================ #
 
         bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
-                                  cond_to_condActSeq)
-
-        self.tree_size = self.bfs_cal_tree_size_subtree(bt)
+                                  cond_to_condActSeq, success=False)
+        # self.tree_size = self.bfs_cal_tree_size_subtree(bt)
         self.bt_without_merge = bt
 
         if self.bt_merge:
@@ -684,7 +794,7 @@ class OBTEAlgorithm:
 
         if len(goal) > 1:
             for g in goal:
-                bt_sel_tree, min_cost, time_limit_exceeded = self.run_algorithm_selTree(start, g, actions)
+                bt_sel_tree, min_cost,time_limit_exceeded = self.run_algorithm_selTree(start, g, actions)
                 subtree_with_costs_ls.append((bt_sel_tree, min_cost))
             # 要排个序再一次add
             sorted_trees = sorted(subtree_with_costs_ls, key=lambda x: x[1])

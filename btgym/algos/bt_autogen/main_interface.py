@@ -21,7 +21,7 @@ class BTExpInterface:
     def __init__(self, behavior_lib, cur_cond_set, priority_act_ls=[], key_predicates=[], key_objects=[], selected_algorithm="opt",
                  mode="big",
                  bt_algo_opt=True, llm_reflect=False, llm=None, messages=None, action_list=None,use_priority_act=True,time_limit=None,
-                 heuristic_choice=-1,output_just_best=True,exp=False):
+                 heuristic_choice=-1,output_just_best=True,exp=False,exp_cost=False):
         """
         Initialize the BTOptExpansion with a list of actions.
         :param action_list: A list of actions to be used in the behavior tree.
@@ -33,6 +33,7 @@ class BTExpInterface:
 
         self.output_just_best = output_just_best
         self.exp = exp
+        self.exp_cost = exp_cost
 
         # 剪枝操作,现在的条件是以前扩展过的条件的超集
         self.consider_priopity = False
@@ -102,16 +103,16 @@ class BTExpInterface:
             self.algo = OptBTExpAlgorithm(verbose=False, \
                                           llm_reflect=self.llm_reflect, llm=self.llm, messages=self.messages, \
                                           priority_act_ls=self.priority_act_ls,time_limit=self.time_limit,
-                                          consider_priopity = self.consider_priopity,
+                                          consider_priopity = self.consider_priopity,exp_cost=self.exp_cost,
                                           heuristic_choice = self.heuristic_choice,output_just_best=self.output_just_best,exp=self.exp)
         elif self.selected_algorithm == "obtea":
             self.algo = OBTEAlgorithm(verbose=False, \
                                           llm_reflect=self.llm_reflect, llm=self.llm, messages=self.messages, \
                                           priority_act_ls=self.priority_act_ls, time_limit=self.time_limit,
-                                          consider_priopity=self.consider_priopity,
+                                          consider_priopity=self.consider_priopity,exp_cost=self.exp_cost,
                                           heuristic_choice=self.heuristic_choice,output_just_best=self.output_just_best,exp=self.exp)
         elif self.selected_algorithm == "bfs":
-            self.algo = BTalgorithmBFS(verbose=False,time_limit = self.time_limit,output_just_best=self.output_just_best,priority_act_ls=self.priority_act_ls,exp=self.exp)
+            self.algo = BTalgorithmBFS(verbose=False,time_limit = self.time_limit,output_just_best=self.output_just_best,priority_act_ls=self.priority_act_ls,exp_cost=self.exp_cost,exp=self.exp)
             # self.algo = BTalgorithm(verbose=False)
         elif self.selected_algorithm == "dfs":
             self.algo = BTalgorithmDFS(verbose=False)
@@ -151,7 +152,7 @@ class BTExpInterface:
 
     def filter_actions(self, priority_act_ls):
         # 创建一个集合，包含所有标准动作的名称
-        standard_actions_set = {act.name for act in self.big_actions}
+        standard_actions_set = {act.name for act in self.actions} # self.big_actions
         # 过滤 priority_act_ls，只保留名称在标准集合中的动作
         filtered_priority_act_ls = [act for act in priority_act_ls if act in standard_actions_set]
         return filtered_priority_act_ls

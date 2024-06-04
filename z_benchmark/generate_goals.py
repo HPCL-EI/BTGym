@@ -15,7 +15,7 @@ from btgym.utils.goal_generator.rh_gen import RobotHowGoalGen
 data_num = 1000
 max_goal_num=2000
 diffcult_type= "single" #"single"  #"mix" "multi"
-scene = "RHS"
+scene = "RW"
 
 if scene=="RW":
     # ===================== RoboWaiter ========================

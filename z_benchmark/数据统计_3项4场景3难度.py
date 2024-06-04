@@ -76,7 +76,12 @@ def plot_hist(plot_type,difficulty):
         # print("values:",values)
         # print("counts_deorder.keys:", counts_deorder.keys())
         # print("counts_deorder.values:", counts_deorder.values())
-        plt.bar(counts_deorder.keys(), counts_deorder.values(), color='skyblue')
+
+        key_ls=  list(counts_deorder.keys())
+        value_ls = list(counts_deorder.values())
+        # plt.bar(counts_deorder.keys(), counts_deorder.values(), color='skyblue')
+        plt.bar(key_ls,value_ls, color='skyblue')
+
         # plt.bar(keys, values, color='skyblue')
         plt.xlabel(f'Number of {plot_type}')
         plt.ylabel('Counts')
@@ -85,10 +90,10 @@ def plot_hist(plot_type,difficulty):
         plt.savefig(f'./images_histogram/{plot_type}_{scene}_{difficulty}.png',dpi=100)
         plt.show()
 
-plot_type = 'Objects'   # 'Actions', 'Predicates', 'Objects'
+plot_type = 'Actions'   # 'Actions', 'Predicates', 'Objects'
 difficulty = 'single'   # 'single', 'mix', 'multi'
 
-for plot_type in ['Actions', 'Predicates', 'Objects']:  # 'Actions', 'Predicates', 'Objects'
-    for difficulty in ['single', 'mix', 'multi']:  # 'single', 'mix', 'multi'
+for plot_type in ['Actions']:  # 'Actions', 'Predicates', 'Objects'
+    for difficulty in ['single']:  # 'single', 'mix', 'multi'
         plot_hist(plot_type,difficulty)
 

@@ -103,7 +103,7 @@ def extract_llm_from_instr_goal(llm,default_prompt_file,environment,goals,instru
         answer = llm.request(message=messages)
         messages.append({"role": "assistant", "content": answer})
         # if verbose:
-        print("============ Answer ================\n",answer)
+        # print("============ Answer ================\n",answer)
         parsed_output = parse_llm_output(answer, goals=False)
         # if parsed_output is None:
         #     print(f"\033[91mFailed to parse LLM output for goals: {goals_str}\033[0m")

@@ -19,7 +19,8 @@ from btgym.envs.RobotHow_Small.exec_lib._base.RHSAction import RHSAction
 from btgym.envs.RobotHow.exec_lib._base.RHAction import RHAction
 
 # 导入环境
-scene="VH"
+# scene="VH"
+scene="RH"
 env,cur_cond_set = setup_environment(scene)
 
 # 导入数据
@@ -36,10 +37,10 @@ print("Optimal Actions:", d['Optimal Actions'])
 
 # 选择算法计算得到行为树
 algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
-                      priority_act_ls=[], key_predicates=[],
+                      priority_act_ls=d['Optimal Actions'] , key_predicates=[],
                       key_objects=[],
                       selected_algorithm="bfs", mode="big",
-                      llm_reflect=False, time_limit=15,
+                      llm_reflect=False, time_limit=3,
                           heuristic_choice=-1,output_just_best=False)
 
 goal_set = goal_transfer_str(goal_str)
@@ -145,6 +146,7 @@ successful_executions = 0  # 用于跟踪成功（非错误）的执行次数
 exe_times = 100 #100
 for i in range(exe_times):
     print("----------")
+    print("i:",i)
     new_cur_state = modify_condition_set(cur_cond_set)
     error, state, act_num, current_cost, record_act_ls = algo.execute_bt(goal_set[0], new_cur_state, verbose=False)
     # 检查是否有错误，如果没有，则增加成功计数

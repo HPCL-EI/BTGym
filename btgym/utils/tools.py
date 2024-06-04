@@ -112,5 +112,9 @@ def save_data_txt(output_path,data1):
 
     print(f"Data saved to {output_path}")
 
-
+import os
+def write_to_file(data, file_path):
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+    with open(file_path, 'a') as file:
+        file.write(data + '\n')
 

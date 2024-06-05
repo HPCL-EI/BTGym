@@ -72,7 +72,7 @@ def get_algo(d,ld,difficulty, scene, algo_str, max_epoch, data_num, save_csv=Fal
 
 
 
-max_epoch = 100
+max_epoch = 10
 data_num = 1
 algo_type = ['opt_h0','opt_h0_llm', 'obtea', 'bfs']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
 

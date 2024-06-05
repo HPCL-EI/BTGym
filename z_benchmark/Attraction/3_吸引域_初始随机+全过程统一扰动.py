@@ -1,6 +1,7 @@
 import copy
 import os
 import random
+import concurrent.futures
 from btgym.utils import ROOT_PATH
 os.chdir(f'{ROOT_PATH}/../z_benchmark')
 from tools import modify_condition_set_Random_Perturbations,setup_environment,modify_condition_set
@@ -117,11 +118,9 @@ def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100,p=0.2,difficulty=
     return round(AVG_SR, 2)
 
 
-def update_dataframe(index_key, scene, algo_str, just_best, exe_times, data_num, p):
-    df.at[index_key, scene] = get_SR(scene, algo_str, just_best, exe_times=exe_times, data_num=data_num, p=p)
-
-# 假设 algorithms, scenes 等变量已经被定义
-executor = concurrent.futures.ThreadPoolExecutor()
+def run_simulation(index_key, scene, algo_str, just_best):
+    sr = get_SR(scene, algo_str, just_best, exe_times=5, data_num=data_num, p=p, difficulty=difficulty)
+    return index_key, scene, sr
 
 
 algorithms = ['opt_h0', 'opt_h0_llm', 'obtea', 'bfs']  # 'opt_h0', 'opt_h1', 'obtea', 'bfs', 'dfs'
@@ -136,16 +135,29 @@ difficulty = "single"
 index = [f'{algo_str}_{tb}' for tb in ['T', 'F'] for algo_str in algorithms ]
 df = pd.DataFrame(index=index, columns=scenes)
 
-futures = []
-for just_best in just_best_bts:
-    for algo_str in algorithms:
-        index_key = f'{algo_str}_{"T" if just_best else "F"}'
-        for scene in scenes:
-            df.at[index_key, scene] = get_SR(scene, algo_str, just_best,exe_times=5,data_num=data_num,p=p)
-            # 提交任务到线程池
-            # future = executor.submit(update_dataframe, index_key, scene, algo_str, just_best, \
-            #                          difficulty=difficulty,exe_times=5, data_num=data_num, p=p)
-            # futures.append(future)
+
+# for just_best in just_best_bts:
+#     for algo_str in algorithms:
+#         index_key = f'{algo_str}_{"T" if just_best else "F"}'
+#         for scene in scenes:
+#             df.at[index_key, scene] = get_SR(scene, algo_str, just_best,exe_times=5,data_num=data_num,p=p)
+# 使用 ThreadPoolExecutor 并行执行
+
+# 使用 ThreadPoolExecutor 并行执行
+with concurrent.futures.ThreadPoolExecutor() as executor:
+    futures = []
+    for just_best in just_best_bts:
+        for algo_str in algorithms:
+            index_key = f'{algo_str}_{"T" if just_best else "F"}'
+            for scene in scenes:
+                future = executor.submit(run_simulation, index_key, scene, algo_str, just_best)
+                futures.append(future)
+
+    # 获取结果并更新 DataFrame
+    for future in concurrent.futures.as_completed(futures):
+        index_key, scene, sr = future.result()
+        df.at[index_key, scene] = sr
+
 
 
 formatted_string = df.to_csv(sep='\t')
@@ -154,5 +166,6 @@ print("----------------------")
 print(df)
 
 # Save the DataFrame to a CSV file
-csv_file_path = f"{ROOT_PATH}/../z_benchmark/Attraction/3_initial_changes_all_p={p}_{difficulty}_t=5_d={data_num}.csv"  # Define your CSV file path
+csv_file_path = f"{ROOT_PATH}/../z_benchmark/Attraction/3_initial_changes_all_{difficulty}_p={p}_t=5.csv"  # Define your CSV file path
 df.to_csv(csv_file_path)  # Save as a TSV (Tab-separated values) file
+print(csv_file_path)

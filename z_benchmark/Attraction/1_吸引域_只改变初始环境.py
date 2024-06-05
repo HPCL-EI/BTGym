@@ -145,16 +145,16 @@ def compute_sr_and_update_df(index_key, scene, just_best, exe_times, data_num, d
 
 
 algorithms = ['opt_h0','opt_h0_llm', 'obtea', 'bfs']  # 'opt_h0','opt_h0_llm', 'obtea', 'bfs'
-scenes = ['RH', 'VH', 'RHS', 'RW']  # 'RH', 'VH', 'RHS', 'RW'
+scenes = ['RW', 'VH', 'RHS', 'RH']  # 'RW', 'VH', 'RHS', 'RH'
 just_best_bts = [False] # True, False
 
 
-data_num= 5
+data_num= 100
 exe_times =5
 difficulty = "single"
 
-max_exp = 20
-choose_max_exp=True
+max_exp = 0
+choose_max_exp=False
 
 # 创建df
 index = [f'{algo_str}_{tb}' for tb in ['T', 'F'] for algo_str in algorithms ]
@@ -167,7 +167,7 @@ df = pd.DataFrame(index=index, columns= scenes)
 #         index_key = f'{algo_str}_{"T" if just_best else "F"}'
 #         for scene in scenes:
 #             pair_num, df.at[index_key, scene] = get_SR(scene, algo_str, just_best,exe_times=exe_times,data_num=data_num,difficulty=difficulty)
-with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor: #max_workers=10
+with concurrent.futures.ThreadPoolExecutor() as executor: #max_workers=10
     future_to_sr = {}
     for just_best in just_best_bts:
         for algo_str in algorithms:

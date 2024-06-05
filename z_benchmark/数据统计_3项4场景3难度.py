@@ -1,17 +1,9 @@
-import copy
 import os
+import matplotlib
 import matplotlib.pyplot as plt
 from collections import Counter
-import random
 from btgym.utils import ROOT_PATH
-import numpy as np
-import time
-import re
-import btgym
-from btgym.utils.tools import collect_action_nodes
 from btgym.utils.read_dataset import read_dataset
-from btgym.algos.llm_client.tools import goal_transfer_str
-from btgym.algos.bt_autogen.main_interface import BTExpInterface
 from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process, act_format_records
 from btgym.envs.RobotHow.exec_lib._base.RHAction import RHAction
 from btgym.envs.RobotHow_Small.exec_lib._base.RHSAction import RHSAction
@@ -19,6 +11,9 @@ from btgym.envs.RoboWaiter.exec_lib._base.RWAction import RWAction
 from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
 os.chdir(f'{ROOT_PATH}/../z_benchmark')
 
+matplotlib.rcParams['font.family'] = 'Times New Roman'
+matplotlib.rcParams['font.size'] = 20
+matplotlib.rcParams['mathtext.fontset'] = 'stix'
 
 scene_Type = {}
 scene_Type["RH"] = {'SURFACES':RHAction.SURFACES,'SITTABLE':RHAction.SITTABLE,'CAN_OPEN':RHAction.CAN_OPEN,
@@ -76,13 +71,12 @@ def plot_hist(plot_type,difficulty):
         # print("values:",values)
         # print("counts_deorder.keys:", counts_deorder.keys())
         # print("counts_deorder.values:", counts_deorder.values())
+        # key_ls = list(counts_deorder.keys())
+        # value_ls = list(counts_deorder.values())
 
-        key_ls=  list(counts_deorder.keys())
-        value_ls = list(counts_deorder.values())
-        # plt.bar(counts_deorder.keys(), counts_deorder.values(), color='skyblue')
-        plt.bar(key_ls,value_ls, color='skyblue')
-
-        # plt.bar(keys, values, color='skyblue')
+        print(counts_deorder.keys())
+        print(counts_deorder.values())
+        plt.bar(counts_deorder.keys(), counts_deorder.values(), color='skyblue')
         plt.xlabel(f'Number of {plot_type}')
         plt.ylabel('Counts')
         plt.title(f'Histogram of Lengths of {plot_type} in {scene} of {difficulty}')
@@ -93,7 +87,7 @@ def plot_hist(plot_type,difficulty):
 plot_type = 'Actions'   # 'Actions', 'Predicates', 'Objects'
 difficulty = 'single'   # 'single', 'mix', 'multi'
 
-for plot_type in ['Actions']:  # 'Actions', 'Predicates', 'Objects'
-    for difficulty in ['single']:  # 'single', 'mix', 'multi'
+for plot_type in ['Actions', 'Predicates', 'Objects']:  # 'Actions', 'Predicates', 'Objects'
+    for difficulty in ['single', 'multi']:  # 'single', 'mix', 'multi'
         plot_hist(plot_type,difficulty)
 

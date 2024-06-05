@@ -71,21 +71,111 @@ def get_algo(d,ld,difficulty, scene, algo_str, max_epoch, save_csv=False):
     return algo
 
 
+import pandas as pd
+import matplotlib.pyplot as plt
 
-max_epoch = 10
-data_num = 1
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import os
+
+def plot_adaptive_histograms_and_save(difficulty, scene):
+    algo_names = ['opt_h0', 'opt_h0_llm', 'bfs']
+    data_frames = []
+
+    # 读取所有算法的CSV文件并存储在data_frames列表中
+    for algo_name in algo_names:
+        filename = f"./COST_output/{difficulty}_{scene}_{algo_name}.csv"
+        df = pd.read_csv(filename)
+        df['algo_name'] = algo_name
+        df['cost_ratio'] = df['obtea_cost'] / df['algo_cost']
+        data_frames.append(df)
+
+    # 合并所有数据
+    combined_df = pd.concat(data_frames)
+
+    # 计算自适应bins
+    min_cost = combined_df['obtea_cost'].min()
+    max_cost = combined_df['obtea_cost'].max()
+    bins = np.arange(min_cost, max_cost + 10, 10)
+
+    # 定义颜色
+    colors = {
+        'opt_h0': "#1f77b4", # 'blue',
+        'opt_h0_llm': '#2ca02c', # orange
+        'bfs': '#ff7f0e' #green
+    }
+
+    plt.figure(figsize=(12, 8))
+
+    # 存储每个类别下三种算法的平均数据
+    average_data = []
+
+    for algo_name in algo_names:
+        algo_df = combined_df[combined_df['algo_name'] == algo_name].copy()
+        algo_df.loc[:, 'group'] = pd.cut(algo_df['obtea_cost'], bins=bins, right=False)
+
+        # 按组计算平均成本比例
+        grouped = algo_df.groupby('group', observed=True)['cost_ratio'].mean()
+
+        if not grouped.empty:
+            grouped.plot(kind='bar',  label=algo_name,color=colors[algo_name]) # ,color=colors[algo_name]
+            # 添加平均数据到列表
+            for group, value in grouped.items():
+                average_data.append((group, algo_name, value))
+
+    plt.title(f'Combined Cost Ratio Histograms for {scene} in {difficulty}')
+    plt.xlabel('Cost Group')
+    plt.ylabel('Average Cost Ratio')
+    y_min = 0.8
+    y_max = 1.0
+    plt.ylim(y_min, y_max)  # 设置y轴范围
+    plt.legend(title='Algorithm')
+
+    # 创建输出目录（如果不存在）
+    output_dir = "./COST_Histograms"
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
+    # 保存图片到文件
+    output_filename = f"{output_dir}/{difficulty}_{scene}_combined.png"
+    plt.savefig(output_filename)
+    plt.show()  # 显示图表
+    plt.close()  # 关闭图表以释放内存
+    print(f"直方图已保存为：{output_filename}")
+
+    # 输出每个类别下三种算法的平均数据
+    print("\n每个类别下三种算法的平均数据：")
+    for group, algo_name, value in average_data:
+        print(f"类别: {group}, 算法: {algo_name}, 平均成本比例: {value:.2f}")
+
+
+
+
+max_epoch_obtea = 200
+max_epoch = 50
+data_num = 10
 algo_type = ['opt_h0','opt_h0_llm','bfs','obtea']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
 algo_dic = {}
 
-algo_act_num_ls = {
-    'opt_h0': [],
-    'opt_h0_llm': [],
-    'obtea': [],
-    'bfs': []
-}
+# algo_act_num_ls = {
+#     'opt_h0': [],
+#     'opt_h0_llm': [],
+#     'obtea': [],
+#     'bfs': []
+# }
 
-for difficulty in ['single']:  # 'single', 'multi'
-    for scene in ['RH']:  # 'RH', 'RHS', 'RW', 'VH'
+for difficulty in ['single', 'multi']:  # 'single', 'multi'
+    for scene in ['RH', 'RHS', 'RW', 'VH']:  # 'RH', 'RHS', 'RW', 'VH'
+
+        algo_cost_ls = {
+            # 本算法和optea
+            'opt_h0': [[], []],
+            'opt_h0_llm': [[], []],
+            'bfs': [[], []]
+        }
 
         data_path = f"{ROOT_PATH}/../z_benchmark/data/{scene}_{difficulty}_100_processed_data.txt"
         data = read_dataset(data_path)
@@ -98,29 +188,65 @@ for difficulty in ['single']:  # 'single', 'multi'
             goal_str = ' & '.join(d["Goals"])
             goal_set = goal_transfer_str(goal_str)
 
-            algo_dic["obtea"] = copy.deepcopy(get_algo(d, ld, difficulty, scene, 'obtea', max_epoch=100, save_csv=True))
+            algo_dic["obtea"] = copy.deepcopy(get_algo(d, ld, difficulty, scene, 'obtea', max_epoch=max_epoch_obtea, save_csv=True))
 
 
             # 跑每个算法测试
-            for algo_str in ["opt_h0", "opt_h1", "bfs"]:
+            for algo_str in ["opt_h0", "opt_h0_llm", "bfs"]:
                 algo_dic[algo_str] = copy.deepcopy(get_algo(d,ld,difficulty, scene, algo_str, max_epoch, save_csv=True))
 
                 if algo_str in ['opt_h0','opt_h0_llm']:
                     for c_leaf in algo_dic[algo_str].algo.expanded:
                         c = c_leaf.content
-                        error, state, act_num, current_cost, record_act_ls, current_tick_time = algo.execute_bt(
+
+                        # obtea 先跑
+                        obtea_error, _, act_num, obtea_cost, _, _ = algo_dic["obtea"].execute_bt(
                             goal_set[0], c, verbose=False)
-                        algo_act_num_ls[algo_str].append(act_num)
+                        if not obtea_error and obtea_cost>0:
+                            error, _, act_num, current_cost, _, _ = algo_dic[algo_str].execute_bt(
+                                goal_set[0], c, verbose=False)
+
+                            algo_cost_ls[algo_str][0].append(current_cost)
+                            algo_cost_ls[algo_str][1].append(obtea_cost)
+
+
+                        # algo_act_num_ls[algo_str].append(act_num)
                         # print(algo_str,c, act_num)
                 else:
                     for c in algo_dic[algo_str].algo.traversed:
-                        error, state, act_num, current_cost, record_act_ls, current_tick_time = algo.execute_bt(
+
+                        # obtea 先跑
+                        obtea_error, _, act_num, obtea_cost, _, _ = algo_dic["obtea"].execute_bt(
                             goal_set[0], c, verbose=False)
-                        algo_act_num_ls[algo_str].append(act_num)
-                        # print(algo_str,c, act_num)
+                        if not obtea_error and obtea_cost>0:
+                            error, _, act_num, current_cost, _, _ = algo_dic[algo_str].execute_bt(
+                                goal_set[0], c, verbose=False)
+
+                            algo_cost_ls[algo_str][0].append(current_cost)
+                            algo_cost_ls[algo_str][1].append(obtea_cost)
+
+        # 遍历数据并保存到CSV文件
+        for algo_name, costs in algo_cost_ls.items():
+            # 创建一个DataFrame
+            df = pd.DataFrame({
+                'algo_cost': costs[0],
+                'obtea_cost': costs[1]
+            })
+            # 设置CSV文件名
+            filename = f"./COST_output/{difficulty}_{scene}_{algo_name}.csv"
+            # 保存到CSV
+            df.to_csv(filename, index=False)
+            print(f"数据已保存到 {filename}")
+
+        # 读入数据跑统计直方图
+        # 写成一个函数
+        plot_adaptive_histograms_and_save(difficulty, scene)
+
 
 
     # print(algo_act_num_ls)
-
-
-
+# 保存数据
+# 遍历字典，key 是算法的名字，value 是与该算法相关联的列表
+for key, value in algo_cost_ls.items():
+    print("算法名称:", key)
+    print("相关数据:", value)

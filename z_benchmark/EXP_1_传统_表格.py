@@ -25,13 +25,10 @@ for difficulty in ["single","multi"]:
             success_rate = (data['Error'] == False).mean()
 
             # 统计超时率 Time_Limit_Exceeded=True的占比
-            if alg_str=="obtea":
-                timeout_rate = 1-success_rate
-            else:
-                timeout_rate = (data['Time_Limit_Exceeded'] == True).mean()
+            timeout_rate = (data['Time_Limit_Exceeded'] == True).mean()
 
             # 计算平均  Expanded_Number、Planning_Time_Total
-            average_expanded_number = round(data['Expanded_Number'].mean(),2)
+            average_expanded_number = round(data['Expanded_Number'].mean(),3)
             average_planning_time_total = round(data['Planning_Time_Total'].mean(),3)
 
             # 计算平均 Current_Cost、Action_Number、Tick_Time 如果不成功，这三者设置为最大值
@@ -73,11 +70,11 @@ for difficulty in ["single","multi"]:
                 'Algorithm': alg_str,
                 'Success Rate': success_rate,
                 'Timeout Rate': timeout_rate,
-                'Expanded Number': average_expanded_number,
-                'Planning Time': average_planning_time_total,
-                'Current Cost': average_current_cost,
-                'Action Number': average_action_number,
-                'Tick Time': average_tick_time
+                'Average Expanded Number': average_expanded_number,
+                'Average Planning Time': average_planning_time_total,
+                'Average Current Cost': average_current_cost,
+                'Average Action Number': average_action_number,
+                'Average Tick Time': average_tick_time
             }])
             # 使用 concat 添加到 DataFrame
             results_df = pd.concat([results_df, new_row], ignore_index=True)
@@ -104,8 +101,8 @@ for difficulty, group_df in results_df.groupby('Difficulty'):
     for scene, scene_group in group_df.groupby('Scene'):
         print(f"Scene: {scene}")
         print(scene_group[
-                  ['Algorithm', 'Success Rate', 'Timeout Rate', 'Expanded Number', 'Planning Time',
-                   'Current Cost', 'Action Number', 'Tick Time']])
+                  ['Algorithm', 'Success Rate', 'Timeout Rate', 'Average Expanded Number', 'Average Planning Time',
+                   'Average Current Cost', 'Average Action Number', 'Average Tick Time']])
         print("\n")  # 添加空行以增加可读性
 
     print("=" * 80)  # 在每个 'Difficulty' 分组后打印分隔线
@@ -125,11 +122,7 @@ for difficulty, group_df in results_df.groupby('Difficulty'):
     latex_string += "Algorithm & SR (\%) & Timeout Rate & Expanded Number & Planning Time (s) & Current Cost & Action Number & Tick Time \\\\\n\\midrule\n"
     for scene, scene_group in group_df.groupby('Scene'):
         latex_string += f"\\multicolumn{{8}}{{l}}{{\\textbf{{Scene: {scene}}}}} \\\\\n"  # Adding scene as a subheader
-        # Format float to two decimal places
-        formatted_scene_group = scene_group.copy()
-        for col in ['Success Rate', 'Timeout Rate', 'Expanded Number', 'Planning Time', 'Current Cost', 'Action Number', 'Tick Time']:
-            formatted_scene_group[col] = formatted_scene_group[col].map('{:,.2f}'.format)
-        latex_string += formatted_scene_group.to_latex(index=False, header=False, escape=False)
+        latex_string += scene_group.to_latex(index=False, header=False, escape=False)
         latex_string += "\\midrule\n"  # Add midrule after each scene for separation
     latex_string += "\\bottomrule\n"
     latex_string += "\\end{tabular}\n"

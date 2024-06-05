@@ -2,14 +2,14 @@
 
 [Condition]
 IsNear_self_<ALL>, IsOn_<GRABBABLE>_<SURFACES>, IsIn_<GRABBABLE>_<CONTAINERS>, IsOpen_<CAN_OPEN>, IsClose_<CAN_OPEN>,
-IsSwitchedOn_<HAS_SWITCH>, IsSwitchedOff_<HAS_SWITCH>
-
+IsSwitchedOn_<HAS_SWITCH>, IsSwitchedOff_<HAS_SWITCH>, IsClean_<ALL>, IsHoldingCleaningTool, IsHoldingKnife,
+IsPlugged_<HAS_PLUG>, IsUnplugged_<HAS_PLUG>, IsCut_<CUTABLE>
 
 [Action]
 Walk_<ALL>, RightGrab_<GRABBABLE>, LeftGrab_<GRABBABLE>, RightPut_<GRABBABLE>_<SURFACES>, LeftPut_<GRABBABLE>_<SURFACES>,
-RightPutIn_<GRABBABLE>_<CONTAINERS>, LeftPutIn_<GRABBABLE>_<CONTAINERS>,
-Open_<CAN_OPEN>, Close_<CAN_OPEN>, SwitchOn_<HAS_SWITCH>, SwitchOff_<HAS_SWITCH>
-
+RightPutIn_<GRABBABLE>_<CONTAINERS>, LeftPutIn_<GRABBABLE>_<CONTAINERS>, RightGrabFrom_<GRABBABLE>_<CONTAINERS>, LeftGrabFrom_<GRABBABLE>_<CONTAINERS>,
+Open_<CAN_OPEN>, Close_<CAN_OPEN>, SwitchOn_<HAS_SWITCH>, SwitchOff_<HAS_SWITCH>,
+Wipe_<ALL>, PlugIn_<HAS_PLUG>, PlugOut_<HAS_PLUG>, Cut_<CUTABLE>, Wash_<WASHABLE>
 
 [Object]
 <GRABBABLE>=["apple", 'wine', 'plate', "rag", "kitchenknife", "cutlets"]
@@ -20,8 +20,8 @@ Open_<CAN_OPEN>, Close_<CAN_OPEN>, SwitchOn_<HAS_SWITCH>, SwitchOff_<HAS_SWITCH>
 <HAS_PLUG>=["tv", "mouse", "fridge", "microwave"]
 <CUTABLE> = ["apple", "cutlets"]
 <WASHABLE> = ["apple", "rag", "kitchenknife", "cutlets"]
-<ALL>=<GRABBABLE>+<SURFACES>+<CONTAINERS>+<HAS_SWITCH>+<CAN_OPEN>+<HAS_PLUG>+<CUTABLE>+<WASHABLE>
-
+<TOOLS> = ['rag','kitchenknife']
+<ALL>=<GRABBABLE>+<SURFACES>+<CONTAINERS>+<HAS_SWITCH>+<CAN_OPEN>+<HAS_PLUG>+<CUTABLE>+<WASHABLE>+<TOOLS>
 
 [Examples]
 Goals: IsOn_cutlets_bed

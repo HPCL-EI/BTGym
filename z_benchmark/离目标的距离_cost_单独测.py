@@ -46,8 +46,8 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
         detail_rows = []
 
         for i, (d,ld) in enumerate(zip(data[:data_num],llm_data[:data_num])):
-            # if i%10 == 0:
-            print("i:",i)
+            if i%10 == 0:
+                print("data:", i, "scene:",scene, "algo:",algo_str_complete)
             goal_str = ' & '.join(d["Goals"])
             goal_set = goal_transfer_str(goal_str)
             opt_act = act_str_process(d['Optimal Actions'], already_split=True)
@@ -74,7 +74,7 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
                                   priority_act_ls=priority_opt_act, key_predicates=[],
                                   key_objects=[],
                                   selected_algorithm=algo_str, mode="big",
-                                  llm_reflect=False, time_limit=5,
+                                  llm_reflect=False, time_limit=None,
                                   heuristic_choice=heuristic_choice,exp=False,exp_cost=True,output_just_best=False,
                                   theory_priority_act_ls=opt_act,max_expanded_num=max_epoch)
 
@@ -83,53 +83,53 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
             algo.process(goal_set)
             end_time = time.time()
 
-            ### Output
             planning_time_total = end_time - start_time
-            time_limit_exceeded = algo.algo.time_limit_exceeded
-            ptml_string, cost, expanded_num = algo.post_process()
-            error, state, act_num, current_cost, record_act_ls,current_tick_time = algo.execute_bt(goal_set[0], cur_cond_set, verbose=False)
+            print(f"\x1b[32m Goal:{goal_str}  Times {planning_time_total} \x1b[0m",)
 
-            print(f"\x1b[32m Goal:{goal_str} \n Executed {act_num} action steps\x1b[0m",
-                  "\x1b[31mERROR\x1b[0m" if error else "",
-                  "\x1b[31mTIMEOUT\x1b[0m" if time_limit_exceeded else "")
-            print("current_cost:", current_cost, "expanded_num:", expanded_num, "planning_time_total:", planning_time_total)
+            ### Output
+            # planning_time_total = end_time - start_time
+            # time_limit_exceeded = algo.algo.time_limit_exceeded
+            # ptml_string, cost, expanded_num = algo.post_process(ptml_string=False)
+            # error, state, act_num, current_cost, record_act_ls,current_tick_time = algo.execute_bt(goal_set[0], cur_cond_set, verbose=False)
+            #
+            # print(f"\x1b[32m Goal:{goal_str} \n Executed {act_num} action steps\x1b[0m",
+            #       "\x1b[31mERROR\x1b[0m" if error else "",
+            #       "\x1b[31mTIMEOUT\x1b[0m" if time_limit_exceeded else "")
+            # print("current_cost:", current_cost, "expanded_num:", expanded_num, "planning_time_total:", planning_time_total)
 
             # 记录每个场景 每个算法 每条数据的详细结果 存入 csv
-            new_row = {
-                'Goal': goal_str,
-                'Optimal_Actions': d['Optimal Actions'],
-                'LLM_Optimal_Actions': ld['Optimal Actions'],
-                'Vital_Action_Predicates': d['Vital Action Predicates'],
-                'Vital_Objects': d['Vital Objects'],
-                'Time_Limit_Exceeded': time_limit_exceeded,
-                'Error': error,
-                'Expanded_Number': expanded_num,
-                'Planning_Time_Total': planning_time_total,
-                'Current_Cost': current_cost,
-                'Action_Number': act_num,
-                'Recorded_Action_List': record_act_ls,
-                'Tick_Time':current_tick_time
-            }
-            detail_rows.append(new_row)
+            # new_row = {
+            #     'Goal': goal_str,
+            #     'Optimal_Actions': d['Optimal Actions'],
+            #     'LLM_Optimal_Actions': ld['Optimal Actions'],
+            #     'Vital_Action_Predicates': d['Vital Action Predicates'],
+            #     'Vital_Objects': d['Vital Objects'],
+            #     'Time_Limit_Exceeded': time_limit_exceeded,
+            #     'Error': error,
+            #     'Expanded_Number': expanded_num,
+            #     'Planning_Time_Total': planning_time_total,
+            #     'Current_Cost': current_cost,
+            #     'Action_Number': act_num,
+            #     'Recorded_Action_List': record_act_ls,
+            #     'Tick_Time':current_tick_time
+            # }
+            # detail_rows.append(new_row)
 
-            if percentages_type == 'expanded':
-                corr_ratio = algo.algo.expanded_percentages
-                if not error and not time_limit_exceeded and corr_ratio[-1] <99:
-                    # 重新计算一编
-                    corr_ratio=[]
-                    for expanded_act in algo.algo.expanded_act_ls_ls:
-                        corr_ratio.append(calculate_priority_percentage(expanded_act, record_act_ls))
-                print(corr_ratio)
-
-            elif percentages_type == 'traversed':
-                corr_ratio = algo.algo.traversed_percentages
-            elif percentages_type == 'cost':
+            corr_ratio=[]
+            if percentages_type == 'cost':
                 # corr_ratio = algo.algo.max_min_cost_ls
                 corr_ratio = algo.algo.simu_cost_ls
                 # corr_ratio = corr_ratio/max_epoch
                 # corr_ratio = corr_ratio/([1]*max_epoch-corr_ratio)
 
-                print(corr_ratio)
+            elif percentages_type == 'act_num':
+                # corr_ratio = algo.algo.max_min_cost_ls
+                corr_ratio = algo.algo.simu_cost_act_num_ls
+
+            elif percentages_type == 'cost_act_num_ratio':
+                # corr_ratio = algo.algo.max_min_cost_ls
+                corr_ratio = algo.algo.cost_act_num_ratio
+                # print(corr_ratio)
             if len(corr_ratio) < max_epoch:
                 corr_ratio.extend([corr_ratio[-1]] * (max_epoch - len(corr_ratio)))
             else:
@@ -177,14 +177,14 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
     plt.savefig(f'./percentage_images/{percentages_type}_{difficulty}_{scene}.png', dpi=100)
     plt.show()
 
-max_epoch = 50
-data_num = 1
-algo_type = ['opt_h0','opt_h0_llm','obtea','bfs']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
+max_epoch = 1000
+data_num = 100
+algo_type = ['opt_h0','opt_h0_llm', 'obtea', 'bfs']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
 
-for percentages_type in ['cost']:  # 'expanded', 'traversed', 'cost'
-    for difficulty in ['multi']:  # 'single', 'multi'
+for percentages_type in ['cost_act_num_ratio']:  # 'expanded', 'traversed', 'cost',"act_num"
+    for difficulty in ['single', 'multi']:  # 'single', 'multi'
         print(f"============ percentages_type = {percentages_type}, difficulty = {difficulty} =============")
-        for scene in ['RH']:  # 'RH', 'RHS', 'RW', 'VH'
+        for scene in ['RW', 'VH', 'RHS', 'RH']:  # 'RH', 'RHS', 'RW', 'VH'
             print(f"++++++++++ scene = {scene} ++++++++++")
             plot_percentage(percentages_type, difficulty, scene, algo_type,
                             max_epoch, data_num, save_csv=True)

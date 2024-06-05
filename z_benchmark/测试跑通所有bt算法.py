@@ -72,13 +72,3 @@ for i,goal_str in enumerate(['IsOpen_fridge']): #  & IsOn_milk_desk
           "\x1b[31mTIMEOUT\x1b[0m" if time_limit_exceeded else "")
     print("current_cost:", current_cost, "expanded_num:", expanded_num, "planning_time_total:", planning_time_total)
 
-# visualization
-file_name = "tree"
-file_path = f'./{file_name}.btml'
-with open(file_path, 'w') as file:
-    file.write(ptml_string)
-# read and execute
-from btgym import BehaviorTree
-bt = BehaviorTree(file_name + ".btml", env.behavior_lib)
-# bt.print()
-bt.draw()

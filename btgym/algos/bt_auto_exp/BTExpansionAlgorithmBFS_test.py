@@ -85,7 +85,33 @@ def update_state(c, state_dic):
     return True
 
 
+def check_conflict_RW(c):
+    have_at = False
+    for str in c:
+        if 'Not' not in str and 'RobotNear' in str:
+            if have_at:
+                return True
+            have_at = True
+
+    Holding = False
+    HoldingNothing = False
+    for str in c:
+        if 'Not ' not in str and 'Holding(Nothing)' in str: # 注意 'Not ' in 'Nothing'
+            HoldingNothing = True
+        if 'Not' not in str and 'Holding(Nothing)' not in str and 'Holding' in str:
+            if Holding:
+                return True
+            Holding = True
+        if HoldingNothing and Holding:
+            return True
+    return False
+
 def check_conflict(conds):
+
+    conflict = check_conflict_RW(conds)
+    if conflict:
+        return True
+
     obj_state_dic = {}
     self_state_dic = {}
     self_state_dic['self'] = set()
@@ -268,7 +294,9 @@ class BTalgorithmBFS:
         self.simu_cost_ls = []
 
         cost_every_exp=0
-
+        cost_act_num_every_exp = 0
+        self.simu_cost_act_num_ls=[]
+        self.cost_act_num_ratio=[]
         if self.verbose:
             print("\nAlgorithm starts！")
 
@@ -289,6 +317,7 @@ class BTalgorithmBFS:
         self.nodes.append(goal_cond_act_pair)
         self.expanded.append(goal)
         self.traversed_state_num += 1
+        traversed_current = [goal]
         # self.traversed = [goal]  # Set of expanded conditions
 
         if goal <= start:
@@ -303,13 +332,11 @@ class BTalgorithmBFS:
 
         while len(self.nodes) != 0:
 
-
             # 0602 记录有多少动作在里面了
             # print("self.priority_act_ls",self.priority_act_ls)
             # 当前是第 len(self.expanded) 个
             # 求对应的扩展的动作里占了self.priority_act_ls的百分之几
             # Add the initial percentage for the goal node
-
 
             if self.nodes[0].cond_leaf.content in self.traversed:
                 self.nodes.pop(0)
@@ -334,13 +361,13 @@ class BTalgorithmBFS:
 
             c = current_pair.cond_leaf.content
 
-            if self.exp:
-                self.expanded_percentages.append(calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
-                self.traversed_percentages.append(calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
-                if current_pair.act_leaf.content!=None:
-                    self.max_min_cost_ls.append(current_pair.act_leaf.trust_cost)
-                else:
-                    self.max_min_cost_ls.append(0)
+            # if self.exp:
+            #     self.expanded_percentages.append(calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+            #     self.traversed_percentages.append(calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
+            #     if current_pair.act_leaf.content!=None:
+            #         self.max_min_cost_ls.append(current_pair.act_leaf.trust_cost)
+            #     else:
+            #         self.max_min_cost_ls.append(0)
 
             # # Mount the action node and extend the behavior tree if condition is not the goal and not an empty set
             if c != goal and c != set():
@@ -386,14 +413,52 @@ class BTalgorithmBFS:
             current_mincost = current_pair.cond_leaf.min_cost
             current_trust = current_pair.cond_leaf.trust_cost
 
-            if self.exp_cost:
+
+            # if self.exp_cost:
+            # # 模拟调用计算cost
+            #     tmp_bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
+            #                               cond_to_condActSeq)
+            #     error, state, act_num, current_cost, record_act_ls = execute_bt(tmp_bt,goal, c,
+            #                                                                      verbose=False)
+            #     # print("current_cost:",current_cost)
+            #     self.simu_cost_ls.append(current_cost)
+
             # 模拟调用计算cost
-                tmp_bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
-                                          cond_to_condActSeq)
-                error, state, act_num, current_cost, record_act_ls = execute_bt(tmp_bt,goal, c,
-                                                                                 verbose=False)
-                # print("current_cost:",current_cost)
-                self.simu_cost_ls.append(current_cost)
+            if self.exp_cost:
+                # cal  current_cost
+                # 一共 self.max_expanded_num
+                # self.max_expanded_num=10
+                # traversed_current 中全部都需要算一个  cost
+                tmp_bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt,
+                                              child_to_parent,
+                                              cond_to_condActSeq)
+
+                if len(traversed_current)!=0:
+                    cc_cost = 0
+                    cc_act_num=0
+                    for cc in traversed_current:
+                        error, state, act_num, cur_cost, record_act_ls = execute_bt(tmp_bt, goal, cc,
+                                                                                   verbose=False)
+                        cc_cost+= cur_cost
+                        cc_act_num+=act_num
+                    cc_cost = cc_cost / len(traversed_current)
+                    cc_act_num = cc_act_num / len(traversed_current)
+
+                cost_every_exp+=cc_cost
+                cost_act_num_every_exp += cc_act_num
+                self.simu_cost_ls.append(cost_every_exp)
+                self.simu_cost_act_num_ls.append(cost_act_num_every_exp)
+                if cost_act_num_every_exp!=0:
+                    self.cost_act_num_ratio.append(cost_every_exp/cost_act_num_every_exp)
+                else:
+                    self.cost_act_num_ratio.append(0)
+
+                if len(self.expanded) > self.max_expanded_num:
+                    bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt,
+                                              child_to_parent,
+                                              cond_to_condActSeq)
+                    return bt, min_cost, self.time_limit_exceeded
+                # print("len(self.expanded):",len(self.expanded))
 
             # 超时处理
             if self.time_limit != None and time.time() - start_time > self.time_limit:
@@ -446,7 +511,7 @@ class BTalgorithmBFS:
                             self.traversed_state_num += 1
                             self.traversed_act.append(act.name)
                             # Put all action nodes that meet the conditions into the list
-                            # traversed_current.append(c_attr)
+                            traversed_current.append(c_attr)
 
                             # 直接扩展这些动作到行为树上
                             # 构建行动的顺序结构
@@ -460,26 +525,26 @@ class BTalgorithmBFS:
                                 child_to_parent[new_pair] = current_pair
 
 
-                            # 模拟调用计算cost
-                            if self.exp_cost:
-                                # cal  current_cost
-                                # 一共 self.max_expanded_num
-                                # self.max_expanded_num=10
-                                # traversed_current 中全部都需要算一个  cost
-                                tmp_bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt,
-                                                              child_to_parent,
-                                                              cond_to_condActSeq)
-
-                                error, state, act_num, cur_cost, record_act_ls = execute_bt(tmp_bt, goal, c,
-                                                                                            verbose=False)
-                                cost_every_exp += cur_cost
-                                self.simu_cost_ls.append(cost_every_exp)
-
-                                if self.traversed_state_num > self.max_expanded_num:
-                                    bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt,
-                                                              child_to_parent,
-                                                              cond_to_condActSeq)
-                                    return bt, min_cost, self.time_limit_exceeded
+                            # # 模拟调用计算cost
+                            # if self.exp_cost:
+                            #     # cal  current_cost
+                            #     # 一共 self.max_expanded_num
+                            #     # self.max_expanded_num=10
+                            #     # traversed_current 中全部都需要算一个  cost
+                            #     tmp_bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt,
+                            #                                   child_to_parent,
+                            #                                   cond_to_condActSeq)
+                            #
+                            #     error, state, act_num, cur_cost, record_act_ls = execute_bt(tmp_bt, goal, c,
+                            #                                                                 verbose=False)
+                            #     cost_every_exp += cur_cost
+                            #     self.simu_cost_ls.append(cost_every_exp)
+                            #
+                            #     if self.traversed_state_num > self.max_expanded_num:
+                            #         bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt,
+                            #                                   child_to_parent,
+                            #                                   cond_to_condActSeq)
+                            #         return bt, min_cost, self.time_limit_exceeded
 
                             # 在这里跳出
                             # if c_attr <= start:

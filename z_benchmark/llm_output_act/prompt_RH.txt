@@ -42,7 +42,8 @@ Wipe_<ALL>, PlugIn_<HAS_PLUG>, PlugOut_<HAS_PLUG>, Cut_<CUTABLE>, Wash_<WASHABLE
 <CUTABLE> = ["apple","bananas","breadslice", "cutlets","poundcake","pancake","pie","carrot","chicken","lime","salmon", "peach",\
                "pear","plum"]
 <WASHABLE> = ["apple","bananas","carrot","chicken","lime","salmon", "peach","pear","plum","rag","brush"]
-<ALL>=<GRABBABLE>+<SURFACES>+<CONTAINERS>+<HAS_SWITCH>+<CAN_OPEN>+<HAS_PLUG>+<CUTABLE>+<WASHABLE>
+<TOOLS> = ['rag','kitchenknife']
+<ALL>=<GRABBABLE>+<SURFACES>+<CONTAINERS>+<HAS_SWITCH>+<CAN_OPEN>+<HAS_PLUG>+<CUTABLE>+<WASHABLE>+<TOOLS>
 
 
 [Examples]

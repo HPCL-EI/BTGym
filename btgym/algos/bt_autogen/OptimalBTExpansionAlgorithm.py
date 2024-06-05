@@ -103,7 +103,34 @@ def update_state(c, state_dic):
     return True
 
 
+def check_conflict_RW(c):
+    have_at = False
+    for str in c:
+        if 'Not' not in str and 'RobotNear' in str:
+            if have_at:
+                return True
+            have_at = True
+
+    Holding = False
+    HoldingNothing = False
+    for str in c:
+        if 'Not ' not in str and 'Holding(Nothing)' in str: # 注意 'Not ' in 'Nothing'
+            HoldingNothing = True
+        if 'Not' not in str and 'Holding(Nothing)' not in str and 'Holding' in str:
+            if Holding:
+                return True
+            Holding = True
+        if HoldingNothing and Holding:
+            return True
+    return False
+
 def check_conflict(conds):
+
+    conflict = check_conflict_RW(conds)
+    if conflict:
+        return True
+
+
     obj_state_dic = {}
     self_state_dic = {}
     self_state_dic['self'] = set()

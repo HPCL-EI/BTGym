@@ -18,6 +18,7 @@ class RWAction(Action):
 
     SURFACES = tables_for_placement
     GRABBABLE =all_object
+    AllObject = tables_for_placement | all_object | tables_for_guiding
 
     @property
     def action_class_name(self):

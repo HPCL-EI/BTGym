@@ -103,7 +103,33 @@ def update_state(c, state_dic):
     return True
 
 
+def check_conflict_RW(c):
+    have_at = False
+    for str in c:
+        if 'Not' not in str and 'RobotNear' in str:
+            if have_at:
+                return True
+            have_at = True
+
+    Holding = False
+    HoldingNothing = False
+    for str in c:
+        if 'Not ' not in str and 'Holding(Nothing)' in str: # 注意 'Not ' in 'Nothing'
+            HoldingNothing = True
+        if 'Not' not in str and 'Holding(Nothing)' not in str and 'Holding' in str:
+            if Holding:
+                return True
+            Holding = True
+        if HoldingNothing and Holding:
+            return True
+    return False
+
 def check_conflict(conds):
+
+    conflict = check_conflict_RW(conds)
+    if conflict:
+        return True
+
     obj_state_dic = {}
     self_state_dic = {}
     self_state_dic['self'] = set()
@@ -461,6 +487,9 @@ class OBTEAlgorithm:
 
         epsh = 0
         cost_every_exp=0
+        cost_act_num_every_exp = 0
+        self.simu_cost_act_num_ls=[]
+        self.cost_act_num_ratio=[]
         while len(self.nodes) != 0:
 
             # 0602 记录有多少动作在里面了
@@ -572,8 +601,13 @@ class OBTEAlgorithm:
                 #     cur_cost = 999999999999999999
 
                 cost_every_exp += cur_cost
+                cost_act_num_every_exp += act_num
                 self.simu_cost_ls.append(cost_every_exp)
-
+                self.simu_cost_act_num_ls.append(cost_act_num_every_exp)
+                if cost_act_num_every_exp!=0:
+                    self.cost_act_num_ratio.append(cost_every_exp/cost_act_num_every_exp)
+                else:
+                    self.cost_act_num_ratio.append(0)
                 if len(self.expanded)>self.max_expanded_num:
                     bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
                                               cond_to_condActSeq)

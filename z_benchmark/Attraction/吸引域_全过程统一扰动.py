@@ -63,7 +63,7 @@ def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100):
                               priority_act_ls=priority_opt_act, key_predicates=[],
                               key_objects=[],
                               selected_algorithm=algo_str, mode="big",
-                              llm_reflect=False, time_limit=10,
+                              llm_reflect=False, time_limit=5,
                               heuristic_choice=heuristic_choice, exp=False, exp_cost=False, output_just_best=just_best,
                               theory_priority_act_ls=opt_act)
 
@@ -73,25 +73,14 @@ def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100):
         end_time = time.time()
         planning_time_total = end_time - start_time
         time_limit_exceeded = algo.algo.time_limit_exceeded
-        ptml_string, cost, expanded_num = algo.post_process(ptml_string=False)
-        error, state, act_num, current_cost, record_act_ls, ticks = algo.execute_bt(goal_set[0], cur_cond_set,
-                                                                                    verbose=False)
-        print(f"\x1b[32m Goal:{goal_str} \n Executed {act_num} action steps\x1b[0m",
-              "\x1b[31mERROR\x1b[0m" if error else "",
-              "\x1b[31mTIMEOUT\x1b[0m" if time_limit_exceeded else "")
-        print("current_cost:", current_cost, "expanded_num:", expanded_num, "planning_time_total:", planning_time_total,
-              "ticks:", ticks)
-
-        # visualization
-        file_name = "tree"
-        file_path = f'./{file_name}.btml'
-        with open(file_path, 'w') as file:
-            file.write(ptml_string)
-        # read and execute
-        from btgym import BehaviorTree
-        bt = BehaviorTree(file_name + ".btml", env.behavior_lib)
-        # bt.print()
-        bt.draw()
+        # ptml_string, cost, expanded_num = algo.post_process(ptml_string=False)
+        # error, state, act_num, current_cost, record_act_ls, ticks = algo.execute_bt(goal_set[0], cur_cond_set,
+        #                                                                             verbose=False)
+        # print(f"\x1b[32m Goal:{goal_str} \n Executed {act_num} action steps\x1b[0m",
+        #       "\x1b[31mERROR\x1b[0m" if error else "",
+        #       "\x1b[31mTIMEOUT\x1b[0m" if time_limit_exceeded else "")
+        # print("current_cost:", current_cost, "expanded_num:", expanded_num, "planning_time_total:", planning_time_total,
+        #       "ticks:", ticks)
 
         # 跑算法
         # 提取出obj
@@ -104,10 +93,15 @@ def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100):
         successful_executions = 0  # 用于跟踪成功（非错误）的执行次数
         # 随机生成exe_times个初始状态，看哪个能达到目标
         for i in range(exe_times):
-            new_cur_state = modify_condition_set(scene,SENCE_ACT_DIC[scene], cur_cond_set,objects)
-            # print("new_cur_state:",new_cur_state)
-            error, state, act_num, current_cost, record_act_ls, ticks = algo.execute_bt(goal_set[0], new_cur_state,
-                                                                                        verbose=False)
+            # new_cur_state = modify_condition_set(scene,SENCE_ACT_DIC[scene], cur_cond_set,objects)
+            # error, state, act_num, current_cost, record_act_ls, ticks = algo.execute_bt(goal_set[0], new_cur_state,
+            #                                                                             verbose=False)
+
+            # new_cur_state = modify_condition_set(scene,SENCE_ACT_DIC[scene], cur_cond_set,objects)
+            error, state, act_num, current_cost, record_act_ls, ticks = algo.execute_bt(goal_set[0], new_cur_state, modify_condition_set,
+                                                                                        verbose=False, p=0.5)
+
+
             # 检查是否有错误，如果没有，则增加成功计数
             if not error:
                 successful_executions += 1
@@ -120,12 +114,12 @@ def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100):
     return round(AVG_SR, 2)
 
 
-algorithms = ['obtea']  # 'opt_h0', 'opt_h1', 'obtea', 'bfs', 'dfs'
-scenes = ['RH']  # 'RH', 'RHS', 'RW', 'VH'
+algorithms = ['opt_h0', 'opt_h0_llm', 'obtea', 'bfs']  # 'opt_h0', 'opt_h1', 'obtea', 'bfs', 'dfs'
+scenes = ['RW', 'VH' , 'RHS' ,'RH']  # 'RH', 'RHS', 'RW', 'VH'
 just_best_bts = [True, False] # True, False
 
 
-data_num=1
+data_num=2
 
 # 创建df
 index = [f'{algo_str}_{tb}' for tb in ['T', 'F'] for algo_str in algorithms ]
@@ -134,7 +128,7 @@ for just_best in just_best_bts:
     for algo_str in algorithms:
         index_key = f'{algo_str}_{"T" if just_best else "F"}'
         for scene in scenes:
-            df.at[index_key, scene] = get_SR(scene, algo_str, just_best,exe_times=10,data_num=data_num)
+            df.at[index_key, scene] = get_SR(scene, algo_str, just_best,exe_times=5,data_num=data_num)
 
 formatted_string = df.to_csv(sep='\t')
 print(formatted_string)
@@ -142,5 +136,5 @@ print("----------------------")
 print(df)
 
 # Save the DataFrame to a CSV file
-csv_file_path = f"{ROOT_PATH}/../z_benchmark/Attraction/only_changes_initial_time_limit=10.csv"  # Define your CSV file path
+csv_file_path = 'only_changes_initial.csv'  # Define your CSV file path
 df.to_csv(csv_file_path, sep='\t')  # Save as a TSV (Tab-separated values) file

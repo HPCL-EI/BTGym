@@ -30,38 +30,6 @@ Optimal Actions: Walk_fridge, Open_fridge
 Vital Action Predicates: Walk, Open
 Vital Objects: fridge
 
-1
-Environment:1
-Instruction: 
-Goals: IsIn_chips_stove
-Optimal Actions: Walk_chips, RightGrab_chips, Walk_stove, RightPut_chips_stove
-Vital Action Predicates: Walk, RightGrab, Open, RightPutIn
-Vital Objects: chips, stove
-
-2
-Environment:1
-Instruction: 
-Goals: IsIn_book_cabinet
-Optimal Actions: Walk_book, RightGrab_book, Walk_cabinet, RightPut_book_cabinet
-Vital Action Predicates: Walk, RightGrab, Open, RightPutIn
-Vital Objects: book, cabinet
-
-3
-Environment:1
-Instruction: 
-Goals: IsNear_self_tv
-Optimal Actions: Walk_tv
-Vital Action Predicates: Walk
-Vital Objects: tv
-
-4
-Environment:1
-Instruction: 
-Goals: IsOpen_fridge
-Optimal Actions: Walk_fridge, Open_fridge
-Vital Action Predicates: Walk, Open
-Vital Objects: fridge
-
 5
 Environment:1
 Instruction: 

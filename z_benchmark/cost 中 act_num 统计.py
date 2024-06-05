@@ -73,7 +73,7 @@ def get_algo(d,ld,difficulty, scene, algo_str, max_epoch, data_num, save_csv=Fal
 
 
 max_epoch = 100
-data_num = 2
+data_num = 1
 algo_type = ['opt_h0','opt_h0_llm', 'obtea', 'bfs']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
 
 algo_act_num_ls = {
@@ -114,6 +114,7 @@ for difficulty in ['single']:  # 'single', 'multi'
                             goal_set[0], c, verbose=False)
                         algo_act_num_ls[algo_str].append(act_num)
                         # print(algo_str,c, act_num)
+
 
     print(algo_act_num_ls)
 

@@ -82,8 +82,6 @@ for difficulty in ["single","multi"]:
 # 将结果保存到 CSV 文件
 results_df.to_csv('./algorithm_performance_results.csv', index=False)
 
-
-
 # 打印全部结果
 # 设置 Pandas 显示选项，以便完整显示 DataFrame
 pd.set_option('display.max_rows', None)  # 显示所有行
@@ -91,49 +89,107 @@ pd.set_option('display.max_columns', None)  # 显示所有列
 pd.set_option('display.width', None)  # 自动行宽
 pd.set_option('display.max_colwidth', None)  # 显示完整列内容
 # 按 'Difficulty' 和 'Scene' 排序数据
-results_df.sort_values(by=['Difficulty', 'Scene'], inplace=True)
-# 循环遍历每个 'Difficulty' 分组
-for difficulty, group_df in results_df.groupby('Difficulty'):
-    print(f"Difficulty: {difficulty}")
-    print("-" * 80)
+results_df_sorted = results_df.sort_values(
+    by=['Difficulty', 'Scene'],
+    key=lambda col: col.map({'single': 0, 'multi': 1}) if col.name == 'Difficulty' else col.map({'RW': 0, 'VH': 1, 'RHS': 2, 'RH': 3})
+)
+print(results_df_sorted)
+# LaTeX table template
+latex_table = """
+\\begin{{table}}[ht]
+\\centering
+\\caption{{Performance Metrics by Scene and Algorithm}}
+\\label{{my-label}}
+\\begin{{tabular}}{{@{{}}lrrrrrrr@{{}}}}
+\\toprule
+\\textbf{{Algorithm}} & \\textbf{{SR}} & \\textbf{{Timeout}} & \\textbf{{Expanded}} & \\textbf{{Planning}} & \\textbf{{Current}} & \\textbf{{Action}} & \\textbf{{Ticks}} \\\\
+                   &             & \\textbf{{Rate}}    & \\textbf{{Number}} & \\textbf{{Time}}          & \\textbf{{Cost}}         & \\textbf{{Number}}      & \\textbf{{Time}}      \\\\ \\midrule
+\\multicolumn{{8}}{{l}}{{\\textbf{{Single-goal}}}} \\\\
+\\midrule
+\\multicolumn{{8}}{{l}}{{\\textbf{{Scenario: RoboWaiter}}}} \\\\
+{single_rw_rows}
+\\midrule
+\\multicolumn{{8}}{{l}}{{\\textbf{{Scenario: VirtualHome}}}} \\\\
+{single_vh_rows}
+\\midrule
+\\multicolumn{{8}}{{l}}{{\\textbf{{Scenario: RobotHow-Small}}}} \\\\
+{single_rhs_rows}
+\\midrule
+\\multicolumn{{8}}{{l}}{{\\textbf{{Scenario: RobotHow}}}} \\\\
+{single_rh_rows}
+\\midrule
+\\multicolumn{{8}}{{l}}{{\\textbf{{Multi-goal}}}} \\\\
+\\midrule
+\\multicolumn{{8}}{{l}}{{\\textbf{{Scenario: RoboWaiter}}}} \\\\
+{multi_rw_rows}
+\\midrule
+\\multicolumn{{8}}{{l}}{{\\textbf{{Scenario: VirtualHome}}}} \\\\
+{multi_vh_rows}
+\\midrule
+\\multicolumn{{8}}{{l}}{{\\textbf{{Scenario: RobotHow-Small}}}} \\\\
+{multi_rhs_rows}
+\\midrule
+\\multicolumn{{8}}{{l}}{{\\textbf{{Scenario: RobotHow}}}} \\\\
+{multi_rh_rows}
+\\bottomrule
+\\end{{tabular}}
+\\end{{table}}
+"""
+def escape_underscores(s):
+    return s.replace('_', '\\_').replace('nan', '-')
 
-    # 再循环每个 'Scene' 分组
-    for scene, scene_group in group_df.groupby('Scene'):
-        print(f"Scene: {scene}")
-        print(scene_group[
-                  ['Algorithm', 'Success Rate', 'Timeout Rate', 'Average Expanded Number', 'Average Planning Time',
-                   'Average Current Cost', 'Average Action Number', 'Average Tick Time']])
-        print("\n")  # 添加空行以增加可读性
-
-    print("=" * 80)  # 在每个 'Difficulty' 分组后打印分隔线
 
 
-# results_df 转为 latex
-# 按 'Difficulty' 和 'Scene' 排序数据
-results_df.sort_values(by=['Difficulty', 'Scene'], inplace=True)
+def create_latex_rows(df, difficulty, scene):
+    rows = []
+    subset_df = df[(df['Difficulty'] == difficulty) & (df['Scene'] == scene)]
+    for _, row in subset_df.iterrows():
+        avg_current_cost = row['Average Current Cost'] if row['Average Current Cost'] is not None else '-'
+        avg_action_number = row['Average Action Number'] if row['Average Action Number'] is not None else '-'
+        avg_tick_time = row['Average Tick Time'] if row['Average Tick Time'] is not None else '-'
+        rows.append(f"{row['Algorithm']} & {row['Success Rate']*100:.0f}\\% & {row['Timeout Rate']*100:.0f}\\% & {row['Average Expanded Number']:.2f} & {row['Average Planning Time']:.3f} & {avg_current_cost} & {avg_action_number} & {avg_tick_time} \\\\")
+    return "\n".join(rows)
 
-# 输出为 LaTeX 格式
-latex_string = ""
-for difficulty, group_df in results_df.groupby('Difficulty'):
-    latex_string += f"% Difficulty: {difficulty}\n"
-    latex_string += "\\begin{table}[ht]\n\\centering\n"
-    latex_string += f"\\caption{{Performance Metrics for {difficulty}}}\n"
-    latex_string += "\\begin{tabular}{@{}lrrrrrrr@{}}\n\\toprule\n"
-    latex_string += "Algorithm & SR (\%) & Timeout Rate & Expanded Number & Planning Time (s) & Current Cost & Action Number & Tick Time \\\\\n\\midrule\n"
-    for scene, scene_group in group_df.groupby('Scene'):
-        latex_string += f"\\multicolumn{{8}}{{l}}{{\\textbf{{Scene: {scene}}}}} \\\\\n"  # Adding scene as a subheader
-        latex_string += scene_group.to_latex(index=False, header=False, escape=False)
-        latex_string += "\\midrule\n"  # Add midrule after each scene for separation
-    latex_string += "\\bottomrule\n"
-    latex_string += "\\end{tabular}\n"
-    latex_string += "\\end{table}\n"
-    latex_string += "\\clearpage\n"  # Optional: Force a page break after each table for clarity
+# scenes = ['RW', 'VH', 'RHS', 'RH']
+# difficulties = ['single', 'multi']
+#
+# single_goal_rows = []
+# multi_goal_rows = []
+#
+# for scene in scenes:
+#     single_goal_rows.append(f"\\multicolumn{{8}}{{l}}{{\\textbf{{Scenario: {scene}}}}} \\\\")
+#     single_goal_rows.append(create_latex_rows(results_df_sorted, 'single', scene))
+#     multi_goal_rows.append(f"\\multicolumn{{8}}{{l}}{{\\textbf{{Scenario: {scene}}}}} \\\\")
+#     multi_goal_rows.append(create_latex_rows(results_df_sorted, 'multi', scene))
+#
+# single_goal_rows_str = "\n\\midrule\n".join(single_goal_rows)
+# multi_goal_rows_str = "\n\\midrule\n".join(multi_goal_rows)
+#
+# latex_table = latex_table.format(
+#     single_goal_rows=single_goal_rows_str,
+#     multi_goal_rows=multi_goal_rows_str
+# )
 
-# Print or save the LaTeX string
-print(latex_string)
+single_rw_rows = create_latex_rows(results_df_sorted, 'single', 'RW')
+single_vh_rows = create_latex_rows(results_df_sorted, 'single', 'VH')
+single_rhs_rows = create_latex_rows(results_df_sorted, 'single', 'RHS')
+single_rh_rows = create_latex_rows(results_df_sorted, 'single', 'RH')
+multi_rw_rows = create_latex_rows(results_df_sorted, 'multi', 'RW')
+multi_vh_rows = create_latex_rows(results_df_sorted, 'multi', 'VH')
+multi_rhs_rows = create_latex_rows(results_df_sorted, 'multi', 'RHS')
+multi_rh_rows = create_latex_rows(results_df_sorted, 'multi', 'RH')
 
-# Optionally, write the string to a .tex file
-with open('table_output.tex', 'w') as f:
-    f.write(latex_string)
+latex_table = latex_table.format(
+    single_rw_rows=single_rw_rows,
+    single_vh_rows=single_vh_rows,
+    single_rhs_rows=single_rhs_rows,
+    single_rh_rows=single_rh_rows,
+    multi_rw_rows=multi_rw_rows,
+    multi_vh_rows=multi_vh_rows,
+    multi_rhs_rows=multi_rhs_rows,
+    multi_rh_rows=multi_rh_rows
+)
 
+latex_table = escape_underscores(latex_table)
 
+print(latex_table)

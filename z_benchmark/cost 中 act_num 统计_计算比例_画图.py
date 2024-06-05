@@ -22,12 +22,134 @@ from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
 os.chdir(f'{ROOT_PATH}/../z_benchmark')
 from btgym.algos.bt_autogen.tools  import calculate_priority_percentage
 
+def get_algo(d,ld,difficulty, scene, algo_str, max_epoch, save_csv=False):
+    goal_str = ' & '.join(d["Goals"])
+    goal_set = goal_transfer_str(goal_str)
+    opt_act = act_str_process(d['Optimal Actions'], already_split=True)
+
+    heuristic_choice = -1  # obtea, bfs
+    algo_str_complete = algo_str
+    if algo_str == "opt_h0": heuristic_choice = 0
+    elif algo_str == "opt_h0_llm":heuristic_choice = 0
+    elif algo_str == "opt_h1": heuristic_choice = 1
+    if algo_str in ['opt_h0', 'opt_h1',"opt_h0_llm"]: algo_str = 'opt'
+
+    priority_opt_act=[]
+    # 小空间
+    if algo_str_complete == "opt_h0_llm":
+        priority_opt_act = act_str_process(ld['Optimal Actions'], already_split=True)
+        # print("llm_opt_act:",priority_opt_act)
+        # print("opt_act:", opt_act)
+    elif "opt" in algo_str_complete:
+        priority_opt_act=opt_act
+    print("opt_act",opt_act)
+
+    algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
+                          priority_act_ls=priority_opt_act, key_predicates=[],
+                          key_objects=[],
+                          selected_algorithm=algo_str, mode="big",
+                          llm_reflect=False, time_limit=None,
+                          heuristic_choice=heuristic_choice,exp=False,exp_cost=True,output_just_best=False,
+                          theory_priority_act_ls=opt_act,max_expanded_num=max_epoch)
+
+    start_time = time.time()
+    algo.process(goal_set)
+    end_time = time.time()
+
+    ### Output
+    planning_time_total = end_time - start_time
+    time_limit_exceeded = algo.algo.time_limit_exceeded
+    ptml_string, cost, expanded_num = algo.post_process(ptml_string=False)
+    error, state, act_num, current_cost, record_act_ls,current_tick_time = algo.execute_bt(goal_set[0], cur_cond_set, verbose=False)
+
+    # print("data:", i, "scene:",scene, "algo:",algo_str_complete)
+    print(f"\x1b[32m Goal:{goal_str} \n Executed {act_num} action steps\x1b[0m",
+          "\x1b[31mERROR\x1b[0m" if error else "",
+          "\x1b[31mTIMEOUT\x1b[0m" if time_limit_exceeded else "")
+    print("current_cost:", current_cost, "expanded_num:", expanded_num, "planning_time_total:", planning_time_total)
+
+    return algo
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
 
 
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+
+# def plot_adaptive_histograms_and_save(difficulty, scene):
+#     algo_names = ['opt_h0', 'opt_h0_llm', 'bfs']
+#     data_frames = []
+#
+#     # 读取所有算法的CSV文件并存储在data_frames列表中
+#     for algo_name in algo_names:
+#         filename = f"./COST_output/{difficulty}_{scene}_{algo_name}.csv"
+#         df = pd.read_csv(filename)
+#         df['algo_name'] = algo_name
+#         df['cost_ratio'] = df['algo_cost'] /df['obtea_cost']
+#         data_frames.append(df)
+#
+#     # 合并所有数据
+#     combined_df = pd.concat(data_frames)
+#
+#     # 计算自适应bins
+#     min_cost = combined_df['obtea_cost'].min()
+#     max_cost = combined_df['obtea_cost'].max()
+#     bins = np.arange(min_cost, max_cost + 10, 10)
+#
+#     # 定义颜色
+#     colors = {
+#         'opt_h0': "#1f77b4", # 'blue',
+#         'opt_h0_llm': '#2ca02c', # orange
+#         'bfs': '#ff7f0e' #green
+#     }
+#
+#     plt.figure(figsize=(12, 8))
+#
+#     # 存储每个类别下三种算法的平均数据
+#     average_data = []
+#
+#     for algo_name in algo_names:
+#         algo_df = combined_df[combined_df['algo_name'] == algo_name].copy()
+#         algo_df.loc[:, 'group'] = pd.cut(algo_df['obtea_cost'], bins=bins, right=False)
+#
+#         # 按组计算平均成本比例
+#         grouped = algo_df.groupby('group', observed=True)['cost_ratio'].mean()
+#
+#         if not grouped.empty:
+#             grouped.plot(kind='bar',  label=algo_name,color=colors[algo_name]) # ,color=colors[algo_name]
+#             # 添加平均数据到列表
+#             for group, value in grouped.items():
+#                 average_data.append((group, algo_name, value))
+#
+#     plt.title(f'Combined Cost Ratio Histograms for {scene} in {difficulty}')
+#     plt.xlabel('Cost Group')
+#     plt.ylabel('Average Cost Ratio')
+#     y_min = 0
+#     y_max = 2
+#     plt.ylim(y_min, y_max)  # 设置y轴范围
+#     plt.legend(title='Algorithm')
+#
+#     # 创建输出目录（如果不存在）
+#     output_dir = "./COST_Histograms"
+#     if not os.path.exists(output_dir):
+#         os.makedirs(output_dir)
+#
+#     # 保存图片到文件
+#     output_filename = f"{output_dir}/{difficulty}_{scene}_combined.png"
+#     plt.savefig(output_filename)
+#     plt.show()  # 显示图表
+#     plt.close()  # 关闭图表以释放内存
+#     print(f"直方图已保存为：{output_filename}")
+#
+#     # 输出每个类别下三种算法的平均数据
+#     print("\n每个类别下三种算法的平均数据：")
+#     for group, algo_name, value in average_data:
+#         print(f"类别: {group}, 算法: {algo_name}, 平均成本比例: {value:.2f}")
 
 def plot_adaptive_histograms_and_save(difficulty, scene):
     algo_names = ['opt_h0', 'opt_h0_llm', 'bfs']
@@ -38,7 +160,7 @@ def plot_adaptive_histograms_and_save(difficulty, scene):
         filename = f"./COST_output/{difficulty}_{scene}_{algo_name}.csv"
         df = pd.read_csv(filename)
         df['algo_name'] = algo_name
-        df['cost_ratio'] = df['obtea_cost'] / df['algo_cost']
+        df['cost_ratio'] = df['algo_cost'] / df['obtea_cost']
         data_frames.append(df)
 
     # 合并所有数据
@@ -49,11 +171,16 @@ def plot_adaptive_histograms_and_save(difficulty, scene):
     max_cost = combined_df['obtea_cost'].max()
     bins = np.arange(min_cost, max_cost + 10, 10)
 
-    # 定义颜色
+    # 定义颜色和位置偏移
     colors = {
-        'opt_h0': "#1f77b4", # 'blue',
-        'opt_h0_llm': '#2ca02c', # orange
-        'bfs': '#ff7f0e' #green
+        'opt_h0': '#1f77b4',  # 蓝色
+        'opt_h0_llm': '#2ca02c',  # 绿色
+        'bfs': '#ff7f0e'  # 橙色
+    }
+    offsets = {
+        'opt_h0': -0.2,
+        'opt_h0_llm': 0.0,
+        'bfs': 0.2
     }
 
     plt.figure(figsize=(12, 8))
@@ -66,10 +193,11 @@ def plot_adaptive_histograms_and_save(difficulty, scene):
         algo_df.loc[:, 'group'] = pd.cut(algo_df['obtea_cost'], bins=bins, right=False)
 
         # 按组计算平均成本比例
-        grouped = algo_df.groupby('group', observed=True)['cost_ratio'].mean()
+        grouped = algo_df.groupby('group', observed=True)['cost_ratio'].mean().dropna()
 
         if not grouped.empty:
-            grouped.plot(kind='bar',  label=algo_name,color=colors[algo_name]) # ,color=colors[algo_name]
+            x = np.arange(len(grouped.index)) + offsets[algo_name]
+            plt.bar(x, grouped, width=0.4, color=colors[algo_name], label=algo_name, align='center')
             # 添加平均数据到列表
             for group, value in grouped.items():
                 average_data.append((group, algo_name, value))
@@ -77,9 +205,10 @@ def plot_adaptive_histograms_and_save(difficulty, scene):
     plt.title(f'Combined Cost Ratio Histograms for {scene} in {difficulty}')
     plt.xlabel('Cost Group')
     plt.ylabel('Average Cost Ratio')
-    y_min = 0.8
-    y_max = 1.0
+    y_min = 0
+    y_max = 2
     plt.ylim(y_min, y_max)  # 设置y轴范围
+    plt.xticks(np.arange(len(grouped.index)), [str(g) for g in grouped.index], rotation=45)
     plt.legend(title='Algorithm')
 
     # 创建输出目录（如果不存在）
@@ -103,7 +232,7 @@ def plot_adaptive_histograms_and_save(difficulty, scene):
 
 
 max_epoch_obtea = 200
-max_epoch = 50
+max_epoch = 100
 data_num = 10
 algo_type = ['opt_h0','opt_h0_llm','bfs','obtea']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
 algo_dic = {}
@@ -115,8 +244,8 @@ algo_dic = {}
 #     'bfs': []
 # }
 
-for difficulty in ['single', 'multi']:  # 'single', 'multi'
-    for scene in ['RH', 'RHS', 'RW', 'VH']:  # 'RH', 'RHS', 'RW', 'VH'
+for difficulty in ['single']:  # 'single', 'multi'
+    for scene in ['RH']:  # 'RH', 'RHS', 'RW', 'VH'
 
         algo_cost_ls = {
             # 本算法和optea

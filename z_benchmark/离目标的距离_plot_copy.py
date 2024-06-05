@@ -16,7 +16,7 @@ font3 = {'family': 'Times New Roman', 'color': 'Black', 'weight': 'bold', 'size'
 
 
 def plot_percentage(percentages_type, difficulty, scene, algo_type,
-                    max_epoch, y_bottom, colors, ax, y_label=False):
+                    max_epoch, y_bottom, y_top, colors, ax, y_label=False):
     if scene == 'RW':
         y_bottom = 80
         max_epoch = 40
@@ -25,6 +25,9 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type,
     if scene in ['VH', 'RHS','RH']:
         # y_bottom = 80
         max_epoch = 250
+    if difficulty == 'single':
+        max_epoch = 50
+        y_bottom = 75
 
     mean_corr_ratio = []  # To store the mean of each algorithm
     std_corr_ratio = []  # To store the standard deviation of each algorithm
@@ -52,7 +55,7 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type,
 
     if y_label:
         ax.set_ylabel(f'{difficulty}')
-    ax.set_ylim(bottom=y_bottom,)
+    ax.set_ylim(bottom=y_bottom,top=y_top)
     ax.set_xlabel('Epoch')
     ax.set_title(f'{percentages_type} ratio in {scene}')
 
@@ -62,7 +65,7 @@ var_small = 0.2
 single_max_epoch = 150
 multi_max_epoch = 300
 y_bottom = 50
-y_top = 50
+y_top = 105
 algo_type = ['opt_h0', 'opt_h0_llm', 'obtea', 'bfs']  # Define the algorithms to plot
 difficulties = ['single', 'multi']
 scenes = ['RW', 'VH', 'RHS', 'RH']  # 'RH', 'RHS', 'RW', 'VH'
@@ -80,7 +83,8 @@ for percentages_type in ['expanded']:  # 'expanded', 'traversed', 'cost'
             if axe_id in [0,4]: y_label = True
             else: y_label = False
             plot_percentage(percentages_type, difficulty, scene, algo_type,
-                            max_epoch, y_bottom, colors, axes[axe_id], y_label=y_label)
+                            max_epoch, y_bottom, y_top, colors, axes[axe_id],
+                            y_label=y_label)
             axe_id += 1
 
 handles, labels = axes[0].get_legend_handles_labels()

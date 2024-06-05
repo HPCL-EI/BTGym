@@ -46,8 +46,7 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
         detail_rows = []
 
         for i, (d,ld) in enumerate(zip(data[:data_num],llm_data[:data_num])):
-            # if i%10 == 0:
-            print("i:",i)
+            print("data:", i, "scene:",scene, "algo:",algo_str_complete)
             goal_str = ' & '.join(d["Goals"])
             goal_set = goal_transfer_str(goal_str)
             opt_act = act_str_process(d['Optimal Actions'], already_split=True)
@@ -65,17 +64,17 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
             # 小空间
             if algo_str_complete == "opt_h0_llm":
                 priority_opt_act = act_str_process(ld['Optimal Actions'], already_split=True)
-                print("llm_opt_act:",priority_opt_act)
-                print("opt_act:", opt_act)
+                # print("llm_opt_act:",priority_opt_act)
+                # print("opt_act:", opt_act)
             elif "opt" in algo_str_complete:
                 priority_opt_act=opt_act
-
+            print("opt_act",opt_act)
             algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
                                   priority_act_ls=priority_opt_act, key_predicates=[],
                                   key_objects=[],
                                   selected_algorithm=algo_str, mode="big",
                                   llm_reflect=False, time_limit=5,
-                                  heuristic_choice=heuristic_choice,exp=True,exp_cost=False,output_just_best=True,
+                                  heuristic_choice=heuristic_choice,exp=True,exp_cost=False,output_just_best=False,
                                   theory_priority_act_ls=opt_act)
 
             goal_set = goal_transfer_str(goal_str)
@@ -86,9 +85,11 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
             ### Output
             planning_time_total = end_time - start_time
             time_limit_exceeded = algo.algo.time_limit_exceeded
-            ptml_string, cost, expanded_num = algo.post_process()
+            ptml_string, cost, expanded_num = algo.post_process(ptml_string=False)
             error, state, act_num, current_cost, record_act_ls,current_tick_time = algo.execute_bt(goal_set[0], cur_cond_set, verbose=False)
 
+
+            # print("data:", i, "scene:",scene, "algo:",algo_str_complete)
             print(f"\x1b[32m Goal:{goal_str} \n Executed {act_num} action steps\x1b[0m",
                   "\x1b[31mERROR\x1b[0m" if error else "",
                   "\x1b[31mTIMEOUT\x1b[0m" if time_limit_exceeded else "")
@@ -119,7 +120,7 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
                     corr_ratio=[]
                     for expanded_act in algo.algo.expanded_act_ls_ls:
                         corr_ratio.append(calculate_priority_percentage(expanded_act, record_act_ls))
-                print(corr_ratio)
+                # print(corr_ratio)
 
             elif percentages_type == 'traversed':
                 corr_ratio = algo.algo.traversed_percentages

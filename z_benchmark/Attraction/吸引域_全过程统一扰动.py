@@ -29,7 +29,7 @@ def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100):
     AVG_SR = 0
 
     # 导入数据
-    data_path = f"{ROOT_PATH}/../z_benchmark/data/{scene}_single_100_processed_data.txt"
+    data_path = f"{ROOT_PATH}/../z_benchmark/data/{scene}_multi_100_processed_data.txt"
     data = read_dataset(data_path)
     llm_data_path = f"{ROOT_PATH}/../z_benchmark/llm_data/{scene}_single_100_llm_data.txt"
     llm_data = read_dataset(llm_data_path)
@@ -97,7 +97,7 @@ def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100):
             # error, state, act_num, current_cost, record_act_ls, ticks = algo.execute_bt(goal_set[0], new_cur_state,
             #                                                                             verbose=False)
 
-            # new_cur_state = modify_condition_set(scene,SENCE_ACT_DIC[scene], cur_cond_set,objects)
+            new_cur_state = modify_condition_set(scene,SENCE_ACT_DIC[scene], cur_cond_set,objects)
             error, state, act_num, current_cost, record_act_ls, ticks = algo.execute_bt(goal_set[0], new_cur_state, modify_condition_set,
                                                                                         verbose=False, p=0.5)
 

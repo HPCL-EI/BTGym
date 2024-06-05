@@ -29,7 +29,7 @@ def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100):
     AVG_SR = 0
 
     # 导入数据
-    data_path = f"{ROOT_PATH}/../z_benchmark/data/{scene}_single_100_processed_data.txt"
+    data_path = f"{ROOT_PATH}/../z_benchmark/data/{scene}_multi_100_processed_data.txt"
     data = read_dataset(data_path)
     llm_data_path = f"{ROOT_PATH}/../z_benchmark/llm_data/{scene}_single_100_llm_data.txt"
     llm_data = read_dataset(llm_data_path)
@@ -63,7 +63,7 @@ def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100):
                               priority_act_ls=priority_opt_act, key_predicates=[],
                               key_objects=[],
                               selected_algorithm=algo_str, mode="big",
-                              llm_reflect=False, time_limit=10,
+                              llm_reflect=False, time_limit=5,
                               heuristic_choice=heuristic_choice, exp=False, exp_cost=False, output_just_best=just_best,
                               theory_priority_act_ls=opt_act)
 
@@ -83,15 +83,20 @@ def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100):
               "ticks:", ticks)
 
         # visualization
-        file_name = "tree"
-        file_path = f'./{file_name}.btml'
-        with open(file_path, 'w') as file:
-            file.write(ptml_string)
-        # read and execute
-        from btgym import BehaviorTree
-        bt = BehaviorTree(file_name + ".btml", env.behavior_lib)
-        # bt.print()
-        bt.draw()
+        # file_name = "tree"
+        # file_path = f'./{file_name}.btml'
+        # with open(file_path, 'w') as file:
+        #     file.write(ptml_string)
+        # # read and execute
+        # from btgym import BehaviorTree
+        # bt = BehaviorTree(file_name + ".btml", env.behavior_lib)
+        # # bt.print()
+        # bt.draw()
+        pair_num=0
+        if algo_str_complete in ['opt_h0','opt_h0_llm', 'obtea']:
+            pair_num = len(algo.algo.expanded)
+        else:
+            pair_num = algo.algo.traversed_state_num
 
         # 跑算法
         # 提取出obj
@@ -117,24 +122,30 @@ def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100):
 
     AVG_SR = AVG_SR / data_num
     print("成功的执行占比（非错误）: {:.2%}".format(AVG_SR))
-    return round(AVG_SR, 2)
+    return pair_num,round(AVG_SR, 3)
 
 
-algorithms = ['obtea']  # 'opt_h0', 'opt_h1', 'obtea', 'bfs', 'dfs'
-scenes = ['RH']  # 'RH', 'RHS', 'RW', 'VH'
+algorithms = ['opt_h0','opt_h0_llm', 'obtea', 'bfs']  # 'opt_h0','opt_h0_llm', 'obtea', 'bfs'
+scenes = [ 'RH', 'VH', 'RHS', 'RW']  # 'RH', 'VH', 'RHS', 'RW'
 just_best_bts = [True, False] # True, False
 
+columns = ['RH','RH_PairNum',
+           'VH','VH_PairNum',
+           'RHS','RHS_PairNum',
+           'RW','RW_PairNum']
 
-data_num=1
-
+data_num=5
+exe_times =5
 # 创建df
 index = [f'{algo_str}_{tb}' for tb in ['T', 'F'] for algo_str in algorithms ]
-df = pd.DataFrame(index=index, columns=scenes)
+# index = [f'{algo_str}_{tb}' for tb in ['F'] for algo_str in algorithms ]
+df = pd.DataFrame(index=index, columns=['Act_Cond_Pair'] + scenes)
 for just_best in just_best_bts:
     for algo_str in algorithms:
         index_key = f'{algo_str}_{"T" if just_best else "F"}'
         for scene in scenes:
-            df.at[index_key, scene] = get_SR(scene, algo_str, just_best,exe_times=10,data_num=data_num)
+            pair_num, df.at[index_key, scene] = get_SR(scene, algo_str, just_best,exe_times=exe_times,data_num=data_num)
+            df.at[index_key, f"{scene}_PairNum"] = pair_num
 
 formatted_string = df.to_csv(sep='\t')
 print(formatted_string)
@@ -142,5 +153,5 @@ print("----------------------")
 print(df)
 
 # Save the DataFrame to a CSV file
-csv_file_path = f"{ROOT_PATH}/../z_benchmark/Attraction/only_changes_initial_time_limit=10.csv"  # Define your CSV file path
+csv_file_path = f"{ROOT_PATH}/../z_benchmark/Attraction/only_changes_initial_t={exe_times}.csv"  # Define your CSV file path
 df.to_csv(csv_file_path, sep='\t')  # Save as a TSV (Tab-separated values) file

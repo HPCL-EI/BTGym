@@ -3,7 +3,7 @@ import os
 import random
 from btgym.utils import ROOT_PATH
 os.chdir(f'{ROOT_PATH}/../z_benchmark')
-from tools import *
+from tools import modify_condition_set_Random_Perturbations,setup_environment
 import time
 import re
 import pandas as pd
@@ -13,7 +13,7 @@ from btgym.utils.read_dataset import read_dataset
 from btgym.algos.llm_client.tools import goal_transfer_str
 from btgym.algos.bt_autogen.main_interface import BTExpInterface
 from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process, act_format_records
-
+import concurrent.futures
 from btgym.envs.RoboWaiter.exec_lib._base.RWAction import RWAction
 from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
 from btgym.envs.RobotHow_Small.exec_lib._base.RHSAction import RHSAction
@@ -24,14 +24,14 @@ SENCE_ACT_DIC={"RW":RWAction,
                "RHS":RHSAction,
                "RH":RHAction}
 
-def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100):
+def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100,p=0.2,difficulty="multi"):
 
     AVG_SR = 0
 
     # 导入数据
-    data_path = f"{ROOT_PATH}/../z_benchmark/data/{scene}_multi_100_processed_data.txt"
+    data_path = f"{ROOT_PATH}/../z_benchmark/data/{scene}_{difficulty}_100_processed_data.txt"
     data = read_dataset(data_path)
-    llm_data_path = f"{ROOT_PATH}/../z_benchmark/llm_data/{scene}_single_100_llm_data.txt"
+    llm_data_path = f"{ROOT_PATH}/../z_benchmark/llm_data/{scene}_{difficulty}_100_llm_data.txt"
     llm_data = read_dataset(llm_data_path)
     env, cur_cond_set = setup_environment(scene)
 
@@ -97,9 +97,12 @@ def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100):
             # error, state, act_num, current_cost, record_act_ls, ticks = algo.execute_bt(goal_set[0], new_cur_state,
             #                                                                             verbose=False)
 
-            new_cur_state = modify_condition_set(scene,SENCE_ACT_DIC[scene], cur_cond_set,objects)
-            error, state, act_num, current_cost, record_act_ls, ticks = algo.execute_bt(goal_set[0], new_cur_state, modify_condition_set,
-                                                                                        verbose=False, p=0.5)
+            # new_cur_state = modify_condition_set(scene,SENCE_ACT_DIC[scene], cur_cond_set,objects)
+
+            new_cur_state = modify_condition_set_Random_Perturbations(scene, SENCE_ACT_DIC[scene], cur_cond_set, objects, p=p)
+            error, state, act_num, current_cost, record_act_ls, ticks = algo.execute_bt_Random_Perturbations(scene, SENCE_ACT_DIC[scene],objects,\
+                                                                                                             goal_set[0], new_cur_state,
+                                                                                        verbose=False, p=p)
 
 
             # 检查是否有错误，如果没有，则增加成功计数
@@ -114,21 +117,46 @@ def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100):
     return round(AVG_SR, 2)
 
 
+def run_simulation(scene, algo_str, just_best):
+    return scene, algo_str, get_SR(scene, algo_str, just_best, exe_times=5, data_num=data_num, p=p, difficulty=difficulty)
+
+
+
 algorithms = ['opt_h0', 'opt_h0_llm', 'obtea', 'bfs']  # 'opt_h0', 'opt_h1', 'obtea', 'bfs', 'dfs'
 scenes = ['RW', 'VH' , 'RHS' ,'RH']  # 'RH', 'RHS', 'RW', 'VH'
-just_best_bts = [True, False] # True, False
+just_best_bts = [False] # True, False
 
 
-data_num=2
+data_num=100
+p=0.5
+difficulty = "multi"
+
+
 
 # 创建df
 index = [f'{algo_str}_{tb}' for tb in ['T', 'F'] for algo_str in algorithms ]
 df = pd.DataFrame(index=index, columns=scenes)
-for just_best in just_best_bts:
-    for algo_str in algorithms:
-        index_key = f'{algo_str}_{"T" if just_best else "F"}'
-        for scene in scenes:
-            df.at[index_key, scene] = get_SR(scene, algo_str, just_best,exe_times=5,data_num=data_num)
+# for just_best in just_best_bts:
+#     for algo_str in algorithms:
+#         index_key = f'{algo_str}_{"T" if just_best else "F"}'
+#         for scene in scenes:
+#             df.at[index_key, scene] = get_SR(scene, algo_str, just_best,exe_times=5,data_num=data_num,p=p,difficulty=difficulty)
+# 使用 ThreadPoolExecutor 并行执行
+with concurrent.futures.ThreadPoolExecutor() as executor: #max_workers=4
+    future_to_scene_algo = {}
+    for just_best in just_best_bts:
+        for algo_str in algorithms:
+            for scene in scenes:
+                index_key = f'{algo_str}_{"T" if just_best else "F"}'
+                future = executor.submit(run_simulation, scene, algo_str, just_best)
+                future_to_scene_algo[future] = (index_key, scene)
+
+    # 获取结果并更新 DataFrame
+    for future in concurrent.futures.as_completed(future_to_scene_algo):
+        index_key, scene = future_to_scene_algo[future]
+        _, _, sr = future.result()
+        df.at[index_key, scene] = sr
+
 
 formatted_string = df.to_csv(sep='\t')
 print(formatted_string)
@@ -136,5 +164,6 @@ print("----------------------")
 print(df)
 
 # Save the DataFrame to a CSV file
-csv_file_path = 'only_changes_initial.csv'  # Define your CSV file path
-df.to_csv(csv_file_path, sep='\t')  # Save as a TSV (Tab-separated values) file
+csv_file_path = f"{ROOT_PATH}/../z_benchmark/Attraction/2_changes_all_p={p}_t=5_d={data_num}_{difficulty}.csv"  # Define your CSV file path
+df.to_csv(csv_file_path)  # Save as a TSV (Tab-separated values) file
+print(csv_file_path)

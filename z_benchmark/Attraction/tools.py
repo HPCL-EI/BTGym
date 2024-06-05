@@ -2,9 +2,10 @@ import os
 from btgym.utils import ROOT_PATH
 os.chdir(f'{ROOT_PATH}/../')
 import btgym
-from btgym.utils.tools import collect_action_nodes
+#
 import copy
 import random
+import re
 
 from btgym.envs.RoboWaiter.exec_lib._base.RWAction import RWAction as RW
 from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction as VH
@@ -47,8 +48,17 @@ def change_hands(sence,SimAct, new_cur_state):
                 # Drop the object and mark the hand as empty
                 new_cur_state.discard(holding_condition)
                 new_cur_state.add(f'Holding(Nothing)')
-                item = holding_condition.split(',')[1].strip().strip(')')
-                put_position = random.choice(list(SimAct.SurfacePlaces))
+                # print("holding_condition:",holding_condition)
+                # item = holding_condition.split(',')[1].strip().strip(')')
+
+                match = re.search(r'Holding\((.*?)\)', holding_condition)
+                if match:
+                    item =  match.group(1)
+                else:
+                    raise ValueError("Invalid holding_condition format")
+
+
+                put_position = random.choice(list(SimAct.SURFACES))
                 new_cur_state.add(f'On({item},{put_position})')
         else:
             new_cur_state.discard(holding_condition)
@@ -76,10 +86,10 @@ def change_hands(sence,SimAct, new_cur_state):
 
                     # Randomly decide whether to place it on a surface or in an available position
                     if random.choice([True, False]):  # True for Surface, False for CanPutIn
-                        put_position = random.choice(list(SimAct.SurfacePlaces))
+                        put_position = random.choice(list(SimAct.SURFACES))
                         new_cur_state.add(f'IsOn({item},{put_position})')
                     else:
-                        put_position = random.choice(list(SimAct.CanPutInPlaces))
+                        put_position = random.choice(list(SimAct.CONTAINERS))
                         new_cur_state.add(f'IsIn({item},{put_position})')
 
                 else:
@@ -174,6 +184,44 @@ def change_cut(sence,SimAct, new_cur_state,objects):
     return new_cur_state
 
 
+def modify_condition_set_Random_Perturbations(sence,SimAct, cur_cond_set,objects,p=0.2):
+
+    new_cur_state = copy.deepcopy(cur_cond_set)
+
+    # Change Location
+    if random.random() < p:
+        new_cur_state = change_location(sence,SimAct, new_cur_state)
+
+    # Change the state of your hand. If you are holding something, move it to another place.
+    if random.random() < p:
+        new_cur_state = change_hands(sence, SimAct, new_cur_state)
+
+    if sence == "RW":
+        if random.random() < p:
+            new_cur_state = change_exists(sence, SimAct, new_cur_state,objects)
+        return new_cur_state
+
+    # Randomly change the inherent properties of an object
+    # Handling objects that can be opened and closed (such as doors, windows, equipment, etc.)
+    if random.random() < p:
+        new_cur_state = change_switch(sence, SimAct, new_cur_state,objects)
+    # Handling objects that can be opened or closed (such as cabinets, drawers, etc.)
+    if random.random() < p:
+        new_cur_state = change_canopen(sence, SimAct, new_cur_state,objects)
+
+    if sence in ["RHS","RH"]:
+        if random.random() < p:
+            new_cur_state = change_hasplug(sence, SimAct, new_cur_state,objects)
+        # Change IsClean or IsCut
+        if random.random() < p:
+            new_cur_state = change_clean(sence, SimAct, new_cur_state,objects)
+        if random.random() < p:
+            new_cur_state = change_cut(sence, SimAct, new_cur_state, objects)
+
+    return new_cur_state
+
+
+
 def modify_condition_set(sence,SimAct, cur_cond_set,objects):
 
     new_cur_state = copy.deepcopy(cur_cond_set)
@@ -203,6 +251,7 @@ def modify_condition_set(sence,SimAct, cur_cond_set,objects):
     return new_cur_state
 
 def setup_environment(scene):
+    from btgym.utils.tools import collect_action_nodes
     if scene == "RW":
         # ===================== RoboWaiter ========================
         from btgym.envs.RoboWaiter.exec_lib._base.RWAction import RWAction

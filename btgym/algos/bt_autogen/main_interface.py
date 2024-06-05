@@ -19,6 +19,10 @@ from btgym.algos.bt_auto_exp.BTExpansionAlgorithmBFS_test import BTalgorithmBFS 
 from btgym.algos.bt_auto_exp.OBTEA_test import OBTEAlgorithm as OBTEAlgorithm_test
 
 from btgym.algos.bt_autogen.tools import get_btml
+import os
+from btgym.utils import ROOT_PATH
+os.chdir(f'{ROOT_PATH}/../z_benchmark')
+from z_benchmark.Attraction.tools import modify_condition_set_Random_Perturbations
 
 # 封装好的主接口
 class BTExpInterface:
@@ -339,7 +343,7 @@ class BTExpInterface:
         #     print("current_cost:",current_cost)
         return error,state,act_num-1,current_cost,record_act[:-1],current_tick_time
 
-    def execute_bt_Random_Perturbations(self,goal,state,modify_condition_set, verbose=True, p=0.5):
+    def execute_bt_Random_Perturbations(self,scene,SimAct,objects,goal,state, verbose=True, p=0.2):
         from btgym.algos.bt_autogen.tools import state_transition
         steps = 0
         current_cost = 0
@@ -356,6 +360,9 @@ class BTExpInterface:
         current_cost += cost
         while val != 'success' and val != 'failure':
             state = state_transition(state, obj)
+
+            state = modify_condition_set_Random_Perturbations(scene,SimAct, state, objects, p=p)
+
             val, obj, cost, tick_time = self.algo.bt.cost_tick(state, 0, 0)
             act_num+=1
             if verbose:

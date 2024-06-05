@@ -3,7 +3,7 @@ import os
 import random
 from btgym.utils import ROOT_PATH
 os.chdir(f'{ROOT_PATH}/../z_benchmark')
-from tools import *
+from tools import modify_condition_set_Random_Perturbations,setup_environment,modify_condition_set
 import time
 import re
 import pandas as pd
@@ -18,20 +18,21 @@ from btgym.envs.RoboWaiter.exec_lib._base.RWAction import RWAction
 from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
 from btgym.envs.RobotHow_Small.exec_lib._base.RHSAction import RHSAction
 from btgym.envs.RobotHow.exec_lib._base.RHAction import RHAction
+import concurrent.futures
 
 SENCE_ACT_DIC={"RW":RWAction,
                "VH":VHAction,
                "RHS":RHSAction,
                "RH":RHAction}
 
-def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100):
+def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100,p=0.2,difficulty="multi"):
 
     AVG_SR = 0
 
     # 导入数据
-    data_path = f"{ROOT_PATH}/../z_benchmark/data/{scene}_multi_100_processed_data.txt"
+    data_path = f"{ROOT_PATH}/../z_benchmark/data/{scene}_{difficulty}_100_processed_data.txt"
     data = read_dataset(data_path)
-    llm_data_path = f"{ROOT_PATH}/../z_benchmark/llm_data/{scene}_single_100_llm_data.txt"
+    llm_data_path = f"{ROOT_PATH}/../z_benchmark/llm_data/{scene}_{difficulty}_100_llm_data.txt"
     llm_data = read_dataset(llm_data_path)
     env, cur_cond_set = setup_environment(scene)
 
@@ -73,30 +74,14 @@ def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100):
         end_time = time.time()
         planning_time_total = end_time - start_time
         time_limit_exceeded = algo.algo.time_limit_exceeded
-        ptml_string, cost, expanded_num = algo.post_process(ptml_string=False)
-        error, state, act_num, current_cost, record_act_ls, ticks = algo.execute_bt(goal_set[0], cur_cond_set,
-                                                                                    verbose=False)
-        print(f"\x1b[32m Goal:{goal_str} \n Executed {act_num} action steps\x1b[0m",
-              "\x1b[31mERROR\x1b[0m" if error else "",
-              "\x1b[31mTIMEOUT\x1b[0m" if time_limit_exceeded else "")
-        print("current_cost:", current_cost, "expanded_num:", expanded_num, "planning_time_total:", planning_time_total,
-              "ticks:", ticks)
-
-        # visualization
-        # file_name = "tree"
-        # file_path = f'./{file_name}.btml'
-        # with open(file_path, 'w') as file:
-        #     file.write(ptml_string)
-        # # read and execute
-        # from btgym import BehaviorTree
-        # bt = BehaviorTree(file_name + ".btml", env.behavior_lib)
-        # # bt.print()
-        # bt.draw()
-        pair_num=0
-        if algo_str_complete in ['opt_h0','opt_h0_llm', 'obtea']:
-            pair_num = len(algo.algo.expanded)
-        else:
-            pair_num = algo.algo.traversed_state_num
+        # ptml_string, cost, expanded_num = algo.post_process(ptml_string=False)
+        # error, state, act_num, current_cost, record_act_ls, ticks = algo.execute_bt(goal_set[0], cur_cond_set,
+        #                                                                             verbose=False)
+        # print(f"\x1b[32m Goal:{goal_str} \n Executed {act_num} action steps\x1b[0m",
+        #       "\x1b[31mERROR\x1b[0m" if error else "",
+        #       "\x1b[31mTIMEOUT\x1b[0m" if time_limit_exceeded else "")
+        # print("current_cost:", current_cost, "expanded_num:", expanded_num, "planning_time_total:", planning_time_total,
+        #       "ticks:", ticks)
 
         # 跑算法
         # 提取出obj
@@ -109,10 +94,17 @@ def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100):
         successful_executions = 0  # 用于跟踪成功（非错误）的执行次数
         # 随机生成exe_times个初始状态，看哪个能达到目标
         for i in range(exe_times):
+            # new_cur_state = modify_condition_set(scene,SENCE_ACT_DIC[scene], cur_cond_set,objects)
+            # error, state, act_num, current_cost, record_act_ls, ticks = algo.execute_bt(goal_set[0], new_cur_state,
+            #                                                                             verbose=False)
+
             new_cur_state = modify_condition_set(scene,SENCE_ACT_DIC[scene], cur_cond_set,objects)
-            # print("new_cur_state:",new_cur_state)
-            error, state, act_num, current_cost, record_act_ls, ticks = algo.execute_bt(goal_set[0], new_cur_state,
-                                                                                        verbose=False)
+            # new_cur_state = modify_condition_set_Random_Perturbations(scene, SENCE_ACT_DIC[scene], cur_cond_set, objects, p=p)
+            error, state, act_num, current_cost, record_act_ls, ticks = algo.execute_bt_Random_Perturbations(scene, SENCE_ACT_DIC[scene],objects,\
+                                                                                                             goal_set[0], new_cur_state,
+                                                                                        verbose=False, p=p)
+
+
             # 检查是否有错误，如果没有，则增加成功计数
             if not error:
                 successful_executions += 1
@@ -122,30 +114,39 @@ def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100):
 
     AVG_SR = AVG_SR / data_num
     print("成功的执行占比（非错误）: {:.2%}".format(AVG_SR))
-    return pair_num,round(AVG_SR, 3)
+    return round(AVG_SR, 2)
 
 
-algorithms = ['opt_h0','opt_h0_llm', 'obtea', 'bfs']  # 'opt_h0','opt_h0_llm', 'obtea', 'bfs'
-scenes = [ 'RH', 'VH', 'RHS', 'RW']  # 'RH', 'VH', 'RHS', 'RW'
-just_best_bts = [True, False] # True, False
+def update_dataframe(index_key, scene, algo_str, just_best, exe_times, data_num, p):
+    df.at[index_key, scene] = get_SR(scene, algo_str, just_best, exe_times=exe_times, data_num=data_num, p=p)
 
-columns = ['RH','RH_PairNum',
-           'VH','VH_PairNum',
-           'RHS','RHS_PairNum',
-           'RW','RW_PairNum']
+# 假设 algorithms, scenes 等变量已经被定义
+executor = concurrent.futures.ThreadPoolExecutor()
 
-data_num=5
-exe_times =5
+
+algorithms = ['opt_h0', 'opt_h0_llm', 'obtea', 'bfs']  # 'opt_h0', 'opt_h1', 'obtea', 'bfs', 'dfs'
+scenes = ['RW', 'VH' , 'RHS' ,'RH']  # 'RH', 'RHS', 'RW', 'VH'
+just_best_bts = [False] # True, False
+
+
+data_num=100
+p=0.2
+difficulty = "single"
 # 创建df
 index = [f'{algo_str}_{tb}' for tb in ['T', 'F'] for algo_str in algorithms ]
-# index = [f'{algo_str}_{tb}' for tb in ['F'] for algo_str in algorithms ]
-df = pd.DataFrame(index=index, columns=['Act_Cond_Pair'] + scenes)
+df = pd.DataFrame(index=index, columns=scenes)
+
+futures = []
 for just_best in just_best_bts:
     for algo_str in algorithms:
         index_key = f'{algo_str}_{"T" if just_best else "F"}'
         for scene in scenes:
-            pair_num, df.at[index_key, scene] = get_SR(scene, algo_str, just_best,exe_times=exe_times,data_num=data_num)
-            df.at[index_key, f"{scene}_PairNum"] = pair_num
+            df.at[index_key, scene] = get_SR(scene, algo_str, just_best,exe_times=5,data_num=data_num,p=p)
+            # 提交任务到线程池
+            # future = executor.submit(update_dataframe, index_key, scene, algo_str, just_best, \
+            #                          difficulty=difficulty,exe_times=5, data_num=data_num, p=p)
+            # futures.append(future)
+
 
 formatted_string = df.to_csv(sep='\t')
 print(formatted_string)
@@ -153,5 +154,5 @@ print("----------------------")
 print(df)
 
 # Save the DataFrame to a CSV file
-csv_file_path = f"{ROOT_PATH}/../z_benchmark/Attraction/only_changes_initial_t={exe_times}.csv"  # Define your CSV file path
-df.to_csv(csv_file_path, sep='\t')  # Save as a TSV (Tab-separated values) file
+csv_file_path = f"{ROOT_PATH}/../z_benchmark/Attraction/3_initial_changes_all_p={p}_{difficulty}_t=5_d={data_num}.csv"  # Define your CSV file path
+df.to_csv(csv_file_path)  # Save as a TSV (Tab-separated values) file

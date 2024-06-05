@@ -231,9 +231,9 @@ def plot_adaptive_histograms_and_save(difficulty, scene):
 
 
 
-max_epoch_obtea = 200
+max_epoch_obtea = 300
 max_epoch = 100
-data_num = 10
+data_num = 100
 algo_type = ['opt_h0','opt_h0_llm','bfs','obtea']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
 algo_dic = {}
 
@@ -244,7 +244,7 @@ algo_dic = {}
 #     'bfs': []
 # }
 
-for difficulty in ['single']:  # 'single', 'multi'
+for difficulty in ['multi']:  # 'single', 'multi'
     for scene in ['RH']:  # 'RH', 'RHS', 'RW', 'VH'
 
         algo_cost_ls = {

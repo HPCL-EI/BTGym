@@ -1,0 +1,9 @@
+	RW	VH	RHS	RH
+opt_h0_T				
+opt_h0_llm_T				
+obtea_T				
+bfs_T				
+opt_h0_F	0.0	0.4	0.38	0.24
+opt_h0_llm_F	0.01	0.39	0.43	0.18
+obtea_F	0.01	0.53	0.56	0.15
+bfs_F	0.01	0.36	0.52	0.17

@@ -26,8 +26,8 @@ cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHAction.HasSwitchObjects}
 big_actions = collect_action_nodes(env.behavior_lib)
 
 # for i,goal_str in enumerate(goal_ls):
-for i,goal_str in enumerate(['IsOpen_fridge']): #  & IsOn_milk_desk
-# for i,goal_str in enumerate(['IsIn_milk_fridge']):
+# for i,goal_str in enumerate(['IsIn_milk_desk']): #  & IsOn_milk_desk
+for i,goal_str in enumerate(['IsIn_milk_fridge']):
     print("i:", i, "goal_str:", goal_str)
 
     # selected_algorithm,mode="big"
@@ -51,9 +51,9 @@ for i,goal_str in enumerate(['IsOpen_fridge']): #  & IsOn_milk_desk
     algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
                           priority_act_ls=[], key_predicates=[],
                           key_objects=[],
-                          selected_algorithm="weak", mode="big",
+                          selected_algorithm="opt", mode="big",
                           llm_reflect=False, time_limit=15,
-                          heuristic_choice=-1)
+                          heuristic_choice=0,output_just_best=True)
 
     goal_set = goal_transfer_str(goal_str)
 
@@ -65,10 +65,20 @@ for i,goal_str in enumerate(['IsOpen_fridge']): #  & IsOn_milk_desk
     time_limit_exceeded = algo.algo.time_limit_exceeded
 
     ptml_string, cost, expanded_num = algo.post_process()
-    error, state, act_num, current_cost, record_act_ls = algo.execute_bt(goal_set[0], cur_cond_set, verbose=False)
+    error, state, act_num, current_cost, record_act_ls,ticks = algo.execute_bt(goal_set[0], cur_cond_set, verbose=False)
 
     print(f"\x1b[32m Goal:{goal_str} \n Executed {act_num} action steps\x1b[0m",
           "\x1b[31mERROR\x1b[0m" if error else "",
           "\x1b[31mTIMEOUT\x1b[0m" if time_limit_exceeded else "")
     print("current_cost:", current_cost, "expanded_num:", expanded_num, "planning_time_total:", planning_time_total)
 
+# visualization
+file_name = "tree"
+file_path = f'./{file_name}.btml'
+with open(file_path, 'w') as file:
+    file.write(ptml_string)
+# read and execute
+from btgym import BehaviorTree
+bt = BehaviorTree(file_name + ".btml", env.behavior_lib)
+# bt.print()
+bt.draw()

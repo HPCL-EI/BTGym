@@ -1,9 +1,9 @@
-	Act_Cond_Pair	RH	VH	RHS	RW	RH_PairNum	VH_PairNum	RHS_PairNum	RW_PairNum
-opt_h0_T									
-opt_h0_llm_T									
-obtea_T									
-bfs_T									
-opt_h0_F		0.0	1.0	1.0	0.0	22.0	9.0	3.0	3.0
-opt_h0_llm_F		1.0	1.0	1.0	0.0	455.0	13.0	3.0	3.0
-obtea_F		0.0	1.0	0.0	0.0	705.0	14.0	3.0	3.0
-bfs_F		0.0	1.0	1.0	0.0	4938.0	407.0	18.0	3.0
+	RH	VH	RHS	RW
+opt_h0_T	0.0	1.0	0.0	0.0
+opt_h0_llm_T	0.0	1.0	0.0	0.0
+obtea_T	0.0	1.0	1.0	0.0
+bfs_T	0.0	1.0	1.0	0.0
+opt_h0_F	0.0	1.0	1.0	0.0
+opt_h0_llm_F	0.0	1.0	1.0	0.0
+obtea_F	0.0	1.0	1.0	0.0
+bfs_F	0.0	1.0	0.0	0.0

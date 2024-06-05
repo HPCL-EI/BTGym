@@ -1,0 +1,120 @@
+% Difficulty: multi
+\begin{table}[ht]
+\centering
+\caption{Performance Metrics for multi}
+\begin{tabular}{@{}lrrrrrrr@{}}
+\toprule
+Algorithm & SR (\%) & Timeout Rate & Expanded Number & Planning Time (s) & Current Cost & Action Number & Tick Time \\
+\midrule
+\multicolumn{8}{l}{\textbf{Scene: RH}} \\
+\begin{tabular}{lllrrrrrrr}
+\toprule
+\midrule
+multi & RH & opt_h0 & 0.930000 & 0.070000 & 28.120000 & 1.777000 & 74.560000 & 7.320000 & 632.350000 \\
+multi & RH & opt_h0_llm & 0.320000 & 0.680000 & 276.380000 & 3.785000 & 63.120000 & 6.190000 & 493.530000 \\
+multi & RH & obtea & 0.070000 & 0.900000 & 871.260000 & 4.530000 & 38.860000 & 3.290000 & 183.430000 \\
+multi & RH & bfs & 0.060000 & 0.940000 & 112.310000 & 4.818000 & 34.330000 & 3.000000 & 5809.330000 \\
+multi & RH & weak & 0.000000 & 0.000000 & 4.360000 & 0.005000 & NaN & NaN & NaN \\
+\bottomrule
+\end{tabular}
+\midrule
+\multicolumn{8}{l}{\textbf{Scene: RHS}} \\
+\begin{tabular}{lllrrrrrrr}
+\toprule
+\midrule
+multi & RHS & opt_h0 & 1.000000 & 0.000000 & 15.370000 & 0.013000 & 63.950000 & 6.090000 & 336.670000 \\
+multi & RHS & opt_h0_llm & 1.000000 & 0.000000 & 152.730000 & 0.143000 & 64.400000 & 6.120000 & 1696.840000 \\
+multi & RHS & obtea & 0.860000 & 0.000000 & 279.570000 & 0.180000 & 62.990000 & 5.940000 & 4763.500000 \\
+multi & RHS & bfs & 0.710000 & 0.290000 & 717.040000 & 2.505000 & 61.170000 & 5.760000 & 8999.790000 \\
+multi & RHS & weak & 0.030000 & 0.000000 & 3.760000 & 0.000000 & 24.000000 & 2.330000 & 40.670000 \\
+\bottomrule
+\end{tabular}
+\midrule
+\multicolumn{8}{l}{\textbf{Scene: RW}} \\
+\begin{tabular}{lllrrrrrrr}
+\toprule
+\midrule
+multi & RW & opt_h0 & 1.000000 & 0.000000 & 10.680000 & 0.003000 & 29.140000 & 3.450000 & 128.050000 \\
+multi & RW & opt_h0_llm & 1.000000 & 0.000000 & 14.180000 & 0.004000 & 29.140000 & 3.450000 & 170.090000 \\
+multi & RW & obtea & 1.000000 & 0.000000 & 17.730000 & 0.004000 & 29.140000 & 3.450000 & 171.050000 \\
+multi & RW & bfs & 1.000000 & 0.000000 & 92.910000 & 0.165000 & 29.860000 & 3.550000 & 1778.680000 \\
+multi & RW & weak & 0.000000 & 0.000000 & 2.000000 & 0.000000 & NaN & NaN & NaN \\
+\bottomrule
+\end{tabular}
+\midrule
+\multicolumn{8}{l}{\textbf{Scene: VH}} \\
+\begin{tabular}{lllrrrrrrr}
+\toprule
+\midrule
+multi & VH & opt_h0 & 1.000000 & 0.000000 & 10.160000 & 0.025000 & 55.220000 & 5.330000 & 213.570000 \\
+multi & VH & opt_h0_llm & 0.980000 & 0.020000 & 218.700000 & 0.402000 & 55.070000 & 5.310000 & 1925.740000 \\
+multi & VH & obtea & 0.960000 & 0.000000 & 435.000000 & 0.424000 & 54.160000 & 5.210000 & 5815.550000 \\
+multi & VH & bfs & 0.410000 & 0.590000 & 379.250000 & 3.387000 & 43.340000 & 4.000000 & 4713.710000 \\
+multi & VH & weak & 0.020000 & 0.000000 & 2.740000 & 0.000000 & 18.000000 & 2.000000 & 32.000000 \\
+\bottomrule
+\end{tabular}
+\midrule
+\bottomrule
+\end{tabular}
+\end{table}
+\clearpage
+% Difficulty: single
+\begin{table}[ht]
+\centering
+\caption{Performance Metrics for single}
+\begin{tabular}{@{}lrrrrrrr@{}}
+\toprule
+Algorithm & SR (\%) & Timeout Rate & Expanded Number & Planning Time (s) & Current Cost & Action Number & Tick Time \\
+\midrule
+\multicolumn{8}{l}{\textbf{Scene: RH}} \\
+\begin{tabular}{lllrrrrrrr}
+\toprule
+\midrule
+single & RH & opt_h0 & 1.000000 & 0.000000 & 5.420000 & 0.116000 & 34.270000 & 3.310000 & 68.090000 \\
+single & RH & opt_h0_llm & 0.870000 & 0.130000 & 62.040000 & 0.732000 & 33.640000 & 3.230000 & 65.020000 \\
+single & RH & obtea & 0.730000 & 0.130000 & 130.320000 & 0.746000 & 30.700000 & 2.890000 & 89.210000 \\
+single & RH & bfs & 0.590000 & 0.410000 & 70.520000 & 2.196000 & 25.580000 & 2.320000 & 402.250000 \\
+single & RH & weak & 0.410000 & 0.000000 & 4.460000 & 0.004000 & 20.020000 & 1.780000 & 27.240000 \\
+\bottomrule
+\end{tabular}
+\midrule
+\multicolumn{8}{l}{\textbf{Scene: RHS}} \\
+\begin{tabular}{lllrrrrrrr}
+\toprule
+\midrule
+single & RHS & opt_h0 & 1.000000 & 0.000000 & 5.150000 & 0.002000 & 32.380000 & 3.070000 & 63.030000 \\
+single & RHS & opt_h0_llm & 1.000000 & 0.000000 & 17.630000 & 0.010000 & 32.380000 & 3.070000 & 176.950000 \\
+single & RHS & obtea & 0.900000 & 0.000000 & 12.080000 & 0.005000 & 30.530000 & 2.860000 & 130.120000 \\
+single & RHS & bfs & 1.000000 & 0.000000 & 27.420000 & 0.121000 & 34.480000 & 3.250000 & 818.450000 \\
+single & RHS & weak & 0.480000 & 0.000000 & 4.200000 & 0.000000 & 18.480000 & 1.600000 & 24.520000 \\
+\bottomrule
+\end{tabular}
+\midrule
+\multicolumn{8}{l}{\textbf{Scene: RW}} \\
+\begin{tabular}{lllrrrrrrr}
+\toprule
+\midrule
+single & RW & opt_h0 & 1.000000 & 0.000000 & 2.830000 & 0.000000 & 15.310000 & 1.680000 & 24.470000 \\
+single & RW & opt_h0_llm & 1.000000 & 0.000000 & 3.230000 & 0.001000 & 15.310000 & 1.680000 & 23.530000 \\
+single & RW & obtea & 1.000000 & 0.000000 & 2.950000 & 0.001000 & 15.310000 & 1.680000 & 22.310000 \\
+single & RW & bfs & 1.000000 & 0.000000 & 6.970000 & 0.011000 & 15.310000 & 1.680000 & 126.600000 \\
+single & RW & weak & 0.850000 & 0.000000 & 2.880000 & 0.000000 & 8.660000 & 1.240000 & 14.490000 \\
+\bottomrule
+\end{tabular}
+\midrule
+\multicolumn{8}{l}{\textbf{Scene: VH}} \\
+\begin{tabular}{lllrrrrrrr}
+\toprule
+\midrule
+single & VH & opt_h0 & 1.000000 & 0.000000 & 4.050000 & 0.004000 & 27.020000 & 2.600000 & 44.350000 \\
+single & VH & opt_h0_llm & 1.000000 & 0.000000 & 4.290000 & 0.005000 & 27.020000 & 2.600000 & 45.120000 \\
+single & VH & obtea & 1.000000 & 0.000000 & 7.520000 & 0.005000 & 27.020000 & 2.600000 & 63.450000 \\
+single & VH & bfs & 1.000000 & 0.000000 & 75.270000 & 0.244000 & 32.270000 & 3.050000 & 2409.590000 \\
+single & VH & weak & 0.690000 & 0.000000 & 3.960000 & 0.000000 & 19.220000 & 1.750000 & 27.090000 \\
+\bottomrule
+\end{tabular}
+\midrule
+\bottomrule
+\end{tabular}
+\end{table}
+\clearpage

@@ -107,7 +107,7 @@ def process_dataset(i, d, ld, difficulty, scene, algo_type, max_epoch, data_num)
 
 
 
-max_epoch = 20
+max_epoch = 50
 data_num = 100
 algo_type = ['opt_h0','opt_h0_llm', 'obtea', 'bfs']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
 

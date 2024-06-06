@@ -33,6 +33,7 @@ script =  [
 
     '<char0> [Walk] <chicken> (1)',
     '<char0> [Grab] <chicken> (1)',
+    '<char0> [Walk] <apple> (1)',
     '<char0> [Walk] <stove> (1)',
     '<char0> [PutIn]  <chicken>  (1) <stove> (1)',
 
@@ -46,7 +47,7 @@ scene_name=0
 simulator_launched = False
 while not simulator_launched:
     try:
-        comm.reset(18) # 0-49   40
+        comm.reset(18) # 0-49   40  18
         simulator_launched = True
     except:
         pass
@@ -64,7 +65,7 @@ for no in env_g['nodes']:
 # comm.add_character('Chars/Female1')
 # comm.add_character('Chars/Male1',initial_room="kitchen")
 # comm.add_character('Chars/Male1')
-comm.add_character('Chars/Female2')
+comm.add_character('Chars/Male1')
 #  Chars/Male6  micai   3
 #  2 22  24 微波炉可以打开
 

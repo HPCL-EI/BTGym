@@ -13,6 +13,7 @@ maxep = 20
 file_path = f'{ROOT_PATH}/../z_benchmark/output_algo_act_num/{scene}_{difficulty}_maxep={maxep}_act_num.csv'
 data = pd.read_csv(file_path)
 
+
 A = data['opt_h0'].dropna().tolist()
 B = data['opt_h0_llm'].dropna().tolist()
 C = data['obtea'].dropna().tolist()

@@ -8,20 +8,20 @@ from btgym.envs.virtualhome.tools import add_object_to_scene
 import subprocess
 
 # file_name =  'D:\Workspace\BaiduSyncdisk\CXL_Storage\Code\windows_exec.v2.2.4\VirtualHome.exe'
-file_name = 'D:\worktable\BTGym\simulators\\virtualhome\windows\VirtualHome.exe'
+file_name = 'D:\AAAA_Science\BTGym\simulators\\virtualhome\windows\VirtualHome.exe'
 
 # 启动 exe 文件
 process = subprocess.Popen(file_name, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 
-# script = ['<char0> [Walk] <tv> (1)',
-#           '<char0> [switchon] <tv> (1)',
-#           '<char0> [Walk] <sofa> (1)',
-#           '<char0> [Sit] <sofa> (1)',
-#           '<char0> [Watch] <tv> (1)']
+script = ['<char0> [Walk] <tv> (1)',
+          '<char0> [switchon] <tv> (1)',
+          '<char0> [Walk] <sofa> (1)',
+          '<char0> [Sit] <sofa> (1)',
+          '<char0> [Watch] <tv> (1)']
 
 # 准备早餐
-script =  [
+# script =  [
     # '<char0> [Walk] <fridge> (1)',
     # '<char0> [Open] <fridge> (1)',
     # '<char0> [Walk] <milk> (400)',
@@ -40,7 +40,7 @@ script =  [
 
 # '<char0> [Put] <mug> (257) <desk> (2)'
 
-    ]
+    # ]
 
 
 

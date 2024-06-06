@@ -36,6 +36,7 @@ def extract_objects(actions):
         if match:
             objects.append(match.group(1))
     return objects
+
 def collect_action_nodes(behavior_lib):
     action_list = []
 
@@ -58,6 +59,7 @@ def collect_action_nodes(behavior_lib):
     print("--------------------\n")
 
     return action_list
+
 
 
 # def refresh_VHT_samll_data():

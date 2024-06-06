@@ -1,98 +1,141 @@
+import matplotlib.pyplot as plt
+from collections import Counter
+import numpy as np
 from btgym.utils import ROOT_PATH
 import pandas as pd
-import matplotlib.pyplot as plt
-import matplotlib
-import numpy as np
-import os
-os.chdir(f'{ROOT_PATH}/../z_benchmark')
-matplotlib.rcParams['font.family'] = 'Times New Roman'
-matplotlib.rcParams['font.size'] = 20
-matplotlib.rcParams['mathtext.fontset'] = 'stix'
 
-def plot_adaptive_histograms_and_save(difficulty, scene):
-    algo_names = ['opt_h0', 'opt_h0_llm', 'bfs']
-    data_frames = []
-
-    # 读取所有算法的CSV文件并存储在data_frames列表中
-    for algo_name in algo_names:
-        filename = f"./COST_output/{difficulty}_{scene}_{algo_name}.csv"
-        df = pd.read_csv(filename)
-        df['algo_name'] = algo_name
-        df['cost_ratio'] = df['algo_cost'] / df['obtea_cost']
-        data_frames.append(df)
-
-    # 合并所有数据
-    combined_df = pd.concat(data_frames)
-
-    # 计算自适应bins
-    min_cost = combined_df['obtea_cost'].min()
-    max_cost = combined_df['obtea_cost'].max()
-    bins = np.arange(min_cost, max_cost + 10, 10)
-
-    # 定义颜色和位置偏移
-    # colors = {
-    #     'opt_h0': '#1f77b4',  # 蓝色
-    #     'opt_h0_llm': '#2ca02c',  # 绿色
-    #     'bfs': '#ff7f0e'  # 橙色
-    # }
-    colors = {
-        'opt_h0': '#C5E0B4',  # 柔和的蓝绿色
-        'opt_h0_llm': '#DAE3F3',  # 柔和的蓝色
-        'bfs': '#FFD966'  # 柔和的橙色
-    }
-    offsets = {
-        'opt_h0': -0.2,
-        'opt_h0_llm': 0.0,
-        'bfs': 0.2
-    }
-
-    plt.figure(figsize=(12, 8))
-
-    # 存储每个类别下三种算法的平均数据
-    average_data = []
-
-    for algo_name in algo_names:
-        algo_df = combined_df[combined_df['algo_name'] == algo_name].copy()
-        algo_df.loc[:, 'group'] = pd.cut(algo_df['obtea_cost'], bins=bins, right=False)
-
-        # 按组计算平均成本比例
-        grouped = algo_df.groupby('group', observed=True)['cost_ratio'].mean().dropna()
-
-        if not grouped.empty:
-            x = np.arange(len(grouped.index)) + offsets[algo_name]
-            plt.bar(x, grouped, width=0.4, color=colors[algo_name], label=algo_name, align='center')
-            # 添加平均数据到列表
-            for group, value in grouped.items():
-                average_data.append((group, algo_name, value))
-
-    plt.title(f'Combined Cost Ratio Histograms for {scene} in {difficulty}')
-    plt.xlabel('Cost Group')
-    plt.ylabel('Average Cost Ratio')
-    y_min = 0
-    y_max = 2
-    plt.ylim(y_min, y_max)  # 设置y轴范围
-    plt.xticks(np.arange(len(grouped.index.categories)), [str(g) for g in grouped.index.categories], rotation=45)
-    plt.legend()
-
-    # 创建输出目录（如果不存在）
-    output_dir = "./COST_Histograms"
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-
-    # 保存图片到文件
-    output_filename = f"{output_dir}/{difficulty}_{scene}_combined.png"
-    plt.savefig(output_filename)
-    plt.show()  # 显示图表
-    plt.close()  # 关闭图表以释放内存
-    print(f"直方图已保存为：{output_filename}")
-
-    # # 输出每个类别下三种算法的平均数据
-    # print("\n每个类别下三种算法的平均数据：")
-    # for group, algo_name, value in average_data:
-    #     print(f"类别: {group}, 算法: {algo_name}, 平均成本比例: {value:.2f}")
+scene = "RW"
+difficulty="multi"
+maxep = 20
 
 
-for difficulty in ['single']:  # 'single', 'multi'
-    for scene in ['RH']:  # 'RH', 'RHS', 'RW', 'VH'
-        plot_adaptive_histograms_and_save(difficulty, scene)
+# Load the CSV file
+file_path = f'{ROOT_PATH}/../z_benchmark/output_algo_act_num/{scene}_{difficulty}_maxep={maxep}_act_num.csv'
+data = pd.read_csv(file_path)
 
+A = data['opt_h0'].dropna().tolist()
+B = data['opt_h0_llm'].dropna().tolist()
+C = data['obtea'].dropna().tolist()
+D = data['bfs'].dropna().tolist()
+
+
+# 统计元素频次
+counter1 = Counter(A)
+counter2 = Counter(B)
+counter3 = Counter(C)
+counter4 = Counter(D)
+
+# 合并四个Counter对象，以便我们可以获得完整的x轴范围
+all_counts = counter1 + counter2 + counter3 + counter4
+sorted_x = sorted(all_counts.keys())
+
+# 设置柱状图的宽度和位置
+bar_width = 0.15
+x1 = range(len(sorted_x))
+x2 = [x + bar_width for x in x1]
+x3 = [x + bar_width for x in x2]
+x4 = [x + bar_width for x in x3]
+
+# 初始化y值为0，用于累加柱状图高度（如果需要重叠）
+y1 = [counter1[x] if x in counter1 else 0 for x in sorted_x]
+y2 = [counter2[x] if x in counter2 else 0 for x in sorted_x]
+y3 = [counter3[x] if x in counter3 else 0 for x in sorted_x]
+y4 = [counter4[x] if x in counter4 else 0 for x in sorted_x]
+
+
+alpha = 0.20
+# 绘制柱状图
+plt.bar(x4, y4, width=bar_width, label='BT Expansion', color='blue', alpha=alpha)
+
+plt.bar(x3, y3, width=bar_width, label='OBTEA', color='green', alpha=alpha)
+
+plt.bar(x2, y2, width=bar_width, label='HOBTEA', color='orange', alpha=alpha)
+
+plt.bar(x1, y1, width=bar_width, label='HOBTEA-Oracle', color='red', alpha=alpha)
+
+
+
+# 设置x轴标签
+plt.xticks([x + bar_width for x in range(len(sorted_x))], sorted_x)
+
+# 添加标题和轴标签
+plt.title(f'{scene}_{difficulty}_maxep={maxep}')
+plt.xlabel('Region Distance')
+plt.ylabel('Frequency')
+
+# 添加图例
+plt.legend()
+plt.subplots_adjust(bottom=0.3)
+plt.savefig(f'{ROOT_PATH}/../z_benchmark/output_algo_act_num/{scene}_{difficulty}_maxep={maxep}.png',
+            dpi=100, bbox_inches='tight')
+# 显示图形
+plt.show()
+
+
+
+# A = algo_act_num_ls['opt_h0']
+# B = algo_act_num_ls['opt_h0_llm']
+# C = algo_act_num_ls['obtea']
+# D = algo_act_num_ls['bfs']
+
+# # 使用Counter统计频次
+# counts1 = Counter(A)
+# counts2 = Counter(B)
+# counts3 = Counter(C)
+# counts4 = Counter(D)
+#
+# # 合并四个Counter对象，以便我们可以获得完整的x轴范围
+# all_counts = counts1 + counts2 + counts3 + counts4
+# sorted_x = sorted(all_counts.keys())
+#
+#
+# # 初始化y值为0，用于累加柱状图高度（如果需要重叠）
+# y1 = [counts1[x] if x in counts1 else 0 for x in sorted_x]
+# y2 = [counts2[x] if x in counts2 else 0 for x in sorted_x]
+# y3 = [counts3[x] if x in counts3 else 0 for x in sorted_x]
+# y4 = [counts4[x] if x in counts4 else 0 for x in sorted_x]
+#
+# # 绘制第一个柱状图
+# y_bottom = 0
+#
+# # BTExpansion
+# plt.bar(sorted_x, y4, width=0.8, color='green', edgecolor='black', label='BT Expansion', alpha=0.1)
+# poly = np.polyfit(sorted_x, y4, deg=2)
+# y_value = np.polyval(poly, sorted_x)
+# plt.plot(sorted_x, y_value, color='green', alpha=0.1)
+# plt.ylim(bottom=y_bottom)
+#
+# # OBTEA
+# plt.bar(sorted_x, y3, width=0.8, color='lightblue', edgecolor='black', label='OBTEA', alpha=0.2)
+# poly = np.polyfit(sorted_x, y3, deg=2)
+# y_value = np.polyval(poly, sorted_x)
+# plt.plot(sorted_x, y_value, color='lightblue', alpha=0.2)
+#
+# # HOBTEA
+# # 绘制第二个柱状图（相邻但不重叠）
+# # 注意：如果你想要重叠，可以将bottom参数设置为y1，但通常不推荐这样做
+# plt.bar(sorted_x, y2, width=0.8, color='orange', edgecolor='black', label='HOBTEA', alpha=0.1)
+# poly = np.polyfit(sorted_x, y2, deg=2)
+# y_value = np.polyval(poly, sorted_x)
+# plt.plot(sorted_x, y_value, color='orange', alpha=0.1)
+#
+# # HOBTEA - Oracle
+# plt.bar(sorted_x, y1, width=0.8, color='red', edgecolor='black', label='HOBTEA-Oracle', alpha=0.1)
+# # 绘制曲线
+# poly = np.polyfit(sorted_x, y1, deg=2)
+# y_value = np.polyval(poly, sorted_x)
+# plt.plot(sorted_x, y_value, color='red', alpha=0.1)
+#
+#
+# # 添加标题和轴标签
+# plt.title(f'{scene}_{difficulty}_maxep={maxep}')
+# plt.xlabel('Values')
+# plt.ylabel('Frequency')
+#
+# # 添加图例
+# plt.legend()
+# plt.subplots_adjust(bottom=0.3)
+# plt.savefig(f'./算法效率的对比图/{scene}_{difficulty}_maxep={maxep}.png',
+#             dpi=100, bbox_inches='tight')
+# # 显示图形
+# plt.show()

@@ -331,7 +331,7 @@ class BTExpInterface:
                 error = True
                 break
             steps += 1
-            if (steps >= 500):  # 至多运行500步
+            if (steps >= 300):  # 至多运行500步
                 break
         if goal <= state:  # 错误解，目标条件不在执行后状态满足
             if verbose:

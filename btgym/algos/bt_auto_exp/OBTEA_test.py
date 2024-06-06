@@ -126,9 +126,9 @@ def check_conflict_RW(c):
 
 def check_conflict(conds):
 
-    conflict = check_conflict_RW(conds)
-    if conflict:
-        return True
+    # conflict = check_conflict_RW(conds)
+    # if conflict:
+    #     return True
 
     obj_state_dic = {}
     self_state_dic = {}

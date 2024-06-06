@@ -108,9 +108,9 @@ def check_conflict_RW(c):
 
 def check_conflict(conds):
 
-    conflict = check_conflict_RW(conds)
-    if conflict:
-        return True
+    # conflict = check_conflict_RW(conds)
+    # if conflict:
+    #     return True
 
     obj_state_dic = {}
     self_state_dic = {}
@@ -161,6 +161,7 @@ class BTalgorithmBFS:
         self.expanded_percentages = []
 
         self.traversed = []  # Conditions for storing nodes that have been put into the priority queue
+
         self.traversed_act = []
         self.traversed_percentages = []
         self.traversed_state_num = 0
@@ -283,6 +284,9 @@ class BTalgorithmBFS:
         self.expanded_percentages = []
 
         self.traversed = []  # Conditions for storing nodes that have been put into the priority queue
+
+
+
         self.traversed_act = []
         self.traversed_percentages = []
         self.traversed_state_num = 0
@@ -318,6 +322,7 @@ class BTalgorithmBFS:
         self.expanded.append(goal)
         self.traversed_state_num += 1
         traversed_current = [goal]
+        self.traversed_new = [goal]
         # self.traversed = [goal]  # Set of expanded conditions
 
         if goal <= start:
@@ -498,6 +503,9 @@ class BTalgorithmBFS:
                                 break
 
                         if valid:
+
+                            self.traversed_new.append(c_attr)
+
                             c_attr_node = Leaf(type='cond', content=c_attr, min_cost=current_mincost + act.cost,trust_cost=current_trust+ act.cost)
                             a_attr_node = Leaf(type='act', content=act,
                                                min_cost=current_mincost + act.cost,trust_cost=current_trust+ act.cost)

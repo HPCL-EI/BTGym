@@ -107,14 +107,14 @@ def process_dataset(i, d, ld, difficulty, scene, algo_type, max_epoch, data_num)
 
 
 
-max_epoch = 20
+max_epoch = 10
 data_num = 100
 algo_type = ['opt_h0','opt_h0_llm', 'obtea', 'bfs']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
 
 
 import concurrent.futures
-for difficulty in ['single', 'multi']:  # 'single', 'multi'
-    for scene in ['VH','RHS','RH']:  # 'RH', 'RHS', 'RW', 'VH'
+for difficulty in ['multi']:  # 'single', 'multi'
+    for scene in ['RH']:  # 'RH', 'RHS', 'RW', 'VH'
 
         algo_act_num_ls = {
             'opt_h0': [],

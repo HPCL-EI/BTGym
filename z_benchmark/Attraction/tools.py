@@ -8,7 +8,7 @@ import random
 import re
 
 from btgym.envs.RoboWaiter.exec_lib._base.RWAction import RWAction as RW
-from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction as VH
+from btgym.envs.VirtualHome.exec_lib._base.VHAction import VHAction as VH
 from btgym.envs.RobotHow_Small.exec_lib._base.RHSAction import RHSAction as RHS
 from btgym.envs.RobotHow.exec_lib._base.RHAction import RHAction as RH
 

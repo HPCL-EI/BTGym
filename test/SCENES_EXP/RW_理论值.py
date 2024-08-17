@@ -18,7 +18,7 @@ from btgym.utils.tools import collect_action_nodes,extract_objects
 
 
 
-from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
+from btgym.envs.VirtualHome.exec_lib._base.VHAction import VHAction
 from btgym.envs.RoboWaiter.exec_lib._base.RWAction import VHTAction
 env = btgym.make("RWEnv")
 cur_cond_set = env.agents[0].condition_set = {'RobotNear(Bar)','Holding(Nothing)' }

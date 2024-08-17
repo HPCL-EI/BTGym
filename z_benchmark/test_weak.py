@@ -17,7 +17,7 @@ from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process, act
 from btgym.envs.RobotHow.exec_lib._base.RHAction import RHAction
 from btgym.envs.RobotHow_Small.exec_lib._base.RHSAction import RHSAction
 from btgym.envs.RoboWaiter.exec_lib._base.RWAction import RWAction
-from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
+from btgym.envs.VirtualHome.exec_lib._base.VHAction import VHAction
 
 
 difficulty= "single" #"single"  #"mix" "multi"
@@ -28,7 +28,7 @@ data_path = f"{ROOT_PATH}/../z_benchmark/data/{scene}_{difficulty}_100_processed
 data = read_dataset(data_path)
 
 
-from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
+from btgym.envs.VirtualHome.exec_lib._base.VHAction import VHAction
 env = btgym.make("VH-PutMilkInFridge")
 cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
 cur_cond_set |= {f'IsClose({arg})' for arg in VHAction.CanOpenPlaces}

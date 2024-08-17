@@ -137,7 +137,7 @@ def validate_goal(env, chosen_goal, n, database_index_path=None, round_num=None,
 # default_prompt_file = f"prompt_VH.txt"
 # dataset = load_dataset_and_cost(f"vh_processed_data.txt")
 # # env, _ = setup_default_env()
-# from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
+# from btgym.envs.VirtualHome.exec_lib._base.VHAction import VHAction
 # env = btgym.make("VH-PutMilkInFridge")
 # cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
 # cur_cond_set |= {f'IsClose({arg})' for arg in VHAction.CanOpenPlaces}

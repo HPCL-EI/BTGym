@@ -18,7 +18,7 @@ goal_ls = goal_gen.random_generate_goals(max_goal_num ,diffcult_type=diffcult_ty
 for goal in goal_ls:
     print(goal)
 
-from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
+from btgym.envs.VirtualHome.exec_lib._base.VHAction import VHAction
 env = btgym.make("VH-PutMilkInFridge")
 cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
 cur_cond_set |= {f'IsClose({arg})' for arg in VHAction.CanOpenPlaces}

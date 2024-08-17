@@ -18,7 +18,7 @@ from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process, act
 from btgym.envs.RobotHow.exec_lib._base.RHAction import RHAction
 from btgym.envs.RobotHow_Small.exec_lib._base.RHSAction import RHSAction
 from btgym.envs.RoboWaiter.exec_lib._base.RWAction import RWAction
-from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
+from btgym.envs.VirtualHome.exec_lib._base.VHAction import VHAction
 os.chdir(f'{ROOT_PATH}/../z_benchmark')
 from btgym.algos.bt_autogen.tools  import calculate_priority_percentage
 

@@ -1,6 +1,6 @@
 
 
-from btgym.envs.virtualhome.exec_lib import Action
+from btgym.envs.VirtualHome.exec_lib import Action
 from btgym.behavior_tree import Status
 
 class Sit(Action.VHSit):

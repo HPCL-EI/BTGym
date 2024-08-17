@@ -18,7 +18,7 @@ from btgym.utils.tools import collect_action_nodes,extract_objects
 from tools import execute_algorithm
 
 
-# from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
+# from btgym.envs.VirtualHome.exec_lib._base.VHAction import VHAction
 # env = btgym.make("VH-PutMilkInFridge")
 # cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
 # cur_cond_set |= {f'IsClose({arg})' for arg in VHAction.CanOpenPlaces}
@@ -59,7 +59,7 @@ from tools import execute_algorithm
 # ================== VH ===============
 # name = "VH"
 # dataset = read_dataset(f"{name}_test_50.txt")
-# from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
+# from btgym.envs.VirtualHome.exec_lib._base.VHAction import VHAction
 # env = btgym.make("VH-PutMilkInFridge")
 # cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
 # cur_cond_set |= {f'IsClose({arg})' for arg in VHAction.CanOpenPlaces}

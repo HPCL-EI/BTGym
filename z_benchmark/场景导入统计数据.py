@@ -14,7 +14,7 @@ big_actions = collect_action_nodes(env.behavior_lib)
 print(f"共收集到 {len(RWAction.AllObject)} 个物体")
 
 # ===================== VirtualHome ========================
-# from btgym.envs.virtualhome.exec_lib._base.VHAction import VHAction
+# from btgym.envs.VirtualHome.exec_lib._base.VHAction import VHAction
 #
 # env = btgym.make("VH-PutMilkInFridge")
 # cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)",

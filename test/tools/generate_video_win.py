@@ -1,14 +1,14 @@
 # Generate video for a program. Make sure you have the executable open
 
-from btgym.envs.virtualhome.simulation.unity_simulator.comm_unity import UnityCommunication
-from btgym.envs.virtualhome.tools import add_object_to_scene
+from btgym.envs.VirtualHome.simulation.unity_simulator.comm_unity import UnityCommunication
+from btgym.envs.VirtualHome.tools import add_object_to_scene
 
 # script1 = ['<char0> [Walk] <tv> (1)','<char0> [switchon] <tv> (1)'] # Add here your script
 
 import subprocess
 
 # file_name =  'D:\Workspace\BaiduSyncdisk\CXL_Storage\Code\windows_exec.v2.2.4\VirtualHome.exe'
-file_name = '/simulators/virtualhome/windows/VirtualHome.exe'
+file_name = '/simulators/VirtualHome/windows/VirtualHome.exe'
 
 # 启动 exe 文件
 process = subprocess.Popen(file_name, stdout=subprocess.PIPE, stderr=subprocess.PIPE)

@@ -1,7 +1,7 @@
 """
     选择不同的环境 env ，将 graph 保存为 pkl，方便 VirtualHomeText 环境导入不同的环境
 """
-from btgym.envs.virtualhome.simulation.unity_simulator.comm_unity import UnityCommunication
+from btgym.envs.VirtualHome.simulation.unity_simulator.comm_unity import UnityCommunication
 from btgym.utils import ROOT_PATH
 import subprocess
 import pickle

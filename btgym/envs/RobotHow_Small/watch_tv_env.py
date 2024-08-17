@@ -1,6 +1,6 @@
 import time
 
-from btgym.envs.virtualhome.simulation.unity_simulator import UnityCommunication
+from btgym.envs.VirtualHome.simulation.unity_simulator import UnityCommunication
 
 from btgym.behavior_tree.behavior_libs import ExecBehaviorLibrary
 from btgym.utils import ROOT_PATH

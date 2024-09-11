@@ -5,6 +5,9 @@ import matplotlib
 # Set global font to Times New Roman
 matplotlib.rcParams['font.family'] = 'Times New Roman'
 matplotlib.rcParams['mathtext.fontset'] = 'stix'
+import matplotlib
+matplotlib.rcParams['pdf.fonttype'] = 42
+matplotlib.rcParams['ps.fonttype'] = 42
 
 font1 = {'family': 'Times New Roman', 'color': 'Black', 'weight': 'bold', 'size': 48}
 font2 = {'family': 'Times New Roman', 'size': 34, 'weight': 'bold'}
@@ -62,5 +65,5 @@ for label in labels:
     label.set_fontsize(48)
 
 plt.tight_layout()
-plt.savefig("EXP_BT_1_time_vs_act_len.pdf", dpi=100, bbox_inches='tight', format='pdf')
+plt.savefig("EXP_BT_1_time_vs_act_len.pdf", dpi=50, bbox_inches='tight', format='pdf')
 plt.show()

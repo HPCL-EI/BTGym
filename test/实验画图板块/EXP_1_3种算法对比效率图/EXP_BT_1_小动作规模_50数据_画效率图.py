@@ -8,6 +8,9 @@ matplotlib.rcParams['font.family'] = 'Times New Roman'
 # 尝试设置数学文本的字体，但这可能不会完全奏效
 matplotlib.rcParams['mathtext.fontset'] = 'stix'  # STIX 字体风格更接近 Times New Roman
 from matplotlib.ticker import MultipleLocator
+import matplotlib
+matplotlib.rcParams['pdf.fonttype'] = 42
+matplotlib.rcParams['ps.fonttype'] = 42
 
 font1 = {'family': 'Times New Roman','color': 'Black','weight': 'bold','size': 48} #normal
 font2 = {'family': 'Times New Roman','size': 34,'weight': 'bold'}
@@ -84,5 +87,5 @@ if smooth:
 
     # 调整布局以防止标签被截断
     plt.tight_layout()
-    plt.savefig(f"EXP_BT_1_time_vs_action_space.pdf", dpi=100, bbox_inches='tight', format='pdf')
+    plt.savefig(f"EXP_BT_1_time_vs_action_space.pdf", dpi=50, bbox_inches='tight', format='pdf')
     plt.show()

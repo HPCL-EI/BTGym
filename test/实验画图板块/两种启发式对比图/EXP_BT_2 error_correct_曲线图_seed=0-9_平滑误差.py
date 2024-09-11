@@ -10,8 +10,12 @@ from matplotlib.ticker import MultipleLocator
 font1 = {'family': 'Times New Roman','color': 'Black','weight': 'bold','size': 34}
 font2 = {'family': 'Times New Roman','size': 22}
 font3 = {'family': 'Times New Roman','size': 24,'weight': 'bold'}
+import matplotlib
+matplotlib.rcParams['pdf.fonttype'] = 42
+matplotlib.rcParams['ps.fonttype'] = 42
+
 from matplotlib.ticker import MultipleLocator, FuncFormatter
-heuristic=1
+heuristic=0
 # 文件名和路径
 base_file_name = f'EXP_2_output_summary_bt_data_small_100_bigerror_heuristic={heuristic}_seed='
 file_path = "exp_output_100/"

@@ -33,7 +33,7 @@ heuristic_choices = average_df['Heuristic_Choice'].unique()
 heuristic_labels = {
    -1: "OBTEA",
    -2: "BT-Expansion",
-    0: "HBTP-F",
+    0: "HBTP-S",
     1: "HBTP-O"
 }
 

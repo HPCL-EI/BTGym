@@ -27,7 +27,7 @@ colors = {
 #     'H1 Avg Planning Time': "Optimal Heuristic"
 # }
 h_labels = {
-    'H0 Avg Planning Time': "HBTP-F",
+    'H0 Avg Planning Time': "HBTP-S",
     'H1 Avg Planning Time': "HBTP-O"
 }
 

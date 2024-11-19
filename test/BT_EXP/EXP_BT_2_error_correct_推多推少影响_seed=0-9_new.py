@@ -6,7 +6,7 @@ import btgym
 from btgym.utils import ROOT_PATH
 from btgym.algos.bt_autogen.main_interface import BTExpInterface
 from btgym.envs.RobotHow.exec_lib._base.VHTAction_small import VHTAction_small
-from btgym.envs.RobotHow.exec_lib._base.RHAction import VHTAction
+from btgym.envs.RobotHow.exec_lib._base.RHAction import RHAction
 from btgym.algos.bt_autogen.tools import state_transition
 from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process
 import random
@@ -24,9 +24,9 @@ all_start_time = time.time()
 # env = btgym.make("VHT-Small")
 env = btgym.make("VHT-PutMilkInFridge")
 cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)", "IsStanding(self)"}
-cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction.CAN_OPEN}
-cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
-cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
+cur_cond_set |= {f'IsClose({arg})' for arg in RHAction.CAN_OPEN}
+cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in RHAction.HAS_SWITCH}
+cur_cond_set |= {f'IsUnplugged({arg})' for arg in RHAction.HAS_PLUG}
 big_actions = collect_action_nodes(env.behavior_lib)
 
 # 导入数据
@@ -84,9 +84,9 @@ for heuristic_choice in [1]:
 
             cur_cond_set = env.agents[0].condition_set = {"IsRightHandEmpty(self)", "IsLeftHandEmpty(self)",
                                                           "IsStanding(self)"}
-            cur_cond_set |= {f'IsClose({arg})' for arg in VHTAction.CAN_OPEN}
-            cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in VHTAction.HAS_SWITCH}
-            cur_cond_set |= {f'IsUnplugged({arg})' for arg in VHTAction.HAS_PLUG}
+            cur_cond_set |= {f'IsClose({arg})' for arg in RHAction.CAN_OPEN}
+            cur_cond_set |= {f'IsSwitchedOff({arg})' for arg in RHAction.HAS_SWITCH}
+            cur_cond_set |= {f'IsUnplugged({arg})' for arg in RHAction.HAS_PLUG}
 
             error_act_tmp_set=set()
             for error_rate in error_rate_range_ls:

@@ -24,6 +24,9 @@ from btgym.utils import ROOT_PATH
 os.chdir(f'{ROOT_PATH}/../z_benchmark')
 from z_benchmark.Attraction.tools import modify_condition_set_Random_Perturbations
 
+from btgym.algos.bt_auto_exp.HBTP_test import HBTP_test as HBTP_test
+from btgym.algos.bt_autogen.HBTP import HBTP as HBTP
+
 # 封装好的主接口
 class BTExpInterface:
     def __init__(self, behavior_lib, cur_cond_set, priority_act_ls=[], key_predicates=[], key_objects=[], selected_algorithm="opt",
@@ -139,6 +142,18 @@ class BTExpInterface:
                 self.algo = BTalgorithmDFS(verbose=False)
             elif self.selected_algorithm == "weak":
                 self.algo = WeakalgorithmBFS(verbose=False,time_limit = self.time_limit,output_just_best=self.output_just_best,priority_act_ls=self.priority_act_ls,exp=self.exp)
+            elif self.selected_algorithm == "hbtp":
+                info_dict = {
+                    'priority_act_ls': [],
+                    'arg_set': {'solution', 'delete','value','robust'},
+                                        'priority_cond_set': set(),
+                                      'max_expanded_num':1000000000000
+                }
+                self.algo = HBTP(verbose=False, act_tree_verbose=False,
+                             priority_act_ls=self.priority_act_ls, time_limit=self.time_limit,
+                             output_just_best=self.output_just_best,exp_record=self.exp,
+                                 continue_expand=False,max_expanded_num=self.max_expanded_num,
+                                                    theory_priority_act_ls=self.theory_priority_act_ls,info_dict=info_dict)
             else:
                 print("Error in algorithm selection: This algorithm does not exist.")
         else:
@@ -160,6 +175,17 @@ class BTExpInterface:
                 self.algo = BTalgorithmBFS_test(verbose=False,time_limit = self.time_limit,output_just_best=self.output_just_best,\
                                                 priority_act_ls=self.priority_act_ls,exp_cost=self.exp_cost,exp=self.exp,\
                                                 max_expanded_num=self.max_expanded_num)
+            elif self.selected_algorithm == "hbtp":
+                info_dict = {
+                    'priority_act_ls': [],
+                    'arg_set': {'solution', 'delete','value','robust'}
+                }
+                self.algo = HBTP_test(verbose=False, act_tree_verbose=False,
+                             priority_act_ls=self.priority_act_ls, time_limit=self.time_limit,
+                             output_just_best=self.output_just_best,exp_record=self.exp,
+                                 continue_expand=False,max_expanded_num=self.max_expanded_num,
+                                                    theory_priority_act_ls=self.theory_priority_act_ls,info_dict=info_dict,\
+                                                        exp_cost=self.exp_cost,exp=self.exp)
             else:
                 print("Error in algorithm selection: This algorithm does not exist.")
             # elif self.selected_algorithm == "baseline":

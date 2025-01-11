@@ -12,11 +12,11 @@ class VHEnv(Env):
     # launch simulator
     simulator_path = f'{ROOT_PATH}/../simulators/virtualhome/windows/VirtualHome.exe'
 
-    behavior_lib_path = f"{ROOT_PATH}/envs/virtualhome/exec_lib"
+    behavior_lib_path = f"{ROOT_PATH}/envs/VirtualHome/exec_lib"
 
 
     def __init__(self):
-        self.launch_simulator()
+        # self.launch_simulator()
         super().__init__()
 
     def reset(self):

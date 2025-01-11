@@ -4,7 +4,7 @@ import random
 from btgym.utils import ROOT_PATH
 import pandas as pd
 
-algorithms = ['opt_h0', 'opt_h0_llm','obtea', 'bfs','weak']  # , 'opt_h1','opt_h1_llm'
+algorithms = ['bfs','obtea','opt_h0_llm','opt_h0','hbtp']  # , 'opt_h1','opt_h1_llm'
 scenes = ['RH', 'VH', 'RHS', 'RW']  # 'RH', 'VH', 'RHS', 'RW'
 
 # 创建一个空的 DataFrame 用来收集数据

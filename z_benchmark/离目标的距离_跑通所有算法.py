@@ -22,6 +22,9 @@ from btgym.envs.VirtualHome.exec_lib._base.VHAction import VHAction
 os.chdir(f'{ROOT_PATH}/../z_benchmark')
 from btgym.algos.bt_autogen.tools  import calculate_priority_percentage
 
+from hbtp.algos.bt_planning.HBTP import HBTP
+from hbtp.algos.bt_planning.main_interface import BTExpInterface as HBTPExpInterface
+
 def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, data_num, save_csv=False):
     data_path = f"{ROOT_PATH}/../z_benchmark/data/{scene}_{difficulty}_100_processed_data.txt"
     data = read_dataset(data_path)
@@ -68,17 +71,31 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
             elif "opt" in algo_str_complete:
                 priority_opt_act=opt_act
             print("opt_act",opt_act)
+            
+            
+
+
+                # algo = HBTPExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
+                #                       priority_act_ls=[], key_predicates=[],
+                #                       key_objects=[],
+                #                       selected_algorithm='hbtp', mode="big",
+                #                       act_tree_verbose=False, time_limit=5,
+                #                       max_expanded_num=50,
+                #                       heuristic_choice=-1, output_just_best=False,
+                #                       info_dict=info_dict)
+
             algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
-                                  priority_act_ls=priority_opt_act, key_predicates=[],
-                                  key_objects=[],
-                                  selected_algorithm=algo_str, mode="big",
-                                  llm_reflect=False, time_limit=5,
-                                  heuristic_choice=heuristic_choice,exp=False,exp_cost=False,output_just_best=False,
-                                  theory_priority_act_ls=opt_act)
+                                priority_act_ls=priority_opt_act, key_predicates=[],
+                                key_objects=[],
+                                selected_algorithm=algo_str, mode="big",
+                                llm_reflect=False, time_limit=1, #5
+                                heuristic_choice=heuristic_choice,exp=False,exp_cost=False,output_just_best=False,
+                                theory_priority_act_ls=opt_act,max_expanded_num=10000000)
 
             goal_set = goal_transfer_str(goal_str)
             start_time = time.time()
             algo.process(goal_set)
+            # algo.bt.print()
             end_time = time.time()
 
             ### Output
@@ -114,15 +131,15 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
 
         # save detail to csv
         detailed_df = pd.DataFrame.from_records(detail_rows)
-        save_path = f'./algo_details/{difficulty}_{scene}_{algo_str_complete}.csv'
+        save_path = f'{ROOT_PATH}/../z_benchmark/algo_details/{difficulty}_{scene}_{algo_str_complete}.csv'
         detailed_df.to_csv(save_path, index=False)
 
 
 max_epoch = 2000
 data_num = 100
-algo_type = ['opt_h1','opt_h1_llm', 'weak']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
+algo_type = ['hbtp']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'  #,'opt_h1_llm', 'weak'
 
-for percentages_type in ['expanded']:  # 'expanded', 'traversed', 'cost'
+for percentages_type in ['expanded', 'traversed', 'cost']:  # 'expanded', 'traversed', 'cost'
     for difficulty in ['single', 'multi']:  # 'single', 'multi'
         print(f"============ percentages_type = {percentages_type}, difficulty = {difficulty} =============")
         for scene in ['RH', 'RHS', 'RW', 'VH']:  # 'RH', 'RHS', 'RW', 'VH'

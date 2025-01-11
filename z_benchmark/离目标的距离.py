@@ -22,6 +22,9 @@ from btgym.envs.VirtualHome.exec_lib._base.VHAction import VHAction
 os.chdir(f'{ROOT_PATH}/../z_benchmark')
 from btgym.algos.bt_autogen.tools  import calculate_priority_percentage
 
+from hbtp.algos.bt_planning.HBTP import HBTP
+from hbtp.algos.bt_planning.main_interface import BTExpInterface as HBTPExpInterface
+
 def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, data_num, save_csv=False):
     data_path = f"{ROOT_PATH}/../z_benchmark/data/{scene}_{difficulty}_100_processed_data.txt"
     data = read_dataset(data_path)
@@ -69,13 +72,29 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
             elif "opt" in algo_str_complete:
                 priority_opt_act=opt_act
             print("opt_act",opt_act)
-            algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
-                                  priority_act_ls=priority_opt_act, key_predicates=[],
-                                  key_objects=[],
-                                  selected_algorithm=algo_str, mode="big",
-                                  llm_reflect=False, time_limit=5,
-                                  heuristic_choice=heuristic_choice,exp=True,exp_cost=False,output_just_best=False,
-                                  theory_priority_act_ls=opt_act)
+            if algo_str_complete == "cxl_hbtp":
+
+                info_dict = {
+                    'priority_act_ls': [],
+                    'arg_set': {'solution', 'delete','value','robust'}
+                }
+                algo = HBTPExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
+                                      priority_act_ls=[], key_predicates=[],
+                                      key_objects=[],
+                                      selected_algorithm='hbtp', mode="big",
+                                      act_tree_verbose=False, time_limit=5,
+                                      max_expanded_num=50,
+                                      heuristic_choice=-1, output_just_best=False,
+                                      info_dict=info_dict)
+
+            else:
+                algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
+                                    priority_act_ls=priority_opt_act, key_predicates=[],
+                                    key_objects=[],
+                                    selected_algorithm=algo_str, mode="big",
+                                    llm_reflect=False, time_limit=5,
+                                    heuristic_choice=heuristic_choice,exp=True,exp_cost=False,output_just_best=False,
+                                    theory_priority_act_ls=opt_act)
 
             goal_set = goal_transfer_str(goal_str)
             start_time = time.time()
@@ -176,7 +195,7 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
 
 max_epoch = 2000
 data_num = 100
-algo_type = ['opt_h0','opt_h0_llm', 'obtea', 'bfs']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
+algo_type = ['cxl_hbtp']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
 
 for percentages_type in ['expanded']:  # 'expanded', 'traversed', 'cost'
     for difficulty in ['single', 'multi']:  # 'single', 'multi'

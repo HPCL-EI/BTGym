@@ -396,7 +396,6 @@ class BTalgorithmBFS:
                 subtree.add_child([copy.deepcopy(current_pair.cond_leaf)])  # 子树首先保留所扩展结点
 
                 self.expanded.append(c)
-                self.expanded_act.append(current_pair.act_leaf.content.name)
 
                 if c <= start:
                     bt = self.post_processing(current_pair , goal_cond_act_pair, subtree, bt,child_to_parent,cond_to_condActSeq)

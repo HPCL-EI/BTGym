@@ -30,7 +30,7 @@ class LeftGrabFrom(Grab):
         info["add"] = {f"IsLeftHolding(self,{arg[0]})", "IsLeftHandFull(self)"}
         info["del_set"] = {f"IsLeftHandEmpty(self)"}
         info["del_set"] |= {f'IsIn({arg[0]},{place})' for place in cls.CONTAINERS}
-        info["cost"] = 5
+        info["cost"] = 11 #5
         return info
 
     def change_condition_set(self):

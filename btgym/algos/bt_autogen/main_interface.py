@@ -151,7 +151,7 @@ class BTExpInterface:
                 }
                 self.algo = HBTP(verbose=False, act_tree_verbose=False,
                              priority_act_ls=self.priority_act_ls, time_limit=self.time_limit,
-                             output_just_best=self.output_just_best,exp_record=self.exp,
+                             output_just_best=self.output_just_best,exp_record=self.exp,exp_cost=self.exp_cost,exp=self.exp,
                                  continue_expand=False,max_expanded_num=self.max_expanded_num,
                                                     theory_priority_act_ls=self.theory_priority_act_ls,info_dict=info_dict)
             else:
@@ -178,14 +178,15 @@ class BTExpInterface:
             elif self.selected_algorithm == "hbtp":
                 info_dict = {
                     'priority_act_ls': [],
-                    'arg_set': {'solution', 'delete','value','robust'}
+                    'arg_set': {'solution', 'delete','value','robust'},
+                                        'priority_cond_set': set(),
+                                      'max_expanded_num':1000000000000
                 }
                 self.algo = HBTP_test(verbose=False, act_tree_verbose=False,
                              priority_act_ls=self.priority_act_ls, time_limit=self.time_limit,
-                             output_just_best=self.output_just_best,exp_record=self.exp,
+                             output_just_best=self.output_just_best,exp_record=self.exp,exp_cost=self.exp_cost,exp=self.exp,
                                  continue_expand=False,max_expanded_num=self.max_expanded_num,
-                                                    theory_priority_act_ls=self.theory_priority_act_ls,info_dict=info_dict,\
-                                                        exp_cost=self.exp_cost,exp=self.exp)
+                                                    theory_priority_act_ls=self.theory_priority_act_ls,info_dict=info_dict)
             else:
                 print("Error in algorithm selection: This algorithm does not exist.")
             # elif self.selected_algorithm == "baseline":

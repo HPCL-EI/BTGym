@@ -1,0 +1,101 @@
+Goal,Optimal_Actions,LLM_Optimal_Actions,Vital_Action_Predicates,Vital_Objects,Time_Limit_Exceeded,Error,Expanded_Number,Planning_Time_Total,Current_Cost,Action_Number,Recorded_Action_List,Tick_Time
+Low_ACTemperature,"['Turn_AC_On', 'Turn_ACTemperature_Down']",['Turn_ACTemperature_Down'],['Turn'],"['AC', 'On', 'ACTemperature', 'Down']",False,False,3,0.0002758502960205078,6,2,"['Turn(AC,On)', 'Turn(ACTemperature,Down)']",29
+RobotNear_BrightTable2,['MoveTo_BrightTable2'],['MoveTo_BrightTable2'],['MoveTo'],['BrightTable2'],False,False,2,0.00015687942504882812,15,1,['MoveTo(BrightTable2)'],11
+Low_ACTemperature,"['Turn_AC_On', 'Turn_ACTemperature_Down']",['Turn_ACTemperature_Down'],['Turn'],"['AC', 'On', 'ACTemperature', 'Down']",False,False,3,0.0002734661102294922,6,2,"['Turn(AC,On)', 'Turn(ACTemperature,Down)']",29
+Exists_Water,['Make_Water'],['Make_Water'],['Make'],['Water'],False,False,2,0.00014591217041015625,5,1,['Make(Water)'],11
+Holding_Yogurt,"['MoveTo_Yogurt', 'PickUp_Yogurt']","['MoveTo_Yogurt', 'PickUp_Yogurt']","['MoveTo', 'PickUp']",['Yogurt'],False,False,4,0.00039267539978027344,17,2,"['MoveTo(Yogurt)', 'PickUp(Yogurt)']",27
+Active_HallLight,['Turn_HallLight_On'],['Turn_HallLight_On'],['Turn'],"['HallLight', 'On']",False,False,2,0.00013685226440429688,3,1,"['Turn(HallLight,On)']",11
+Holding_Yogurt,"['MoveTo_Yogurt', 'PickUp_Yogurt']","['MoveTo_Yogurt', 'PickUp_Yogurt']","['MoveTo', 'PickUp']",['Yogurt'],False,False,4,0.00040030479431152344,17,2,"['MoveTo(Yogurt)', 'PickUp(Yogurt)']",27
+Active_HallLight,['Turn_HallLight_On'],['Turn_HallLight_On'],['Turn'],"['HallLight', 'On']",False,False,2,0.00014090538024902344,3,1,"['Turn(HallLight,On)']",11
+Exists_Dessert,['Make_Dessert'],['Make_Dessert'],['Make'],['Dessert'],False,False,2,0.0001423358917236328,5,1,['Make(Dessert)'],11
+IsClean_Floor,['Clean_Floor'],['Turn_Curtain_Off'],['Clean'],['Floor'],False,False,2,0.00014090538024902344,10,1,['Clean(Floor)'],11
+Closed_Curtain,['Turn_Curtain_Off'],['Make_Dessert'],['Turn'],"['Curtain', 'Off']",False,False,2,0.0001366138458251953,3,1,"['Turn(Curtain,Off)']",11
+Exists_Dessert,['Make_Dessert'],"['MoveTo_MilkDrink', 'PickUp_MilkDrink', 'MoveTo_CoffeeStation', 'PutDown_MilkDrink_CoffeeStation']",['Make'],['Dessert'],False,False,2,0.0001437664031982422,5,1,['Make(Dessert)'],11
+On_MilkDrink_CoffeeStation,"['MoveTo_MilkDrink', 'PickUp_MilkDrink', 'MoveTo_CoffeeStation', 'PutDown_MilkDrink_CoffeeStation']",['Turn_ACTemperature_Down'],"['MoveTo', 'PickUp', 'PutDown']","['MilkDrink', 'CoffeeStation']",False,False,6,0.0005984306335449219,52,4,"['MoveTo(MilkDrink)', 'PickUp(MilkDrink)', 'MoveTo(CoffeeStation)', 'PutDown(MilkDrink,CoffeeStation)']",59
+Low_ACTemperature,"['Turn_AC_On', 'Turn_ACTemperature_Down']",['Make_Water'],['Turn'],"['AC', 'On', 'ACTemperature', 'Down']",False,False,3,0.0002694129943847656,6,2,"['Turn(AC,On)', 'Turn(ACTemperature,Down)']",29
+Exists_Water,['Make_Water'],['Clean_Chairs'],['Make'],['Water'],False,False,2,0.00014519691467285156,5,1,['Make(Water)'],11
+IsClean_Chairs,['Clean_Chairs'],['Turn_Curtain_Off'],['Clean'],['Chairs'],False,False,2,0.00014519691467285156,10,1,['Clean(Chairs)'],11
+Closed_Curtain,['Turn_Curtain_Off'],['Turn_Curtain_Off'],['Turn'],"['Curtain', 'Off']",False,False,2,0.00013685226440429688,3,1,"['Turn(Curtain,Off)']",11
+Closed_Curtain,['Turn_Curtain_Off'],['Make_Coffee'],['Turn'],"['Curtain', 'Off']",False,False,2,0.0001404285430908203,3,1,"['Turn(Curtain,Off)']",11
+Exists_Coffee,['Make_Coffee'],['Clean_Chairs'],['Make'],['Coffee'],False,False,2,0.00014495849609375,5,1,['Make(Coffee)'],11
+IsClean_Chairs,['Clean_Chairs'],['Turn_TubeLight_On'],['Clean'],['Chairs'],False,False,2,0.0001392364501953125,10,1,['Clean(Chairs)'],11
+Active_TubeLight,['Turn_TubeLight_On'],['Turn_HallLight_On'],['Turn'],"['TubeLight', 'On']",False,False,2,0.0001404285430908203,3,1,"['Turn(TubeLight,On)']",11
+Active_HallLight,['Turn_HallLight_On'],['Turn_Curtain_Off'],['Turn'],"['HallLight', 'On']",False,False,2,0.00014019012451171875,3,1,"['Turn(HallLight,On)']",11
+Closed_Curtain,['Turn_Curtain_Off'],['Make_Coffee'],['Turn'],"['Curtain', 'Off']",False,False,2,0.0001366138458251953,3,1,"['Turn(Curtain,Off)']",11
+Exists_Coffee,['Make_Coffee'],['Clean_Chairs'],['Make'],['Coffee'],False,False,2,0.00014781951904296875,5,1,['Make(Coffee)'],11
+IsClean_Chairs,['Clean_Chairs'],"['MoveTo_Robot', 'MoveTo_Table2']",['Clean'],['Chairs'],False,False,2,0.0001461505889892578,10,1,['Clean(Chairs)'],11
+RobotNear_Table2,['MoveTo_Table2'],['PickUp_Softdrink'],['MoveTo'],['Table2'],False,False,2,0.00018835067749023438,15,1,['MoveTo(Table2)'],11
+Holding_Softdrink,"['MoveTo_Softdrink', 'PickUp_Softdrink']",['Make_Coffee'],"['MoveTo', 'PickUp']",['Softdrink'],False,False,4,0.00038933753967285156,17,2,"['MoveTo(Softdrink)', 'PickUp(Softdrink)']",27
+Exists_Coffee,['Make_Coffee'],['PickUp_Chips'],['Make'],['Coffee'],False,False,2,0.00014448165893554688,5,1,['Make(Coffee)'],11
+Holding_Chips,"['MoveTo_Chips', 'PickUp_Chips']",['Turn_HallLight_On'],"['MoveTo', 'PickUp']",['Chips'],False,False,4,0.00039315223693847656,17,2,"['MoveTo(Chips)', 'PickUp(Chips)']",27
+Active_HallLight,['Turn_HallLight_On'],"['MoveTo_Robot', 'MoveTo_BrightTable2']",['Turn'],"['HallLight', 'On']",False,False,2,0.00014281272888183594,3,1,"['Turn(HallLight,On)']",11
+RobotNear_BrightTable2,['MoveTo_BrightTable2'],['Turn_Curtain_Off'],['MoveTo'],['BrightTable2'],False,False,2,0.00014638900756835938,15,1,['MoveTo(BrightTable2)'],11
+Closed_Curtain,['Turn_Curtain_Off'],['MoveTo_Robot_BrightTable5'],['Turn'],"['Curtain', 'Off']",False,False,2,0.00013756752014160156,3,1,"['Turn(Curtain,Off)']",11
+RobotNear_BrightTable5,['MoveTo_BrightTable5'],['Clean_Table1'],['MoveTo'],['BrightTable5'],False,False,2,0.00014901161193847656,15,1,['MoveTo(BrightTable5)'],11
+IsClean_Table1,['Clean_Table1'],['Turn_TubeLight_On'],['Clean'],['Table1'],False,False,2,0.00014591217041015625,10,1,['Clean(Table1)'],11
+Active_TubeLight,['Turn_TubeLight_On'],['Turn_Curtain_Off'],['Turn'],"['TubeLight', 'On']",False,False,2,0.00013899803161621094,3,1,"['Turn(TubeLight,On)']",11
+Closed_Curtain,['Turn_Curtain_Off'],"['MoveTo_ADMilk', 'PickUp_ADMilk', 'MoveTo_Bar2', 'PutDown_ADMilk_Bar2']",['Turn'],"['Curtain', 'Off']",False,False,2,0.00013756752014160156,3,1,"['Turn(Curtain,Off)']",11
+On_ADMilk_Bar2,"['MoveTo_ADMilk', 'PickUp_ADMilk', 'MoveTo_Bar2', 'PutDown_ADMilk_Bar2']",['Turn_Curtain_Off'],"['MoveTo', 'PickUp', 'PutDown']","['ADMilk', 'Bar2']",False,False,6,0.0005993843078613281,52,4,"['MoveTo(ADMilk)', 'PickUp(ADMilk)', 'MoveTo(Bar2)', 'PutDown(ADMilk,Bar2)']",59
+Closed_Curtain,['Turn_Curtain_Off'],"['MoveTo_NFCJuice', 'PickUp_NFCJuice']",['Turn'],"['Curtain', 'Off']",False,False,2,0.00013899803161621094,3,1,"['Turn(Curtain,Off)']",11
+Holding_NFCJuice,"['MoveTo_NFCJuice', 'PickUp_NFCJuice']","['MoveTo_Water', 'PickUp_Water', 'MoveTo_BrightTable6', 'PutDown_Water_BrightTable6']","['MoveTo', 'PickUp']",['NFCJuice'],False,False,4,0.0003936290740966797,17,2,"['MoveTo(NFCJuice)', 'PickUp(NFCJuice)']",27
+On_Water_BrightTable6,"['Make_Water', 'MoveTo_Water', 'PickUp_Water', 'MoveTo_BrightTable6', 'PutDown_Water_BrightTable6']","['MoveTo_VacuumCup', 'PickUp_VacuumCup', 'MoveTo_Table3', 'PutDown_VacuumCup_Table3']","['Make', 'MoveTo', 'PickUp', 'PutDown']","['Water', 'BrightTable6']",False,False,7,0.0007271766662597656,57,5,"['Make(Water)', 'MoveTo(Water)', 'PickUp(Water)', 'MoveTo(BrightTable6)', 'PutDown(Water,BrightTable6)']",83
+On_VacuumCup_Table3,"['MoveTo_VacuumCup', 'PickUp_VacuumCup', 'MoveTo_Table3', 'PutDown_VacuumCup_Table3']",['Turn_HallLight_On'],"['MoveTo', 'PickUp', 'PutDown']","['VacuumCup', 'Table3']",False,False,6,0.0005879402160644531,52,4,"['MoveTo(VacuumCup)', 'PickUp(VacuumCup)', 'MoveTo(Table3)', 'PutDown(VacuumCup,Table3)']",59
+Active_HallLight,['Turn_HallLight_On'],['Turn_TubeLight_On'],['Turn'],"['HallLight', 'On']",False,False,2,0.00013875961303710938,3,1,"['Turn(HallLight,On)']",11
+Active_TubeLight,['Turn_TubeLight_On'],['Clean_Table1'],['Turn'],"['TubeLight', 'On']",False,False,2,0.00013875961303710938,3,1,"['Turn(TubeLight,On)']",11
+IsClean_Table1,['Clean_Table1'],"['MoveTo_Milk', 'PickUp_Milk', 'MoveTo_BrightTable6', 'PutDown_Milk_BrightTable6']",['Clean'],['Table1'],False,False,2,0.00014138221740722656,10,1,['Clean(Table1)'],11
+On_Milk_BrightTable6,"['MoveTo_Milk', 'PickUp_Milk', 'MoveTo_BrightTable6', 'PutDown_Milk_BrightTable6']",['Make_Coffee'],"['MoveTo', 'PickUp', 'PutDown']","['Milk', 'BrightTable6']",False,False,6,0.0005953311920166016,52,4,"['MoveTo(Milk)', 'PickUp(Milk)', 'MoveTo(BrightTable6)', 'PutDown(Milk,BrightTable6)']",59
+Exists_Coffee,['Make_Coffee'],"['MoveTo_Coffee', 'PickUp_Coffee', 'MoveTo_Table2', 'PutDown_Coffee_Table2']",['Make'],['Coffee'],False,False,2,0.0001506805419921875,5,1,['Make(Coffee)'],11
+On_Coffee_Table2,"['Make_Coffee', 'MoveTo_Coffee', 'PickUp_Coffee', 'MoveTo_Table2', 'PutDown_Coffee_Table2']",['MoveTo_BrightTable6'],"['Make', 'MoveTo', 'PickUp', 'PutDown']","['Coffee', 'Table2']",False,False,7,0.0007274150848388672,57,5,"['Make(Coffee)', 'MoveTo(Coffee)', 'PickUp(Coffee)', 'MoveTo(Table2)', 'PutDown(Coffee,Table2)']",83
+RobotNear_BrightTable6,['MoveTo_BrightTable6'],['Turn_HallLight_On'],['MoveTo'],['BrightTable6'],False,False,2,0.00018739700317382812,15,1,['MoveTo(BrightTable6)'],11
+Active_HallLight,['Turn_HallLight_On'],['Clean_Floor'],['Turn'],"['HallLight', 'On']",False,False,2,0.00013899803161621094,3,1,"['Turn(HallLight,On)']",11
+IsClean_Floor,['Clean_Floor'],"['MoveTo_Coffee', 'PickUp_Coffee', 'MoveTo_WaterStation', 'PutDown_Coffee_WaterStation']",['Clean'],['Floor'],False,False,2,0.0001423358917236328,10,1,['Clean(Floor)'],11
+On_Coffee_WaterStation,"['Make_Coffee', 'MoveTo_Coffee', 'PickUp_Coffee', 'MoveTo_WaterStation', 'PutDown_Coffee_WaterStation']",['Turn_HallLight_On'],"['Make', 'MoveTo', 'PickUp', 'PutDown']","['Coffee', 'WaterStation']",False,False,7,0.0007276535034179688,57,5,"['Make(Coffee)', 'MoveTo(Coffee)', 'PickUp(Coffee)', 'MoveTo(WaterStation)', 'PutDown(Coffee,WaterStation)']",83
+Active_HallLight,['Turn_HallLight_On'],['Turn_Curtain_Off'],['Turn'],"['HallLight', 'On']",False,False,2,0.00013899803161621094,3,1,"['Turn(HallLight,On)']",11
+Closed_Curtain,['Turn_Curtain_Off'],['Clean_Chairs'],['Turn'],"['Curtain', 'Off']",False,False,2,0.00013756752014160156,3,1,"['Turn(Curtain,Off)']",11
+IsClean_Chairs,['Clean_Chairs'],"['MoveTo_ADMilk', 'PickUp_ADMilk']",['Clean'],['Chairs'],False,False,2,0.00013685226440429688,10,1,['Clean(Chairs)'],11
+Holding_ADMilk,"['MoveTo_ADMilk', 'PickUp_ADMilk']","['MoveTo_MilkDrink', 'PickUp_MilkDrink', 'MoveTo_BrightTable6', 'PutDown_MilkDrink_BrightTable6']","['MoveTo', 'PickUp']",['ADMilk'],False,False,4,0.0003829002380371094,17,2,"['MoveTo(ADMilk)', 'PickUp(ADMilk)']",27
+On_MilkDrink_BrightTable6,"['MoveTo_MilkDrink', 'PickUp_MilkDrink', 'MoveTo_BrightTable6', 'PutDown_MilkDrink_BrightTable6']",['Clean_Chairs'],"['MoveTo', 'PickUp', 'PutDown']","['MilkDrink', 'BrightTable6']",False,False,6,0.0005888938903808594,52,4,"['MoveTo(MilkDrink)', 'PickUp(MilkDrink)', 'MoveTo(BrightTable6)', 'PutDown(MilkDrink,BrightTable6)']",59
+IsClean_Chairs,['Clean_Chairs'],['Turn_HallLight_On'],['Clean'],['Chairs'],False,False,2,0.0001399517059326172,10,1,['Clean(Chairs)'],11
+Active_HallLight,['Turn_HallLight_On'],['PickUp_Softdrink'],['Turn'],"['HallLight', 'On']",False,False,2,0.0001404285430908203,3,1,"['Turn(HallLight,On)']",11
+Holding_Softdrink,"['MoveTo_Softdrink', 'PickUp_Softdrink']",['Turn_ACTemperature_Down'],"['MoveTo', 'PickUp']",['Softdrink'],False,False,4,0.0003917217254638672,17,2,"['MoveTo(Softdrink)', 'PickUp(Softdrink)']",27
+Low_ACTemperature,"['Turn_AC_On', 'Turn_ACTemperature_Down']",['Clean_Floor'],['Turn'],"['AC', 'On', 'ACTemperature', 'Down']",False,False,3,0.00027179718017578125,6,2,"['Turn(AC,On)', 'Turn(ACTemperature,Down)']",29
+IsClean_Floor,['Clean_Floor'],['PickUp_Coffee'],['Clean'],['Floor'],False,False,2,0.0001423358917236328,10,1,['Clean(Floor)'],11
+Holding_Coffee,"['Make_Coffee', 'MoveTo_Coffee', 'PickUp_Coffee']",['Make_Dessert'],"['Make', 'MoveTo', 'PickUp']",['Coffee'],False,False,5,0.0005214214324951172,22,3,"['Make(Coffee)', 'MoveTo(Coffee)', 'PickUp(Coffee)']",48
+Exists_Dessert,['Make_Dessert'],['Clean_Chairs'],['Make'],['Dessert'],False,False,2,0.00014495849609375,5,1,['Make(Dessert)'],11
+IsClean_Chairs,['Clean_Chairs'],['MoveTo_BrightTable6'],['Clean'],['Chairs'],False,False,2,0.00013971328735351562,10,1,['Clean(Chairs)'],11
+RobotNear_BrightTable6,['MoveTo_BrightTable6'],['Make_Water'],['MoveTo'],['BrightTable6'],False,False,2,0.0001933574676513672,15,1,['MoveTo(BrightTable6)'],11
+Exists_Water,['Make_Water'],['Clean_Chairs'],['Make'],['Water'],False,False,2,0.00014328956604003906,5,1,['Make(Water)'],11
+IsClean_Chairs,['Clean_Chairs'],['MoveTo_Table1'],['Clean'],['Chairs'],False,False,2,0.00013780593872070312,10,1,['Clean(Chairs)'],11
+RobotNear_Table1,['MoveTo_Table1'],['Turn_AC_On'],['MoveTo'],['Table1'],False,False,2,0.00018739700317382812,15,1,['MoveTo(Table1)'],11
+Active_AC,['Turn_AC_On'],['Clean_Table1'],['Turn'],"['AC', 'On']",False,False,2,0.00014448165893554688,3,1,"['Turn(AC,On)']",11
+IsClean_Table1,['Clean_Table1'],['Turn_Curtain_Off'],['Clean'],['Table1'],False,False,2,0.00014257431030273438,10,1,['Clean(Table1)'],11
+Closed_Curtain,['Turn_Curtain_Off'],['Turn_ACTemperature_Down'],['Turn'],"['Curtain', 'Off']",False,False,2,0.00013566017150878906,3,1,"['Turn(Curtain,Off)']",11
+Low_ACTemperature,"['Turn_AC_On', 'Turn_ACTemperature_Down']","['MoveTo_SpringWater', 'PickUp_SpringWater', 'MoveTo_Table2', 'PutDown_SpringWater_Table2']",['Turn'],"['AC', 'On', 'ACTemperature', 'Down']",False,False,3,0.0002684593200683594,6,2,"['Turn(AC,On)', 'Turn(ACTemperature,Down)']",29
+On_SpringWater_Table2,"['MoveTo_SpringWater', 'PickUp_SpringWater', 'MoveTo_Table2', 'PutDown_SpringWater_Table2']",['PickUp_Bernachon'],"['MoveTo', 'PickUp', 'PutDown']","['SpringWater', 'Table2']",False,False,6,0.0005998611450195312,52,4,"['MoveTo(SpringWater)', 'PickUp(SpringWater)', 'MoveTo(Table2)', 'PutDown(SpringWater,Table2)']",59
+Holding_Bernachon,"['MoveTo_Bernachon', 'PickUp_Bernachon']","['MoveTo_Robot', 'PickUp_Robot', 'MoveTo_Table2', 'PutDown_Robot_Table2']","['MoveTo', 'PickUp']",['Bernachon'],False,False,4,0.00038695335388183594,17,2,"['MoveTo(Bernachon)', 'PickUp(Bernachon)']",27
+RobotNear_Table2,['MoveTo_Table2'],['Make_Dessert'],['MoveTo'],['Table2'],False,False,2,0.00019073486328125,15,1,['MoveTo(Table2)'],11
+Exists_Dessert,['Make_Dessert'],"['MoveTo_Bernachon', 'PickUp_Bernachon', 'MoveTo_Bar', 'PutDown_Bernachon_Bar']",['Make'],['Dessert'],False,False,2,0.0001437664031982422,5,1,['Make(Dessert)'],11
+On_Bernachon_Bar,"['MoveTo_Bernachon', 'PickUp_Bernachon', 'MoveTo_Bar', 'PutDown_Bernachon_Bar']",['Make_Coffee'],"['MoveTo', 'PickUp', 'PutDown']","['Bernachon', 'Bar']",False,False,6,0.0005903244018554688,52,4,"['MoveTo(Bernachon)', 'PickUp(Bernachon)', 'MoveTo(Bar)', 'PutDown(Bernachon,Bar)']",59
+Exists_Coffee,['Make_Coffee'],['Turn_Curtain_Off'],['Make'],['Coffee'],False,False,2,0.0001437664031982422,5,1,['Make(Coffee)'],11
+Closed_Curtain,['Turn_Curtain_Off'],['PickUp_Softdrink'],['Turn'],"['Curtain', 'Off']",False,False,2,0.0001404285430908203,3,1,"['Turn(Curtain,Off)']",11
+Holding_Softdrink,"['MoveTo_Softdrink', 'PickUp_Softdrink']",['Turn_ACTemperature_Down'],"['MoveTo', 'PickUp']",['Softdrink'],False,False,4,0.0003879070281982422,17,2,"['MoveTo(Softdrink)', 'PickUp(Softdrink)']",27
+Low_ACTemperature,"['Turn_AC_On', 'Turn_ACTemperature_Down']","['MoveTo_Milk', 'PickUp_Milk', 'MoveTo_CoffeeStation', 'PutDown_Milk_CoffeeStation']",['Turn'],"['AC', 'On', 'ACTemperature', 'Down']",False,False,3,0.00027298927307128906,6,2,"['Turn(AC,On)', 'Turn(ACTemperature,Down)']",29
+On_Milk_CoffeeStation,"['MoveTo_Milk', 'PickUp_Milk', 'MoveTo_CoffeeStation', 'PutDown_Milk_CoffeeStation']",['Turn_AC_On'],"['MoveTo', 'PickUp', 'PutDown']","['Milk', 'CoffeeStation']",False,False,6,0.0005829334259033203,52,4,"['MoveTo(Milk)', 'PickUp(Milk)', 'MoveTo(CoffeeStation)', 'PutDown(Milk,CoffeeStation)']",59
+Active_AC,['Turn_AC_On'],['Turn_Curtain_Off'],['Turn'],"['AC', 'On']",False,False,2,0.00014543533325195312,3,1,"['Turn(AC,On)']",11
+Closed_Curtain,['Turn_Curtain_Off'],['MoveTo_Table2'],['Turn'],"['Curtain', 'Off']",False,False,2,0.00013637542724609375,3,1,"['Turn(Curtain,Off)']",11
+RobotNear_Table2,['MoveTo_Table2'],['Make_Water'],['MoveTo'],['Table2'],False,False,2,0.00018787384033203125,15,1,['MoveTo(Table2)'],11
+Exists_Water,['Make_Water'],"['MoveTo_Yogurt', 'PickUp_Yogurt', 'MoveTo_WaterStation', 'PutDown_Yogurt_WaterStation']",['Make'],['Water'],False,False,2,0.000141143798828125,5,1,['Make(Water)'],11
+On_Yogurt_WaterStation,"['MoveTo_Yogurt', 'PickUp_Yogurt', 'MoveTo_WaterStation', 'PutDown_Yogurt_WaterStation']",['MoveTo_Table2'],"['MoveTo', 'PickUp', 'PutDown']","['Yogurt', 'WaterStation']",False,False,6,0.0005908012390136719,52,4,"['MoveTo(Yogurt)', 'PickUp(Yogurt)', 'MoveTo(WaterStation)', 'PutDown(Yogurt,WaterStation)']",59
+RobotNear_Table2,['MoveTo_Table2'],['Turn_AC_On'],['MoveTo'],['Table2'],False,False,2,0.00019216537475585938,15,1,['MoveTo(Table2)'],11
+Active_AC,['Turn_AC_On'],"['MoveTo_Softdrink', 'PickUp_Softdrink', 'MoveTo_CoffeeStation', 'PutDown_Softdrink_CoffeeStation']",['Turn'],"['AC', 'On']",False,False,2,0.0001480579376220703,3,1,"['Turn(AC,On)']",11
+On_Softdrink_CoffeeStation,"['MoveTo_Softdrink', 'PickUp_Softdrink', 'MoveTo_CoffeeStation', 'PutDown_Softdrink_CoffeeStation']","['MoveTo_Robot', 'MoveTo_QuietTable1']","['MoveTo', 'PickUp', 'PutDown']","['Softdrink', 'CoffeeStation']",False,False,6,0.0006136894226074219,52,4,"['MoveTo(Softdrink)', 'PickUp(Softdrink)', 'MoveTo(CoffeeStation)', 'PutDown(Softdrink,CoffeeStation)']",59
+RobotNear_QuietTable1,['MoveTo_QuietTable1'],"['MoveTo_VacuumCup', 'PickUp_VacuumCup', 'MoveTo_WaterStation', 'PutDown_VacuumCup_WaterStation']",['MoveTo'],['QuietTable1'],False,False,2,0.00014829635620117188,15,1,['MoveTo(QuietTable1)'],11
+On_VacuumCup_WaterStation,"['MoveTo_VacuumCup', 'PickUp_VacuumCup', 'MoveTo_WaterStation', 'PutDown_VacuumCup_WaterStation']",['Turn_ACTemperature_Down'],"['MoveTo', 'PickUp', 'PutDown']","['VacuumCup', 'WaterStation']",False,False,6,0.0005977153778076172,52,4,"['MoveTo(VacuumCup)', 'PickUp(VacuumCup)', 'MoveTo(WaterStation)', 'PutDown(VacuumCup,WaterStation)']",59
+Low_ACTemperature,"['Turn_AC_On', 'Turn_ACTemperature_Down']",['PickUp_Milk'],['Turn'],"['AC', 'On', 'ACTemperature', 'Down']",False,False,3,0.0002701282501220703,6,2,"['Turn(AC,On)', 'Turn(ACTemperature,Down)']",29
+Holding_Milk,"['MoveTo_Milk', 'PickUp_Milk']",['MoveTo_CoffeeStation'],"['MoveTo', 'PickUp']",['Milk'],False,False,4,0.0003952980041503906,17,2,"['MoveTo(Milk)', 'PickUp(Milk)']",27
+RobotNear_CoffeeStation,['MoveTo_CoffeeStation'],"['MoveTo_Yogurt', 'PickUp_Yogurt']",['MoveTo'],['CoffeeStation'],False,False,2,0.00019359588623046875,15,1,['MoveTo(CoffeeStation)'],11
+Holding_Yogurt,"['MoveTo_Yogurt', 'PickUp_Yogurt']",['Clean_Floor'],"['MoveTo', 'PickUp']",['Yogurt'],False,False,4,0.0004055500030517578,17,2,"['MoveTo(Yogurt)', 'PickUp(Yogurt)']",27
+IsClean_Floor,['Clean_Floor'],['Clean_Chairs'],['Clean'],['Floor'],False,False,2,0.00015020370483398438,10,1,['Clean(Floor)'],11
+IsClean_Chairs,['Clean_Chairs'],"['MoveTo_Yogurt', 'PickUp_Yogurt', 'MoveTo_BrightTable6', 'PutDown_Yogurt_BrightTable6']",['Clean'],['Chairs'],False,False,2,0.0001537799835205078,10,1,['Clean(Chairs)'],11
+On_Yogurt_BrightTable6,"['MoveTo_Yogurt', 'PickUp_Yogurt', 'MoveTo_BrightTable6', 'PutDown_Yogurt_BrightTable6']","['MoveTo_Robot', 'MoveTo_QuietTable2']","['MoveTo', 'PickUp', 'PutDown']","['Yogurt', 'BrightTable6']",False,False,6,0.0006074905395507812,52,4,"['MoveTo(Yogurt)', 'PickUp(Yogurt)', 'MoveTo(BrightTable6)', 'PutDown(Yogurt,BrightTable6)']",59
+RobotNear_QuietTable2,['MoveTo_QuietTable2'],['Clean_Floor'],['MoveTo'],['QuietTable2'],False,False,2,0.0001766681671142578,15,1,['MoveTo(QuietTable2)'],11

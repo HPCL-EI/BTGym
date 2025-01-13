@@ -28,7 +28,7 @@ class LeftGrab(Grab):
         info["del_set"] = {f"IsLeftHandEmpty(self)"}
         info["del_set"] |= {f'IsOn({arg[0]},{place})' for place in cls.SURFACES}
         info["del_set"] |= {f'IsIn({arg[0]},{place})' for place in cls.CONTAINERS}
-        info["cost"] = 5
+        info["cost"] = 13 #5
         return info
 
 

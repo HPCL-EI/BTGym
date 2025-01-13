@@ -27,7 +27,7 @@ class LeftPut(Put):
             if arg[0] in RHSAction.cleaning_tools:
                 info["del_set"] = {f'IsHoldingCleaningTool(self)'}
 
-            info["cost"] = 6
+            info["cost"] = 9 #6
         return info
 
 

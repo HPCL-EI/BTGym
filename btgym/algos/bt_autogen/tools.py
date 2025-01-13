@@ -94,6 +94,16 @@ def get_btml(bt, use_braces=True, act_bt_tree=False):
 
 # Function to calculate the percentage of priority actions in expanded actions
 def calculate_priority_percentage(expanded, priority_act_ls):
+    
+    # 不管左右手
+    # count_priority_actions = len( {act_name for act_name in expanded if act_name in priority_act_ls})
+    # percentage = (count_priority_actions / len(priority_act_ls)) * 100 if expanded else 0
+    
+    # 所有 left 全部改为 right
+    # 把 expanded 中的所有 left 改为 right
+    expanded = [act_name.replace('Left', 'Right') for act_name in expanded]
+    # 把 priority_act_ls 中的所有 left 改为 right
+    priority_act_ls = [act_name.replace('Left', 'Right') for act_name in priority_act_ls]
     count_priority_actions = len( {act_name for act_name in expanded if act_name in priority_act_ls})
     percentage = (count_priority_actions / len(priority_act_ls)) * 100 if expanded else 0
     return percentage

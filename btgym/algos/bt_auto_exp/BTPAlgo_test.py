@@ -218,10 +218,14 @@ class BTPAlgo_test:
         self.continue_expand = kwargs.get('continue_expand',False)
 
 
-        # experience new
-        self.expanded_act_ls = []  # Record actions expanded each time
-        self.expanded_act_ls_ls = []
-        self.expanded_percentages_ls = []  # Record the proportion of expanded actions to theory_priority_act_ls each time
+        self.expanded = []  # Conditions for storing expanded nodes
+        self.expanded_act =[] # 0602
+        self.expanded_percentages = []
+
+        self.traversed = []  # Conditions for storing nodes that have been put into the priority queue
+        self.traversed_act = []
+        self.traversed_percentages = []
+        self.traversed_state_num = 0
         
         self.exp = exp
         self.exp_cost = exp_cost
@@ -255,6 +259,15 @@ class BTPAlgo_test:
 
         self.act_cost_dic = {}
         self.time_limit_exceeded = False
+        
+
+        self.expanded_act =[] # 0602
+        self.expanded_percentages = []
+
+        self.traversed = []  # Conditions for storing nodes that have been put into the priority queue
+        self.traversed_act = []
+        self.traversed_percentages = []
+        self.traversed_state_num = 0
 
 
     def post_processing(self, pair_node, g_cond_anc_pair, subtree, bt, child_to_parent, cond_to_condActSeq):
@@ -398,24 +411,14 @@ class BTPAlgo_test:
 
         while len(self.nodes) != 0:
 
-            # print("len(self.expanded):",len(self.expanded))
+            if self.exp :
+                self.expanded_percentages.append(calculate_priority_percentage(self.expanded_act, self.theory_priority_act_ls))
+                self.traversed_percentages.append(calculate_priority_percentage(self.traversed_act, self.theory_priority_act_ls))
 
             current_pair = self.pop_pair()
             if current_pair.cond_leaf.content in self.traversed:
                 continue
 
-            # if self.nodes[0].cond_leaf.content in self.traversed:
-            #     self.nodes.pop(0)
-            #     # print("pop")
-            #     continue
-
-            # current_pair = self.nodes.pop(0)
-            # current_pair = self.pop_pair()
-            # current_pair = self.pop
-            # current_pair = heapq.heappop(self.nodes)
-            # self.current_pair = current_pair
-
-            # print(current_pair.cond_leaf.content, current_pair.cond_leaf.min_cost)
 
             min_cost = current_pair.cond_leaf.min_cost
 
@@ -425,16 +428,16 @@ class BTPAlgo_test:
             c = current_pair.cond_leaf.content
 
             # experience new
-            if self.exp_record:
-                if current_pair.act_leaf.content!=None:
-                    self.expanded_act_ls.append(current_pair.act_leaf.content.name)
-                self.expanded_act_ls_ls.append(self.expanded_act_ls)
-                self.expanded_percentages_ls.append(calculate_priority_percentage(self.expanded_act_ls, self.theory_priority_act_ls))
+            # if self.exp_record:
+            #     if current_pair.act_leaf.content!=None:
+            #         self.expanded_act_ls.append(current_pair.act_leaf.content.name)
+            #     self.expanded_act_ls_ls.append(self.expanded_act_ls)
+            #     self.expanded_percentages_ls.append(calculate_priority_percentage(self.expanded_act_ls, self.theory_priority_act_ls))
 
-                if self.continue_expand and len(self.expanded)>self.max_expanded_num:
-                    bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
-                                              cond_to_condActSeq)
-                    return bt, min_cost, self.time_limit_exceeded
+            if self.continue_expand and len(self.expanded)>self.max_expanded_num:
+                bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
+                                            cond_to_condActSeq)
+                return bt, min_cost, self.time_limit_exceeded
 
             # # Mount the action node and extend the behavior tree if condition is not the goal and not an empty set
             if c != goal and c != set():
@@ -443,6 +446,7 @@ class BTPAlgo_test:
                     sequence_structure.add_child(
                         [current_pair .cond_leaf, current_pair .act_leaf])
                     cond_to_condActSeq[current_pair] = sequence_structure
+                    
 
                 subtree = ControlBT(type='?')
                 subtree.add_child([copy.deepcopy(current_pair.cond_leaf)])  # 子树首先保留所扩展结点
@@ -559,9 +563,9 @@ class BTPAlgo_test:
                                                   child_to_parent, cond_to_condActSeq)
                         if self.exp:
                             self.expanded_percentages.append(
-                                calculate_priority_percentage(self.expanded_act, self.priority_act_ls))
+                                calculate_priority_percentage(self.expanded_act, self.theory_priority_act_ls))
                             self.traversed_percentages.append(
-                                calculate_priority_percentage(self.traversed_act, self.priority_act_ls))
+                                calculate_priority_percentage(self.traversed_act, self.theory_priority_act_ls))
                         return bt, current_mincost + act.cost,self.time_limit_exceeded
 
                 self.traversed_state_num += 1

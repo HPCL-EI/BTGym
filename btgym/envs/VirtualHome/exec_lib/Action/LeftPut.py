@@ -23,7 +23,7 @@ class LeftPut(Put):
             info["pre"] = {f'IsLeftHolding(self,{arg[0]})',f'IsNear(self,{arg[1]})'}
             info["add"] = {f'IsLeftHandEmpty(self)',f'IsOn({arg[0]},{arg[1]})'}
             info["del_set"] = {f'IsLeftHolding(self,{arg[0]})'}
-            info["cost"] = 6
+            info["cost"] = 9 #6
         return info
 
 

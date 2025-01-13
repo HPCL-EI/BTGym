@@ -30,7 +30,7 @@ class LeftPutIn(PutIn):
 
             info["add"] = {f'IsLeftHandEmpty(self)',f'IsIn({arg[0]},{arg[1]})'}
             info["del_set"] = {f'IsLeftHolding(self,{arg[0]})'}
-            info["cost"] = 10
+            info["cost"] = 13 #10
 
             if arg[0] in RHSAction.cleaning_tools:
                 info["del_set"] = {f'IsHoldingCleaningTool(self)'}

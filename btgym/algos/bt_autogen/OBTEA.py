@@ -213,6 +213,8 @@ class OBTEAlgorithm:
             self.theory_priority_act_ls = theory_priority_act_ls
         else:
             self.theory_priority_act_ls = priority_act_ls
+        
+
 
     def clear(self):
         self.bt = None
@@ -242,6 +244,7 @@ class OBTEAlgorithm:
         self.max_min_cost_ls = []
         self.simu_cost_ls = []
         self.expanded_act_ls_ls=[]
+        
 
     def post_processing(self, pair_node, g_cond_anc_pair, subtree, bt, child_to_parent, cond_to_condActSeq,success = True):
         '''
@@ -490,6 +493,9 @@ class OBTEAlgorithm:
 
         epsh = 0
         while len(self.nodes) != 0:
+            
+            print("self.expanded:", len(self.expanded)) 
+
 
             # 0602 记录有多少动作在里面了
             # print("self.priority_act_ls",self.priority_act_ls)
@@ -526,6 +532,17 @@ class OBTEAlgorithm:
                     self.max_min_cost_ls.append(current_pair.act_leaf.trust_cost)
                 else:
                     self.max_min_cost_ls.append(0)
+                    
+            if len(self.expanded)>self.max_expanded_num:
+                bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
+                                            cond_to_condActSeq)
+                if self.exp:
+                    self.expanded_act_ls_ls.append(self.expanded_act)
+                    self.expanded_percentages.append(
+                        calculate_priority_percentage(self.expanded_act, self.theory_priority_act_ls))
+                    self.traversed_percentages.append(
+                        calculate_priority_percentage(self.traversed_act, self.theory_priority_act_ls))
+                return bt, min_cost, self.time_limit_exceeded
 
             # # Mount the action node and extend the behavior tree if condition is not the goal and not an empty set
             if c != goal and c != set():

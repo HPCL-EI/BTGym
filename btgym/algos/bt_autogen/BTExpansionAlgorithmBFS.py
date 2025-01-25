@@ -208,6 +208,8 @@ class BTalgorithmBFS:
         self.traversed_act = []
         self.traversed_percentages = []
         self.traversed_state_num = 0
+        
+        self.tree_size_ls=[]
 
         self.bt_without_merge = None
         self.subtree_count = 1
@@ -290,12 +292,15 @@ class BTalgorithmBFS:
         self.traversed_act = []
         self.traversed_percentages = []
         self.traversed_state_num = 0
+        
+        self.tree_size_ls=[]
 
         self.bt_without_merge = None
         self.subtree_count = 1
 
         self.max_min_cost_ls = []
         self.simu_cost_ls = []
+        
 
         if self.verbose:
             print("\nAlgorithm starts！")
@@ -316,6 +321,7 @@ class BTalgorithmBFS:
         # Using priority queues to store extended nodes
         self.nodes.append(goal_cond_act_pair)
         self.expanded.append(goal)
+        self.tree_size_ls.append(goal)
         self.traversed_state_num += 1
         # self.traversed = [goal]  # Set of expanded conditions
 
@@ -483,6 +489,7 @@ class BTalgorithmBFS:
                             sequence_structure.add_child([c_attr_node, a_attr_node])
                             # 将顺序结构添加到子树
                             subtree.add_child([sequence_structure])
+                            self.tree_size_ls.append(c_attr)
 
                             if self.output_just_best:
                                 cond_to_condActSeq[new_pair] = sequence_structure

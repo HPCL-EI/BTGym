@@ -49,7 +49,8 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type,
     algo_type = ['UHBTP','HBTP-Oracle', 'HBTP', 'OBTEA', 'BT Expansion']
 
     index = ['RW', 'VH', 'RHS', 'RH'].index(scene)
-    scene = ['RoboWaiter', 'VirtualHome', 'RobotHow-Small', 'RobotHow'][index]
+    # scene = ['RoboWaiter', 'VirtualHome', 'RobotHow-Small', 'RobotHow'][index]
+    scene = ['RoboWaiter', 'VirtualHome', 'OmniGibson', 'Headless'][index]
 
 
     for i, algo_str in enumerate(algo_type):

@@ -182,6 +182,7 @@ class BTPAlgo:
         self.expanded = []  # Conditions for storing expanded nodes
         self.expanded_num=0
         self.traversed = []  # Conditions for storing nodes that have been put into the priority queue
+        self.tree_size_ls = []
 
 
         self.verbose = verbose
@@ -354,6 +355,8 @@ class BTPAlgo:
         self.traversed_act = []
         self.traversed_percentages = []
         self.traversed_state_num = 0
+        
+        self.tree_size_ls=[]
 
         self.pre_process()
 
@@ -385,6 +388,7 @@ class BTPAlgo:
         self.put_pair(goal_cond_act_pair)
 
         self.expanded.append(goal)
+        self.tree_size_ls.append(goal)
         self.traversed_state_num += 1
         # self.traversed = [goal]  # Set of expanded conditions
         
@@ -394,6 +398,8 @@ class BTPAlgo:
             return bt, 0,self.time_limit_exceeded
 
         while len(self.nodes) != 0:
+            
+            # print("self.expanded:", len(self.expanded))
 
             if self.exp :
                 self.expanded_act_ls_ls.append(self.expanded_act)
@@ -480,6 +486,7 @@ class BTPAlgo:
                 new_pair = CondActPair(cond_leaf=c_attr_node, act_leaf=a_attr_node)
 
                 self.put_pair(new_pair)
+                self.tree_size_ls.append(c_attr)
 
                 # self.nodes.append(new_pair)
 
@@ -532,6 +539,7 @@ class BTPAlgo:
             parent_of_c = current_pair.cond_leaf.parent
             parent_of_c.children[0] = subtree
             self.traversed.append(c)
+            
             # ====================== End Action Trasvers ============================ #
 
         # self.tree_size = self.bfs_cal_tree_size_subtree(bt)

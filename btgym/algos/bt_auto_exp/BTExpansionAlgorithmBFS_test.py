@@ -286,10 +286,11 @@ class BTalgorithmBFS:
         self.traversed = []  # Conditions for storing nodes that have been put into the priority queue
 
 
-
         self.traversed_act = []
         self.traversed_percentages = []
         self.traversed_state_num = 0
+        
+        self.tree_size_ls=[]
 
         self.bt_without_merge = None
         self.subtree_count = 1
@@ -320,6 +321,7 @@ class BTalgorithmBFS:
         # Using priority queues to store extended nodes
         self.nodes.append(goal_cond_act_pair)
         self.expanded.append(goal)
+        self.tree_size_ls.append(goal)
         self.traversed_state_num += 1
         traversed_current = [goal]
         self.traversed_new = [goal]
@@ -336,6 +338,8 @@ class BTalgorithmBFS:
 
 
         while len(self.nodes) != 0:
+            
+            # print("self.expanded:", len(self.expanded))
 
             # 0602 记录有多少动作在里面了
             # print("self.priority_act_ls",self.priority_act_ls)
@@ -526,6 +530,7 @@ class BTalgorithmBFS:
                             sequence_structure.add_child([c_attr_node, a_attr_node])
                             # 将顺序结构添加到子树
                             subtree.add_child([sequence_structure])
+                            self.tree_size_ls.append(c_attr)
 
                             if self.output_just_best:
                                 cond_to_condActSeq[new_pair] = sequence_structure

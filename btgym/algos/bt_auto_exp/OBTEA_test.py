@@ -491,6 +491,8 @@ class OBTEAlgorithm:
         self.simu_cost_act_num_ls=[]
         self.cost_act_num_ratio=[]
         while len(self.nodes) != 0:
+            
+            
 
             # 0602 记录有多少动作在里面了
             # print("self.priority_act_ls",self.priority_act_ls)

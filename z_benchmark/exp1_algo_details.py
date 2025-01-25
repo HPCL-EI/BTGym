@@ -7,7 +7,7 @@ from btgym.utils import ROOT_PATH
 import pandas as pd
 import numpy as np
 import time
-import Attraction.tools as tools
+import exp4_Attraction.tools as tools
 import re
 import btgym
 from btgym.utils.tools import collect_action_nodes
@@ -101,7 +101,7 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
             goal_set = goal_transfer_str(goal_str)
             start_time = time.time()
             algo.process(goal_set)
-            # algo.bt.print()
+            algo.algo.bt.print_nodes()
             end_time = time.time()
 
             ### Output
@@ -152,12 +152,12 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
 max_epoch = 2000
 data_num = 100
 # algo_type = ['hbtp']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'  #,'opt_h1_llm', 'weak'
-algo_type = ['opt_h0','opt_h0_llm', 'obtea', 'bfs','hbtp']
+algo_type = ['hbtp']
 
 for percentages_type in ['expanded']:  # 'expanded', 'traversed', 'cost'
     for difficulty in ['single', 'multi']:  # 'single', 'multi'
         print(f"============ percentages_type = {percentages_type}, difficulty = {difficulty} =============")
-        for scene in ['RH', 'RHS', 'RW', 'VH']:  # 'RH', 'RHS', 'RW', 'VH'
+        for scene in ['RW']:  # 'RH', 'RHS', 'RW', 'VH'
             print(f"++++++++++ scene = {scene} ++++++++++")
             plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, data_num, save_csv=True)
 

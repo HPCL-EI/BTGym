@@ -19,6 +19,8 @@ from btgym.envs.VirtualHome.exec_lib._base.VHAction import VHAction
 from btgym.envs.RobotHow_Small.exec_lib._base.RHSAction import RHSAction
 from btgym.envs.RobotHow.exec_lib._base.RHAction import RHAction
 
+random.seed(0)
+
 SENCE_ACT_DIC={"RW":RWAction,
                "VH":VHAction,
                "RHS":RHSAction,
@@ -114,7 +116,7 @@ def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100,p=0.2,difficulty=
 
     AVG_SR = AVG_SR / data_num
     print("成功的执行占比（非错误）: {:.2%}".format(AVG_SR))
-    return round(AVG_SR, 2)
+    return round(AVG_SR, 4)
 
 
 def run_simulation(scene, algo_str, just_best):
@@ -122,13 +124,13 @@ def run_simulation(scene, algo_str, just_best):
 
 
 
-algorithms = ['opt_h0', 'opt_h0_llm', 'obtea', 'bfs']  # 'opt_h0', 'opt_h1', 'obtea', 'bfs', 'dfs'
-scenes = ['RW', 'VH' , 'RHS' ,'RH']  # 'RH', 'RHS', 'RW', 'VH'
+algorithms = ['bfs','obtea','opt_h0','hbtp','opt_h0_llm']  # 'opt_h0', 'opt_h1', 'obtea', 'bfs', 'dfs'
+scenes = [ 'RW', 'VH','RHS', 'RH']  # 'RH', 'RHS', 'RW', 'VH'
 just_best_bts = [False] # True, False
 
 
 data_num=100
-p=0.5
+p=0.2
 difficulty = "multi"
 
 
@@ -164,6 +166,6 @@ print("----------------------")
 print(df)
 
 # Save the DataFrame to a CSV file
-csv_file_path = f"{ROOT_PATH}/../z_benchmark/Attraction/2_changes_all_p={p}_t=5_d={data_num}_{difficulty}.csv"  # Define your CSV file path
+csv_file_path = f"{ROOT_PATH}/../z_benchmark/exp4_Attraction/2_changes_all_p={p}_t=5_d={data_num}_{difficulty}.csv"  # Define your CSV file path
 df.to_csv(csv_file_path)  # Save as a TSV (Tab-separated values) file
 print(csv_file_path)

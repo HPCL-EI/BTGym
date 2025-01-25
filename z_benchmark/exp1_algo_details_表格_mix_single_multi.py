@@ -40,8 +40,8 @@ for scene in scenes:
         timeout_rate = (data['Time_Limit_Exceeded'] == True).mean()
 
         # 计算平均  Expanded_Number、Planning_Time_Total
-        # average_expanded_number = round(data['Expanded_Number'].mean(),3)
-        average_expanded_number = round(data['Tree_Expanded_Number'].mean(),3)
+        average_expanded_number = round(data['Tree_Expanded_Number'].mean(),3) #Expanded_Number Exploration_Number
+        # average_expanded_number = round(data['Tree_Expanded_Number'].mean(),3)
         average_planning_time_total = round(data['Planning_Time_Total'].mean()*1000,2)
 
         # 计算平均 Current_Cost、Action_Number、Tick_Time 如果不成功，这三者设置为最大值
@@ -82,7 +82,7 @@ for scene in scenes:
             'Algorithm': alg_str,
             # 'Success Rate': success_rate,
             'Timeout Rate': timeout_rate,
-            'Average Expanded Number': average_expanded_number,
+            'Tree Size': average_expanded_number,
             'Average Planning Time': average_planning_time_total,
             'Average Current Cost': average_current_cost,
             'Average Action Number': average_action_number,
@@ -111,12 +111,14 @@ print(results_df_sorted)
 latex_table = """
 \\begin{{table*}}[ht]
 \\centering
-\\caption{{Performance Metrics by Scene and Algorithm}}
-\\label{{my-label}}
+\\caption{The comparison of BT planning algorithms in common metrics.}
+\\label{tab:Metrics}
+\\setlength{\\tabcolsep}{1pt} % 调整列间距，默认为6pt
+\\small
 \\begin{{tabular}}{{@{{}}lcccccc@{{}}}}
 \\toprule
-\\textbf{{Algorithm}} & \\textbf{{Timeout}}  & \\textbf{{Expanded}} & \\textbf{{Planning}} & \\textbf{{Current}} & \\textbf{{Action}} & \\textbf{{Ticks}} \\\\
-                   &   \\textbf{{Rate}}    & \\textbf{{Number}} & \\textbf{{Time(ms)}}          & \\textbf{{Cost}}         & \\textbf{{Number}}      & \\textbf{{Time}}      \\\\ \\midrule
+\\textbf{{Algorithm}} & \\textbf{{Planning}}  & \\textbf{{Timeout}}  & \\textbf{{Tree}} & \\textbf{{Current}} & \\textbf{{Action}} & \\textbf{{Ticks}} \\\\
+                   & \\textbf{{Time(ms)}}  &   \\textbf{{Rate}}    & \\textbf{{Sizes}}          & \\textbf{{Cost}}         & \\textbf{{Number}}      & \\textbf{{Time}}      \\\\ \\midrule
 \\multicolumn{{7}}{{l}}{{\\textbf{{Scenario: RoboWaiter}}}} \\\\
 {rw_rows}
 \\midrule
@@ -146,7 +148,7 @@ def create_latex_rows(df, scene):
         avg_current_cost = row['Average Current Cost'] if row['Average Current Cost'] is not None else '-'
         avg_action_number = row['Average Action Number'] if row['Average Action Number'] is not None else '-'
         avg_tick_time = row['Average Tick Time'] if row['Average Tick Time'] is not None else '-'
-        rows.append(f"{algorithms_name[row['Algorithm']]} & {row['Timeout Rate']*100:.1f}\\% & {row['Average Expanded Number']:.1f} & {row['Average Planning Time']:.1f} & {avg_current_cost:.1f} & {avg_action_number:.1f} & {avg_tick_time:.1f} \\\\")
+        rows.append(f"{algorithms_name[row['Algorithm']]} & {row['Average Planning Time']:.1f}  & {row['Timeout Rate']*100:.1f}\\% & {row['Tree Size']:.1f} & {avg_current_cost:.1f} & {avg_action_number:.1f} & {avg_tick_time:.1f} \\\\")
     return "\n".join(rows)
 
 

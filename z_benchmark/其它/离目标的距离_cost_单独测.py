@@ -7,7 +7,7 @@ from btgym.utils import ROOT_PATH
 import pandas as pd
 import numpy as np
 import time
-import Attraction.tools as tools
+import exp4_Attraction.tools as tools
 import re
 import btgym
 from btgym.utils.tools import collect_action_nodes

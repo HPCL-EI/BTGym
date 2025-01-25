@@ -1,10 +1,9 @@
 import copy
 import os
 import random
-import concurrent.futures
 from btgym.utils import ROOT_PATH
 os.chdir(f'{ROOT_PATH}/../z_benchmark')
-from tools import modify_condition_set_Random_Perturbations,setup_environment,modify_condition_set
+from tools import *
 import time
 import re
 import pandas as pd
@@ -26,7 +25,7 @@ SENCE_ACT_DIC={"RW":RWAction,
                "RHS":RHSAction,
                "RH":RHAction}
 
-def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100,p=0.2,difficulty="multi"):
+def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100,difficulty="multi", choose_max_exp=False, max_exp=99999):
 
     AVG_SR = 0
 
@@ -61,20 +60,31 @@ def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100,p=0.2,difficulty=
         elif "opt" in algo_str_complete:
             priority_opt_act = opt_act
 
-        algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
-                              priority_act_ls=priority_opt_act, key_predicates=[],
-                              key_objects=[],
-                              selected_algorithm=algo_str, mode="big",
-                              llm_reflect=False, time_limit=5,
-                              heuristic_choice=heuristic_choice, exp=False, exp_cost=False, output_just_best=just_best,
-                              theory_priority_act_ls=opt_act)
+        if choose_max_exp:
+            algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
+                                  priority_act_ls=priority_opt_act, key_predicates=[],
+                                  key_objects=[],
+                                  selected_algorithm=algo_str, mode="big",
+                                  llm_reflect=False, time_limit=None,
+                                  heuristic_choice=heuristic_choice, exp=False, exp_cost=True, output_just_best=just_best,
+                                  theory_priority_act_ls=opt_act,max_expanded_num=max_exp)
+        else:
+            algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
+                                  priority_act_ls=priority_opt_act, key_predicates=[],
+                                  key_objects=[],
+                                  selected_algorithm=algo_str, mode="big",
+                                  llm_reflect=False, time_limit=5,
+                                  heuristic_choice=heuristic_choice, exp=False, exp_cost=False, output_just_best=just_best,
+                                  theory_priority_act_ls=opt_act)
 
         goal_set = goal_transfer_str(goal_str)
         start_time = time.time()
         algo.process(goal_set)
         end_time = time.time()
         planning_time_total = end_time - start_time
-        time_limit_exceeded = algo.algo.time_limit_exceeded
+        print(f"\x1b[32m Goal:{goal_str} \n Times {planning_time_total} \x1b[0m")
+
+        # time_limit_exceeded = algo.algo.time_limit_exceeded
         # ptml_string, cost, expanded_num = algo.post_process(ptml_string=False)
         # error, state, act_num, current_cost, record_act_ls, ticks = algo.execute_bt(goal_set[0], cur_cond_set,
         #                                                                             verbose=False)
@@ -83,6 +93,23 @@ def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100,p=0.2,difficulty=
         #       "\x1b[31mTIMEOUT\x1b[0m" if time_limit_exceeded else "")
         # print("current_cost:", current_cost, "expanded_num:", expanded_num, "planning_time_total:", planning_time_total,
         #       "ticks:", ticks)
+
+
+        # visualization
+        # file_name = "tree"
+        # file_path = f'./{file_name}.btml'
+        # with open(file_path, 'w') as file:
+        #     file.write(ptml_string)
+        # # read and execute
+        # from btgym import BehaviorTree
+        # bt = BehaviorTree(file_name + ".btml", env.behavior_lib)
+        # # bt.print()
+        # bt.draw()
+        pair_num=0
+        if algo_str_complete in ['opt_h0','opt_h0_llm', 'obtea']:
+            pair_num = len(algo.algo.expanded)
+        else:
+            pair_num = algo.algo.traversed_state_num
 
         # 跑算法
         # 提取出obj
@@ -95,17 +122,10 @@ def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100,p=0.2,difficulty=
         successful_executions = 0  # 用于跟踪成功（非错误）的执行次数
         # 随机生成exe_times个初始状态，看哪个能达到目标
         for i in range(exe_times):
-            # new_cur_state = modify_condition_set(scene,SENCE_ACT_DIC[scene], cur_cond_set,objects)
-            # error, state, act_num, current_cost, record_act_ls, ticks = algo.execute_bt(goal_set[0], new_cur_state,
-            #                                                                             verbose=False)
-
             new_cur_state = modify_condition_set(scene,SENCE_ACT_DIC[scene], cur_cond_set,objects)
-            # new_cur_state = modify_condition_set_Random_Perturbations(scene, SENCE_ACT_DIC[scene], cur_cond_set, objects, p=p)
-            error, state, act_num, current_cost, record_act_ls, ticks = algo.execute_bt_Random_Perturbations(scene, SENCE_ACT_DIC[scene],objects,\
-                                                                                                             goal_set[0], new_cur_state,
-                                                                                        verbose=False, p=p)
-
-
+            # print("new_cur_state:",new_cur_state)
+            error, state, act_num, current_cost, record_act_ls, ticks = algo.execute_bt(goal_set[0], new_cur_state,
+                                                                                        verbose=False)
             # 检查是否有错误，如果没有，则增加成功计数
             if not error:
                 successful_executions += 1
@@ -115,49 +135,58 @@ def get_SR(scene, algo_str, just_best,exe_times=5,data_num=100,p=0.2,difficulty=
 
     AVG_SR = AVG_SR / data_num
     print("成功的执行占比（非错误）: {:.2%}".format(AVG_SR))
-    return round(AVG_SR, 2)
+    return pair_num,round(AVG_SR, 4)
+
+def compute_sr_and_update_df(index_key, scene, just_best, exe_times, data_num, difficulty,choose_max_exp=False, max_exp=99999):
+    pair_num, sr = get_SR(scene, algo_str, just_best, exe_times=exe_times, data_num=data_num,difficulty=difficulty,
+                          choose_max_exp=choose_max_exp, max_exp=max_exp)
+    return index_key, scene, pair_num, sr
 
 
-def run_simulation(index_key, scene, algo_str, just_best):
-    sr = get_SR(scene, algo_str, just_best, exe_times=5, data_num=data_num, p=p, difficulty=difficulty)
-    return index_key, scene, sr
 
-
-algorithms = ['opt_h0', 'opt_h0_llm', 'obtea', 'bfs']  # 'opt_h0', 'opt_h1', 'obtea', 'bfs', 'dfs'
-scenes = ['RW', 'VH' , 'RHS' ,'RH']  # 'RH', 'RHS', 'RW', 'VH'
+algorithms = ['bfs','obtea','opt_h0','hbtp','opt_h0_llm']  # 'opt_h0','opt_h0_llm', 'obtea', 'bfs'
+scenes = ['RW', 'VH', 'RHS', 'RH']  # 'RW', 'VH', 'RHS', 'RH'
 just_best_bts = [False] # True, False
 
 
-data_num=100
-p=0.2
-difficulty = "single"
+data_num= 100
+exe_times =5
+difficulty = "multi"
+
+max_exp = 0
+choose_max_exp=False
+
 # 创建df
 index = [f'{algo_str}_{tb}' for tb in ['T', 'F'] for algo_str in algorithms ]
-df = pd.DataFrame(index=index, columns=scenes)
+# index = [f'{algo_str}_{tb}' for tb in ['F'] for algo_str in algorithms ]
+df = pd.DataFrame(index=index, columns= scenes)
 
 
 # for just_best in just_best_bts:
 #     for algo_str in algorithms:
 #         index_key = f'{algo_str}_{"T" if just_best else "F"}'
 #         for scene in scenes:
-#             df.at[index_key, scene] = get_SR(scene, algo_str, just_best,exe_times=5,data_num=data_num,p=p)
-# 使用 ThreadPoolExecutor 并行执行
-
-# 使用 ThreadPoolExecutor 并行执行
-with concurrent.futures.ThreadPoolExecutor() as executor:
-    futures = []
+#             pair_num, df.at[index_key, scene] = get_SR(scene, algo_str, just_best,exe_times=exe_times,data_num=data_num,difficulty=difficulty)
+with concurrent.futures.ThreadPoolExecutor() as executor: #max_workers=10
+    future_to_sr = {}
     for just_best in just_best_bts:
         for algo_str in algorithms:
             index_key = f'{algo_str}_{"T" if just_best else "F"}'
             for scene in scenes:
-                future = executor.submit(run_simulation, index_key, scene, algo_str, just_best)
-                futures.append(future)
+                # 将任务提交到线程池
+                future = executor.submit(compute_sr_and_update_df, index_key, scene, just_best, exe_times, data_num,difficulty,
+                                         choose_max_exp,max_exp)
+                future_to_sr[future] = (index_key, scene)
 
-    # 获取结果并更新 DataFrame
-    for future in concurrent.futures.as_completed(futures):
-        index_key, scene, sr = future.result()
-        df.at[index_key, scene] = sr
-
+    # 获取并处理每个future的结果
+    for future in concurrent.futures.as_completed(future_to_sr):
+        index_key, scene = future_to_sr[future]
+        try:
+            _, _, pair_num, sr = future.result()
+            df.at[index_key, scene] = sr
+            # df.at[index_key, f"{scene}_PairNum"] = pair_num
+        except Exception as exc:
+            print(f"{index_key} generated an exception: {exc}")
 
 
 formatted_string = df.to_csv(sep='\t')
@@ -166,6 +195,8 @@ print("----------------------")
 print(df)
 
 # Save the DataFrame to a CSV file
-csv_file_path = f"{ROOT_PATH}/../z_benchmark/Attraction/3_initial_changes_all_{difficulty}_p={p}_t=5.csv"  # Define your CSV file path
+if choose_max_exp:
+    csv_file_path = f"{ROOT_PATH}/../z_benchmark/exp4_Attraction/1_only_changes_initial_t={exe_times}_False_{difficulty}_max_exp={max_exp}.csv"  # Define your CSV file path
+else:
+    csv_file_path = f"{ROOT_PATH}/../z_benchmark/exp4_Attraction/1_only_changes_initial_t={exe_times}_False_{difficulty}.csv"  # Define your CSV file path
 df.to_csv(csv_file_path)  # Save as a TSV (Tab-separated values) file
-print(csv_file_path)

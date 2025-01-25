@@ -7,7 +7,7 @@ from btgym.utils import ROOT_PATH
 import pandas as pd
 import numpy as np
 import time
-import Attraction.tools as tools
+import exp4_Attraction.tools as tools
 import re
 import btgym
 from btgym.utils.tools import collect_action_nodes
@@ -52,7 +52,7 @@ def get_algo(d,ld,difficulty, scene, algo_str, max_epoch, data_num, save_csv=Fal
                           key_objects=[],
                           selected_algorithm=algo_str, mode="big",
                           llm_reflect=False, time_limit=None,
-                          heuristic_choice=heuristic_choice,exp=False,exp_cost=True,output_just_best=False,
+                          heuristic_choice=heuristic_choice,exp=False,exp_cost=False,output_just_best=False,  #old:exp_cost=True  modiefied on 20250114
                           theory_priority_act_ls=opt_act,max_expanded_num=max_epoch)
 
     start_time = time.time()
@@ -93,8 +93,8 @@ def process_dataset(i, d, ld, difficulty, scene, algo_type, max_epoch, data_num)
                     goal_set[0], c, verbose=False)
                 algo_results.append(act_num)
         else:
-            # for c in algo.algo.traversed_new:
-            for c in algo.algo.expanded:
+            # for c in algo.algo.tree_size_ls:
+            for c in algo.algo.expanded: #hbtp
                 error, state, act_num, current_cost, record_act_ls, current_tick_time = algo.execute_bt(
                     goal_set[0], c, verbose=False)
                 # print("c:", c, "record_act_ls:", record_act_ls)
@@ -112,12 +112,12 @@ def process_dataset(i, d, ld, difficulty, scene, algo_type, max_epoch, data_num)
 
 max_epoch = 20
 data_num = 100
-algo_type = ['hbtp','opt_h0','opt_h0_llm', 'obtea', 'bfs']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'
+algo_type = ['hbtp']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'   'opt_h0','opt_h0_llm', 'obtea', 'bfs','hbtp'
 
 
 import concurrent.futures
 for difficulty in ['single', 'multi']:  # 'single', 'multi'
-    for scene in ['RW','VH','RHS','RH']:  # 'RH', 'RHS', 'RW', 'VH'
+    for scene in ['RH', 'RHS', 'RW', 'VH']:  # 'RH', 'RHS', 'RW', 'VH'
 
         algo_act_num_ls = {
             'opt_h0': [],
@@ -137,11 +137,11 @@ for difficulty in ['single', 'multi']:  # 'single', 'multi'
         #     print("data:", i, "difficulty:",difficulty, "scene:",scene,)
         #     goal_str = ' & '.join(d["Goals"])
         #     goal_set = goal_transfer_str(goal_str)
-        #
+        
         #     for algo_str in algo_type:  # "opt_h0", "opt_h1", "obtea", "bfs"
         #         algo = copy.deepcopy(get_algo(d,ld,difficulty, scene, algo_str, max_epoch, data_num, save_csv=True))
 
-        with concurrent.futures.ThreadPoolExecutor() as executor:
+        with concurrent.futures.ThreadPoolExecutor() as executor: #max_workers=1
             # Submit all tasks for execution
             futures = [executor.submit(process_dataset, i,d, ld, difficulty, scene, algo_type, max_epoch, data_num)
                        for i, (d, ld) in enumerate(zip(data[:data_num],llm_data[:data_num]))]
@@ -157,7 +157,7 @@ for difficulty in ['single', 'multi']:  # 'single', 'multi'
         # Create DataFrame from dictionary
         df = pd.DataFrame.from_dict(all_results, orient='index').transpose()
         # Creating a filename using the scene and difficulty
-        filename = f'{ROOT_PATH}/../z_benchmark/output_algo_act_num/{scene}_{difficulty}_maxep={max_epoch}_act_num.csv'
+        filename = f'{ROOT_PATH}/../z_benchmark/output_algo_act_num/hbtp_{scene}_{difficulty}_maxep={max_epoch}_act_num.csv'
         # Save DataFrame to CSV
         df.to_csv(filename, index=False)
         print(f'Data saved to {filename}')

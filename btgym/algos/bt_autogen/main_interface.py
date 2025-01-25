@@ -22,7 +22,7 @@ from btgym.algos.bt_autogen.tools import get_btml
 import os
 from btgym.utils import ROOT_PATH
 os.chdir(f'{ROOT_PATH}/../z_benchmark')
-from z_benchmark.Attraction.tools import modify_condition_set_Random_Perturbations
+from z_benchmark.exp4_Attraction.tools import modify_condition_set_Random_Perturbations
 
 from btgym.algos.bt_auto_exp.HBTP_test import HBTP_test as HBTP_test
 from btgym.algos.bt_autogen.HBTP import HBTP as HBTP
@@ -147,7 +147,7 @@ class BTExpInterface:
                     'priority_act_ls': [],
                     'arg_set': {'solution', 'delete','value','robust'},
                                         'priority_cond_set': set(),
-                                      'max_expanded_num':1000000000000
+                                      'max_expanded_num':self.max_expanded_num
                 }
                 self.algo = HBTP(verbose=False, act_tree_verbose=False,
                              priority_act_ls=self.priority_act_ls, time_limit=self.time_limit,
@@ -180,7 +180,7 @@ class BTExpInterface:
                     'priority_act_ls': [],
                     'arg_set': {'solution', 'delete','value','robust'},
                                         'priority_cond_set': set(),
-                                      'max_expanded_num':1000000000000
+                                      'max_expanded_num':self.max_expanded_num
                 }
                 self.algo = HBTP_test(verbose=False, act_tree_verbose=False,
                              priority_act_ls=self.priority_act_ls, time_limit=self.time_limit,

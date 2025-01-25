@@ -368,6 +368,8 @@ class BTPAlgo_test:
         self.traversed_percentages = []
         self.traversed_state_num = 0
         
+        self.tree_size_ls=[]
+        
 
         self.pre_process()
 
@@ -400,6 +402,7 @@ class BTPAlgo_test:
 
         # Using priority queues to store extended nodes
         self.expanded.append(goal)
+        self.tree_size_ls.append(goal)
         self.traversed_state_num += 1
         traversed_current = [goal]
         self.traversed_new = [goal]
@@ -410,6 +413,8 @@ class BTPAlgo_test:
             return bt, 0,self.time_limit_exceeded
 
         while len(self.nodes) != 0:
+            
+            print("len(self.expanded):", len(self.expanded))
 
             if self.exp :
                 self.expanded_percentages.append(calculate_priority_percentage(self.expanded_act, self.theory_priority_act_ls))
@@ -433,8 +438,9 @@ class BTPAlgo_test:
             #         self.expanded_act_ls.append(current_pair.act_leaf.content.name)
             #     self.expanded_act_ls_ls.append(self.expanded_act_ls)
             #     self.expanded_percentages_ls.append(calculate_priority_percentage(self.expanded_act_ls, self.theory_priority_act_ls))
-
+            # print("len(self.expanded):", len(self.expanded))
             if self.continue_expand and len(self.expanded)>self.max_expanded_num:
+                
                 bt = self.post_processing(current_pair, goal_cond_act_pair, subtree, bt, child_to_parent,
                                             cond_to_condActSeq)
                 return bt, min_cost, self.time_limit_exceeded
@@ -537,6 +543,8 @@ class BTPAlgo_test:
                 sequence_structure.add_child([c_attr_node, a_attr_node])
                 # Add the sequence structure to the subtree
                 subtree.add_child([sequence_structure])
+                
+                self.tree_size_ls.append(c_attr)
 
                 if self.output_just_best:
                     cond_to_condActSeq[new_pair] = sequence_structure
@@ -547,6 +555,7 @@ class BTPAlgo_test:
                 self.traversed_act.append(act.name)
                 # Put all action nodes that meet the conditions into the list
                 traversed_current.append(c_attr)
+                
                 
                 # Break out here
                 if c_attr <= start and not self.is_robust_expand:

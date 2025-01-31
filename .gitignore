@@ -298,3 +298,4 @@ simulators/robowaiter/CafeSimulator/Engine/Saved/Config/Windows/Manifest.ini
 simulators/robowaiter/CafeSimulator/Manifest_DebugFiles_Win64.txt
 simulators/robowaiter/CafeSimulator/Manifest_NonUFSFiles_Win64.txt
 simulators/robowaiter/CafeSimulator/Manifest_UFSFiles_Win64.txt
+/simulators

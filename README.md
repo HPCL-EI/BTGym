@@ -1,4 +1,4 @@
-# BTGym
+# BTGym-包含实验-内容完整版
 
 A Platform for Behavior Tree Generation and Evaluation. Based on [VirtualHome](http://virtual-home.org/) v2.3.0
 

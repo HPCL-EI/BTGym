@@ -13,22 +13,22 @@ import btgym
 from btgym.utils.tools import collect_action_nodes
 from btgym.utils.read_dataset import read_dataset
 from btgym.algos.llm_client.tools import goal_transfer_str
-from btgym.algos.bt_autogen.main_interface import BTExpInterface
+from btgym.algos.bt_autogen.main_interface import BTPlannerInterface
 from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process, act_format_records
 from btgym.envs.RobotHow.exec_lib._base.RHAction import RHAction
-from btgym.envs.RobotHow_Small.exec_lib._base.RHSAction import RHSAction
+from btgym.envs.RobotHow_Small.exec_lib._base.OGAction import OGAction
 from btgym.envs.RoboWaiter.exec_lib._base.RWAction import RWAction
 from btgym.envs.VirtualHome.exec_lib._base.VHAction import VHAction
-os.chdir(f'{ROOT_PATH}/../z_benchmark')
+os.chdir(f'{ROOT_PATH}/../z_experience_results')
 from btgym.algos.bt_autogen.tools  import calculate_priority_percentage
 
 from hbtp.algos.bt_planning.HBTP import HBTP
-from hbtp.algos.bt_planning.main_interface import BTExpInterface as HBTPExpInterface
+from hbtp.algos.bt_planning.main_interface import BTPlannerInterface as HBTPExpInterface
 
 def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, data_num, save_csv=False):
-    data_path = f"{ROOT_PATH}/../z_benchmark/data/{scene}_{difficulty}_100_processed_data.txt"
+    data_path = f"{ROOT_PATH}/../z_experience_results/data/{scene}_{difficulty}_100_processed_data.txt"
     data = read_dataset(data_path)
-    llm_data_path = f"{ROOT_PATH}/../z_benchmark/llm_data/{scene}_{difficulty}_100_llm_data.txt"
+    llm_data_path = f"{ROOT_PATH}/../z_experience_results/llm_data/{scene}_{difficulty}_100_llm_data.txt"
     llm_data = read_dataset(llm_data_path)
     env, cur_cond_set = tools.setup_environment(scene)
 
@@ -54,7 +54,7 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
             opt_act = act_str_process(d['Optimal Actions'], already_split=True)
 
             # 小空间
-            # algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
+            # algo = BTPlannerInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
             #                       priority_act_ls=opt_act, key_predicates=[],
             #                       key_objects=d['Vital Objects'],
             #                       selected_algorithm=algo_str, mode="small-objs",
@@ -90,7 +90,7 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
             #     time_limit = 0.1
             time_limit = 1
 
-            algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
+            algo = BTPlannerInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
                                 priority_act_ls=priority_opt_act, key_predicates=[],
                                 key_objects=[],
                                 selected_algorithm=algo_str, mode="big",
@@ -101,7 +101,7 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
             goal_set = goal_transfer_str(goal_str)
             start_time = time.time()
             algo.process(goal_set)
-            algo.algo.bt.print_nodes()
+            # algo.bt.print()
             end_time = time.time()
 
             ### Output
@@ -145,19 +145,19 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
 
         # save detail to csv
         detailed_df = pd.DataFrame.from_records(detail_rows)
-        save_path = f'{ROOT_PATH}/../z_benchmark/algo_details_t=1_test/{difficulty}_{scene}_{algo_str_complete}.csv'
+        save_path = f'{ROOT_PATH}/../z_experience_results/algo_details_t=1/{difficulty}_{scene}_{algo_str_complete}.csv'
         detailed_df.to_csv(save_path, index=False)
 
 
 max_epoch = 2000
 data_num = 100
 # algo_type = ['hbtp']   # 'opt_h0','opt_h0_llm', 'obtea', 'bfs',      'opt_h1','weak'  #,'opt_h1_llm', 'weak'
-algo_type = ['hbtp']
+algo_type = ['opt_h0','opt_h0_llm', 'obtea', 'bfs','hbtp']
 
 for percentages_type in ['expanded']:  # 'expanded', 'traversed', 'cost'
     for difficulty in ['single', 'multi']:  # 'single', 'multi'
         print(f"============ percentages_type = {percentages_type}, difficulty = {difficulty} =============")
-        for scene in ['RW']:  # 'RH', 'RHS', 'RW', 'VH'
+        for scene in ['RH', 'RHS', 'RW', 'VH']:  # 'RH', 'RHS', 'RW', 'VH'
             print(f"++++++++++ scene = {scene} ++++++++++")
             plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, data_num, save_csv=True)
 

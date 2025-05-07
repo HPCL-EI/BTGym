@@ -3,32 +3,31 @@ import os
 import matplotlib.pyplot as plt
 from collections import Counter
 import random
-from btgym.utils import ROOT_PATH
+from btpg.utils import ROOT_PATH
 import pandas as pd
 import numpy as np
 import time
 import exp4_Attraction.tools as tools
 import re
-import btgym
-from btgym.utils.tools import collect_action_nodes
-from btgym.utils.read_dataset import read_dataset
-from btgym.algos.llm_client.tools import goal_transfer_str
-from btgym.algos.bt_autogen.main_interface import BTExpInterface
-from btgym.algos.llm_client.tools import goal_transfer_str, act_str_process, act_format_records
-from btgym.envs.RobotHow.exec_lib._base.RHAction import RHAction
-from btgym.envs.RobotHow_Small.exec_lib._base.RHSAction import RHSAction
-from btgym.envs.RoboWaiter.exec_lib._base.RWAction import RWAction
-from btgym.envs.VirtualHome.exec_lib._base.VHAction import VHAction
-os.chdir(f'{ROOT_PATH}/../z_benchmark')
-from btgym.algos.bt_autogen.tools  import calculate_priority_percentage
+import btpg
+from btpg.utils.tools import collect_action_nodes
+from btpg.utils.read_dataset import read_dataset
+from btpg.algos.llm_client.tools import goal_transfer_str
+from btpg.algos.bt_planning.bt_planner_interface import BTPlannerInterface
+from btpg.algos.llm_client.tools import goal_transfer_str, act_str_process, act_format_records
+from btpg.envs.robothow.exec_lib._base.rh_action import RHAction
+from btpg.envs.omnigibson.exec_lib._base.og_action import OGAction
+from btpg.envs.robowaiter.exec_lib._base.rw_action import RWAction
+from btpg.envs.virtualhome.exec_lib._base.vh_action import VHAction
+os.chdir(f'{ROOT_PATH}/../z_experience_results')
+from btpg.algos.base.tools  import calculate_priority_percentage
 
-from hbtp.algos.bt_planning.HBTP import HBTP
-from hbtp.algos.bt_planning.main_interface import BTExpInterface as HBTPExpInterface
+from btpg.algos.bt_planning.uhbtp import UHBTP
 
 def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, data_num, save_csv=False):
-    data_path = f"{ROOT_PATH}/../z_benchmark/data/{scene}_{difficulty}_100_processed_data.txt"
+    data_path = f"{ROOT_PATH}/../z_experience_results/data/{scene}_{difficulty}_100_processed_data.txt"
     data = read_dataset(data_path)
-    llm_data_path = f"{ROOT_PATH}/../z_benchmark/llm_data/{scene}_{difficulty}_100_llm_data.txt"
+    llm_data_path = f"{ROOT_PATH}/../z_experience_results/llm_data/{scene}_{difficulty}_100_llm_data.txt"
     llm_data = read_dataset(llm_data_path)
     env, cur_cond_set = tools.setup_environment(scene)
 
@@ -54,7 +53,7 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
             opt_act = act_str_process(d['Optimal Actions'], already_split=True)
 
             # 小空间
-            # algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
+            # algo = BTPlannerInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
             #                       priority_act_ls=opt_act, key_predicates=[],
             #                       key_objects=d['Vital Objects'],
             #                       selected_algorithm=algo_str, mode="small-objs",
@@ -72,25 +71,9 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
                 priority_opt_act=opt_act
             print("opt_act",opt_act)
             
-            
-
-
-                # algo = HBTPExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
-                #                       priority_act_ls=[], key_predicates=[],
-                #                       key_objects=[],
-                #                       selected_algorithm='hbtp', mode="big",
-                #                       act_tree_verbose=False, time_limit=5,
-                #                       max_expanded_num=50,
-                #                       heuristic_choice=-1, output_just_best=False,
-                #                       info_dict=info_dict)
-                
-            # if scene != 'RH':
-            #     time_limit = 0.001
-            # else:
-            #     time_limit = 0.1
             time_limit = 1
 
-            algo = BTExpInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
+            algo = BTPlannerInterface(env.behavior_lib, cur_cond_set=cur_cond_set,
                                 priority_act_ls=priority_opt_act, key_predicates=[],
                                 key_objects=[],
                                 selected_algorithm=algo_str, mode="big",
@@ -145,7 +128,7 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type, max_epoch, d
 
         # save detail to csv
         detailed_df = pd.DataFrame.from_records(detail_rows)
-        save_path = f'{ROOT_PATH}/../z_benchmark/algo_details_t=1_test/{difficulty}_{scene}_{algo_str_complete}.csv'
+        save_path = f'{ROOT_PATH}/../z_experience_results/algo_details_t=1/{difficulty}_{scene}_{algo_str_complete}.csv'
         detailed_df.to_csv(save_path, index=False)
 
 

@@ -1,0 +1,9 @@
+,RH,VH,RHS,RW
+opt_h0_T,,,,
+opt_h0_llm_T,,,,
+obtea_T,,,,
+bfs_T,,,,
+opt_h0_F,0.0,1.0,1.0,1.0
+opt_h0_llm_F,1.0,1.0,1.0,1.0
+obtea_F,0.0,1.0,1.0,1.0
+bfs_F,1.0,0.0,1.0,0.0

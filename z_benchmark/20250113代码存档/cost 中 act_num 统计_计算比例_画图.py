@@ -3,6 +3,7 @@ from collections import Counter
 import numpy as np
 from btgym.utils import ROOT_PATH
 import pandas as pd
+import os
 
 scene = "RW"
 difficulty="multi"
@@ -10,7 +11,22 @@ maxep = 20
 
 
 # Load the CSV file
-file_path = f'{ROOT_PATH}/../z_benchmark/output_algo_act_num/{scene}_{difficulty}_maxep={maxep}_act_num.csv'
+# Try different possible locations
+possible_paths = [
+    f'{ROOT_PATH}/../z_benchmark/output_algo_act_num/{scene}_{difficulty}_maxep={maxep}_act_num.csv',
+    f'{ROOT_PATH}/../z_benchmark/output_algo_act_num/20250113_nips论文数据存档/{scene}_{difficulty}_maxep={maxep}_act_num.csv',
+    f'{ROOT_PATH}/../z_benchmark/output_algo_act_num/hbtp_20_tree_sizes/{scene}_{difficulty}_maxep={maxep}_act_num.csv'
+]
+
+file_path = None
+for path in possible_paths:
+    if os.path.exists(path):
+        file_path = path
+        break
+
+if file_path is None:
+    raise FileNotFoundError(f"Could not find data file in any of the expected locations. Last tried: {possible_paths[0]}")
+
 data = pd.read_csv(file_path)
 
 

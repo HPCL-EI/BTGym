@@ -21,7 +21,11 @@ from btgym.algos.bt_auto_exp.OBTEA_test import OBTEAlgorithm as OBTEAlgorithm_te
 from btgym.algos.bt_autogen.tools import get_btml
 import os
 from btgym.utils import ROOT_PATH
-os.chdir(f'{ROOT_PATH}/../z_benchmark')
+import sys
+repo_root = os.path.abspath(os.path.join(ROOT_PATH, ".."))
+if repo_root not in sys.path:
+    sys.path.insert(0, repo_root)
+# os.chdir(f'{ROOT_PATH}/../z_benchmark')
 from z_benchmark.exp4_Attraction.tools import modify_condition_set_Random_Perturbations
 
 from btgym.algos.bt_auto_exp.HBTP_test import HBTP_test as HBTP_test

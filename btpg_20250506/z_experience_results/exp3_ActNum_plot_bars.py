@@ -10,11 +10,11 @@ matplotlib.rcParams['font.size'] = 22
 matplotlib.rcParams['mathtext.fontset'] = 'stix'
 
 def plot_ratio(difficulty, scene, ax):
-    file_path = f'{ROOT_PATH}/../z_experience_results/output_algo_act_num/{scene}_{difficulty}_maxep={maxep}_act_num.csv'
+    file_path = f'{ROOT_PATH}/../btpg_20250506/z_experience_results/output_algo_act_num/{scene}_{difficulty}_maxep={maxep}_act_num.csv'
     data = pd.read_csv(file_path)
     
-    # hbtp_file_path = f'{ROOT_PATH}/../z_experience_results/output_algo_act_num/hbtp_{scene}_{difficulty}_maxep={maxep}_act_num.csv'
-    hbtp_file_path = f'{ROOT_PATH}/../z_experience_results/output_algo_act_num/{scene}_{difficulty}_maxep={maxep}_act_num.csv'
+    # hbtp_file_path = f'{ROOT_PATH}/../btpg_20250506/z_experience_results/output_algo_act_num/hbtp_{scene}_{difficulty}_maxep={maxep}_act_num.csv'
+    hbtp_file_path = f'{ROOT_PATH}/../btpg_20250506/z_experience_results/output_algo_act_num/{scene}_{difficulty}_maxep={maxep}_act_num.csv'
     hbtp_data = pd.read_csv(hbtp_file_path)
 
     sorted_x = []
@@ -72,6 +72,6 @@ fig.legend(handles, labels, loc='lower center', ncol=len(algo_type), bbox_to_anc
 plt.subplots_adjust(bottom=0.1)
 
 plt.tight_layout()
-plt.savefig(f'{ROOT_PATH}/../z_experience_results/output_algo_act_num/{scene}_{difficulty}_maxep{maxep}.pdf',
+plt.savefig(f'{ROOT_PATH}/../btpg_20250506/z_experience_results/output_algo_act_num/{scene}_{difficulty}_maxep{maxep}.pdf',
             dpi=200, bbox_inches='tight', format='pdf')
 plt.show()

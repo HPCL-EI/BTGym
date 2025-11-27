@@ -5,6 +5,13 @@ from btgym.utils import ROOT_PATH
 import pandas as pd
 
 algorithms = ['bfs','obtea','opt_h0_llm','hbtp','opt_h0']  # , 'opt_h1','opt_h1_llm'
+algorithms_name = {
+    'bfs':'BTExpansion',
+    'obtea':'OBTEA',
+    'opt_h0_llm':'HBTP',
+    'opt_h0':'HBTP-Oracle',
+    'hbtp':'UHBTP'   
+}
 # algorithms = algorithms[::-1]
 scenes = ['RH', 'VH', 'RHS', 'RW']  # 'RH', 'VH', 'RHS', 'RW'
 
@@ -139,7 +146,10 @@ def create_latex_rows(df, scene):
         avg_current_cost = row['Average Current Cost'] if row['Average Current Cost'] is not None else '-'
         avg_action_number = row['Average Action Number'] if row['Average Action Number'] is not None else '-'
         avg_tick_time = row['Average Tick Time'] if row['Average Tick Time'] is not None else '-'
-        rows.append(f"{row['Algorithm']} & {row['Timeout Rate']*100:.0f}\\% & {row['Average Expanded Number']:.2f} & {row['Average Planning Time']:.2f} & {avg_current_cost} & {avg_action_number} & {avg_tick_time} \\\\")
+        
+        algo_name = algorithms_name.get(row['Algorithm'], row['Algorithm'])
+        
+        rows.append(f"{algo_name} & {row['Timeout Rate']*100:.0f}\\% & {row['Average Expanded Number']:.2f} & {row['Average Planning Time']:.2f} & {avg_current_cost} & {avg_action_number} & {avg_tick_time} \\\\")
     return "\n".join(rows)
 
 

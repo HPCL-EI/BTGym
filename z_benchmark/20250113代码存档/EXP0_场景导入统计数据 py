@@ -1,0 +1,126 @@
+
+import sys
+import os
+import io
+import contextlib
+import btgym
+from btgym.utils.tools import collect_action_nodes
+from btgym.envs.RoboWaiter.exec_lib._base.RWAction import RWAction
+from btgym.envs.VirtualHome.exec_lib._base.VHAction import VHAction
+from btgym.envs.RobotHow_Small.exec_lib._base.RHSAction import RHSAction
+from btgym.envs.RobotHow.exec_lib._base.RHAction import RHAction
+
+# Helper to suppress stdout from imported functions
+@contextlib.contextmanager
+def suppress_stdout():
+    f = io.StringIO()
+    with contextlib.redirect_stdout(f):
+        yield
+
+def get_predicate_name(pred_str):
+    if '(' in pred_str:
+        return pred_str.split('(')[0]
+    return pred_str
+
+def analyze_env(env_name, action_cls, category_count_manual=None):
+    # Create environment (suppress output if any)
+    with suppress_stdout():
+        env = btgym.make(env_name)
+        big_actions = collect_action_nodes(env.behavior_lib)
+    
+    # Instances - Actions
+    inst_actions_count = len(big_actions)
+    
+    # Predicates - Actions
+    action_names = set()
+    for act in big_actions:
+         # act.name is like Walk(kitchen) or Walk(apple, table)
+         # We want the class name. act.name usually is ClassName(args)
+         # But act object has .name attribute.
+         # It is safer to look at the string before '('.
+         name = act.name.split('(')[0]
+         action_names.add(name)
+    pred_actions_count = len(action_names)
+    
+    # Instances - Conditions
+    conds_set = set()
+    for act in big_actions:
+        conds_set |= act.pre
+        conds_set |= act.add
+        conds_set |= act.del_set
+    inst_conditions_count = len(conds_set)
+    
+    # Predicates - Conditions
+    unique_predicates = set()
+    for c in conds_set:
+        unique_predicates.add(get_predicate_name(c))
+    pred_conditions_count = len(unique_predicates)
+    
+    # Objects - Total
+    total_objects = len(action_cls.AllObject)
+    
+    # Objects - Categories
+    categories_count = category_count_manual if category_count_manual else 0
+    
+    return {
+        "Predicates - Conditions": pred_conditions_count,
+        "Predicates - Actions": pred_actions_count,
+        "Objects - Categories": categories_count,
+        "Objects - Total": total_objects,
+        "Instances - Conditions": inst_conditions_count,
+        "Instances - Actions": inst_actions_count
+    }
+
+def main():
+    results = {}
+    # print("Analyzing RW...")
+    results['RW'] = analyze_env("RWEnv", RWAction, 3)
+    # print("Analyzing VH...")
+    results['VH'] = analyze_env("VH-PutMilkInFridge", VHAction, 5)
+    # print("Analyzing OG...")
+    results['OG'] = analyze_env("VHT-Small", RHSAction, 10)
+    # print("Analyzing RH...")
+    results['RH'] = analyze_env("VHT-PutMilkInFridge", RHAction, 10)
+
+    # Generate LaTeX Table
+    print(r"\begin{table}[t]")
+    print(r"\centering")
+    print(r"% \setlength{\tabcolsep}{3pt} % 调整列间距，默认为6pt")
+    print(r"\begin{tabular}{@{}lccccc@{}}")
+    print(r"\toprule")
+    print(r"\multicolumn{2}{c}{\textbf{Items}} & \textbf{RW} & \textbf{VH} & \textbf{OG} & \textbf{RH} \\ \midrule")
+    
+    row_map = [
+        ("Predicates", "Conditions"),
+        ("Predicates", "Actions"),
+        ("Objects", "Categories"),
+        ("Objects", "Total"),
+        ("Instances", "Conditions"),
+        ("Instances", "Actions")
+    ]
+    
+    last_group = None
+    for i, (group, item) in enumerate(row_map):
+        if group != last_group:
+             # If it's not the first group, we might need midrule, but logic below handles it per group block
+             if i > 0:
+                 print(r"\midrule")
+             print(r"\multirow{2}{*}{" + group + r"} & " + item, end="")
+        else:
+             print(r"& " + item, end="")
+        
+        key = f"{group} - {item}"
+        for env in ['RW', 'VH', 'OG', 'RH']:
+            print(f" & {results[env][key]}", end="")
+        print(r" \\")
+        last_group = group
+        
+    print(r"\bottomrule")
+    print(r"\end{tabular}")
+    print(r"\caption{The detailed problem scales of four environments.}")
+    print(r"\label{tab:summary_predicates}")
+    print(r"\end{table}")
+
+if __name__ == "__main__":
+    main()
+

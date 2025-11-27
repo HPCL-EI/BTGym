@@ -32,8 +32,9 @@ def plot_percentage(percentages_type, difficulty, scene, algo_type,
     mean_corr_ratio = []  # To store the mean of each algorithm
     std_corr_ratio = []  # To store the standard deviation of each algorithm
 
+    current_dir = os.path.dirname(os.path.abspath(__file__))
     for algo_str in algo_type:
-        file_path = f'./percentage_output/{percentages_type}_{difficulty}_{scene}_{algo_str}.csv'
+        file_path = os.path.join(current_dir, 'percentage_output', f'{percentages_type}_{difficulty}_{scene}_{algo_str}.csv')
         df = pd.read_csv(file_path)
 
         corr_ratio_all = np.array(df.iloc[:, :max_epoch])   # All epochs' ratio for each data point
@@ -103,7 +104,11 @@ fig.legend(reversed(handles), reversed(labels), loc='lower center', ncol=len(alg
 plt.subplots_adjust(bottom=0.3)
 plt.tight_layout(pad=1.8, w_pad=1.0, h_pad=1.0)
 # plt.tight_layout()
-plt.savefig(f'./percentage_images/{percentages_type}_20250110.png',
+current_dir = os.path.dirname(os.path.abspath(__file__))
+output_dir = os.path.join(current_dir, 'percentage_images')
+if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
+plt.savefig(os.path.join(output_dir, f'{percentages_type}_20250110.png'),
             dpi=100, bbox_inches='tight')
 plt.show()
 

@@ -81,7 +81,12 @@ def plot_hist(plot_type,difficulty):
         plt.ylabel('Counts')
         plt.title(f'Histogram of Lengths of {plot_type} in {scene} of {difficulty}')
         plt.xticks(list(counts.keys()))
-        plt.savefig(f'./images_histogram/{plot_type}_{scene}_{difficulty}.png',dpi=100)
+        
+        output_dir = './images_histogram'
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+            
+        plt.savefig(os.path.join(output_dir, f'{plot_type}_{scene}_{difficulty}.png'), dpi=100)
         plt.show()
 
 plot_type = 'Actions'   # 'Actions', 'Predicates', 'Objects'
